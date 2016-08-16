@@ -33,8 +33,8 @@ public class Unknown {
         return LocalVariables.method372() == 2 ? new Class113() : (LocalVariables.method372() == 1 ? new Class69() : new Class113());
     }
 
-    public static void setFieldNamingType(int var0) {
-        anInt519 = var0;
+    public static void setFieldNamingType(int i) {
+        anInt519 = i;
     }
 
     public static Interface22 method339() {
