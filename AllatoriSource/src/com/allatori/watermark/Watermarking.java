@@ -398,25 +398,23 @@ public class Watermarking {
         }
     }
 
-    public void createWatermark(String var1) throws Exception_Sub1 {
+    public void createWatermark(String string) throws Exception_Sub1 {
         try {
-            Vector var2 = this.method1761();
-            if (this.method1763(var2)) {
+            Vector vector = this.method1761();
+            if (this.method1763(vector)) {
                 throw new Exception_Sub1("The jar file already contains watermark.");
             } else {
-                Class34.arrangeOrder(var2);
-                short[] var3 = this.method1764(var1);
-
-                int var4;
-                for (int var10000 = var4 = var2.size() - var3.length / 4; var10000 > 0; var10000 = var4) {
-                    var2.remove(0);
-                    --var4;
+                Class34.arrangeOrder(vector);
+                short[] arrShort = this.method1764(string);
+                int j;
+                for (int i = j = vector.size() - arrShort.length / 4; i > 0; i = j) {
+                	vector.remove(0);
+                    --j;
                 }
-
-                this.method1760(var2, var3);
+                this.method1760(vector, arrShort);
             }
-        } catch (Exception var5) {
-            throw new Exception_Sub1("Watermarking error: " + var5.getMessage());
+        } catch (Exception e) {
+            throw new Exception_Sub1("Watermarking error: " + e.getMessage());
         }
     }
 }

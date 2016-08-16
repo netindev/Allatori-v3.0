@@ -1,7 +1,5 @@
-/* CPInstruction - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.generic;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -18,7 +16,6 @@ public abstract class CPInstruction extends Instruction
     protected int index;
     
     CPInstruction() {
-	/* empty */
     }
     
     protected CPInstruction(short opcode, int index) {
