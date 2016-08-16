@@ -4,9 +4,6 @@ import org.apache.bcel.classfile.Field;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.generic.*;
 
-import com.allatori.clazz.ClassConstraint;
-import com.allatori.clazz.ClassStorage;
-
 import java.util.Vector;
 
 public class Class28 {

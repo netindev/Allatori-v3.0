@@ -7,8 +7,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.allatori.util.MethodUtils;
-
 import javax.xml.parsers.SAXParserFactory;
 import java.io.FileReader;
 import java.util.Iterator;

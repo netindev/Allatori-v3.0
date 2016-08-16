@@ -1,8 +1,7 @@
 package com.allatori.obfuscate.opt;
 
-import com.allatori.flow.ControlFlowTransform;
-import com.allatori.util.InitUtils;
-
+import com.allatori.ControlFlowTransform;
+import com.allatori.InitUtils;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.generic.*;
 

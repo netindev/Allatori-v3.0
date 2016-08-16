@@ -1,6 +1,5 @@
 package com.allatori;
 
-import com.allatori.clazz.ClassConstraint;
 
 public class Class180 {
 

@@ -4,9 +4,6 @@ import org.apache.bcel.classfile.Method;
 import org.apache.bcel.generic.ClassGen;
 import org.apache.bcel.generic.Type;
 
-import com.allatori.clazz.ClassGenComparator;
-import com.allatori.clazz.ClassStorage;
-
 import java.lang.reflect.Modifier;
 import java.util.*;
 

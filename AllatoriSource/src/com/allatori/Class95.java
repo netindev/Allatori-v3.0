@@ -4,9 +4,6 @@ import org.apache.bcel.classfile.*;
 import org.apache.bcel.classfile.Deprecated;
 import org.apache.bcel.classfile.Unknown;
 import org.apache.bcel.generic.FieldGen;
-
-import com.allatori.util.InitUtils;
-
 import org.apache.bcel.generic.*;
 
 import java.util.Arrays;

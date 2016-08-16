@@ -3,10 +3,6 @@ package com.allatori;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.generic.*;
 
-import com.allatori.clazz.ClassStorage;
-import com.allatori.obfuscate.ObfuscationType;
-import com.allatori.util.InitUtils;
-
 public class Class63 implements ObfuscationType {
 
     private ClassStorage aClassStorage_1143;

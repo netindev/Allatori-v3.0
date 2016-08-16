@@ -2,10 +2,6 @@ package com.allatori;
 
 import org.apache.bcel.generic.*;
 
-import com.allatori.clazz.ClassStorage;
-import com.allatori.obfuscate.ObfuscationConstraint;
-import com.allatori.obfuscate.ObfuscationTypeConstraint;
-
 public class Tuning {
 
     private static boolean controlFlowObfuscationEnabled = true;

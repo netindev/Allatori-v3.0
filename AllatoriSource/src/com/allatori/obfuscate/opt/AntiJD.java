@@ -1,9 +1,8 @@
 package com.allatori.obfuscate.opt;
 
-import com.allatori.clazz.ClassStorage;
-import com.allatori.obfuscate.ObfuscationConstraint;
-import com.allatori.obfuscate.ObfuscationTypeConstraint;
-
+import com.allatori.ClassStorage;
+import com.allatori.ObfuscationConstraint;
+import com.allatori.ObfuscationTypeConstraint;
 import org.apache.bcel.generic.ClassGen;
 
 public class AntiJD {

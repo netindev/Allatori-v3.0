@@ -1,9 +1,6 @@
 package com.allatori;
 
 import org.apache.bcel.generic.ClassGen;
-
-import com.allatori.clazz.ClassStorage;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;

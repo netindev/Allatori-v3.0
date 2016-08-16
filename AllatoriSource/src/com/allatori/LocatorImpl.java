@@ -2,8 +2,6 @@ package com.allatori;
 
 import org.xml.sax.Locator;
 
-import com.allatori.config.ConfigFileHandler;
-
 public class LocatorImpl implements Locator {
 
 

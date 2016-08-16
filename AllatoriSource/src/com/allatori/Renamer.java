@@ -4,12 +4,6 @@ import org.apache.bcel.classfile.*;
 import org.apache.bcel.classfile.Deprecated;
 import org.apache.bcel.classfile.Unknown;
 import org.apache.bcel.generic.FieldGen;
-
-import com.allatori.clazz.ClassStorage;
-import com.allatori.util.InitUtils;
-import com.allatori.util.MethodUtils;
-import com.allatori.var.LocalVariables;
-
 import org.apache.bcel.generic.*;
 
 import java.util.Iterator;

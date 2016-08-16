@@ -1,6 +1,5 @@
 package com.allatori;
 
-import com.allatori.config.ConfigFile;
 
 public class Class90 {
 

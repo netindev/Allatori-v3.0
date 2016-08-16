@@ -5,8 +5,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Vector;
 
-import com.allatori.util.Info;
-
 public class LogFile {
 
     private static Class5 aClass5_893;

@@ -3,9 +3,6 @@ package com.allatori;
 import org.apache.bcel.classfile.ClassParser;
 import org.apache.bcel.generic.ClassGen;
 
-import com.allatori.clazz.ClassStorage;
-import com.allatori.util.Info;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;

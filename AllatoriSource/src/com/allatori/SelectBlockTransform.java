@@ -3,9 +3,6 @@ package com.allatori;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.generic.*;
 
-import com.allatori.flow.ControlFlowTransform;
-import com.allatori.util.InitUtils;
-
 public class SelectBlockTransform implements ControlFlowTransform {
 
     public void patch(ClassGen var1) {

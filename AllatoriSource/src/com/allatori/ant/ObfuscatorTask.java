@@ -2,8 +2,7 @@ package com.allatori.ant;
 
 import com.allatori.Class55;
 import com.allatori.Class90;
-import com.allatori.obfuscate.Obfuscate;
-
+import com.allatori.Obfuscate;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 

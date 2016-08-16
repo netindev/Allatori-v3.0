@@ -1,7 +1,5 @@
 package com.allatori;
 
-import com.allatori.var.LocalVariables;
-
 public class Unknown {
 
     public static final int anInt517 = 1;

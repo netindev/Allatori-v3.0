@@ -3,8 +3,6 @@ package com.allatori;
 import org.apache.bcel.classfile.ClassParser;
 import org.apache.bcel.generic.ClassGen;
 
-import com.allatori.clazz.ClassStorage;
-
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;

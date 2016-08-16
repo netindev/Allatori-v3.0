@@ -4,8 +4,6 @@ import org.apache.bcel.classfile.Method;
 import org.apache.bcel.generic.ClassGen;
 import org.apache.bcel.generic.MethodGen;
 
-import com.allatori.util.InitUtils;
-
 public class Class171 {
 
     private Method aMethod__868;

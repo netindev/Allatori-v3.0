@@ -2,8 +2,6 @@ package com.allatori;
 
 import java.util.Date;
 
-import com.allatori.clazz.ClassConstraint;
-
 public class Class64 {
 
     private static String aString617;

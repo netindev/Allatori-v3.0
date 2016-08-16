@@ -1,9 +1,8 @@
 package com.allatori.obfuscate.opt;
 
-import com.allatori.clazz.ClassStorage;
-import com.allatori.obfuscate.ObfuscationType;
-import com.allatori.util.InitUtils;
-
+import com.allatori.ClassStorage;
+import com.allatori.InitUtils;
+import com.allatori.ObfuscationType;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.generic.*;
 

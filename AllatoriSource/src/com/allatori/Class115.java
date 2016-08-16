@@ -4,8 +4,6 @@ import org.apache.bcel.classfile.AccessFlags;
 import org.apache.bcel.generic.ClassGen;
 import org.apache.bcel.generic.Type;
 
-import com.allatori.clazz.ClassStorage;
-
 public class Class115 {
 
     public static final int anInt720 = 64;

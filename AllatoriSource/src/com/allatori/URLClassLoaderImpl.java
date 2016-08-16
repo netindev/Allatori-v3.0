@@ -8,8 +8,6 @@ import java.util.Vector;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
-import com.allatori.clazz.ClassStorage;
-
 public class URLClassLoaderImpl extends URLClassLoader {
 
     private ClassStorage classes;
