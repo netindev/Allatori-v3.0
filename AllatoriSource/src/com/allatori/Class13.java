@@ -8,9 +8,9 @@ public abstract class Class13 implements Cloneable {
 
     public double method355() {
         if (this.aDouble525 != null) {
-            double var1 = this.aDouble525;
+            double d = this.aDouble525;
             this.aDouble525 = null;
-            return var1;
+            return d;
         } else {
             double var3;
             double var5;
