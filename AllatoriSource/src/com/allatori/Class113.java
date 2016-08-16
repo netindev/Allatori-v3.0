@@ -11,15 +11,15 @@ public class Class113 implements Interface22 {
     }
 
     public String method262() {
-        String var1 = "";
+        String string = "";
         long var2 = this.aLong1167;
 
         do {
             String aString1165 = "abcdefghijklmnopqrstuvwxyz";
-            var1 = var1 + aString1165.charAt((int) (var2 % 26L));
+            string = string + aString1165.charAt((int) (var2 % 26L));
         } while ((var2 /= 26L) > 0L);
 
         ++this.aLong1167;
-        return var1;
+        return string;
     }
 }
