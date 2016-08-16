@@ -1,0 +1,14 @@
+<config>
+    <jars>
+        <jar in="test.jar" out="obf-test.jar"/>
+        <jar in="mousegestures-1.2.jar" out="obf-mousegestures-1.2.jar"/>
+    </jars>
+
+    <keep-names>
+        <class access="protected+"/>
+        <field access="protected+"/>
+        <method access="protected+"/>
+    </keep-names>
+
+    <property name="log-file" value="log.xml"/>
+</config>
