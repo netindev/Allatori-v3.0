@@ -10,23 +10,23 @@ public class Watermark extends Configurable {
         System.out.println("com.allatori.Watermark -extract <config file>");
     }
 
-    public static void main(String[] var0) {
+    public static void main(String[] args) {
         System.out.println(Configurable.printSplash());
-        if (var0.length != 2) {
+        if (args.length != 2) {
             method1279();
             System.exit(0);
         }
 
-        if ("-add".equals(var0[0])) {
+        if ("-add".equals(args[0])) {
             Class167.method1661(false);
-        } else if ("-extract".equals(var0[0])) {
+        } else if ("-extract".equals(args[0])) {
             Class167.method1661(true);
         } else {
             method1279();
             System.exit(0);
         }
 
-        Configurable.parseConfigFile(var0[1]);
+        Configurable.parseConfigFile(args[1]);
 
         try {
             ClassStorage var1 = Obfuscate.method1269();
