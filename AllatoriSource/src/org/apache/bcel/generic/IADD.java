@@ -7,6 +7,7 @@ public class IADD extends ArithmeticInstruction {
 		super((short) 96);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

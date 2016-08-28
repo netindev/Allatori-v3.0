@@ -22,6 +22,7 @@ public final class StackMapTable extends Attribute {
 			map[i] = new StackMapTableEntry(file, constant_pool);
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		super.dump(file);
 		file.writeShort(map_length);
@@ -38,8 +39,9 @@ public final class StackMapTable extends Attribute {
 		map_length = map == null ? 0 : map.length;
 	}
 
+	@Override
 	public final String toString() {
-		StringBuilder buf = new StringBuilder("StackMapTable(");
+		final StringBuilder buf = new StringBuilder("StackMapTable(");
 		for (int i = 0; i < map_length; i++) {
 			buf.append(map[i].toString());
 			if (i < map_length - 1)
@@ -49,8 +51,9 @@ public final class StackMapTable extends Attribute {
 		return buf.toString();
 	}
 
+	@Override
 	public Attribute copy(ConstantPool _constant_pool) {
-		StackMapTable c = (StackMapTable) clone();
+		final StackMapTable c = (StackMapTable) clone();
 		c.map = new StackMapTableEntry[map_length];
 		for (int i = 0; i < map_length; i++)
 			c.map[i] = map[i].copy();
@@ -58,6 +61,7 @@ public final class StackMapTable extends Attribute {
 		return c;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackMapTable(this);
 	}

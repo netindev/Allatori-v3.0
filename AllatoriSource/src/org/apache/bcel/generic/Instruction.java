@@ -37,6 +37,7 @@ public abstract class Instruction implements Cloneable, Serializable {
 		return getName();
 	}
 
+	@Override
 	public String toString() {
 		return toString(true);
 	}
@@ -52,7 +53,7 @@ public abstract class Instruction implements Cloneable, Serializable {
 		else {
 			try {
 				i = (Instruction) this.clone();
-			} catch (CloneNotSupportedException e) {
+			} catch (final CloneNotSupportedException e) {
 				System.err.println(e);
 			}
 		}
@@ -401,6 +402,7 @@ public abstract class Instruction implements Cloneable, Serializable {
 	/**
 	 * @deprecated
 	 */
+	@Deprecated
 	public static InstructionComparator getComparator() {
 		return cmp;
 	}
@@ -408,10 +410,12 @@ public abstract class Instruction implements Cloneable, Serializable {
 	/**
 	 * @deprecated
 	 */
+	@Deprecated
 	public static void setComparator(InstructionComparator c) {
 		cmp = c;
 	}
 
+	@Override
 	public boolean equals(Object that) {
 		return (that instanceof Instruction ? cmp.equals(this, (Instruction) that) : false);
 	}

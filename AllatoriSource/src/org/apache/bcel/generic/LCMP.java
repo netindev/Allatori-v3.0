@@ -7,10 +7,12 @@ public class LCMP extends Instruction implements TypedInstruction, StackProducer
 		super((short) 148, (short) 1);
 	}
 
+	@Override
 	public Type getType(ConstantPoolGen cp) {
 		return Type.LONG;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

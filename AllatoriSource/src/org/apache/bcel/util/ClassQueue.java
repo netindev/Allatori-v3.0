@@ -21,6 +21,7 @@ public class ClassQueue implements Serializable {
 		return vec.isEmpty();
 	}
 
+	@Override
 	public String toString() {
 		return vec.toString();
 	}

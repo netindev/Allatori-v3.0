@@ -39,6 +39,7 @@ public final class CodeExceptionGen implements InstructionTargeter, Cloneable, S
 		this.handler_pc = handler_pc;
 	}
 
+	@Override
 	public void updateTarget(InstructionHandle old_ih, InstructionHandle new_ih) {
 		boolean targeted = false;
 		if (start_pc == old_ih) {
@@ -59,6 +60,7 @@ public final class CodeExceptionGen implements InstructionTargeter, Cloneable, S
 							.append(", ").append(end_pc).append(", ").append(handler_pc).append("}").toString());
 	}
 
+	@Override
 	public boolean containsTarget(InstructionHandle ih) {
 		return start_pc == ih || end_pc == ih || handler_pc == ih;
 	}
@@ -83,16 +85,18 @@ public final class CodeExceptionGen implements InstructionTargeter, Cloneable, S
 		return handler_pc;
 	}
 
+	@Override
 	public String toString() {
 		return new StringBuilder().append("CodeExceptionGen(").append(start_pc).append(", ").append(end_pc).append(", ")
 				.append(handler_pc).append(")").toString();
 	}
 
+	@Override
 	public Object clone() {
 		Object object;
 		try {
 			object = super.clone();
-		} catch (CloneNotSupportedException e) {
+		} catch (final CloneNotSupportedException e) {
 			System.err.println(e);
 			return null;
 		}

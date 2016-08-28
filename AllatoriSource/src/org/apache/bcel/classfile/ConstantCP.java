@@ -23,6 +23,7 @@ public abstract class ConstantCP extends Constant {
 		this.name_and_type_index = name_and_type_index;
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		file.writeByte(tag);
 		file.writeShort(class_index);
@@ -49,6 +50,7 @@ public abstract class ConstantCP extends Constant {
 		this.name_and_type_index = name_and_type_index;
 	}
 
+	@Override
 	public final String toString() {
 		return new StringBuilder().append(super.toString()).append("(class_index = ").append(class_index)
 				.append(", name_and_type_index = ").append(name_and_type_index).append(")").toString();

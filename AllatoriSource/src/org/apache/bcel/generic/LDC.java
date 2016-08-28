@@ -33,6 +33,7 @@ public class LDC extends CPInstruction implements PushInstruction, ExceptionThro
 		}
 	}
 
+	@Override
 	public void dump(DataOutputStream out) throws IOException {
 		out.writeByte(opcode);
 		if (length == 2)
@@ -41,11 +42,13 @@ public class LDC extends CPInstruction implements PushInstruction, ExceptionThro
 			out.writeShort(index);
 	}
 
+	@Override
 	public final void setIndex(int index) {
 		super.setIndex(index);
 		setSize();
 	}
 
+	@Override
 	protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
 		length = (short) 2;
 		index = bytes.readUnsignedByte();
@@ -55,7 +58,7 @@ public class LDC extends CPInstruction implements PushInstruction, ExceptionThro
 		Constant c = cpg.getConstantPool().getConstant(index);
 		switch (c.getTag()) {
 		case 8: {
-			int i = ((ConstantString) c).getStringIndex();
+			final int i = ((ConstantString) c).getStringIndex();
 			c = cpg.getConstantPool().getConstant(i);
 			return ((ConstantUtf8) c).getBytes();
 		}
@@ -64,7 +67,7 @@ public class LDC extends CPInstruction implements PushInstruction, ExceptionThro
 		case 3:
 			return Integer.valueOf(((ConstantInteger) c).getBytes());
 		case 7: {
-			int nameIndex = ((ConstantClass) c).getNameIndex();
+			final int nameIndex = ((ConstantClass) c).getNameIndex();
 			c = cpg.getConstantPool().getConstant(nameIndex);
 			return new ObjectType(((ConstantUtf8) c).getBytes());
 		}
@@ -74,6 +77,7 @@ public class LDC extends CPInstruction implements PushInstruction, ExceptionThro
 		}
 	}
 
+	@Override
 	public Type getType(ConstantPoolGen cpg) {
 		switch (cpg.getConstantPool().getConstant(index).getTag()) {
 		case 8:
@@ -90,10 +94,12 @@ public class LDC extends CPInstruction implements PushInstruction, ExceptionThro
 		}
 	}
 
+	@Override
 	public Class[] getExceptions() {
 		return ExceptionConstants.EXCS_STRING_RESOLUTION;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackProducer(this);
 		v.visitPushInstruction(this);

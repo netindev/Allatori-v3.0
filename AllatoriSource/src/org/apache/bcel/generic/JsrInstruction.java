@@ -11,6 +11,7 @@ public abstract class JsrInstruction extends BranchInstruction
 	JsrInstruction() {
 	}
 
+	@Override
 	public Type getType(ConstantPoolGen cp) {
 		return new ReturnaddressType(physicalSuccessor());
 	}
@@ -21,7 +22,7 @@ public abstract class JsrInstruction extends BranchInstruction
 		}
 		for (; ih.getInstruction() != this; ih = ih.getNext()) {
 		}
-		InstructionHandle toThis = ih;
+		final InstructionHandle toThis = ih;
 		while_47_: do {
 			do {
 				if (ih == null)

@@ -7,6 +7,7 @@ public class FSUB extends ArithmeticInstruction {
 		super((short) 102);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

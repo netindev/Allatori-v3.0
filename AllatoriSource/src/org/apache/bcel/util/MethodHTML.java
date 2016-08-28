@@ -14,10 +14,10 @@ import org.apache.bcel.classfile.Method;
 import org.apache.bcel.classfile.Utility;
 
 final class MethodHTML implements Constants {
-	private String class_name;
-	private PrintWriter file;
-	private ConstantHTML constant_html;
-	private AttributeHTML attribute_html;
+	private final String class_name;
+	private final PrintWriter file;
+	private final ConstantHTML constant_html;
+	private final AttributeHTML attribute_html;
 
 	MethodHTML(String dir, String class_name, Method[] methods, Field[] fields, ConstantHTML constant_html,
 			AttributeHTML attribute_html) throws IOException {
@@ -41,20 +41,20 @@ final class MethodHTML implements Constants {
 	}
 
 	private void writeField(Field field) throws IOException {
-		String type = Utility.signatureToString(field.getSignature());
-		String name = field.getName();
+		final String type = Utility.signatureToString(field.getSignature());
+		final String name = field.getName();
 		String access = Utility.accessToString(field.getAccessFlags());
 		access = Utility.replace(access, " ", "&nbsp;");
 		file.print(new StringBuilder().append("<TR><TD><FONT COLOR=\"#FF0000\">").append(access)
 				.append("</FONT></TD>\n<TD>").append(Class2HTML.referenceType(type)).append("</TD><TD><A NAME=\"field")
 				.append(name).append("\">").append(name).append("</A></TD>").toString());
-		Attribute[] attributes = field.getAttributes();
+		final Attribute[] attributes = field.getAttributes();
 		for (int i = 0; i < attributes.length; i++)
 			attribute_html.writeAttribute(attributes[i],
 					new StringBuilder().append(name).append("@").append(i).toString());
 		for (int i = 0; i < attributes.length; i++) {
 			if (attributes[i].getTag() == 1) {
-				String str = ((ConstantValue) attributes[i]).toString();
+				final String str = ((ConstantValue) attributes[i]).toString();
 				file.print(new StringBuilder().append("<TD>= <A HREF=\"").append(class_name).append("_attributes.html#")
 						.append(name).append("@").append(i).append("\" TARGET=\"Attributes\">").append(str)
 						.append("</TD>\n").toString());
@@ -65,14 +65,14 @@ final class MethodHTML implements Constants {
 	}
 
 	private final void writeMethod(Method method, int method_number) throws IOException {
-		String signature = method.getSignature();
-		String[] args = Utility.methodSignatureArgumentTypes(signature, false);
-		String type = Utility.methodSignatureReturnType(signature, false);
-		String name = method.getName();
+		final String signature = method.getSignature();
+		final String[] args = Utility.methodSignatureArgumentTypes(signature, false);
+		final String type = Utility.methodSignatureReturnType(signature, false);
+		final String name = method.getName();
 		String access = Utility.accessToString(method.getAccessFlags());
-		Attribute[] attributes = method.getAttributes();
+		final Attribute[] attributes = method.getAttributes();
 		access = Utility.replace(access, " ", "&nbsp;");
-		String html_name = Class2HTML.toHTML(name);
+		final String html_name = Class2HTML.toHTML(name);
 		file.print(new StringBuilder().append("<TR VALIGN=TOP><TD><FONT COLOR=\"#FF0000\"><A NAME=method")
 				.append(method_number).append(">").append(access).append("</A></FONT></TD>").toString());
 		file.print(new StringBuilder().append("<TD>").append(Class2HTML.referenceType(type)).append("</TD><TD>")
@@ -88,10 +88,10 @@ final class MethodHTML implements Constants {
 			attribute_html.writeAttribute(attributes[i],
 					new StringBuilder().append("method").append(method_number).append("@").append(i).toString(),
 					method_number);
-			byte tag = attributes[i].getTag();
+			final byte tag = attributes[i].getTag();
 			if (tag == 3) {
 				file.print("<TR VALIGN=TOP><TD COLSPAN=2></TD><TH ALIGN=LEFT>throws</TH><TD>");
-				int[] exceptions = ((ExceptionTable) attributes[i]).getExceptionIndexTable();
+				final int[] exceptions = ((ExceptionTable) attributes[i]).getExceptionIndexTable();
 				for (int j = 0; j < exceptions.length; j++) {
 					file.print(constant_html.referenceConstant(exceptions[j]));
 					if (j < exceptions.length - 1)
@@ -99,7 +99,7 @@ final class MethodHTML implements Constants {
 				}
 				file.println("</TD></TR>");
 			} else if (tag == 2) {
-				Attribute[] c_a = ((Code) attributes[i]).getAttributes();
+				final Attribute[] c_a = ((Code) attributes[i]).getAttributes();
 				for (int j = 0; j < c_a.length; j++)
 					attribute_html.writeAttribute(c_a[j], new StringBuilder().append("method").append(method_number)
 							.append("@").append(i).append("@").append(j).toString(), method_number);

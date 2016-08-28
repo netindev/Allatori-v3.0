@@ -19,11 +19,11 @@ public final class PUSH implements CompoundInstruction, VariableLengthInstructio
 	}
 
 	public PUSH(ConstantPoolGen cp, float value) {
-		if ((double) value == 0.0)
+		if (value == 0.0)
 			instruction = FCONST_0;
-		else if ((double) value == 1.0)
+		else if (value == 1.0)
 			instruction = FCONST_1;
-		else if ((double) value == 2.0)
+		else if (value == 2.0)
 			instruction = FCONST_2;
 		else
 			instruction = new LDC(cp.addFloat(value));
@@ -82,6 +82,7 @@ public final class PUSH implements CompoundInstruction, VariableLengthInstructio
 		this(cp, value.booleanValue());
 	}
 
+	@Override
 	public final InstructionList getInstructionList() {
 		return new InstructionList(instruction);
 	}
@@ -90,6 +91,7 @@ public final class PUSH implements CompoundInstruction, VariableLengthInstructio
 		return instruction;
 	}
 
+	@Override
 	public String toString() {
 		return new StringBuilder().append(instruction.toString()).append(" (PUSH)").toString();
 	}

@@ -12,8 +12,9 @@ public class NEW extends CPInstruction implements LoadClass, AllocationInstructi
 		super((short) 187, index);
 	}
 
+	@Override
 	public Class[] getExceptions() {
-		Class[] cs = new Class[2 + (ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION).length];
+		final Class[] cs = new Class[2 + (ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION).length];
 		System.arraycopy((ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION), 0, cs, 0,
 				(ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION).length);
 		cs[ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION.length + 1] = ExceptionConstants.INSTANTIATION_ERROR;
@@ -21,10 +22,12 @@ public class NEW extends CPInstruction implements LoadClass, AllocationInstructi
 		return cs;
 	}
 
+	@Override
 	public ObjectType getLoadClassType(ConstantPoolGen cpg) {
 		return (ObjectType) getType(cpg);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitLoadClass(this);
 		v.visitAllocationInstruction(this);

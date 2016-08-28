@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public final class StackMapTableEntry implements Cloneable, Serializable {
 	private static final long serialVersionUID = 1L;
-	private int frame_type;
+	private final int frame_type;
 	private int byte_code_offset_delta;
 	private int number_of_locals;
 	private StackMapType[] types_of_locals;
@@ -95,8 +95,9 @@ public final class StackMapTableEntry implements Cloneable, Serializable {
 		}
 	}
 
+	@Override
 	public final String toString() {
-		StringBuilder buf = new StringBuilder(64);
+		final StringBuilder buf = new StringBuilder(64);
 		buf.append("(");
 		if (frame_type >= 0 && frame_type <= 63)
 			buf.append("SAME");
@@ -181,7 +182,7 @@ public final class StackMapTableEntry implements Cloneable, Serializable {
 		StackMapTableEntry stackmaptableentry;
 		try {
 			stackmaptableentry = (StackMapTableEntry) this.clone();
-		} catch (CloneNotSupportedException clonenotsupportedexception) {
+		} catch (final CloneNotSupportedException clonenotsupportedexception) {
 			return null;
 		}
 		return stackmaptableentry;

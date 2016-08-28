@@ -12,18 +12,21 @@ public class GETSTATIC extends FieldInstruction implements PushInstruction, Exce
 		super((short) 178, index);
 	}
 
+	@Override
 	public int produceStack(ConstantPoolGen cpg) {
 		return getFieldSize(cpg);
 	}
 
+	@Override
 	public Class[] getExceptions() {
-		Class[] cs = new Class[1 + (ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION).length];
+		final Class[] cs = new Class[1 + (ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION).length];
 		System.arraycopy(ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION, 0, cs, 0,
 				(ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION).length);
 		cs[ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION.length] = ExceptionConstants.INCOMPATIBLE_CLASS_CHANGE_ERROR;
 		return cs;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackProducer(this);
 		v.visitPushInstruction(this);

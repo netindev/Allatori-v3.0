@@ -7,6 +7,7 @@ public class SALOAD extends ArrayInstruction implements StackProducer {
 		super((short) 53);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackProducer(this);
 		v.visitExceptionThrower(this);

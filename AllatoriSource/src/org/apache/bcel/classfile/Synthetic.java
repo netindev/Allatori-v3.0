@@ -26,10 +26,12 @@ public final class Synthetic extends Attribute {
 		}
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitSynthetic(this);
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		super.dump(file);
 		if (length > 0)
@@ -44,15 +46,17 @@ public final class Synthetic extends Attribute {
 		this.bytes = bytes;
 	}
 
+	@Override
 	public final String toString() {
-		StringBuilder buf = new StringBuilder("Synthetic");
+		final StringBuilder buf = new StringBuilder("Synthetic");
 		if (length > 0)
 			buf.append(" ").append(Utility.toHexString(bytes));
 		return buf.toString();
 	}
 
+	@Override
 	public Attribute copy(ConstantPool _constant_pool) {
-		Synthetic c = (Synthetic) clone();
+		final Synthetic c = (Synthetic) clone();
 		if (bytes != null) {
 			c.bytes = new byte[bytes.length];
 			System.arraycopy(bytes, 0, c.bytes, 0, bytes.length);

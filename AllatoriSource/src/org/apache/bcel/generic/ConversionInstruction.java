@@ -11,6 +11,7 @@ public abstract class ConversionInstruction extends Instruction
 		super(opcode, (short) 1);
 	}
 
+	@Override
 	public Type getType(ConstantPoolGen cp) {
 		switch (opcode) {
 		case 136:

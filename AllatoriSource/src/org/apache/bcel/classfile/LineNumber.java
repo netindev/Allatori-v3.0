@@ -23,6 +23,7 @@ public final class LineNumber implements Cloneable, Node, Serializable {
 		this.line_number = line_number;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitLineNumber(this);
 	}
@@ -48,6 +49,7 @@ public final class LineNumber implements Cloneable, Node, Serializable {
 		this.start_pc = start_pc;
 	}
 
+	@Override
 	public final String toString() {
 		return new StringBuilder().append("LineNumber(").append(start_pc).append(", ").append(line_number).append(")")
 				.toString();
@@ -57,7 +59,7 @@ public final class LineNumber implements Cloneable, Node, Serializable {
 		LineNumber linenumber;
 		try {
 			linenumber = (LineNumber) this.clone();
-		} catch (CloneNotSupportedException clonenotsupportedexception) {
+		} catch (final CloneNotSupportedException clonenotsupportedexception) {
 			return null;
 		}
 		return linenumber;

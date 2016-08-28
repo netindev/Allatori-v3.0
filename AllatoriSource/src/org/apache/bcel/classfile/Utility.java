@@ -28,21 +28,21 @@ import org.apache.bcel.util.ByteSequence;
 public abstract class Utility {
 	private static ThreadLocal consumed_chars = new ThreadLocal() {
 
+		@Override
 		protected Object initialValue() {
 			return new Integer(0);
 		}
 	};
 	private static boolean wide = false;
-	private static final int FREE_CHARS = 48;
 	static int[] CHAR_MAP = new int[48];
 	static int[] MAP_CHAR = new int[256];
-	private static final char ESCAPE_CHAR = '$';
 
 	private static class JavaWriter extends FilterWriter {
 		public JavaWriter(Writer out) {
 			super(out);
 		}
 
+		@Override
 		public void write(int b) throws IOException {
 			if (isJavaIdentifierPart((char) b) && b != 36)
 				out.write(b);
@@ -51,7 +51,7 @@ public abstract class Utility {
 				if (b >= 0 && b < 48)
 					out.write(Utility.CHAR_MAP[b]);
 				else {
-					char[] tmp = Integer.toHexString(b).toCharArray();
+					final char[] tmp = Integer.toHexString(b).toCharArray();
 					if (tmp.length == 1) {
 						out.write('0');
 						out.write(tmp[0]);
@@ -63,11 +63,13 @@ public abstract class Utility {
 			}
 		}
 
+		@Override
 		public void write(char[] cbuf, int off, int len) throws IOException {
 			for (int i = 0; i < len; i++)
 				write(cbuf[off + i]);
 		}
 
+		@Override
 		public void write(String str, int off, int len) throws IOException {
 			write(str.toCharArray(), off, len);
 		}
@@ -78,24 +80,26 @@ public abstract class Utility {
 			super(in);
 		}
 
+		@Override
 		public int read() throws IOException {
-			int b = in.read();
+			final int b = in.read();
 			if (b != 36)
 				return b;
-			int i = in.read();
+			final int i = in.read();
 			if (i < 0)
 				return -1;
 			if (i >= 48 && i <= 57 || i >= 97 && i <= 102) {
-				int j = in.read();
+				final int j = in.read();
 				if (j < 0)
 					return -1;
-				char[] tmp = { (char) i, (char) j };
-				int s = Integer.parseInt(new String(tmp), 16);
+				final char[] tmp = { (char) i, (char) j };
+				final int s = Integer.parseInt(new String(tmp), 16);
 				return s;
 			}
 			return Utility.MAP_CHAR[i];
 		}
 
+		@Override
 		public int read(char[] cbuf, int off, int len) throws IOException {
 			for (int i = 0; i < len; i++)
 				cbuf[off + i] = (char) read();
@@ -116,7 +120,7 @@ public abstract class Utility {
 	}
 
 	public static final String accessToString(int access_flags, boolean for_class) {
-		StringBuilder buf = new StringBuilder();
+		final StringBuilder buf = new StringBuilder();
 		int p = 0;
 		int i = 0;
 		while (p < 16384) {
@@ -134,21 +138,21 @@ public abstract class Utility {
 
 	public static final String codeToString(byte[] code, ConstantPool constant_pool, int index, int length,
 			boolean verbose) {
-		StringBuilder buf = new StringBuilder(code.length * 20);
-		ByteSequence stream = new ByteSequence(code);
+		final StringBuilder buf = new StringBuilder(code.length * 20);
+		final ByteSequence stream = new ByteSequence(code);
 		try {
 			for (int i = 0; i < index; i++)
 				codeToString(stream, constant_pool, verbose);
 			int i = 0;
 			while (stream.available() > 0) {
 				if (length < 0 || i < length) {
-					String indices = fillup(new StringBuilder().append(stream.getIndex()).append(":").toString(), 6,
-							true, ' ');
+					final String indices = fillup(new StringBuilder().append(stream.getIndex()).append(":").toString(),
+							6, true, ' ');
 					buf.append(indices).append(codeToString(stream, constant_pool, verbose)).append('\n');
 				}
 				i++;
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			System.out.println(buf.toString());
 			e.printStackTrace();
 			throw new ClassFormatException(new StringBuilder().append("Byte code error: ").append(e).toString(), e);
@@ -162,12 +166,12 @@ public abstract class Utility {
 
 	public static final String codeToString(ByteSequence bytes, ConstantPool constant_pool, boolean verbose)
 			throws IOException {
-		short opcode = (short) bytes.readUnsignedByte();
+		final short opcode = (short) bytes.readUnsignedByte();
 		int default_offset = 0;
 		int no_pad_bytes = 0;
-		StringBuilder buf = new StringBuilder(Constants.OPCODE_NAMES[opcode]);
+		final StringBuilder buf = new StringBuilder(Constants.OPCODE_NAMES[opcode]);
 		if (opcode == 170 || opcode == 171) {
-			int remainder = bytes.getIndex() % 4;
+			final int remainder = bytes.getIndex() % 4;
 			no_pad_bytes = remainder == 0 ? 0 : 4 - remainder;
 			for (int i = 0; i < no_pad_bytes; i++) {
 				byte b;
@@ -179,13 +183,13 @@ public abstract class Utility {
 		}
 		switch (opcode) {
 		case 170: {
-			int low = bytes.readInt();
-			int high = bytes.readInt();
-			int offset = bytes.getIndex() - 12 - no_pad_bytes - 1;
+			final int low = bytes.readInt();
+			final int high = bytes.readInt();
+			final int offset = bytes.getIndex() - 12 - no_pad_bytes - 1;
 			default_offset += offset;
 			buf.append("\tdefault = ").append(default_offset).append(", low = ").append(low).append(", high = ")
 					.append(high).append("(");
-			int[] jump_table = new int[high - low + 1];
+			final int[] jump_table = new int[high - low + 1];
 			for (int i = 0; i < jump_table.length; i++) {
 				jump_table[i] = offset + bytes.readInt();
 				buf.append(jump_table[i]);
@@ -196,10 +200,10 @@ public abstract class Utility {
 			break;
 		}
 		case 171: {
-			int npairs = bytes.readInt();
-			int offset = bytes.getIndex() - 8 - no_pad_bytes - 1;
-			int[] match = new int[npairs];
-			int[] jump_table = new int[npairs];
+			final int npairs = bytes.readInt();
+			final int offset = bytes.getIndex() - 8 - no_pad_bytes - 1;
+			final int[] match = new int[npairs];
+			final int[] jump_table = new int[npairs];
 			default_offset += offset;
 			buf.append("\tdefault = ").append(default_offset).append(", npairs = ").append(npairs).append(" (");
 			for (int i = 0; i < npairs; i++) {
@@ -267,7 +271,7 @@ public abstract class Utility {
 		case 179:
 		case 180:
 		case 181: {
-			int index = bytes.readUnsignedShort();
+			final int index = bytes.readUnsignedShort();
 			buf.append("\t\t").append(constant_pool.constantToString(index, (byte) 9))
 					.append(verbose ? new StringBuilder().append(" (").append(index).append(")").toString() : "");
 			break;
@@ -276,7 +280,7 @@ public abstract class Utility {
 		case 192:
 			buf.append("\t");
 		case 193: {
-			int index = bytes.readUnsignedShort();
+			final int index = bytes.readUnsignedShort();
 			buf.append("\t<").append(constant_pool.constantToString(index, (byte) 7)).append(">")
 					.append(verbose ? new StringBuilder().append(" (").append(index).append(")").toString() : "");
 			break;
@@ -284,14 +288,14 @@ public abstract class Utility {
 		case 182:
 		case 183:
 		case 184: {
-			int index = bytes.readUnsignedShort();
+			final int index = bytes.readUnsignedShort();
 			buf.append("\t").append(constant_pool.constantToString(index, (byte) 10))
 					.append(verbose ? new StringBuilder().append(" (").append(index).append(")").toString() : "");
 			break;
 		}
 		case 185: {
-			int index = bytes.readUnsignedShort();
-			int nargs = bytes.readUnsignedByte();
+			final int index = bytes.readUnsignedShort();
+			final int nargs = bytes.readUnsignedByte();
 			buf.append("\t").append(constant_pool.constantToString(index, (byte) 11))
 					.append(verbose ? new StringBuilder().append(" (").append(index).append(")\t").toString() : "")
 					.append(nargs).append("\t").append(bytes.readUnsignedByte());
@@ -299,27 +303,27 @@ public abstract class Utility {
 		}
 		case 19:
 		case 20: {
-			int index = bytes.readUnsignedShort();
+			final int index = bytes.readUnsignedShort();
 			buf.append("\t\t").append(constant_pool.constantToString(index, constant_pool.getConstant(index).getTag()))
 					.append(verbose ? new StringBuilder().append(" (").append(index).append(")").toString() : "");
 			break;
 		}
 		case 18: {
-			int index = bytes.readUnsignedByte();
+			final int index = bytes.readUnsignedByte();
 			buf.append("\t\t").append(constant_pool.constantToString(index, constant_pool.getConstant(index).getTag()))
 					.append(verbose ? new StringBuilder().append(" (").append(index).append(")").toString() : "");
 			break;
 		}
 		case 189: {
-			int index = bytes.readUnsignedShort();
+			final int index = bytes.readUnsignedShort();
 			buf.append("\t\t<").append(compactClassName(constant_pool.getConstantString(index, (byte) 7), false))
 					.append(">")
 					.append(verbose ? new StringBuilder().append(" (").append(index).append(")").toString() : "");
 			break;
 		}
 		case 197: {
-			int index = bytes.readUnsignedShort();
-			int dimensions = bytes.readUnsignedByte();
+			final int index = bytes.readUnsignedShort();
+			final int dimensions = bytes.readUnsignedByte();
 			buf.append("\t<").append(compactClassName(constant_pool.getConstantString(index, (byte) 7), false))
 					.append(">\t").append(dimensions)
 					.append(verbose ? new StringBuilder().append(" (").append(index).append(")").toString() : "");
@@ -372,7 +376,7 @@ public abstract class Utility {
 	}
 
 	public static final String compactClassName(String str, String prefix, boolean chopit) {
-		int len = prefix.length();
+		final int len = prefix.length();
 		str = str.replace('/', '.');
 		if (chopit && str.startsWith(prefix) && str.substring(len).indexOf('.') == -1)
 			str = str.substring(len);
@@ -388,7 +392,7 @@ public abstract class Utility {
 	}
 
 	public static final int clearBit(int flag, int i) {
-		int bit = pow2(i);
+		final int bit = pow2(i);
 		return (flag & bit) == 0 ? flag : flag ^ bit;
 	}
 
@@ -397,17 +401,17 @@ public abstract class Utility {
 	}
 
 	public static final String methodTypeToSignature(String ret, String[] argv) throws ClassFormatException {
-		StringBuilder buf = new StringBuilder("(");
+		final StringBuilder buf = new StringBuilder("(");
 		if (argv != null) {
 			for (int i = 0; i < argv.length; i++) {
-				String str = getSignature(argv[i]);
+				final String str = getSignature(argv[i]);
 				if (str.endsWith("V"))
 					throw new ClassFormatException(
 							new StringBuilder().append("Invalid type: ").append(argv[i]).toString());
 				buf.append(str);
 			}
 		}
-		String str = getSignature(ret);
+		final String str = getSignature(ret);
 		buf.append(")").append(str);
 		return buf.toString();
 	}
@@ -418,14 +422,14 @@ public abstract class Utility {
 
 	public static final String[] methodSignatureArgumentTypes(String signature, boolean chopit)
 			throws ClassFormatException {
-		List vec = new ArrayList();
+		final List vec = new ArrayList();
 		try {
 			if (signature.charAt(0) != '(')
 				throw new ClassFormatException(
 						new StringBuilder().append("Invalid method signature: ").append(signature).toString());
 			for (int index = 1; signature.charAt(index) != ')'; index += unwrap(consumed_chars))
 				vec.add(signatureToString(signature.substring(index), chopit));
-		} catch (StringIndexOutOfBoundsException e) {
+		} catch (final StringIndexOutOfBoundsException e) {
 			throw new ClassFormatException(
 					new StringBuilder().append("Invalid method signature: ").append(signature).toString(), e);
 		}
@@ -439,9 +443,9 @@ public abstract class Utility {
 	public static final String methodSignatureReturnType(String signature, boolean chopit) throws ClassFormatException {
 		String type;
 		try {
-			int index = signature.lastIndexOf(')') + 1;
+			final int index = signature.lastIndexOf(')') + 1;
 			type = signatureToString(signature.substring(index), chopit);
-		} catch (StringIndexOutOfBoundsException e) {
+		} catch (final StringIndexOutOfBoundsException e) {
 			throw new ClassFormatException(
 					new StringBuilder().append("Invalid method signature: ").append(signature).toString(), e);
 		}
@@ -458,7 +462,7 @@ public abstract class Utility {
 
 	public static final String methodSignatureToString(String signature, String name, String access, boolean chopit,
 			LocalVariableTable vars) throws ClassFormatException {
-		StringBuilder buf = new StringBuilder("(");
+		final StringBuilder buf = new StringBuilder("(");
 		int var_index = access.indexOf("static") >= 0 ? 0 : 1;
 		String type;
 		try {
@@ -467,10 +471,10 @@ public abstract class Utility {
 						new StringBuilder().append("Invalid method signature: ").append(signature).toString());
 			int index;
 			for (index = 1; signature.charAt(index) != ')'; index += unwrap(consumed_chars)) {
-				String param_type = signatureToString(signature.substring(index), chopit);
+				final String param_type = signatureToString(signature.substring(index), chopit);
 				buf.append(param_type);
 				if (vars != null) {
-					LocalVariable l = vars.getLocalVariable(var_index);
+					final LocalVariable l = vars.getLocalVariable(var_index);
 					if (l != null)
 						buf.append(" ").append(l.getName());
 				} else
@@ -483,7 +487,7 @@ public abstract class Utility {
 			}
 			index++;
 			type = signatureToString(signature.substring(index), chopit);
-		} catch (StringIndexOutOfBoundsException e) {
+		} catch (final StringIndexOutOfBoundsException e) {
 			throw new ClassFormatException(
 					new StringBuilder().append("Invalid method signature: ").append(signature).toString(), e);
 		}
@@ -501,7 +505,7 @@ public abstract class Utility {
 	public static final String replace(String str, String old, String new_) {
 		try {
 			if (str.indexOf(old) != -1) {
-				StringBuffer buf = new StringBuffer();
+				final StringBuffer buf = new StringBuffer();
 				int index;
 				int old_index;
 				for (old_index = 0; (index = str.indexOf(old, old_index)) != -1; old_index = index + old.length()) {
@@ -511,7 +515,7 @@ public abstract class Utility {
 				buf.append(str.substring(old_index));
 				str = buf.toString();
 			}
-		} catch (StringIndexOutOfBoundsException e) {
+		} catch (final StringIndexOutOfBoundsException e) {
 			System.err.println(e);
 		}
 		return str;
@@ -538,7 +542,7 @@ public abstract class Utility {
 			case 'J':
 				return "long";
 			case 'L': {
-				int index = signature.indexOf(';');
+				final int index = signature.indexOf(';');
 				if (index < 0) {
 					throw new ClassFormatException("Invalid signature: " + signature);
 				}
@@ -560,7 +564,7 @@ public abstract class Utility {
 				}
 				consumed_chars = n;
 				type = signatureToString(signature.substring(n), chopit);
-				int _temp = unwrap(Utility.consumed_chars) + consumed_chars;
+				final int _temp = unwrap(Utility.consumed_chars) + consumed_chars;
 				wrap(Utility.consumed_chars, _temp);
 				return type + brackets.toString();
 			}
@@ -569,14 +573,14 @@ public abstract class Utility {
 			default:
 				throw new ClassFormatException("Invalid signature: `" + signature + "'");
 			}
-		} catch (StringIndexOutOfBoundsException e) {
+		} catch (final StringIndexOutOfBoundsException e) {
 			throw new ClassFormatException("Invalid signature: " + e + ":" + signature);
 		}
 	}
 
 	public static String getSignature(String type) {
-		StringBuilder buf = new StringBuilder();
-		char[] chars = type.toCharArray();
+		final StringBuilder buf = new StringBuilder();
+		final char[] chars = type.toCharArray();
 		boolean char_found = false;
 		boolean delim = false;
 		int index = -1;
@@ -621,7 +625,7 @@ public abstract class Utility {
 	}
 
 	private static int countBrackets(String brackets) {
-		char[] chars = brackets.toCharArray();
+		final char[] chars = brackets.toCharArray();
 		int count = 0;
 		boolean open = false;
 		for (int i = 0; i < chars.length; i++) {
@@ -653,9 +657,9 @@ public abstract class Utility {
 			if (signature.charAt(0) != '(')
 				throw new ClassFormatException(
 						new StringBuilder().append("Invalid method signature: ").append(signature).toString());
-			int index = signature.lastIndexOf(')') + 1;
+			final int index = signature.lastIndexOf(')') + 1;
 			i = typeOfSignature(signature.substring(index));
-		} catch (StringIndexOutOfBoundsException e) {
+		} catch (final StringIndexOutOfBoundsException e) {
 			throw new ClassFormatException(
 					new StringBuilder().append("Invalid method signature: ").append(signature).toString(), e);
 		}
@@ -690,7 +694,7 @@ public abstract class Utility {
 			default:
 				throw new ClassFormatException("Invalid method signature: " + signature);
 			}
-		} catch (StringIndexOutOfBoundsException e) {
+		} catch (final StringIndexOutOfBoundsException e) {
 			throw new ClassFormatException("Invalid method signature: " + signature);
 		}
 	}
@@ -709,10 +713,10 @@ public abstract class Utility {
 	}
 
 	public static final String toHexString(byte[] bytes) {
-		StringBuilder buf = new StringBuilder();
+		final StringBuilder buf = new StringBuilder();
 		for (int i = 0; i < bytes.length; i++) {
-			short b = byteToShort(bytes[i]);
-			String hex = Integer.toString(b, 16);
+			final short b = byteToShort(bytes[i]);
+			final String hex = Integer.toString(b, 16);
 			if (b < 16)
 				buf.append('0');
 			buf.append(hex);
@@ -727,8 +731,8 @@ public abstract class Utility {
 	}
 
 	public static final String fillup(String str, int length, boolean left_justify, char fill) {
-		int len = length - str.length();
-		char[] buf = new char[len < 0 ? 0 : len];
+		final int len = length - str.length();
+		final char[] buf = new char[len < 0 ? 0 : len];
 		for (int j = 0; j < buf.length; j++)
 			buf[j] = fill;
 		if (left_justify)
@@ -766,7 +770,7 @@ public abstract class Utility {
 	public static final String printArray(Object[] obj, boolean braces, boolean quote) {
 		if (obj == null)
 			return null;
-		StringBuilder buf = new StringBuilder();
+		final StringBuilder buf = new StringBuilder();
 		if (braces)
 			buf.append('{');
 		for (int i = 0; i < obj.length; i++) {
@@ -788,27 +792,27 @@ public abstract class Utility {
 
 	public static String encode(byte[] bytes, boolean compress) throws IOException {
 		if (compress) {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			GZIPOutputStream gos = new GZIPOutputStream(baos);
+			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			final GZIPOutputStream gos = new GZIPOutputStream(baos);
 			gos.write(bytes, 0, bytes.length);
 			gos.close();
 			baos.close();
 			bytes = baos.toByteArray();
 		}
-		CharArrayWriter caw = new CharArrayWriter();
-		JavaWriter jw = new JavaWriter(caw);
+		final CharArrayWriter caw = new CharArrayWriter();
+		final JavaWriter jw = new JavaWriter(caw);
 		for (int i = 0; i < bytes.length; i++) {
-			int in = bytes[i] & 0xff;
+			final int in = bytes[i] & 0xff;
 			jw.write(in);
 		}
 		return caw.toString();
 	}
 
 	public static byte[] decode(String s, boolean uncompress) throws IOException {
-		char[] chars = s.toCharArray();
-		CharArrayReader car = new CharArrayReader(chars);
-		JavaReader jr = new JavaReader(car);
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		final char[] chars = s.toCharArray();
+		final CharArrayReader car = new CharArrayReader(chars);
+		final JavaReader jr = new JavaReader(car);
+		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		int ch;
 		while ((ch = jr.read()) >= 0)
 			bos.write(ch);
@@ -817,8 +821,8 @@ public abstract class Utility {
 		jr.close();
 		byte[] bytes = bos.toByteArray();
 		if (uncompress) {
-			GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(bytes));
-			byte[] tmp = new byte[bytes.length * 3];
+			final GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(bytes));
+			final byte[] tmp = new byte[bytes.length * 3];
 			int count = 0;
 			int b;
 			while ((b = gis.read()) >= 0)
@@ -830,8 +834,8 @@ public abstract class Utility {
 	}
 
 	public static final String convertString(String label) {
-		char[] ch = label.toCharArray();
-		StringBuilder buf = new StringBuilder();
+		final char[] ch = label.toCharArray();
+		final StringBuilder buf = new StringBuilder();
 		for (int i = 0; i < ch.length; i++) {
 			switch (ch[i]) {
 			case '\n':
@@ -863,23 +867,23 @@ public abstract class Utility {
 		try {
 			int countVisible = 0;
 			int countInvisible = 0;
-			Iterator i$ = vec.iterator();
+			final Iterator i$ = vec.iterator();
 			while (i$.hasNext()) {
-				AnnotationEntryGen a = (AnnotationEntryGen) i$.next();
+				final AnnotationEntryGen a = (AnnotationEntryGen) i$.next();
 				if (a.isRuntimeVisible())
 					countVisible++;
 				else
 					countInvisible++;
 			}
-			ByteArrayOutputStream rvaBytes = new ByteArrayOutputStream();
-			ByteArrayOutputStream riaBytes = new ByteArrayOutputStream();
-			DataOutputStream rvaDos = new DataOutputStream(rvaBytes);
-			DataOutputStream riaDos = new DataOutputStream(riaBytes);
+			final ByteArrayOutputStream rvaBytes = new ByteArrayOutputStream();
+			final ByteArrayOutputStream riaBytes = new ByteArrayOutputStream();
+			final DataOutputStream rvaDos = new DataOutputStream(rvaBytes);
+			final DataOutputStream riaDos = new DataOutputStream(riaBytes);
 			rvaDos.writeShort(countVisible);
 			riaDos.writeShort(countInvisible);
-			Iterator i$_24_ = vec.iterator();
+			final Iterator i$_24_ = vec.iterator();
 			while (i$_24_.hasNext()) {
-				AnnotationEntryGen a = (AnnotationEntryGen) i$_24_.next();
+				final AnnotationEntryGen a = (AnnotationEntryGen) i$_24_.next();
 				if (a.isRuntimeVisible())
 					a.dump(rvaDos);
 				else
@@ -887,15 +891,15 @@ public abstract class Utility {
 			}
 			rvaDos.close();
 			riaDos.close();
-			byte[] rvaData = rvaBytes.toByteArray();
-			byte[] riaData = riaBytes.toByteArray();
+			final byte[] rvaData = rvaBytes.toByteArray();
+			final byte[] riaData = riaBytes.toByteArray();
 			int rvaIndex = -1;
 			int riaIndex = -1;
 			if (rvaData.length > 2)
 				rvaIndex = cp.addUtf8("RuntimeVisibleAnnotations");
 			if (riaData.length > 2)
 				riaIndex = cp.addUtf8("RuntimeInvisibleAnnotations");
-			List newAttributes = new ArrayList();
+			final List newAttributes = new ArrayList();
 			if (rvaData.length > 2)
 				newAttributes.add(new RuntimeVisibleAnnotations(rvaIndex, rvaData.length,
 						new DataInputStream(new ByteArrayInputStream(rvaData)), cp.getConstantPool()));
@@ -903,7 +907,7 @@ public abstract class Utility {
 				newAttributes.add(new RuntimeInvisibleAnnotations(riaIndex, riaData.length,
 						new DataInputStream(new ByteArrayInputStream(riaData)), cp.getConstantPool()));
 			attributes = ((Attribute[]) newAttributes.toArray(new Attribute[newAttributes.size()]));
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			System.err.println("IOException whilst processing annotations");
 			e.printStackTrace();
 			return null;
@@ -912,17 +916,17 @@ public abstract class Utility {
 	}
 
 	public static Attribute[] getParameterAnnotationAttributes(ConstantPoolGen cp, List[] vec) {
-		int[] visCount = new int[vec.length];
+		final int[] visCount = new int[vec.length];
 		int totalVisCount = 0;
-		int[] invisCount = new int[vec.length];
+		final int[] invisCount = new int[vec.length];
 		int totalInvisCount = 0;
 		Attribute[] attributes;
 		try {
 			for (int i = 0; i < vec.length; i++) {
 				if (vec[i] != null) {
-					Iterator i$ = vec[i].iterator();
+					final Iterator i$ = vec[i].iterator();
 					while (i$.hasNext()) {
-						AnnotationEntryGen element = (AnnotationEntryGen) i$.next();
+						final AnnotationEntryGen element = (AnnotationEntryGen) i$.next();
 						if (element.isRuntimeVisible()) {
 							visCount[i]++;
 							totalVisCount++;
@@ -933,45 +937,45 @@ public abstract class Utility {
 					}
 				}
 			}
-			ByteArrayOutputStream rvaBytes = new ByteArrayOutputStream();
-			DataOutputStream rvaDos = new DataOutputStream(rvaBytes);
+			final ByteArrayOutputStream rvaBytes = new ByteArrayOutputStream();
+			final DataOutputStream rvaDos = new DataOutputStream(rvaBytes);
 			rvaDos.writeByte(vec.length);
 			for (int i = 0; i < vec.length; i++) {
 				rvaDos.writeShort(visCount[i]);
 				if (visCount[i] > 0) {
-					Iterator i$ = vec[i].iterator();
+					final Iterator i$ = vec[i].iterator();
 					while (i$.hasNext()) {
-						AnnotationEntryGen element = (AnnotationEntryGen) i$.next();
+						final AnnotationEntryGen element = (AnnotationEntryGen) i$.next();
 						if (element.isRuntimeVisible())
 							element.dump(rvaDos);
 					}
 				}
 			}
 			rvaDos.close();
-			ByteArrayOutputStream riaBytes = new ByteArrayOutputStream();
-			DataOutputStream riaDos = new DataOutputStream(riaBytes);
+			final ByteArrayOutputStream riaBytes = new ByteArrayOutputStream();
+			final DataOutputStream riaDos = new DataOutputStream(riaBytes);
 			riaDos.writeByte(vec.length);
 			for (int i = 0; i < vec.length; i++) {
 				riaDos.writeShort(invisCount[i]);
 				if (invisCount[i] > 0) {
-					Iterator i$ = vec[i].iterator();
+					final Iterator i$ = vec[i].iterator();
 					while (i$.hasNext()) {
-						AnnotationEntryGen element = (AnnotationEntryGen) i$.next();
+						final AnnotationEntryGen element = (AnnotationEntryGen) i$.next();
 						if (!element.isRuntimeVisible())
 							element.dump(riaDos);
 					}
 				}
 			}
 			riaDos.close();
-			byte[] rvaData = rvaBytes.toByteArray();
-			byte[] riaData = riaBytes.toByteArray();
+			final byte[] rvaData = rvaBytes.toByteArray();
+			final byte[] riaData = riaBytes.toByteArray();
 			int rvaIndex = -1;
 			int riaIndex = -1;
 			if (totalVisCount > 0)
 				rvaIndex = cp.addUtf8("RuntimeVisibleParameterAnnotations");
 			if (totalInvisCount > 0)
 				riaIndex = cp.addUtf8("RuntimeInvisibleParameterAnnotations");
-			List newAttributes = new ArrayList();
+			final List newAttributes = new ArrayList();
 			if (totalVisCount > 0)
 				newAttributes.add(new RuntimeVisibleParameterAnnotations(rvaIndex, rvaData.length,
 						new DataInputStream(new ByteArrayInputStream(rvaData)), cp.getConstantPool()));
@@ -979,7 +983,7 @@ public abstract class Utility {
 				newAttributes.add(new RuntimeInvisibleParameterAnnotations(riaIndex, riaData.length,
 						new DataInputStream(new ByteArrayInputStream(riaData)), cp.getConstantPool()));
 			attributes = ((Attribute[]) newAttributes.toArray(new Attribute[newAttributes.size()]));
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			System.err.println("IOException whilst processing parameter annotations");
 			e.printStackTrace();
 			return null;

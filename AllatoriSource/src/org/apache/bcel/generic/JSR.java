@@ -13,6 +13,7 @@ public class JSR extends JsrInstruction implements VariableLengthInstruction {
 		super((short) 168, target);
 	}
 
+	@Override
 	public void dump(DataOutputStream out) throws IOException {
 		index = getTargetOffset();
 		if (opcode == 168)
@@ -24,18 +25,20 @@ public class JSR extends JsrInstruction implements VariableLengthInstruction {
 		}
 	}
 
+	@Override
 	protected int updatePosition(int offset, int max_offset) {
-		int i = getTargetOffset();
+		final int i = getTargetOffset();
 		position += offset;
 		if (Math.abs(i) >= 32767 - max_offset) {
 			opcode = (short) 201;
-			short old_length = length;
+			final short old_length = length;
 			length = (short) 5;
 			return length - old_length;
 		}
 		return 0;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackProducer(this);
 		v.visitVariableLengthInstruction(this);

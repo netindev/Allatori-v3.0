@@ -26,16 +26,17 @@ public abstract class Type implements Serializable {
 	public static final ObjectType STRINGBUFFER = new ObjectType("java.lang.StringBuffer");
 	public static final ObjectType THROWABLE = new ObjectType("java.lang.Throwable");
 	public static final Type[] NO_ARGS = new Type[0];
-	
+
 	public static final ReferenceType NULL = new ReferenceType() {
 		private static final long serialVersionUID = 4526765862386946282L;
 	};
-	
+
 	public static final Type UNKNOWN = new Type((byte) 15, "<unknown object>") {
 		private static final long serialVersionUID = 1321113605813486066L;
 	};
-	
+
 	private static ThreadLocal consumed_chars = new ThreadLocal() {
+		@Override
 		protected Object initialValue() {
 			return new Integer(0);
 		}
@@ -46,13 +47,15 @@ public abstract class Type implements Serializable {
 		signature = s;
 	}
 
+	@Override
 	public int hashCode() {
 		return type ^ signature.hashCode();
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Type) {
-			Type t = (Type) o;
+			final Type t = (Type) o;
 			return type == t.type && signature.equals(t.signature);
 		}
 		return false;
@@ -78,17 +81,18 @@ public abstract class Type implements Serializable {
 		}
 	}
 
+	@Override
 	public String toString() {
 		return (equals(NULL) || type >= 15 ? signature : Utility.signatureToString(signature, false));
 	}
 
 	public static String getMethodSignature(Type return_type, Type[] arg_types) {
-		StringBuilder buf = new StringBuilder("(");
+		final StringBuilder buf = new StringBuilder("(");
 		if (arg_types != null) {
-			Type[] arr$ = arg_types;
-			int len$ = arr$.length;
+			final Type[] arr$ = arg_types;
+			final int len$ = arr$.length;
 			for (int i$ = 0; i$ < len$; i$++) {
-				Type arg_type = arr$[i$];
+				final Type arg_type = arr$[i$];
 				buf.append(arg_type.getSignature());
 			}
 		}
@@ -106,7 +110,7 @@ public abstract class Type implements Serializable {
 	}
 
 	public static final Type getType(String signature) throws StringIndexOutOfBoundsException {
-		byte type = Utility.typeOfSignature(signature);
+		final byte type = Utility.typeOfSignature(signature);
 		if (type <= 12) {
 			wrap(consumed_chars, 1);
 			return BasicType.getType(type);
@@ -116,12 +120,12 @@ public abstract class Type implements Serializable {
 			do
 				dim++;
 			while (signature.charAt(dim) == '[');
-			Type t = getType(signature.substring(dim));
-			int _temp = unwrap(consumed_chars) + dim;
+			final Type t = getType(signature.substring(dim));
+			final int _temp = unwrap(consumed_chars) + dim;
 			wrap(consumed_chars, _temp);
 			return new ArrayType(t, dim);
 		}
-		int index = signature.indexOf(';');
+		final int index = signature.indexOf(';');
 		if (index < 0)
 			throw new ClassFormatException(
 					new StringBuilder().append("Invalid signature: ").append(signature).toString());
@@ -132,9 +136,9 @@ public abstract class Type implements Serializable {
 	public static Type getReturnType(String signature) {
 		Type type;
 		try {
-			int index = signature.lastIndexOf(')') + 1;
+			final int index = signature.lastIndexOf(')') + 1;
 			type = getType(signature.substring(index));
-		} catch (StringIndexOutOfBoundsException e) {
+		} catch (final StringIndexOutOfBoundsException e) {
 			throw new ClassFormatException(
 					new StringBuilder().append("Invalid method signature: ").append(signature).toString(), e);
 		}
@@ -142,18 +146,18 @@ public abstract class Type implements Serializable {
 	}
 
 	public static Type[] getArgumentTypes(String signature) {
-		java.util.List vec = new ArrayList();
+		final java.util.List vec = new ArrayList();
 		try {
 			if (signature.charAt(0) != '(')
 				throw new ClassFormatException(
 						new StringBuilder().append("Invalid method signature: ").append(signature).toString());
 			for (int index = 1; signature.charAt(index) != ')'; index += unwrap(consumed_chars))
 				vec.add(getType(signature.substring(index)));
-		} catch (StringIndexOutOfBoundsException e) {
+		} catch (final StringIndexOutOfBoundsException e) {
 			throw new ClassFormatException(
 					new StringBuilder().append("Invalid method signature: ").append(signature).toString(), e);
 		}
-		Type[] types = new Type[vec.size()];
+		final Type[] types = new Type[vec.size()];
 		vec.toArray(types);
 		return types;
 	}
@@ -191,15 +195,15 @@ public abstract class Type implements Serializable {
 	}
 
 	public static Type[] getTypes(Class[] classes) {
-		Type[] ret = new Type[classes.length];
+		final Type[] ret = new Type[classes.length];
 		for (int i = 0; i < ret.length; i++)
 			ret[i] = getType(classes[i]);
 		return ret;
 	}
 
 	public static String getSignature(Method meth) {
-		StringBuilder sb = new StringBuilder("(");
-		Class[] params = meth.getParameterTypes();
+		final StringBuilder sb = new StringBuilder("(");
+		final Class[] params = meth.getParameterTypes();
 		for (int j = 0; j < params.length; j++)
 			sb.append(getType(params[j]).getSignature());
 		sb.append(")");
@@ -230,7 +234,7 @@ public abstract class Type implements Serializable {
 				coded = getTypeSize(signature.substring(index));
 				res += size(coded);
 			}
-		} catch (StringIndexOutOfBoundsException e) {
+		} catch (final StringIndexOutOfBoundsException e) {
 			throw new ClassFormatException(
 					new StringBuilder().append("Invalid method signature: ").append(signature).toString(), e);
 		}
@@ -238,7 +242,7 @@ public abstract class Type implements Serializable {
 	}
 
 	static final int getTypeSize(String signature) throws StringIndexOutOfBoundsException {
-		byte type = Utility.typeOfSignature(signature);
+		final byte type = Utility.typeOfSignature(signature);
 		if (type <= 12)
 			return encode(BasicType.getType(type).getSize(), 1);
 		if (type == 13) {
@@ -246,10 +250,10 @@ public abstract class Type implements Serializable {
 			do
 				dim++;
 			while (signature.charAt(dim) == '[');
-			int consumed = consumed(getTypeSize(signature.substring(dim)));
+			final int consumed = consumed(getTypeSize(signature.substring(dim)));
 			return encode(1, dim + consumed);
 		}
-		int index = signature.indexOf(';');
+		final int index = signature.indexOf(';');
 		if (index < 0)
 			throw new ClassFormatException(
 					new StringBuilder().append("Invalid signature: ").append(signature).toString());
@@ -257,7 +261,7 @@ public abstract class Type implements Serializable {
 	}
 
 	static int getReturnTypeSize(String signature) {
-		int index = signature.lastIndexOf(')') + 1;
+		final int index = signature.lastIndexOf(')') + 1;
 		return size(getTypeSize(signature.substring(index)));
 	}
 }

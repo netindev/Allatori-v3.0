@@ -7,6 +7,7 @@ public class POP2 extends StackInstruction implements PopInstruction {
 		super((short) 88);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackConsumer(this);
 		v.visitPopInstruction(this);

@@ -7,6 +7,7 @@ public class DMUL extends ArithmeticInstruction {
 		super((short) 107);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

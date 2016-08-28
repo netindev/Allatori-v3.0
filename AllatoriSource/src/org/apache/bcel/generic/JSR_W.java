@@ -16,17 +16,20 @@ public class JSR_W extends JsrInstruction {
 		length = (short) 5;
 	}
 
+	@Override
 	public void dump(DataOutputStream out) throws IOException {
 		index = getTargetOffset();
 		out.writeByte(opcode);
 		out.writeInt(index);
 	}
 
+	@Override
 	protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
 		index = bytes.readInt();
 		length = (short) 5;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackProducer(this);
 		v.visitBranchInstruction(this);

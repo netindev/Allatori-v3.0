@@ -21,10 +21,12 @@ public final class ConstantClass extends Constant implements ConstantObject {
 		this.name_index = name_index;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitConstantClass(this);
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		file.writeByte(tag);
 		file.writeShort(name_index);
@@ -38,8 +40,9 @@ public final class ConstantClass extends Constant implements ConstantObject {
 		this.name_index = name_index;
 	}
 
+	@Override
 	public Object getConstantValue(ConstantPool cp) {
-		Constant c = cp.getConstant(name_index, (byte) 1);
+		final Constant c = cp.getConstant(name_index, (byte) 1);
 		return ((ConstantUtf8) c).getBytes();
 	}
 
@@ -47,6 +50,7 @@ public final class ConstantClass extends Constant implements ConstantObject {
 		return (String) getConstantValue(cp);
 	}
 
+	@Override
 	public final String toString() {
 		return new StringBuilder().append(super.toString()).append("(name_index = ").append(name_index).append(")")
 				.toString();

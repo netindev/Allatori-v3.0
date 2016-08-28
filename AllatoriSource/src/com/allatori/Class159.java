@@ -2,42 +2,35 @@ package com.allatori;
 
 public class Class159 {
 
-    private Interface22 anInterface22_814;
-    private RenamingMap aRenamingMap_815;
-    private RenamingMap aRenamingMap_816;
-    private RenamingMap aRenamingMap_818;
+	private final Interface22 anInterface22_814;
+	private final RenamingMap renamingMap0;
+	private final RenamingMap renamingMap1;
+	private final RenamingMap renamingMap2;
 
+	public static RenamingMap method1625(Class159 var0) {
+		return var0.renamingMap2;
+	}
 
-    // $FF: synthetic method
-    public static RenamingMap method1625(Class159 var0) {
-        return var0.aRenamingMap_818;
-    }
+	public Class159(Class172 var1, Class178 var2) {
+		this(var1);
+	}
 
-    // $FF: synthetic method
-    public Class159(Class172 var1, Class178 var2) {
-        this(var1);
-    }
+	public static RenamingMap method1626(Class159 var0) {
+		return var0.renamingMap0;
+	}
 
-    // $FF: synthetic method
-    public static RenamingMap method1626(Class159 var0) {
-        return var0.aRenamingMap_815;
-    }
+	public static Interface22 method1627(Class159 var0) {
+		return var0.anInterface22_814;
+	}
 
-    // $FF: synthetic method
-    public static Interface22 method1627(Class159 var0) {
-        return var0.anInterface22_814;
-    }
+	private Class159(Class172 var1) {
+		this.anInterface22_814 = Unknown.method336();
+		this.renamingMap0 = new RenamingMap();
+		this.renamingMap2 = new RenamingMap();
+		this.renamingMap1 = new RenamingMap();
+	}
 
-    private Class159(Class172 var1) {
-        Class172 aClass172_817 = var1;
-        this.anInterface22_814 = Unknown.method336();
-        this.aRenamingMap_815 = new RenamingMap();
-        this.aRenamingMap_818 = new RenamingMap();
-        this.aRenamingMap_816 = new RenamingMap();
-    }
-
-    // $FF: synthetic method
-    public static RenamingMap method1628(Class159 var0) {
-        return var0.aRenamingMap_816;
-    }
+	public static RenamingMap method1628(Class159 var0) {
+		return var0.renamingMap1;
+	}
 }

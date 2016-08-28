@@ -16,17 +16,20 @@ public class GOTO_W extends GotoInstruction {
 		length = (short) 5;
 	}
 
+	@Override
 	public void dump(DataOutputStream out) throws IOException {
 		index = getTargetOffset();
 		out.writeByte(opcode);
 		out.writeInt(index);
 	}
 
+	@Override
 	protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
 		index = bytes.readInt();
 		length = (short) 5;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitUnconditionalBranch(this);
 		v.visitBranchInstruction(this);

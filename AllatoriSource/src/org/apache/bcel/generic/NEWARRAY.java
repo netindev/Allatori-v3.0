@@ -23,6 +23,7 @@ public class NEWARRAY extends Instruction implements AllocationInstruction, Exce
 		this(type.getType());
 	}
 
+	@Override
 	public void dump(DataOutputStream out) throws IOException {
 		out.writeByte(opcode);
 		out.writeByte(type);
@@ -36,20 +37,24 @@ public class NEWARRAY extends Instruction implements AllocationInstruction, Exce
 		return new ArrayType(BasicType.getType(type), 1);
 	}
 
+	@Override
 	public String toString(boolean verbose) {
 		return new StringBuilder().append(super.toString(verbose)).append(" ").append(Constants.TYPE_NAMES[type])
 				.toString();
 	}
 
+	@Override
 	protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
 		type = bytes.readByte();
 		length = (short) 2;
 	}
 
+	@Override
 	public Class[] getExceptions() {
 		return (new Class[] { ExceptionConstants.NEGATIVE_ARRAY_SIZE_EXCEPTION });
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitAllocationInstruction(this);
 		v.visitExceptionThrower(this);

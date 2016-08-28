@@ -10,7 +10,7 @@ import org.apache.bcel.classfile.ArrayElementValue;
 import org.apache.bcel.classfile.ElementValue;
 
 public class ArrayElementValueGen extends ElementValueGen {
-	private List evalues;
+	private final List evalues;
 
 	public ArrayElementValueGen(ConstantPoolGen cp) {
 		super(91, cp);
@@ -28,12 +28,13 @@ public class ArrayElementValueGen extends ElementValueGen {
 			evalues.add(ElementValueGen.copy(datums[i], cpool, true));
 	}
 
+	@Override
 	public ElementValue getElementValue() {
-		ElementValue[] immutableData = new ElementValue[evalues.size()];
+		final ElementValue[] immutableData = new ElementValue[evalues.size()];
 		int i = 0;
-		Iterator i$ = evalues.iterator();
+		final Iterator i$ = evalues.iterator();
 		while (i$.hasNext()) {
-			ElementValueGen element = (ElementValueGen) i$.next();
+			final ElementValueGen element = (ElementValueGen) i$.next();
 			immutableData[i++] = element.getElementValue();
 		}
 		return new ArrayElementValue(type, immutableData, cpGen.getConstantPool());
@@ -42,28 +43,30 @@ public class ArrayElementValueGen extends ElementValueGen {
 	public ArrayElementValueGen(ArrayElementValue value, ConstantPoolGen cpool, boolean copyPoolEntries) {
 		super(91, cpool);
 		evalues = new ArrayList();
-		ElementValue[] in = value.getElementValuesArray();
+		final ElementValue[] in = value.getElementValuesArray();
 		for (int i = 0; i < in.length; i++)
 			evalues.add(ElementValueGen.copy(in[i], cpool, copyPoolEntries));
 	}
 
+	@Override
 	public void dump(DataOutputStream dos) throws IOException {
 		dos.writeByte(type);
 		dos.writeShort(evalues.size());
-		Iterator i$ = evalues.iterator();
+		final Iterator i$ = evalues.iterator();
 		while (i$.hasNext()) {
-			ElementValueGen element = (ElementValueGen) i$.next();
+			final ElementValueGen element = (ElementValueGen) i$.next();
 			element.dump(dos);
 		}
 	}
 
+	@Override
 	public String stringifyValue() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("[");
 		String comma = "";
-		Iterator i$ = evalues.iterator();
+		final Iterator i$ = evalues.iterator();
 		while (i$.hasNext()) {
-			ElementValueGen element = (ElementValueGen) i$.next();
+			final ElementValueGen element = (ElementValueGen) i$.next();
 			sb.append(comma);
 			comma = ",";
 			sb.append(element.stringifyValue());

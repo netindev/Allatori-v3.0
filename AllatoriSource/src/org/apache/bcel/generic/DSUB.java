@@ -7,6 +7,7 @@ public class DSUB extends ArithmeticInstruction {
 		super((short) 103);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

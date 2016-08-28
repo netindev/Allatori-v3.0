@@ -6,34 +6,38 @@ public final class BranchHandle extends InstructionHandle {
 	private static BranchHandle bh_list = null;
 
 	private BranchHandle(BranchInstruction i) {
-		super((Instruction) i);
+		super(i);
 		bi = i;
 	}
 
 	static final BranchHandle getBranchHandle(BranchInstruction i) {
 		if (bh_list == null)
 			return new BranchHandle(i);
-		BranchHandle bh = bh_list;
+		final BranchHandle bh = bh_list;
 		bh_list = (BranchHandle) bh.next;
 		bh.setInstruction(i);
 		return bh;
 	}
 
+	@Override
 	protected void addHandle() {
 		next = bh_list;
 		bh_list = this;
 	}
 
+	@Override
 	public int getPosition() {
 		return bi.position;
 	}
 
+	@Override
 	void setPosition(int pos) {
 		i_position = bi.position = pos;
 	}
 
+	@Override
 	protected int updatePosition(int offset, int max_offset) {
-		int x = bi.updatePosition(offset, max_offset);
+		final int x = bi.updatePosition(offset, max_offset);
 		i_position = bi.position;
 		return x;
 	}
@@ -50,6 +54,7 @@ public final class BranchHandle extends InstructionHandle {
 		return bi.getTarget();
 	}
 
+	@Override
 	public void setInstruction(Instruction i) {
 		super.setInstruction(i);
 		if (!(i instanceof BranchInstruction))

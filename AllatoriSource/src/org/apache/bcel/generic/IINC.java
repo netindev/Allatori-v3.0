@@ -20,6 +20,7 @@ public class IINC extends LocalVariableInstruction {
 		setIncrement(c);
 	}
 
+	@Override
 	public void dump(DataOutputStream out) throws IOException {
 		if (wide)
 			out.writeByte(196);
@@ -41,6 +42,7 @@ public class IINC extends LocalVariableInstruction {
 			length = (short) 3;
 	}
 
+	@Override
 	protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
 		this.wide = wide;
 		if (wide) {
@@ -54,10 +56,12 @@ public class IINC extends LocalVariableInstruction {
 		}
 	}
 
+	@Override
 	public String toString(boolean verbose) {
 		return new StringBuilder().append(super.toString(verbose)).append(" ").append(c).toString();
 	}
 
+	@Override
 	public final void setIndex(int n) {
 		if (n < 0)
 			throw new ClassGenException(new StringBuilder().append("Negative index value: ").append(n).toString());
@@ -74,10 +78,12 @@ public class IINC extends LocalVariableInstruction {
 		setWide();
 	}
 
+	@Override
 	public Type getType(ConstantPoolGen cp) {
 		return Type.INT;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitLocalVariableInstruction(this);
 		v.visitIINC(this);

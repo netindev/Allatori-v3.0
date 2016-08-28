@@ -7,6 +7,7 @@ public class LRETURN extends ReturnInstruction {
 		super((short) 173);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitExceptionThrower(this);
 		v.visitTypedInstruction(this);

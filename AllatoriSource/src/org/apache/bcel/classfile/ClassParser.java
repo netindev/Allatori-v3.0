@@ -10,8 +10,8 @@ import java.util.zip.ZipFile;
 
 public final class ClassParser {
 	private DataInputStream file;
-	private boolean fileOwned;
-	private String file_name;
+	private final boolean fileOwned;
+	private final String file_name;
 	private String zip_file;
 	private int class_name_index;
 	private int superclass_name_index;
@@ -23,13 +23,13 @@ public final class ClassParser {
 	private Field[] fields;
 	private Method[] methods;
 	private Attribute[] attributes;
-	private boolean is_zip;
+	private final boolean is_zip;
 	private static final int BUFSIZE = 8192;
 
 	public ClassParser(InputStream file, String file_name) {
 		this.file_name = file_name;
 		fileOwned = false;
-		String clazz = file.getClass().getName();
+		final String clazz = file.getClass().getName();
 		is_zip = (clazz.startsWith("java.util.zip.") || clazz.startsWith("java.util.jar."));
 		if (file instanceof DataInputStream)
 			this.file = (DataInputStream) file;
@@ -56,7 +56,7 @@ public final class ClassParser {
 			if (fileOwned) {
 				if (is_zip) {
 					zip = new ZipFile(zip_file);
-					ZipEntry entry = zip.getEntry(file_name);
+					final ZipEntry entry = zip.getEntry(file_name);
 					file = new DataInputStream(new BufferedInputStream(zip.getInputStream(entry), BUFSIZE));
 				} else {
 					file = new DataInputStream(new BufferedInputStream(new FileInputStream(file_name), BUFSIZE));
@@ -83,7 +83,7 @@ public final class ClassParser {
 	}
 
 	private final void readAttributes() throws IOException, ClassFormatException {
-		int attributes_count = file.readUnsignedShort();
+		final int attributes_count = file.readUnsignedShort();
 		attributes = new Attribute[attributes_count];
 		for (int i = 0; i < attributes_count; i++)
 			attributes[i] = Attribute.readAttribute(file, constant_pool);
@@ -105,28 +105,28 @@ public final class ClassParser {
 	}
 
 	private final void readFields() throws IOException, ClassFormatException {
-		int fields_count = file.readUnsignedShort();
+		final int fields_count = file.readUnsignedShort();
 		fields = new Field[fields_count];
 		for (int i = 0; i < fields_count; i++)
 			fields[i] = new Field(file, constant_pool);
 	}
 
 	private final void readID() throws IOException, ClassFormatException {
-		int magic = -889275714;
+		final int magic = -889275714;
 		if (file.readInt() != magic)
 			throw new ClassFormatException(
 					new StringBuilder().append(file_name).append(" is not a Java .class file").toString());
 	}
 
 	private final void readInterfaces() throws IOException, ClassFormatException {
-		int interfaces_count = file.readUnsignedShort();
+		final int interfaces_count = file.readUnsignedShort();
 		interfaces = new int[interfaces_count];
 		for (int i = 0; i < interfaces_count; i++)
 			interfaces[i] = file.readUnsignedShort();
 	}
 
 	private final void readMethods() throws IOException, ClassFormatException {
-		int methods_count = file.readUnsignedShort();
+		final int methods_count = file.readUnsignedShort();
 		methods = new Method[methods_count];
 		for (int i = 0; i < methods_count; i++)
 			methods[i] = new Method(file, constant_pool);

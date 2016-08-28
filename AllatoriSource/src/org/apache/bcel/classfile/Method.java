@@ -9,14 +9,16 @@ import org.apache.bcel.util.BCELComparator;
 public final class Method extends FieldOrMethod {
 	private static final long serialVersionUID = -2013983967283787941L;
 	private static BCELComparator _cmp = new BCELComparator() {
+		@Override
 		public boolean equals(Object o1, Object o2) {
-			Method THIS = (Method) o1;
-			Method THAT = (Method) o2;
+			final Method THIS = (Method) o1;
+			final Method THAT = (Method) o2;
 			return (THIS.getName().equals(THAT.getName()) && THIS.getSignature().equals(THAT.getSignature()));
 		}
 
+		@Override
 		public int hashCode(Object o) {
-			Method THIS = (Method) o;
+			final Method THIS = (Method) o;
 			return THIS.getSignature().hashCode() ^ THIS.getName().hashCode();
 		}
 	};
@@ -25,7 +27,7 @@ public final class Method extends FieldOrMethod {
 	}
 
 	public Method(Method c) {
-		super((FieldOrMethod) c);
+		super(c);
 	}
 
 	Method(DataInputStream file, ConstantPool constant_pool) throws IOException, ClassFormatException {
@@ -37,6 +39,7 @@ public final class Method extends FieldOrMethod {
 		super(access_flags, name_index, signature_index, attributes, constant_pool);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitMethod(this);
 	}
@@ -58,35 +61,36 @@ public final class Method extends FieldOrMethod {
 	}
 
 	public final LocalVariableTable getLocalVariableTable() {
-		Code code = getCode();
+		final Code code = getCode();
 		if (code == null)
 			return null;
 		return code.getLocalVariableTable();
 	}
 
 	public final LineNumberTable getLineNumberTable() {
-		Code code = getCode();
+		final Code code = getCode();
 		if (code == null)
 			return null;
 		return code.getLineNumberTable();
 	}
 
+	@Override
 	public final String toString() {
-		String access = Utility.accessToString(access_flags);
+		final String access = Utility.accessToString(access_flags);
 		ConstantUtf8 c = ((ConstantUtf8) constant_pool.getConstant(signature_index, (byte) 1));
 		String signature = c.getBytes();
 		c = (ConstantUtf8) constant_pool.getConstant(name_index, (byte) 1);
-		String name = c.getBytes();
+		final String name = c.getBytes();
 		signature = Utility.methodSignatureToString(signature, name, access, true, getLocalVariableTable());
-		StringBuilder buf = new StringBuilder(signature);
+		final StringBuilder buf = new StringBuilder(signature);
 		for (int i = 0; i < attributes_count; i++) {
-			Attribute a = attributes[i];
+			final Attribute a = attributes[i];
 			if (!(a instanceof Code) && !(a instanceof ExceptionTable))
 				buf.append(" [").append(a.toString()).append("]");
 		}
-		ExceptionTable e = getExceptionTable();
+		final ExceptionTable e = getExceptionTable();
 		if (e != null) {
-			String str = e.toString();
+			final String str = e.toString();
 			if (!str.equals(""))
 				buf.append("\n\t\tthrows ").append(str);
 		}
@@ -113,10 +117,12 @@ public final class Method extends FieldOrMethod {
 		_cmp = comparator;
 	}
 
+	@Override
 	public boolean equals(Object obj) {
 		return _cmp.equals(this, obj);
 	}
 
+	@Override
 	public int hashCode() {
 		return _cmp.hashCode(this);
 	}

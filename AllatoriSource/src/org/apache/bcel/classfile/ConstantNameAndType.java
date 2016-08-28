@@ -23,10 +23,12 @@ public final class ConstantNameAndType extends Constant {
 		this.signature_index = signature_index;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitConstantNameAndType(this);
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		file.writeByte(tag);
 		file.writeShort(name_index);
@@ -57,6 +59,7 @@ public final class ConstantNameAndType extends Constant {
 		this.signature_index = signature_index;
 	}
 
+	@Override
 	public final String toString() {
 		return new StringBuilder().append(super.toString()).append("(name_index = ").append(name_index)
 				.append(", signature_index = ").append(signature_index).append(")").toString();

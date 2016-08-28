@@ -11,6 +11,7 @@ public class ISTORE extends StoreInstruction {
 		super((short) 54, (short) 59, n);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		super.accept(v);
 		v.visitISTORE(this);

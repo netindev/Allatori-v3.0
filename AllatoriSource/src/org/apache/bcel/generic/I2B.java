@@ -7,6 +7,7 @@ public class I2B extends ConversionInstruction {
 		super((short) 145);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

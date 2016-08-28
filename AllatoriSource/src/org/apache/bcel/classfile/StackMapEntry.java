@@ -45,8 +45,9 @@ public final class StackMapEntry implements Cloneable, Serializable {
 			types_of_stack_items[i].dump(file);
 	}
 
+	@Override
 	public final String toString() {
-		StringBuilder buf = new StringBuilder(64);
+		final StringBuilder buf = new StringBuilder(64);
 		buf.append("(offset=").append(byte_code_offset);
 		if (number_of_locals > 0) {
 			buf.append(", locals={");
@@ -114,7 +115,7 @@ public final class StackMapEntry implements Cloneable, Serializable {
 		StackMapEntry stackmapentry;
 		try {
 			stackmapentry = (StackMapEntry) this.clone();
-		} catch (CloneNotSupportedException clonenotsupportedexception) {
+		} catch (final CloneNotSupportedException clonenotsupportedexception) {
 			return null;
 		}
 		return stackmapentry;

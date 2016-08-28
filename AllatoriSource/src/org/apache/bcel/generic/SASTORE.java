@@ -7,6 +7,7 @@ public class SASTORE extends ArrayInstruction implements StackConsumer {
 		super((short) 86);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackConsumer(this);
 		v.visitExceptionThrower(this);

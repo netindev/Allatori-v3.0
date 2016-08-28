@@ -9,20 +9,22 @@ import org.apache.bcel.util.BCELComparator;
 public final class Field extends FieldOrMethod {
 	private static final long serialVersionUID = -4604082205545049134L;
 	private static BCELComparator _cmp = new BCELComparator() {
+		@Override
 		public boolean equals(Object o1, Object o2) {
-			Field THIS = (Field) o1;
-			Field THAT = (Field) o2;
+			final Field THIS = (Field) o1;
+			final Field THAT = (Field) o2;
 			return (THIS.getName().equals(THAT.getName()) && THIS.getSignature().equals(THAT.getSignature()));
 		}
 
+		@Override
 		public int hashCode(Object o) {
-			Field THIS = (Field) o;
+			final Field THIS = (Field) o;
 			return THIS.getSignature().hashCode() ^ THIS.getName().hashCode();
 		}
 	};
 
 	public Field(Field c) {
-		super((FieldOrMethod) c);
+		super(c);
 	}
 
 	Field(DataInputStream file, ConstantPool constant_pool) throws IOException, ClassFormatException {
@@ -34,6 +36,7 @@ public final class Field extends FieldOrMethod {
 		super(access_flags, name_index, signature_index, attributes, constant_pool);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitField(this);
 	}
@@ -46,18 +49,19 @@ public final class Field extends FieldOrMethod {
 		return null;
 	}
 
+	@Override
 	public final String toString() {
 		String access = Utility.accessToString(access_flags);
 		access = (access.equals("") ? "" : new StringBuilder().append(access).append(" ").toString());
-		String signature = Utility.signatureToString(getSignature());
-		String name = getName();
-		StringBuilder buf = new StringBuilder(64);
+		final String signature = Utility.signatureToString(getSignature());
+		final String name = getName();
+		final StringBuilder buf = new StringBuilder(64);
 		buf.append(access).append(signature).append(" ").append(name);
-		ConstantValue cv = getConstantValue();
+		final ConstantValue cv = getConstantValue();
 		if (cv != null)
 			buf.append(" = ").append(cv);
 		for (int i = 0; i < attributes_count; i++) {
-			Attribute a = attributes[i];
+			final Attribute a = attributes[i];
 			if (!(a instanceof ConstantValue))
 				buf.append(" [").append(a.toString()).append("]");
 		}
@@ -80,10 +84,12 @@ public final class Field extends FieldOrMethod {
 		_cmp = comparator;
 	}
 
+	@Override
 	public boolean equals(Object obj) {
 		return _cmp.equals(this, obj);
 	}
 
+	@Override
 	public int hashCode() {
 		return _cmp.hashCode(this);
 	}

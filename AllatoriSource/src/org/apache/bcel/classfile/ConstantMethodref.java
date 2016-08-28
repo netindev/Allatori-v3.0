@@ -18,6 +18,7 @@ public final class ConstantMethodref extends ConstantCP {
 		super((byte) 10, class_index, name_and_type_index);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitConstantMethodref(this);
 	}

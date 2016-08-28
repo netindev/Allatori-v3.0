@@ -21,10 +21,12 @@ public final class ConstantDouble extends Constant implements ConstantObject {
 		this(file.readDouble());
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitConstantDouble(this);
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		file.writeByte(tag);
 		file.writeDouble(bytes);
@@ -38,10 +40,12 @@ public final class ConstantDouble extends Constant implements ConstantObject {
 		this.bytes = bytes;
 	}
 
+	@Override
 	public final String toString() {
 		return new StringBuilder().append(super.toString()).append("(bytes = ").append(bytes).append(")").toString();
 	}
 
+	@Override
 	public Object getConstantValue(ConstantPool cp) {
 		return new Double(bytes);
 	}

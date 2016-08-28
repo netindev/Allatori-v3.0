@@ -17,20 +17,22 @@ public class TABLESWITCH extends Select {
 		fixed_length = length;
 	}
 
+	@Override
 	public void dump(DataOutputStream out) throws IOException {
 		super.dump(out);
-		int low = match_length > 0 ? match[0] : 0;
+		final int low = match_length > 0 ? match[0] : 0;
 		out.writeInt(low);
-		int high = match_length > 0 ? match[match_length - 1] : 0;
+		final int high = match_length > 0 ? match[match_length - 1] : 0;
 		out.writeInt(high);
 		for (int i = 0; i < match_length; i++)
 			out.writeInt(indices[i] = getTargetOffset(targets[i]));
 	}
 
+	@Override
 	protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
 		super.initFromFile(bytes, wide);
-		int low = bytes.readInt();
-		int high = bytes.readInt();
+		final int low = bytes.readInt();
+		final int high = bytes.readInt();
 		match_length = high - low + 1;
 		fixed_length = (short) (13 + match_length * 4);
 		length = (short) (fixed_length + padding);
@@ -43,6 +45,7 @@ public class TABLESWITCH extends Select {
 		}
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitVariableLengthInstruction(this);
 		v.visitStackConsumer(this);

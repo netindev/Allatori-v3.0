@@ -28,10 +28,12 @@ public final class Deprecated extends Attribute {
 		}
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitDeprecated(this);
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		super.dump(file);
 		if (length > 0)
@@ -46,12 +48,14 @@ public final class Deprecated extends Attribute {
 		this.bytes = bytes;
 	}
 
+	@Override
 	public final String toString() {
 		return Constants.ATTRIBUTE_NAMES[8];
 	}
 
+	@Override
 	public Attribute copy(ConstantPool _constant_pool) {
-		Deprecated c = (Deprecated) clone();
+		final Deprecated c = (Deprecated) clone();
 		if (bytes != null) {
 			c.bytes = new byte[bytes.length];
 			System.arraycopy(bytes, 0, c.bytes, 0, bytes.length);

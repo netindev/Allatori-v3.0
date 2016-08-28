@@ -7,8 +7,8 @@ import java.io.IOException;
 import org.apache.bcel.Constants;
 
 public class ParameterAnnotationEntry implements Node, Constants {
-	private int annotation_table_length;
-	private AnnotationEntry[] annotation_table;
+	private final int annotation_table_length;
+	private final AnnotationEntry[] annotation_table;
 
 	ParameterAnnotationEntry(DataInputStream file, ConstantPool constant_pool) throws IOException {
 		annotation_table_length = file.readUnsignedShort();
@@ -17,6 +17,7 @@ public class ParameterAnnotationEntry implements Node, Constants {
 			annotation_table[i] = AnnotationEntry.read(file, constant_pool, false);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 	}
 

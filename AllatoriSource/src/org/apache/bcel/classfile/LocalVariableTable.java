@@ -28,10 +28,12 @@ public class LocalVariableTable extends Attribute {
 			local_variable_table[i] = new LocalVariable(file, constant_pool);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitLocalVariableTable(this);
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		super.dump(file);
 		file.writeShort(local_variable_table_length);
@@ -57,8 +59,8 @@ public class LocalVariableTable extends Attribute {
 	public final LocalVariable getLocalVariable(int index, int pc) {
 		for (int i = 0; i < local_variable_table_length; i++) {
 			if (local_variable_table[i].getIndex() == index) {
-				int start_pc = local_variable_table[i].getStartPC();
-				int end_pc = start_pc + local_variable_table[i].getLength();
+				final int start_pc = local_variable_table[i].getStartPC();
+				final int end_pc = start_pc + local_variable_table[i].getLength();
 				if (pc >= start_pc && pc <= end_pc)
 					return local_variable_table[i];
 			}
@@ -71,8 +73,9 @@ public class LocalVariableTable extends Attribute {
 		local_variable_table_length = local_variable_table == null ? 0 : local_variable_table.length;
 	}
 
+	@Override
 	public final String toString() {
-		StringBuilder buf = new StringBuilder();
+		final StringBuilder buf = new StringBuilder();
 		for (int i = 0; i < local_variable_table_length; i++) {
 			buf.append(local_variable_table[i].toString());
 			if (i < local_variable_table_length - 1)
@@ -81,8 +84,9 @@ public class LocalVariableTable extends Attribute {
 		return buf.toString();
 	}
 
+	@Override
 	public Attribute copy(ConstantPool _constant_pool) {
-		LocalVariableTable c = (LocalVariableTable) clone();
+		final LocalVariableTable c = (LocalVariableTable) clone();
 		c.local_variable_table = new LocalVariable[local_variable_table_length];
 		for (int i = 0; i < local_variable_table_length; i++)
 			c.local_variable_table[i] = local_variable_table[i].copy();

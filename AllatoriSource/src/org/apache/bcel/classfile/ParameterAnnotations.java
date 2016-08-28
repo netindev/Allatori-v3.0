@@ -24,6 +24,7 @@ public abstract class ParameterAnnotations extends Attribute {
 		setParameterAnnotationTable(parameter_annotation_table);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 	}
 
@@ -44,6 +45,7 @@ public abstract class ParameterAnnotations extends Attribute {
 		return num_parameters;
 	}
 
+	@Override
 	public void dump(DataOutputStream dos) throws IOException {
 		super.dump(dos);
 		dos.writeByte(parameter_annotation_table.length);

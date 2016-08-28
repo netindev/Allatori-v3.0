@@ -18,7 +18,7 @@ public class AnnotationEntryGen {
 
 	private int typeIndex;
 	private List evs;
-	private ConstantPoolGen cpool;
+	private final ConstantPoolGen cpool;
 	private boolean isRuntimeVisible = false;
 
 	public AnnotationEntryGen(AnnotationEntry a, ConstantPoolGen cpool, boolean copyPoolEntries) {
@@ -32,10 +32,10 @@ public class AnnotationEntryGen {
 	}
 
 	private List copyValues(ElementValuePair[] in, ConstantPoolGen cpool, boolean copyPoolEntries) {
-		List out = new ArrayList();
-		int l = in.length;
+		final List out = new ArrayList();
+		final int l = in.length;
 		for (int i = 0; i < l; i++) {
-			ElementValuePair nvp = in[i];
+			final ElementValuePair nvp = in[i];
 			out.add(new ElementValuePairGen(nvp, cpool, copyPoolEntries));
 		}
 		return out;
@@ -46,10 +46,10 @@ public class AnnotationEntryGen {
 	}
 
 	public AnnotationEntry getAnnotation() {
-		AnnotationEntry a = new AnnotationEntry(typeIndex, cpool.getConstantPool(), isRuntimeVisible);
-		Iterator i$ = evs.iterator();
+		final AnnotationEntry a = new AnnotationEntry(typeIndex, cpool.getConstantPool(), isRuntimeVisible);
+		final Iterator i$ = evs.iterator();
 		while (i$.hasNext()) {
-			ElementValuePairGen element = (ElementValuePairGen) i$.next();
+			final ElementValuePairGen element = (ElementValuePairGen) i$.next();
 			a.addElementNameValuePair(element.getElementNameValuePair());
 		}
 		return a;
@@ -63,11 +63,11 @@ public class AnnotationEntryGen {
 	}
 
 	public static AnnotationEntryGen read(DataInputStream dis, ConstantPoolGen cpool, boolean b) throws IOException {
-		AnnotationEntryGen a = new AnnotationEntryGen(cpool);
+		final AnnotationEntryGen a = new AnnotationEntryGen(cpool);
 		a.typeIndex = dis.readUnsignedShort();
-		int elemValuePairCount = dis.readUnsignedShort();
+		final int elemValuePairCount = dis.readUnsignedShort();
 		for (int i = 0; i < elemValuePairCount; i++) {
-			int nidx = dis.readUnsignedShort();
+			final int nidx = dis.readUnsignedShort();
 			a.addElementNameValuePair(
 					new ElementValuePairGen(nidx, ElementValueGen.readElementValue(dis, cpool), cpool));
 		}
@@ -79,7 +79,7 @@ public class AnnotationEntryGen {
 		dos.writeShort(typeIndex);
 		dos.writeShort(evs.size());
 		for (int i = 0; i < evs.size(); i++) {
-			ElementValuePairGen envp = (ElementValuePairGen) evs.get(i);
+			final ElementValuePairGen envp = (ElementValuePairGen) evs.get(i);
 			envp.dump(dos);
 		}
 	}
@@ -95,7 +95,7 @@ public class AnnotationEntryGen {
 	}
 
 	public final String getTypeSignature() {
-		ConstantUtf8 utf8 = (ConstantUtf8) cpool.getConstant(typeIndex);
+		final ConstantUtf8 utf8 = (ConstantUtf8) cpool.getConstant(typeIndex);
 		return utf8.getBytes();
 	}
 
@@ -107,8 +107,9 @@ public class AnnotationEntryGen {
 		return evs;
 	}
 
+	@Override
 	public String toString() {
-		StringBuilder s = new StringBuilder(32);
+		final StringBuilder s = new StringBuilder(32);
 		s.append(new StringBuilder().append("AnnotationGen:[").append(getTypeName()).append(" #").append(evs.size())
 				.append(" {").toString());
 		for (int i = 0; i < evs.size(); i++) {
@@ -121,7 +122,7 @@ public class AnnotationEntryGen {
 	}
 
 	public String toShortString() {
-		StringBuilder s = new StringBuilder();
+		final StringBuilder s = new StringBuilder();
 		s.append(new StringBuilder().append("@").append(getTypeName()).append("(").toString());
 		for (int i = 0; i < evs.size(); i++) {
 			s.append(evs.get(i));

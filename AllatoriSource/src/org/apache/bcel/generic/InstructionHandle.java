@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import org.apache.bcel.classfile.Utility;
 
 public class InstructionHandle implements java.io.Serializable {
@@ -41,7 +42,7 @@ public class InstructionHandle implements java.io.Serializable {
 	}
 
 	public Instruction swapInstruction(Instruction i) {
-		Instruction oldInstruction = instruction;
+		final Instruction oldInstruction = instruction;
 		instruction = i;
 		return oldInstruction;
 	}
@@ -56,7 +57,7 @@ public class InstructionHandle implements java.io.Serializable {
 		if (ih_list == null) {
 			return new InstructionHandle(i);
 		} else {
-			InstructionHandle ih = ih_list;
+			final InstructionHandle ih = ih_list;
 			ih_list = ih.next;
 			ih.setInstruction(i);
 			return ih;
@@ -118,7 +119,7 @@ public class InstructionHandle implements java.io.Serializable {
 		if (!hasTargeters()) {
 			return null;
 		}
-		InstructionTargeter[] t = new InstructionTargeter[targeters.size()];
+		final InstructionTargeter[] t = new InstructionTargeter[targeters.size()];
 		targeters.toArray(t);
 		return t;
 	}
@@ -127,6 +128,7 @@ public class InstructionHandle implements java.io.Serializable {
 		return Utility.format(i_position, 4, false, ' ') + ": " + instruction.toString(verbose);
 	}
 
+	@Override
 	public String toString() {
 		return toString(true);
 	}

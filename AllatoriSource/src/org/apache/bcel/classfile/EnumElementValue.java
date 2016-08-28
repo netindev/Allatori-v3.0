@@ -4,8 +4,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class EnumElementValue extends ElementValue {
-	private int typeIdx;
-	private int valueIdx;
+	private final int typeIdx;
+	private final int valueIdx;
 
 	public EnumElementValue(int type, int typeIdx, int valueIdx, ConstantPool cpool) {
 		super(type, cpool);
@@ -17,24 +17,26 @@ public class EnumElementValue extends ElementValue {
 		this.valueIdx = valueIdx;
 	}
 
+	@Override
 	public void dump(DataOutputStream dos) throws IOException {
 		dos.writeByte(type);
 		dos.writeShort(typeIdx);
 		dos.writeShort(valueIdx);
 	}
 
+	@Override
 	public String stringifyValue() {
-		ConstantUtf8 cu8 = (ConstantUtf8) cpool.getConstant(valueIdx, (byte) 1);
+		final ConstantUtf8 cu8 = (ConstantUtf8) cpool.getConstant(valueIdx, (byte) 1);
 		return cu8.getBytes();
 	}
 
 	public String getEnumTypeString() {
-		ConstantUtf8 cu8 = (ConstantUtf8) cpool.getConstant(typeIdx, (byte) 1);
+		final ConstantUtf8 cu8 = (ConstantUtf8) cpool.getConstant(typeIdx, (byte) 1);
 		return cu8.getBytes();
 	}
 
 	public String getEnumValueString() {
-		ConstantUtf8 cu8 = (ConstantUtf8) cpool.getConstant(valueIdx, (byte) 1);
+		final ConstantUtf8 cu8 = (ConstantUtf8) cpool.getConstant(valueIdx, (byte) 1);
 		return cu8.getBytes();
 	}
 

@@ -7,6 +7,7 @@ public class FADD extends ArithmeticInstruction {
 		super((short) 98);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

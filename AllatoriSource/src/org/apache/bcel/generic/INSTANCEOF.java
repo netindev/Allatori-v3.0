@@ -12,10 +12,12 @@ public class INSTANCEOF extends CPInstruction implements LoadClass, ExceptionThr
 		super((short) 193, index);
 	}
 
+	@Override
 	public Class[] getExceptions() {
 		return ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION;
 	}
 
+	@Override
 	public ObjectType getLoadClassType(ConstantPoolGen cpg) {
 		Type t = getType(cpg);
 		if (t instanceof ArrayType)
@@ -23,6 +25,7 @@ public class INSTANCEOF extends CPInstruction implements LoadClass, ExceptionThr
 		return t instanceof ObjectType ? (ObjectType) t : null;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitLoadClass(this);
 		v.visitExceptionThrower(this);

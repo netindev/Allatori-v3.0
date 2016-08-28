@@ -17,14 +17,17 @@ public class ICONST extends Instruction implements ConstantPushInstruction {
 		value = i;
 	}
 
+	@Override
 	public Number getValue() {
 		return Integer.valueOf(value);
 	}
 
+	@Override
 	public Type getType(ConstantPoolGen cp) {
 		return Type.INT;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitPushInstruction(this);
 		v.visitStackProducer(this);

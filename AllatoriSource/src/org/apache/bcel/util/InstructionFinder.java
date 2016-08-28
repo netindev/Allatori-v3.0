@@ -14,10 +14,8 @@ import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
 public class InstructionFinder {
-	private static final int OFFSET = 32767;
-	private static final int NO_OPCODES = 256;
 	private static final Map map = new HashMap();
-	private InstructionList il;
+	private final InstructionList il;
 	private String il_string;
 	private InstructionHandle[] handles;
 
@@ -31,8 +29,8 @@ public class InstructionFinder {
 	}
 
 	public final void reread() {
-		int size = il.getLength();
-		char[] buf = new char[size];
+		final int size = il.getLength();
+		final char[] buf = new char[size];
 		handles = il.getInstructionHandles();
 		for (int i = 0; i < size; i++)
 			buf[i] = makeChar(handles[i].getInstruction().getOpcode());
@@ -40,7 +38,7 @@ public class InstructionFinder {
 	}
 
 	private static final String mapName(String pattern) {
-		String result = (String) map.get(pattern);
+		final String result = (String) map.get(pattern);
 		if (result != null)
 			return result;
 		for (short i = 0; i < 256; i++) {
@@ -51,13 +49,13 @@ public class InstructionFinder {
 	}
 
 	private static final String compilePattern(String pattern) {
-		String lower = pattern.toLowerCase(Locale.ENGLISH);
-		StringBuilder buf = new StringBuilder();
-		int size = pattern.length();
+		final String lower = pattern.toLowerCase(Locale.ENGLISH);
+		final StringBuilder buf = new StringBuilder();
+		final int size = pattern.length();
 		for (int i = 0; i < size; i++) {
 			char ch = lower.charAt(i);
 			if (Character.isLetterOrDigit(ch)) {
-				StringBuilder name = new StringBuilder();
+				final StringBuilder name = new StringBuilder();
 				for (/**/; (Character.isLetterOrDigit(ch) || ch == '_') && i < size; ch = lower.charAt(i)) {
 					name.append(ch);
 					if (++i >= size)
@@ -72,13 +70,13 @@ public class InstructionFinder {
 	}
 
 	private InstructionHandle[] getMatch(int matched_from, int match_length) {
-		InstructionHandle[] match = new InstructionHandle[match_length];
+		final InstructionHandle[] match = new InstructionHandle[match_length];
 		System.arraycopy(handles, matched_from, match, 0, match_length);
 		return match;
 	}
 
 	public final Iterator search(String pattern, InstructionHandle from, CodeConstraint constraint) {
-		String search = compilePattern(pattern);
+		final String search = compilePattern(pattern);
 		int start = -1;
 		for (int i = 0; i < handles.length; i++) {
 			if (handles[i] == from) {
@@ -89,15 +87,15 @@ public class InstructionFinder {
 		if (start == -1)
 			throw new ClassGenException(new StringBuilder().append("Instruction handle ").append(from)
 					.append(" not found in instruction list.").toString());
-		Pattern regex = Pattern.compile(search);
-		java.util.List matches = new ArrayList();
+		final Pattern regex = Pattern.compile(search);
+		final java.util.List matches = new ArrayList();
 		int endExpr;
-		for (Matcher matcher = regex.matcher(il_string); start < il_string.length()
+		for (final Matcher matcher = regex.matcher(il_string); start < il_string.length()
 				&& matcher.find(start); start = endExpr) {
-			int startExpr = matcher.start();
+			final int startExpr = matcher.start();
 			endExpr = matcher.end();
-			int lenExpr = endExpr - startExpr;
-			InstructionHandle[] match = getMatch(startExpr, lenExpr);
+			final int lenExpr = endExpr - startExpr;
+			final InstructionHandle[] match = getMatch(startExpr, lenExpr);
 			if (constraint == null || constraint.checkCode(match))
 				matches.add(match);
 		}
@@ -125,7 +123,7 @@ public class InstructionFinder {
 	}
 
 	private static String precompile(short from, short to, short extra) {
-		StringBuilder buf = new StringBuilder("(");
+		final StringBuilder buf = new StringBuilder("(");
 		for (short i = from; i <= to; i++) {
 			buf.append(makeChar(i));
 			buf.append('|');
@@ -193,15 +191,15 @@ public class InstructionFinder {
 		map.put("dstore", precompile((short) 71, (short) 74, (short) 57));
 		map.put("fstore", precompile((short) 67, (short) 70, (short) 56));
 		map.put("astore", precompile((short) 75, (short) 78, (short) 58));
-		Iterator i$ = map.keySet().iterator();
+		final Iterator i$ = map.keySet().iterator();
 		while (i$.hasNext()) {
-			String key = (String) i$.next();
-			String value = (String) map.get(key);
-			char ch = value.charAt(1);
+			final String key = (String) i$.next();
+			final String value = (String) map.get(key);
+			final char ch = value.charAt(1);
 			if (ch < '\u7fff')
 				map.put(key, compilePattern(value));
 		}
-		StringBuilder buf = new StringBuilder("(");
+		final StringBuilder buf = new StringBuilder("(");
 		for (short i = 0; i < 256; i++) {
 			if (Constants.NO_OF_OPERANDS[i] != -1) {
 				buf.append(makeChar(i));

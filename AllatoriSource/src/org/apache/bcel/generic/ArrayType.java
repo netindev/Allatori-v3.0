@@ -20,7 +20,7 @@ public final class ArrayType extends ReferenceType {
 					new StringBuilder().append("Invalid number of dimensions: ").append(dimensions).toString());
 		switch (type.getType()) {
 		case 13: {
-			ArrayType array = (ArrayType) type;
+			final ArrayType array = (ArrayType) type;
 			this.dimensions = dimensions + array.dimensions;
 			basic_type = array.basic_type;
 			break;
@@ -31,7 +31,7 @@ public final class ArrayType extends ReferenceType {
 			this.dimensions = dimensions;
 			basic_type = type;
 		}
-		StringBuilder buf = new StringBuilder();
+		final StringBuilder buf = new StringBuilder();
 		for (int i = 0; i < this.dimensions; i++)
 			buf.append('[');
 		buf.append(basic_type.getSignature());
@@ -52,13 +52,15 @@ public final class ArrayType extends ReferenceType {
 		return dimensions;
 	}
 
+	@Override
 	public int hashCode() {
 		return basic_type.hashCode() ^ dimensions;
 	}
 
+	@Override
 	public boolean equals(Object _type) {
 		if (_type instanceof ArrayType) {
-			ArrayType array = (ArrayType) _type;
+			final ArrayType array = (ArrayType) _type;
 			return (array.dimensions == dimensions && array.basic_type.equals(basic_type));
 		}
 		return false;

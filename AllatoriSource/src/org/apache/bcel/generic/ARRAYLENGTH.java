@@ -9,10 +9,12 @@ public class ARRAYLENGTH extends Instruction implements ExceptionThrower, StackP
 		super((short) 190, (short) 1);
 	}
 
+	@Override
 	public Class[] getExceptions() {
 		return new Class[] { ExceptionConstants.NULL_POINTER_EXCEPTION };
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitExceptionThrower(this);
 		v.visitStackProducer(this);

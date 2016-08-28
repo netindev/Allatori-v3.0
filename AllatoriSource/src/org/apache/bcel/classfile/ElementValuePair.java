@@ -4,9 +4,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class ElementValuePair {
-	private ElementValue elementValue;
-	private ConstantPool constantPool;
-	private int elementNameIndex;
+	private final ElementValue elementValue;
+	private final ConstantPool constantPool;
+	private final int elementNameIndex;
 
 	public ElementValuePair(int elementNameIndex, ElementValue elementValue, ConstantPool constantPool) {
 		this.elementValue = elementValue;
@@ -15,7 +15,7 @@ public class ElementValuePair {
 	}
 
 	public String getNameString() {
-		ConstantUtf8 c = ((ConstantUtf8) constantPool.getConstant(elementNameIndex, (byte) 1));
+		final ConstantUtf8 c = ((ConstantUtf8) constantPool.getConstant(elementNameIndex, (byte) 1));
 		return c.getBytes();
 	}
 
@@ -28,7 +28,7 @@ public class ElementValuePair {
 	}
 
 	public String toShortString() {
-		StringBuilder result = new StringBuilder();
+		final StringBuilder result = new StringBuilder();
 		result.append(getNameString()).append("=").append(getValue().toShortString());
 		return result.toString();
 	}

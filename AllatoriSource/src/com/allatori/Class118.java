@@ -1,14 +1,12 @@
 package com.allatori;
 
-
 public class Class118 {
 
-    public String aString734;
-    public String aString735;
+	public String string0;
+	public String string1;
 
-
-    public Class118(String var1, String var2) {
-        this.aString734 = var1;
-        this.aString735 = var2;
-    }
+	public Class118(String s0, String s1) {
+		this.string0 = s0;
+		this.string1 = s1;
+	}
 }

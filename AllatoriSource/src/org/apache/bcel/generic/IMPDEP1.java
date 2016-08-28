@@ -7,6 +7,7 @@ public class IMPDEP1 extends Instruction {
 		super((short) 254, (short) 1);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitIMPDEP1(this);
 	}

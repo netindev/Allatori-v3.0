@@ -7,6 +7,7 @@ public class DALOAD extends ArrayInstruction implements StackProducer {
 		super((short) 49);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackProducer(this);
 		v.visitExceptionThrower(this);

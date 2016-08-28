@@ -17,13 +17,13 @@ import org.apache.bcel.classfile.Method;
 import org.apache.bcel.classfile.Utility;
 
 final class ConstantHTML implements Constants {
-	private String class_name;
-	private String class_package;
-	private ConstantPool constant_pool;
-	private PrintWriter file;
-	private String[] constant_ref;
-	private Constant[] constants;
-	private Method[] methods;
+	private final String class_name;
+	private final String class_package;
+	private final ConstantPool constant_pool;
+	private final PrintWriter file;
+	private final String[] constant_ref;
+	private final Constant[] constants;
+	private final Method[] methods;
 
 	ConstantHTML(String dir, String class_name, String class_package, Method[] methods, ConstantPool constant_pool)
 			throws IOException {
@@ -55,7 +55,7 @@ final class ConstantHTML implements Constants {
 	}
 
 	private void writeConstant(int index) {
-		byte tag = constants[index].getTag();
+		final byte tag = constants[index].getTag();
 		file.println(new StringBuilder().append("<H4> <A NAME=cp").append(index).append(">").append(index)
 				.append("</A> ").append(CONSTANT_NAMES[tag]).append("</H4>").toString());
 		switch (tag) {
@@ -64,34 +64,34 @@ final class ConstantHTML implements Constants {
 			int class_index;
 			int name_index;
 			if (tag == 10) {
-				ConstantMethodref c = ((ConstantMethodref) constant_pool.getConstant(index, (byte) 10));
+				final ConstantMethodref c = ((ConstantMethodref) constant_pool.getConstant(index, (byte) 10));
 				class_index = c.getClassIndex();
 				name_index = c.getNameAndTypeIndex();
 			} else {
-				ConstantInterfaceMethodref c1 = ((ConstantInterfaceMethodref) constant_pool.getConstant(index,
+				final ConstantInterfaceMethodref c1 = ((ConstantInterfaceMethodref) constant_pool.getConstant(index,
 						(byte) 11));
 				class_index = c1.getClassIndex();
 				name_index = c1.getNameAndTypeIndex();
 			}
-			String method_name = constant_pool.constantToString(name_index, (byte) 12);
-			String html_method_name = Class2HTML.toHTML(method_name);
-			String method_class = constant_pool.constantToString(class_index, (byte) 7);
+			final String method_name = constant_pool.constantToString(name_index, (byte) 12);
+			final String html_method_name = Class2HTML.toHTML(method_name);
+			final String method_class = constant_pool.constantToString(class_index, (byte) 7);
 			String short_method_class = Utility.compactClassName(method_class);
 			short_method_class = Utility.compactClassName(short_method_class,
 					new StringBuilder().append(class_package).append(".").toString(), true);
-			ConstantNameAndType c2 = ((ConstantNameAndType) constant_pool.getConstant(name_index, (byte) 12));
-			String signature = constant_pool.constantToString(c2.getSignatureIndex(), (byte) 1);
-			String[] args = Utility.methodSignatureArgumentTypes(signature, false);
-			String type = Utility.methodSignatureReturnType(signature, false);
-			String ret_type = Class2HTML.referenceType(type);
-			StringBuilder buf = new StringBuilder("(");
+			final ConstantNameAndType c2 = ((ConstantNameAndType) constant_pool.getConstant(name_index, (byte) 12));
+			final String signature = constant_pool.constantToString(c2.getSignatureIndex(), (byte) 1);
+			final String[] args = Utility.methodSignatureArgumentTypes(signature, false);
+			final String type = Utility.methodSignatureReturnType(signature, false);
+			final String ret_type = Class2HTML.referenceType(type);
+			final StringBuilder buf = new StringBuilder("(");
 			for (int i = 0; i < args.length; i++) {
 				buf.append(Class2HTML.referenceType(args[i]));
 				if (i < args.length - 1)
 					buf.append(",&nbsp;");
 			}
 			buf.append(")");
-			String arg_types = buf.toString();
+			final String arg_types = buf.toString();
 			String ref;
 			if (method_class.equals(class_name))
 				ref = new StringBuilder().append("<A HREF=\"").append(class_name).append("_code.html#method")
@@ -114,14 +114,14 @@ final class ConstantHTML implements Constants {
 			break;
 		}
 		case 9: {
-			ConstantFieldref c3 = ((ConstantFieldref) constant_pool.getConstant(index, (byte) 9));
-			int class_index = c3.getClassIndex();
-			int name_index = c3.getNameAndTypeIndex();
-			String field_class = constant_pool.constantToString(class_index, (byte) 7);
+			final ConstantFieldref c3 = ((ConstantFieldref) constant_pool.getConstant(index, (byte) 9));
+			final int class_index = c3.getClassIndex();
+			final int name_index = c3.getNameAndTypeIndex();
+			final String field_class = constant_pool.constantToString(class_index, (byte) 7);
 			String short_field_class = Utility.compactClassName(field_class);
 			short_field_class = Utility.compactClassName(short_field_class,
 					new StringBuilder().append(class_package).append(".").toString(), true);
-			String field_name = constant_pool.constantToString(name_index, (byte) 12);
+			final String field_name = constant_pool.constantToString(name_index, (byte) 12);
 			String ref;
 			if (field_class.equals(class_name))
 				ref = new StringBuilder().append("<A HREF=\"").append(field_class).append("_methods.html#field")
@@ -140,14 +140,14 @@ final class ConstantHTML implements Constants {
 			break;
 		}
 		case 7: {
-			ConstantClass c4 = (ConstantClass) constant_pool.getConstant(index, (byte) 7);
-			int name_index = c4.getNameIndex();
-			String class_name2 = constant_pool.constantToString(index, tag);
+			final ConstantClass c4 = (ConstantClass) constant_pool.getConstant(index, (byte) 7);
+			final int name_index = c4.getNameIndex();
+			final String class_name2 = constant_pool.constantToString(index, tag);
 			String short_class_name = Utility.compactClassName(class_name2);
 			short_class_name = Utility.compactClassName(short_class_name,
 					new StringBuilder().append(class_package).append(".").toString(), true);
-			String ref = new StringBuilder().append("<A HREF=\"").append(class_name2).append(".html\" TARGET=_top>")
-					.append(short_class_name).append("</A>").toString();
+			final String ref = new StringBuilder().append("<A HREF=\"").append(class_name2)
+					.append(".html\" TARGET=_top>").append(short_class_name).append("</A>").toString();
 			constant_ref[index] = new StringBuilder().append("<A HREF=\"").append(class_name).append("_cp.html#cp")
 					.append(index).append("\" TARGET=ConstantPool>").append(short_class_name).append("</A>").toString();
 			file.println(new StringBuilder().append("<P><TT>").append(ref).append("</TT><UL>")
@@ -156,18 +156,18 @@ final class ConstantHTML implements Constants {
 			break;
 		}
 		case 8: {
-			ConstantString c5 = (ConstantString) constant_pool.getConstant(index, (byte) 8);
-			int name_index = c5.getStringIndex();
-			String str = Class2HTML.toHTML(constant_pool.constantToString(index, tag));
+			final ConstantString c5 = (ConstantString) constant_pool.getConstant(index, (byte) 8);
+			final int name_index = c5.getStringIndex();
+			final String str = Class2HTML.toHTML(constant_pool.constantToString(index, tag));
 			file.println(new StringBuilder().append("<P><TT>").append(str).append("</TT><UL>")
 					.append("<LI><A HREF=\"#cp").append(name_index).append("\">Name index(").append(name_index)
 					.append(")</A></UL>\n").toString());
 			break;
 		}
 		case 12: {
-			ConstantNameAndType c6 = ((ConstantNameAndType) constant_pool.getConstant(index, (byte) 12));
-			int name_index = c6.getNameIndex();
-			int signature_index = c6.getSignatureIndex();
+			final ConstantNameAndType c6 = ((ConstantNameAndType) constant_pool.getConstant(index, (byte) 12));
+			final int name_index = c6.getNameIndex();
+			final int signature_index = c6.getSignatureIndex();
 			file.println(new StringBuilder().append("<P><TT>")
 					.append(Class2HTML.toHTML(constant_pool.constantToString(index, tag))).append("</TT><UL>")
 					.append("<LI><A HREF=\"#cp").append(name_index).append("\">Name index(").append(name_index)
@@ -184,7 +184,8 @@ final class ConstantHTML implements Constants {
 
 	private final int getMethodNumber(String str) {
 		for (int i = 0; i < methods.length; i++) {
-			String cmp = new StringBuilder().append(methods[i].getName()).append(methods[i].getSignature()).toString();
+			final String cmp = new StringBuilder().append(methods[i].getName()).append(methods[i].getSignature())
+					.toString();
 			if (cmp.equals(str))
 				return i;
 		}

@@ -26,10 +26,12 @@ public final class InnerClasses extends Attribute {
 			inner_classes[i] = new InnerClass(file);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitInnerClasses(this);
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		super.dump(file);
 		file.writeShort(number_of_classes);
@@ -46,15 +48,17 @@ public final class InnerClasses extends Attribute {
 		number_of_classes = inner_classes == null ? 0 : inner_classes.length;
 	}
 
+	@Override
 	public final String toString() {
-		StringBuilder buf = new StringBuilder();
+		final StringBuilder buf = new StringBuilder();
 		for (int i = 0; i < number_of_classes; i++)
 			buf.append(inner_classes[i].toString(constant_pool)).append("\n");
 		return buf.toString();
 	}
 
+	@Override
 	public Attribute copy(ConstantPool _constant_pool) {
-		InnerClasses c = (InnerClasses) clone();
+		final InnerClasses c = (InnerClasses) clone();
 		c.inner_classes = new InnerClass[number_of_classes];
 		for (int i = 0; i < number_of_classes; i++)
 			c.inner_classes[i] = inner_classes[i].copy();

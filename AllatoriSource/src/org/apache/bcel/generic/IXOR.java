@@ -7,6 +7,7 @@ public class IXOR extends ArithmeticInstruction {
 		super((short) 130);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

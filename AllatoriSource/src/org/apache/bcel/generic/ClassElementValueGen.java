@@ -24,6 +24,7 @@ public class ClassElementValueGen extends ElementValueGen {
 		idx = cpool.addUtf8(t.getSignature());
 	}
 
+	@Override
 	public ElementValue getElementValue() {
 		return new ClassElementValue(type, idx, cpGen.getConstantPool());
 	}
@@ -41,14 +42,16 @@ public class ClassElementValueGen extends ElementValueGen {
 	}
 
 	public String getClassString() {
-		ConstantUtf8 cu8 = (ConstantUtf8) getConstantPool().getConstant(idx);
+		final ConstantUtf8 cu8 = (ConstantUtf8) getConstantPool().getConstant(idx);
 		return cu8.getBytes();
 	}
 
+	@Override
 	public String stringifyValue() {
 		return getClassString();
 	}
 
+	@Override
 	public void dump(DataOutputStream dos) throws IOException {
 		dos.writeByte(type);
 		dos.writeShort(idx);

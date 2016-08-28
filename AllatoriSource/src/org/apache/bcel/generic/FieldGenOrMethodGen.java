@@ -11,27 +11,31 @@ public abstract class FieldGenOrMethodGen extends AccessFlags implements NamedAn
 	protected String name;
 	protected Type type;
 	protected ConstantPoolGen cp;
-	private List attribute_vec = new ArrayList();
+	private final List attribute_vec = new ArrayList();
 	protected List annotation_vec = new ArrayList();
 
 	protected FieldGenOrMethodGen() {
 		/* empty */
 	}
 
+	@Override
 	public void setType(Type type) {
 		if (type.getType() == 16)
 			throw new IllegalArgumentException(new StringBuilder().append("Type can not be ").append(type).toString());
 		this.type = type;
 	}
 
+	@Override
 	public Type getType() {
 		return type;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -69,24 +73,25 @@ public abstract class FieldGenOrMethodGen extends AccessFlags implements NamedAn
 	}
 
 	public Attribute[] getAttributes() {
-		Attribute[] attributes = new Attribute[attribute_vec.size()];
+		final Attribute[] attributes = new Attribute[attribute_vec.size()];
 		attribute_vec.toArray(attributes);
 		return attributes;
 	}
 
 	public AnnotationEntryGen[] getAnnotationEntries() {
-		AnnotationEntryGen[] annotations = new AnnotationEntryGen[annotation_vec.size()];
+		final AnnotationEntryGen[] annotations = new AnnotationEntryGen[annotation_vec.size()];
 		annotation_vec.toArray(annotations);
 		return annotations;
 	}
 
 	public abstract String getSignature();
 
+	@Override
 	public Object clone() {
 		Object object;
 		try {
 			object = super.clone();
-		} catch (CloneNotSupportedException e) {
+		} catch (final CloneNotSupportedException e) {
 			System.err.println(e);
 			return null;
 		}

@@ -13,6 +13,7 @@ public abstract class FieldInstruction extends FieldOrMethod {
 		super(opcode, index);
 	}
 
+	@Override
 	public String toString(ConstantPool cp) {
 		return new StringBuilder().append(Constants.OPCODE_NAMES[opcode]).append(" ")
 				.append(cp.constantToString(index, (byte) 9)).toString();
@@ -22,6 +23,7 @@ public abstract class FieldInstruction extends FieldOrMethod {
 		return Type.size(Type.getTypeSize(getSignature(cpg)));
 	}
 
+	@Override
 	public Type getType(ConstantPoolGen cpg) {
 		return getFieldType(cpg);
 	}

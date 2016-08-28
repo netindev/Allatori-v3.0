@@ -12,10 +12,12 @@ public abstract class ArrayInstruction extends Instruction implements ExceptionT
 		super(opcode, (short) 1);
 	}
 
+	@Override
 	public Class[] getExceptions() {
 		return ExceptionConstants.EXCS_ARRAY_EXCEPTION;
 	}
 
+	@Override
 	public Type getType(ConstantPoolGen cp) {
 		switch (opcode) {
 		case 46:

@@ -18,12 +18,9 @@ import org.apache.bcel.generic.MethodGen;
 import org.apache.bcel.generic.Type;
 
 public class BCELifier extends EmptyVisitor {
-	private static final int FLAG_FOR_UNKNOWN = -1;
-	private static final int FLAG_FOR_CLASS = 0;
-	private static final int FLAG_FOR_METHOD = 1;
-	private JavaClass _clazz;
-	private PrintWriter _out;
-	private ConstantPoolGen _cp;
+	private final JavaClass _clazz;
+	private final PrintWriter _out;
+	private final ConstantPoolGen _cp;
 
 	public BCELifier(JavaClass clazz, OutputStream out) {
 		_clazz = clazz;
@@ -36,11 +33,12 @@ public class BCELifier extends EmptyVisitor {
 		_out.flush();
 	}
 
+	@Override
 	public void visitJavaClass(JavaClass clazz) {
 		String class_name = clazz.getClassName();
-		String super_name = clazz.getSuperclassName();
-		String package_name = clazz.getPackageName();
-		String inter = Utility.printArray(clazz.getInterfaceNames(), false, true);
+		final String super_name = clazz.getSuperclassName();
+		final String package_name = clazz.getPackageName();
+		final String inter = Utility.printArray(clazz.getInterfaceNames(), false, true);
 		if (!"".equals(package_name)) {
 			class_name = class_name.substring(package_name.length() + 1);
 			_out.println(new StringBuilder().append("package ").append(package_name).append(";").toString());
@@ -70,7 +68,7 @@ public class BCELifier extends EmptyVisitor {
 		_out.println("  }");
 		_out.println();
 		printCreate();
-		Field[] fields = clazz.getFields();
+		final Field[] fields = clazz.getFields();
 		if (fields.length > 0) {
 			_out.println("  private void createFields() {");
 			_out.println("    FieldGen field;");
@@ -79,7 +77,7 @@ public class BCELifier extends EmptyVisitor {
 			_out.println("  }");
 			_out.println();
 		}
-		Method[] methods = clazz.getMethods();
+		final Method[] methods = clazz.getMethods();
 		for (int i = 0; i < methods.length; i++) {
 			_out.println(
 					new StringBuilder().append("  private void createMethod_").append(i).append("() {").toString());
@@ -93,10 +91,10 @@ public class BCELifier extends EmptyVisitor {
 
 	private void printCreate() {
 		_out.println("  public void create(OutputStream out) throws IOException {");
-		Field[] fields = _clazz.getFields();
+		final Field[] fields = _clazz.getFields();
 		if (fields.length > 0)
 			_out.println("    createFields();");
-		Method[] methods = _clazz.getMethods();
+		final Method[] methods = _clazz.getMethods();
 		for (int i = 0; i < methods.length; i++)
 			_out.println(new StringBuilder().append("    createMethod_").append(i).append("();").toString());
 		_out.println("    _cg.getJavaClass().dump(out);");
@@ -105,7 +103,7 @@ public class BCELifier extends EmptyVisitor {
 	}
 
 	private void printMain() {
-		String class_name = _clazz.getClassName();
+		final String class_name = _clazz.getClassName();
 		_out.println("  public static void main(String[] args) throws Exception {");
 		_out.println(new StringBuilder().append("    ").append(class_name).append("Creator creator = new ")
 				.append(class_name).append("Creator();").toString());
@@ -114,23 +112,25 @@ public class BCELifier extends EmptyVisitor {
 		_out.println("  }");
 	}
 
+	@Override
 	public void visitField(Field field) {
 		_out.println();
 		_out.println(new StringBuilder().append("    field = new FieldGen(").append(printFlags(field.getAccessFlags()))
 				.append(", ").append(printType(field.getSignature())).append(", \"").append(field.getName())
 				.append("\", _cp);").toString());
-		ConstantValue cv = field.getConstantValue();
+		final ConstantValue cv = field.getConstantValue();
 		if (cv != null) {
-			String value = cv.toString();
+			final String value = cv.toString();
 			_out.println(new StringBuilder().append("    field.setInitValue(").append(value).append(")").toString());
 		}
 		_out.println("    _cg.addField(field.getField());");
 	}
 
+	@Override
 	public void visitMethod(Method method) {
-		MethodGen mg = new MethodGen(method, _clazz.getClassName(), _cp);
-		Type result_type = mg.getReturnType();
-		Type[] arg_types = mg.getArgumentTypes();
+		final MethodGen mg = new MethodGen(method, _clazz.getClassName(), _cp);
+		final Type result_type = mg.getReturnType();
+		final Type[] arg_types = mg.getArgumentTypes();
 		_out.println("    InstructionList il = new InstructionList();");
 		_out.println(new StringBuilder().append("    MethodGen method = new MethodGen(")
 				.append(printFlags(method.getAccessFlags(), 1)).append(", ").append(printType(result_type)).append(", ")
@@ -139,7 +139,7 @@ public class BCELifier extends EmptyVisitor {
 				.append(method.getName()).append("\", \"").append(_clazz.getClassName()).append("\", il, _cp);")
 				.toString());
 		_out.println();
-		BCELFactory factory = new BCELFactory(mg, _out);
+		final BCELFactory factory = new BCELFactory(mg, _out);
 		factory.start();
 		_out.println("    method.setMaxStack();");
 		_out.println("    method.setMaxLocals();");
@@ -154,7 +154,7 @@ public class BCELifier extends EmptyVisitor {
 	static String printFlags(int flags, int reason) {
 		if (flags == 0)
 			return "0";
-		StringBuilder buf = new StringBuilder();
+		final StringBuilder buf = new StringBuilder();
 		int i = 0;
 		int pow = 1;
 		while (pow <= 16384) {
@@ -171,14 +171,14 @@ public class BCELifier extends EmptyVisitor {
 			pow <<= 1;
 			i++;
 		}
-		String str = buf.toString();
+		final String str = buf.toString();
 		return str.substring(0, str.length() - 3);
 	}
 
 	static String printArgumentTypes(Type[] arg_types) {
 		if (arg_types.length == 0)
 			return "Type.NO_ARGS";
-		StringBuilder args = new StringBuilder();
+		final StringBuilder args = new StringBuilder();
 		for (int i = 0; i < arg_types.length; i++) {
 			args.append(printType(arg_types[i]));
 			if (i < arg_types.length - 1)
@@ -192,8 +192,8 @@ public class BCELifier extends EmptyVisitor {
 	}
 
 	static String printType(String signature) {
-		Type type = Type.getType(signature);
-		byte t = type.getType();
+		final Type type = Type.getType(signature);
+		final byte t = type.getType();
 		if (t <= 12)
 			return new StringBuilder().append("Type.").append(Constants.TYPE_NAMES[t].toUpperCase(Locale.ENGLISH))
 					.toString();
@@ -204,7 +204,7 @@ public class BCELifier extends EmptyVisitor {
 		if (type.toString().equals("java.lang.StringBuffer"))
 			return "Type.STRINGBUFFER";
 		if (type instanceof ArrayType) {
-			ArrayType at = (ArrayType) type;
+			final ArrayType at = (ArrayType) type;
 			return new StringBuilder().append("new ArrayType(").append(printType(at.getBasicType())).append(", ")
 					.append(at.getDimensions()).append(")").toString();
 		}
@@ -213,11 +213,11 @@ public class BCELifier extends EmptyVisitor {
 	}
 
 	public static void main(String[] argv) throws Exception {
-		String name = argv[0];
+		final String name = argv[0];
 		JavaClass java_class;
 		if ((java_class = org.apache.bcel.Repository.lookupClass(name)) == null)
 			java_class = new ClassParser(name).parse();
-		BCELifier bcelifier = new BCELifier(java_class, System.out);
+		final BCELifier bcelifier = new BCELifier(java_class, System.out);
 		bcelifier.start();
 	}
 }

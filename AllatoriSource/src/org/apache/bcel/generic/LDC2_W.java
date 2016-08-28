@@ -14,6 +14,7 @@ public class LDC2_W extends CPInstruction implements PushInstruction {
 		super((short) 20, index);
 	}
 
+	@Override
 	public Type getType(ConstantPoolGen cpg) {
 		switch (cpg.getConstantPool().getConstant(index).getTag()) {
 		case 5:
@@ -26,7 +27,7 @@ public class LDC2_W extends CPInstruction implements PushInstruction {
 	}
 
 	public Number getValue(ConstantPoolGen cpg) {
-		Constant c = cpg.getConstantPool().getConstant(index);
+		final Constant c = cpg.getConstantPool().getConstant(index);
 		switch (c.getTag()) {
 		case 5:
 			return Long.valueOf(((ConstantLong) c).getBytes());
@@ -38,6 +39,7 @@ public class LDC2_W extends CPInstruction implements PushInstruction {
 		}
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackProducer(this);
 		v.visitPushInstruction(this);

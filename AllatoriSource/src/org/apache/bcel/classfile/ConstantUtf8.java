@@ -24,10 +24,12 @@ public final class ConstantUtf8 extends Constant {
 		this.bytes = bytes;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitConstantUtf8(this);
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		file.writeByte(tag);
 		file.writeUTF(bytes);
@@ -41,6 +43,7 @@ public final class ConstantUtf8 extends Constant {
 		this.bytes = bytes;
 	}
 
+	@Override
 	public final String toString() {
 		return new StringBuilder().append(super.toString()).append("(\"").append(Utility.replace(bytes, "\n", "\\n"))
 				.append("\")").toString();

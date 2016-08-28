@@ -36,10 +36,12 @@ public final class BasicType extends Type {
 		}
 	}
 
+	@Override
 	public int hashCode() {
 		return type;
 	}
 
+	@Override
 	public boolean equals(Object _type) {
 		return (_type instanceof BasicType ? ((BasicType) _type).type == type : false);
 	}

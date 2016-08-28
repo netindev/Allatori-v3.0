@@ -19,14 +19,17 @@ public class LCONST extends Instruction implements ConstantPushInstruction {
 		value = l;
 	}
 
+	@Override
 	public Number getValue() {
 		return Long.valueOf(value);
 	}
 
+	@Override
 	public Type getType(ConstantPoolGen cp) {
 		return Type.LONG;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitPushInstruction(this);
 		v.visitStackProducer(this);

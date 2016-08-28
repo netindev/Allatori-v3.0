@@ -13,8 +13,8 @@ public class ElementValuePairGen {
 	}
 
 	private int nameIdx;
-	private ElementValueGen value;
-	private ConstantPoolGen cpool;
+	private final ElementValueGen value;
+	private final ConstantPoolGen cpool;
 
 	public ElementValuePairGen(ElementValuePair nvp, ConstantPoolGen cpool, boolean copyPoolEntries) {
 		this.cpool = cpool;
@@ -26,7 +26,7 @@ public class ElementValuePairGen {
 	}
 
 	public ElementValuePair getElementNameValuePair() {
-		ElementValue immutableValue = value.getElementValue();
+		final ElementValue immutableValue = value.getElementValue();
 		return new ElementValuePair(nameIdx, immutableValue, cpool.getConstantPool());
 	}
 
@@ -59,6 +59,7 @@ public class ElementValuePairGen {
 		return value;
 	}
 
+	@Override
 	public String toString() {
 		return new StringBuilder().append("ElementValuePair:[").append(getNameString()).append("=")
 				.append(value.stringifyValue()).append("]").toString();

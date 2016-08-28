@@ -1,6 +1,7 @@
 package org.apache.bcel;
 
 import java.io.IOException;
+
 import org.apache.bcel.classfile.JavaClass;
 import org.apache.bcel.util.ClassPath;
 import org.apache.bcel.util.SyntheticRepository;
@@ -27,12 +28,12 @@ public abstract class Repository {
 
 	public static ClassPath.ClassFile lookupClassFile(String class_name) {
 		try {
-			ClassPath path = _repository.getClassPath();
+			final ClassPath path = _repository.getClassPath();
 			if (path == null) {
 				return null;
 			}
 			return path.getClassFile(class_name);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			return null;
 		}
 	}
@@ -42,7 +43,7 @@ public abstract class Repository {
 	}
 
 	public static JavaClass addClass(JavaClass clazz) {
-		JavaClass old = _repository.findClass(clazz.getClassName());
+		final JavaClass old = _repository.findClass(clazz.getClassName());
 		_repository.storeClass(clazz);
 		return old;
 	}
@@ -60,7 +61,7 @@ public abstract class Repository {
 	}
 
 	public static JavaClass[] getSuperClasses(String class_name) throws ClassNotFoundException {
-		JavaClass jc = lookupClass(class_name);
+		final JavaClass jc = lookupClass(class_name);
 		return getSuperClasses(jc);
 	}
 

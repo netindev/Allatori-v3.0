@@ -7,6 +7,7 @@ public class INEG extends ArithmeticInstruction {
 		super((short) 116);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

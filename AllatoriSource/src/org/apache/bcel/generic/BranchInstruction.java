@@ -19,6 +19,7 @@ public abstract class BranchInstruction extends Instruction implements Instructi
 		setTarget(target);
 	}
 
+	@Override
 	public void dump(DataOutputStream out) throws IOException {
 		out.writeByte(opcode);
 		index = getTargetOffset();
@@ -32,7 +33,7 @@ public abstract class BranchInstruction extends Instruction implements Instructi
 		if (_target == null)
 			throw new ClassGenException(new StringBuilder().append("Target of ").append(super.toString(true))
 					.append(" is invalid null handle").toString());
-		int t = _target.getPosition();
+		final int t = _target.getPosition();
 		if (t < 0)
 			throw new ClassGenException(new StringBuilder().append("Invalid branch target position offset for ")
 					.append(super.toString(true)).append(":").append(t).append(":").append(_target).toString());
@@ -48,8 +49,9 @@ public abstract class BranchInstruction extends Instruction implements Instructi
 		return 0;
 	}
 
+	@Override
 	public String toString(boolean verbose) {
-		String s = super.toString(verbose);
+		final String s = super.toString(verbose);
 		String t = "null";
 		if (verbose) {
 			if (target != null) {
@@ -67,6 +69,7 @@ public abstract class BranchInstruction extends Instruction implements Instructi
 		return new StringBuilder().append(s).append(" -> ").append(t).toString();
 	}
 
+	@Override
 	protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
 		length = (short) 3;
 		index = bytes.readShort();
@@ -92,6 +95,7 @@ public abstract class BranchInstruction extends Instruction implements Instructi
 			new_ih.addTargeter(t);
 	}
 
+	@Override
 	public void updateTarget(InstructionHandle old_ih, InstructionHandle new_ih) {
 		if (target == old_ih)
 			setTarget(new_ih);
@@ -100,10 +104,12 @@ public abstract class BranchInstruction extends Instruction implements Instructi
 					.append(target).toString());
 	}
 
+	@Override
 	public boolean containsTarget(InstructionHandle ih) {
 		return target == ih;
 	}
 
+	@Override
 	void dispose() {
 		setTarget(null);
 		index = -1;

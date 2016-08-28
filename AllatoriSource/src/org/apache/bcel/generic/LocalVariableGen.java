@@ -23,12 +23,12 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
 	}
 
 	public LocalVariable getLocalVariable(ConstantPoolGen cp) {
-		int start_pc = start.getPosition();
+		final int start_pc = start.getPosition();
 		int length = end.getPosition() - start_pc;
 		if (end.getNext() == null)
 			length += end.getInstruction().getLength();
-		int name_index = cp.addUtf8(name);
-		int signature_index = cp.addUtf8(type.getSignature());
+		final int name_index = cp.addUtf8(name);
+		final int signature_index = cp.addUtf8(type.getSignature());
 		return new LocalVariable(start_pc, length, name_index, signature_index, index, cp.getConstantPool());
 	}
 
@@ -40,18 +40,22 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
 		return index;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public void setType(Type type) {
 		this.type = type;
 	}
 
+	@Override
 	public Type getType() {
 		return type;
 	}
@@ -74,6 +78,7 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
 		this.end = end;
 	}
 
+	@Override
 	public void updateTarget(InstructionHandle old_ih, InstructionHandle new_ih) {
 		boolean targeted = false;
 		if (start == old_ih) {
@@ -89,32 +94,37 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
 					.append(start).append(", ").append(end).append("}").toString());
 	}
 
+	@Override
 	public boolean containsTarget(InstructionHandle ih) {
 		return start == ih || end == ih;
 	}
 
+	@Override
 	public int hashCode() {
-		int hc = index ^ name.hashCode() ^ type.hashCode();
+		final int hc = index ^ name.hashCode() ^ type.hashCode();
 		return hc;
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof LocalVariableGen))
 			return false;
-		LocalVariableGen l = (LocalVariableGen) o;
+		final LocalVariableGen l = (LocalVariableGen) o;
 		return l.index == index && l.start == start && l.end == end;
 	}
 
+	@Override
 	public String toString() {
 		return new StringBuilder().append("LocalVariableGen(").append(name).append(", ").append(type).append(", ")
 				.append(start).append(", ").append(end).append(")").toString();
 	}
 
+	@Override
 	public Object clone() {
 		Object object;
 		try {
 			object = super.clone();
-		} catch (CloneNotSupportedException e) {
+		} catch (final CloneNotSupportedException e) {
 			System.err.println(e);
 			return null;
 		}

@@ -67,6 +67,7 @@ public final class StackMapType implements Cloneable, Serializable {
 		return "";
 	}
 
+	@Override
 	public final String toString() {
 		return new StringBuilder().append("(type=").append(Constants.ITEM_NAMES[type]).append(printIndex()).append(")")
 				.toString();
@@ -76,7 +77,7 @@ public final class StackMapType implements Cloneable, Serializable {
 		StackMapType stackmaptype;
 		try {
 			stackmaptype = (StackMapType) this.clone();
-		} catch (CloneNotSupportedException clonenotsupportedexception) {
+		} catch (final CloneNotSupportedException clonenotsupportedexception) {
 			return null;
 		}
 		return stackmaptype;

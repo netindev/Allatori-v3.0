@@ -37,10 +37,12 @@ public final class Signature extends Attribute {
 		this.signature_index = signature_index;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitSignature(this);
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		super.dump(file);
 		file.writeShort(signature_index);
@@ -55,7 +57,7 @@ public final class Signature extends Attribute {
 	}
 
 	public final String getSignature() {
-		ConstantUtf8 c = ((ConstantUtf8) constant_pool.getConstant(signature_index, (byte) 1));
+		final ConstantUtf8 c = ((ConstantUtf8) constant_pool.getConstant(signature_index, (byte) 1));
 		return c.getBytes();
 	}
 
@@ -69,14 +71,14 @@ public final class Signature extends Attribute {
 			throw new RuntimeException(new StringBuilder().append("Illegal signature: ").append(in.getData())
 					.append(" no ident, reaching EOF").toString());
 		if (!identStart(ch)) {
-			StringBuffer buf2 = new StringBuffer();
+			final StringBuffer buf2 = new StringBuffer();
 			int count = 1;
 			for (/**/; Character.isJavaIdentifierPart((char) ch); ch = in.read()) {
 				buf2.append((char) ch);
 				count++;
 			}
 			if (ch == 58) {
-				in.skip((long) "Ljava/lang/Object".length());
+				in.skip("Ljava/lang/Object".length());
 				buf.append(buf2);
 				ch = in.read();
 				in.unread();
@@ -85,7 +87,7 @@ public final class Signature extends Attribute {
 					in.unread();
 			}
 		} else {
-			StringBuilder buf2 = new StringBuilder();
+			final StringBuilder buf2 = new StringBuilder();
 			ch = in.read();
 			do {
 				buf2.append((char) ch);
@@ -126,7 +128,7 @@ public final class Signature extends Attribute {
 	}
 
 	public static String translate(String s) {
-		StringBuffer buf = new StringBuffer();
+		final StringBuffer buf = new StringBuffer();
 		matchGJIdent(new MyByteArrayInputStream(s), buf);
 		return buf.toString();
 	}
@@ -139,11 +141,13 @@ public final class Signature extends Attribute {
 		return s.startsWith("L") && s.endsWith(">;");
 	}
 
+	@Override
 	public final String toString() {
-		String s = getSignature();
+		final String s = getSignature();
 		return new StringBuilder().append("Signature(").append(s).append(")").toString();
 	}
 
+	@Override
 	public Attribute copy(ConstantPool _constant_pool) {
 		return (Signature) clone();
 	}

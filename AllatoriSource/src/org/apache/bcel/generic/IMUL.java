@@ -7,6 +7,7 @@ public class IMUL extends ArithmeticInstruction {
 		super((short) 104);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

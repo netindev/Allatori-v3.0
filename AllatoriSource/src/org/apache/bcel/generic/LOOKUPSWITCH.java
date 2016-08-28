@@ -17,6 +17,7 @@ public class LOOKUPSWITCH extends Select {
 		fixed_length = length;
 	}
 
+	@Override
 	public void dump(DataOutputStream out) throws IOException {
 		super.dump(out);
 		out.writeInt(match_length);
@@ -26,6 +27,7 @@ public class LOOKUPSWITCH extends Select {
 		}
 	}
 
+	@Override
 	protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
 		super.initFromFile(bytes, wide);
 		match_length = bytes.readInt();
@@ -40,6 +42,7 @@ public class LOOKUPSWITCH extends Select {
 		}
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitVariableLengthInstruction(this);
 		v.visitStackConsumer(this);

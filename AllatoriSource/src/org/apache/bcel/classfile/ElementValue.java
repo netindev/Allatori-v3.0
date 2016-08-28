@@ -21,6 +21,7 @@ public abstract class ElementValue {
 	public static final int PRIMITIVE_SHORT = 83;
 	public static final int PRIMITIVE_BOOLEAN = 90;
 
+	@Override
 	public String toString() {
 		return stringifyValue();
 	}
@@ -39,7 +40,7 @@ public abstract class ElementValue {
 	public abstract void dump(DataOutputStream dataoutputstream) throws IOException;
 
 	public static ElementValue readElementValue(DataInputStream dis, ConstantPool cpool) throws IOException {
-		byte type = dis.readByte();
+		final byte type = dis.readByte();
 		switch (type) {
 		case 66:
 			return new SimpleElementValue(66, dis.readUnsignedShort(), cpool);
@@ -66,8 +67,8 @@ public abstract class ElementValue {
 		case 64:
 			return new AnnotationElementValue(64, AnnotationEntry.read(dis, cpool, false), cpool);
 		case 91: {
-			int numArrayVals = dis.readUnsignedShort();
-			ElementValue[] evalues = new ElementValue[numArrayVals];
+			final int numArrayVals = dis.readUnsignedShort();
+			final ElementValue[] evalues = new ElementValue[numArrayVals];
 			for (int j = 0; j < numArrayVals; j++)
 				evalues[j] = readElementValue(dis, cpool);
 			return new ArrayElementValue(91, evalues, cpool);

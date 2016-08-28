@@ -7,6 +7,7 @@ public class CALOAD extends ArrayInstruction implements StackProducer {
 		super((short) 52);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackProducer(this);
 		v.visitExceptionThrower(this);

@@ -11,6 +11,7 @@ public abstract class LoadInstruction extends LocalVariableInstruction implement
 		super(opcode, c_tag, n);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackProducer(this);
 		v.visitPushInstruction(this);

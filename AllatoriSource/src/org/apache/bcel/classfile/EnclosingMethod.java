@@ -19,10 +19,12 @@ public class EnclosingMethod extends Attribute {
 		methodIndex = methodIdx;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitEnclosingMethod(this);
 	}
 
+	@Override
 	public Attribute copy(ConstantPool constant_pool) {
 		throw new RuntimeException("Not implemented yet!");
 	}
@@ -44,17 +46,18 @@ public class EnclosingMethod extends Attribute {
 	}
 
 	public final ConstantClass getEnclosingClass() {
-		ConstantClass c = (ConstantClass) constant_pool.getConstant(classIndex, (byte) 7);
+		final ConstantClass c = (ConstantClass) constant_pool.getConstant(classIndex, (byte) 7);
 		return c;
 	}
 
 	public final ConstantNameAndType getEnclosingMethod() {
 		if (methodIndex == 0)
 			return null;
-		ConstantNameAndType nat = ((ConstantNameAndType) constant_pool.getConstant(methodIndex, (byte) 12));
+		final ConstantNameAndType nat = ((ConstantNameAndType) constant_pool.getConstant(methodIndex, (byte) 12));
 		return nat;
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		super.dump(file);
 		file.writeShort(classIndex);

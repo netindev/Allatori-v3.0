@@ -5,7 +5,7 @@ import org.apache.bcel.classfile.JavaClass;
 
 public class ObjectType extends ReferenceType {
 	private static final long serialVersionUID = -2819379966444533294L;
-	private String class_name;
+	private final String class_name;
 
 	public ObjectType(String class_name) {
 		super((byte) 14, new StringBuilder().append("L").append(class_name.replace('.', '/')).append(";").toString());
@@ -16,10 +16,12 @@ public class ObjectType extends ReferenceType {
 		return class_name;
 	}
 
+	@Override
 	public int hashCode() {
 		return class_name.hashCode();
 	}
 
+	@Override
 	public boolean equals(Object type) {
 		return (type instanceof ObjectType ? ((ObjectType) type).class_name.equals(class_name) : false);
 	}
@@ -27,12 +29,13 @@ public class ObjectType extends ReferenceType {
 	/**
 	 * @deprecated
 	 */
+	@Deprecated
 	public boolean referencesClass() {
 		boolean bool;
 		try {
-			JavaClass jc = Repository.lookupClass(class_name);
+			final JavaClass jc = Repository.lookupClass(class_name);
 			bool = jc.isClass();
-		} catch (ClassNotFoundException e) {
+		} catch (final ClassNotFoundException e) {
 			return false;
 		}
 		return bool;
@@ -41,24 +44,25 @@ public class ObjectType extends ReferenceType {
 	/**
 	 * @deprecated
 	 */
+	@Deprecated
 	public boolean referencesInterface() {
 		boolean bool;
 		try {
-			JavaClass jc = Repository.lookupClass(class_name);
+			final JavaClass jc = Repository.lookupClass(class_name);
 			bool = !jc.isClass();
-		} catch (ClassNotFoundException e) {
+		} catch (final ClassNotFoundException e) {
 			return false;
 		}
 		return bool;
 	}
 
 	public boolean referencesClassExact() throws ClassNotFoundException {
-		JavaClass jc = Repository.lookupClass(class_name);
+		final JavaClass jc = Repository.lookupClass(class_name);
 		return jc.isClass();
 	}
 
 	public boolean referencesInterfaceExact() throws ClassNotFoundException {
-		JavaClass jc = Repository.lookupClass(class_name);
+		final JavaClass jc = Repository.lookupClass(class_name);
 		return !jc.isClass();
 	}
 
@@ -69,10 +73,10 @@ public class ObjectType extends ReferenceType {
 	}
 
 	public boolean accessibleTo(ObjectType accessor) throws ClassNotFoundException {
-		JavaClass jc = Repository.lookupClass(class_name);
+		final JavaClass jc = Repository.lookupClass(class_name);
 		if (jc.isPublic())
 			return true;
-		JavaClass acc = Repository.lookupClass(accessor.class_name);
+		final JavaClass acc = Repository.lookupClass(accessor.class_name);
 		return acc.getPackageName().equals(jc.getPackageName());
 	}
 }

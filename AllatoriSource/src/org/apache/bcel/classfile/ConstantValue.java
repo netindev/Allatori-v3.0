@@ -21,10 +21,12 @@ public final class ConstantValue extends Attribute {
 		this.constantvalue_index = constantvalue_index;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitConstantValue(this);
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		super.dump(file);
 		file.writeShort(constantvalue_index);
@@ -38,6 +40,7 @@ public final class ConstantValue extends Attribute {
 		this.constantvalue_index = constantvalue_index;
 	}
 
+	@Override
 	public final String toString() {
 		Constant c = constant_pool.getConstant(constantvalue_index);
 		String buf;
@@ -55,7 +58,7 @@ public final class ConstantValue extends Attribute {
 			buf = String.valueOf(((ConstantInteger) c).getBytes());
 			break;
 		case 8: {
-			int i = ((ConstantString) c).getStringIndex();
+			final int i = ((ConstantString) c).getStringIndex();
 			c = constant_pool.getConstant(i, (byte) 1);
 			buf = new StringBuilder().append("\"").append(Utility.convertString(((ConstantUtf8) c).getBytes()))
 					.append("\"").toString();
@@ -68,8 +71,9 @@ public final class ConstantValue extends Attribute {
 		return buf;
 	}
 
+	@Override
 	public Attribute copy(ConstantPool _constant_pool) {
-		ConstantValue c = (ConstantValue) clone();
+		final ConstantValue c = (ConstantValue) clone();
 		c.constant_pool = _constant_pool;
 		return c;
 	}

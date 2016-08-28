@@ -24,6 +24,7 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
 		this.constant_pool = constant_pool;
 	}
 
+	@Override
 	public abstract void accept(Visitor visitor);
 
 	public void dump(DataOutputStream file) throws IOException {
@@ -42,10 +43,10 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
 	public static final Attribute readAttribute(DataInputStream file, ConstantPool constant_pool)
 			throws IOException, ClassFormatException {
 		byte tag = -1;
-		int name_index = file.readUnsignedShort();
-		ConstantUtf8 c = (ConstantUtf8) constant_pool.getConstant(name_index, (byte) 1);
-		String name = c.getBytes();
-		int length = file.readInt();
+		final int name_index = file.readUnsignedShort();
+		final ConstantUtf8 c = (ConstantUtf8) constant_pool.getConstant(name_index, (byte) 1);
+		final String name = c.getBytes();
+		final int length = file.readInt();
 		for (byte i = 0; i < 20; i++) {
 			if (name.equals(Constants.ATTRIBUTE_NAMES[i])) {
 				tag = i;
@@ -54,7 +55,7 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
 		}
 		switch (tag) {
 		case -1: {
-			AttributeReader r = (AttributeReader) readers.get(name);
+			final AttributeReader r = (AttributeReader) readers.get(name);
 			if (r != null)
 				return r.createAttribute(name_index, length, file, constant_pool);
 			return new Unknown(name_index, length, file, constant_pool);
@@ -106,7 +107,7 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
 	}
 
 	public String getName() {
-		ConstantUtf8 c = (ConstantUtf8) constant_pool.getConstant(name_index, (byte) 1);
+		final ConstantUtf8 c = (ConstantUtf8) constant_pool.getConstant(name_index, (byte) 1);
 		return c.getBytes();
 	}
 
@@ -138,11 +139,12 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
 		this.constant_pool = constant_pool;
 	}
 
+	@Override
 	public Object clone() {
 		Object o = null;
 		try {
 			o = super.clone();
-		} catch (CloneNotSupportedException e) {
+		} catch (final CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
 		return o;
@@ -150,6 +152,7 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
 
 	public abstract Attribute copy(ConstantPool constantpool);
 
+	@Override
 	public String toString() {
 		return Constants.ATTRIBUTE_NAMES[tag];
 	}

@@ -7,7 +7,7 @@ import org.apache.bcel.classfile.AnnotationElementValue;
 import org.apache.bcel.classfile.ElementValue;
 
 public class AnnotationElementValueGen extends ElementValueGen {
-	private AnnotationEntryGen annotationEntryGen;
+	private final AnnotationEntryGen annotationEntryGen;
 
 	public AnnotationElementValueGen(AnnotationEntryGen annotationEntryGen, ConstantPoolGen cpool) {
 		super(64, cpool);
@@ -28,15 +28,18 @@ public class AnnotationElementValueGen extends ElementValueGen {
 		annotationEntryGen = new AnnotationEntryGen(value.getAnnotationEntry(), cpool, copyPoolEntries);
 	}
 
+	@Override
 	public void dump(DataOutputStream dos) throws IOException {
 		dos.writeByte(type);
 		annotationEntryGen.dump(dos);
 	}
 
+	@Override
 	public String stringifyValue() {
 		throw new RuntimeException("Not implemented yet");
 	}
 
+	@Override
 	public ElementValue getElementValue() {
 		return new AnnotationElementValue(type, annotationEntryGen.getAnnotation(), cpGen.getConstantPool());
 	}

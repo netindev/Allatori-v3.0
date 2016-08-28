@@ -7,6 +7,7 @@ public class I2L extends ConversionInstruction {
 		super((short) 133);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

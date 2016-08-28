@@ -11,6 +11,7 @@ public class ASTORE extends StoreInstruction {
 		super((short) 58, (short) 75, n);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		super.accept(v);
 		v.visitASTORE(this);

@@ -23,6 +23,7 @@ public final class INVOKEINTERFACE extends InvokeInstruction {
 		this.nargs = nargs;
 	}
 
+	@Override
 	public void dump(DataOutputStream out) throws IOException {
 		out.writeByte(opcode);
 		out.writeShort(index);
@@ -34,6 +35,7 @@ public final class INVOKEINTERFACE extends InvokeInstruction {
 		return nargs;
 	}
 
+	@Override
 	protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
 		super.initFromFile(bytes, wide);
 		length = (short) 5;
@@ -41,16 +43,19 @@ public final class INVOKEINTERFACE extends InvokeInstruction {
 		bytes.readByte();
 	}
 
+	@Override
 	public String toString(ConstantPool cp) {
 		return new StringBuilder().append(super.toString(cp)).append(" ").append(nargs).toString();
 	}
 
+	@Override
 	public int consumeStack(ConstantPoolGen cpg) {
 		return nargs;
 	}
 
+	@Override
 	public Class[] getExceptions() {
-		Class[] cs = new Class[4 + (ExceptionConstants.EXCS_INTERFACE_METHOD_RESOLUTION).length];
+		final Class[] cs = new Class[4 + (ExceptionConstants.EXCS_INTERFACE_METHOD_RESOLUTION).length];
 		System.arraycopy(ExceptionConstants.EXCS_INTERFACE_METHOD_RESOLUTION, 0, cs, 0,
 				(ExceptionConstants.EXCS_INTERFACE_METHOD_RESOLUTION).length);
 		cs[ExceptionConstants.EXCS_INTERFACE_METHOD_RESOLUTION.length
@@ -61,6 +66,7 @@ public final class INVOKEINTERFACE extends InvokeInstruction {
 		return cs;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitExceptionThrower(this);
 		v.visitTypedInstruction(this);

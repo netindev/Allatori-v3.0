@@ -4,10 +4,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class ArrayElementValue extends ElementValue {
-	private ElementValue[] evalues;
+	private final ElementValue[] evalues;
 
+	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("{");
 		for (int i = 0; i < evalues.length; i++) {
 			sb.append(evalues[i].toString());
@@ -27,6 +28,7 @@ public class ArrayElementValue extends ElementValue {
 		evalues = datums;
 	}
 
+	@Override
 	public void dump(DataOutputStream dos) throws IOException {
 		dos.writeByte(type);
 		dos.writeShort(evalues.length);
@@ -34,8 +36,9 @@ public class ArrayElementValue extends ElementValue {
 			evalues[i].dump(dos);
 	}
 
+	@Override
 	public String stringifyValue() {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		sb.append("[");
 		for (int i = 0; i < evalues.length; i++) {
 			sb.append(evalues[i].stringifyValue());

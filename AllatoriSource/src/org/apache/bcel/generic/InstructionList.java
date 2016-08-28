@@ -42,8 +42,8 @@ public class InstructionList implements Serializable {
 	public static InstructionHandle findHandle(InstructionHandle[] ihs, int[] pos, int count, int target) {
 		int l = 0, r = count - 1;
 		do {
-			int i = (l + r) / 2;
-			int j = pos[i];
+			final int i = (l + r) / 2;
+			final int j = pos[i];
 			if (j == target) {
 				return ihs[i];
 			} else if (target < j) {
@@ -56,20 +56,20 @@ public class InstructionList implements Serializable {
 	}
 
 	public InstructionHandle findHandle(int pos) {
-		InstructionHandle[] ihs = getInstructionHandles();
+		final InstructionHandle[] ihs = getInstructionHandles();
 		return findHandle(ihs, byte_positions, length, pos);
 	}
 
 	public InstructionList(byte[] code) {
-		ByteSequence bytes = new ByteSequence(code);
-		InstructionHandle[] ihs = new InstructionHandle[code.length];
-		int[] pos = new int[code.length];
+		final ByteSequence bytes = new ByteSequence(code);
+		final InstructionHandle[] ihs = new InstructionHandle[code.length];
+		final int[] pos = new int[code.length];
 		int count = 0;
 		try {
 			while (bytes.available() > 0) {
-				int off = bytes.getIndex();
+				final int off = bytes.getIndex();
 				pos[count] = off;
-				Instruction i = Instruction.readInstruction(bytes);
+				final Instruction i = Instruction.readInstruction(bytes);
 				InstructionHandle ih;
 				if (i instanceof BranchInstruction) {
 					ih = append((BranchInstruction) i);
@@ -80,14 +80,14 @@ public class InstructionList implements Serializable {
 				ihs[count] = ih;
 				count++;
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			throw new ClassGenException(e.toString());
 		}
 		byte_positions = new int[count];
 		System.arraycopy(pos, 0, byte_positions, 0, count);
 		for (int i = 0; i < count; i++) {
 			if (ihs[i] instanceof BranchHandle) {
-				BranchInstruction bi = (BranchInstruction) ihs[i].instruction;
+				final BranchInstruction bi = (BranchInstruction) ihs[i].instruction;
 				int target = bi.position + bi.getIndex();
 				InstructionHandle ih = findHandle(ihs, pos, count, target);
 				if (ih == null) {
@@ -95,8 +95,8 @@ public class InstructionList implements Serializable {
 				}
 				bi.setTarget(ih);
 				if (bi instanceof Select) {
-					Select s = (Select) bi;
-					int[] indices = s.getIndices();
+					final Select s = (Select) bi;
+					final int[] indices = s.getIndices();
 					for (int j = 0; j < indices.length; j++) {
 						target = bi.position + indices[j];
 						ih = findHandle(ihs, pos, count, target);
@@ -117,7 +117,7 @@ public class InstructionList implements Serializable {
 		if (il.isEmpty()) {
 			return ih;
 		}
-		InstructionHandle next = ih.next, ret = il.start;
+		final InstructionHandle next = ih.next, ret = il.start;
 		ih.next = il.start;
 		il.start.prev = ih;
 		il.end.next = next;
@@ -130,7 +130,7 @@ public class InstructionList implements Serializable {
 		il.clear();
 		return ret;
 	}
-	
+
 	public InstructionHandle append(Instruction i, InstructionList il) {
 		InstructionHandle ih;
 		if ((ih = findInstruction2(i)) == null) {
@@ -156,7 +156,7 @@ public class InstructionList implements Serializable {
 			return append(end, il);
 		}
 	}
-	
+
 	private void append(InstructionHandle ih) {
 		if (isEmpty()) {
 			start = end = ih;
@@ -171,13 +171,13 @@ public class InstructionList implements Serializable {
 	}
 
 	public InstructionHandle append(Instruction i) {
-		InstructionHandle ih = InstructionHandle.getInstructionHandle(i);
+		final InstructionHandle ih = InstructionHandle.getInstructionHandle(i);
 		append(ih);
 		return ih;
 	}
 
 	public BranchHandle append(BranchInstruction i) {
-		BranchHandle ih = BranchHandle.getBranchHandle(i);
+		final BranchHandle ih = BranchHandle.getBranchHandle(i);
 		append(ih);
 		return ih;
 	}
@@ -203,8 +203,8 @@ public class InstructionList implements Serializable {
 	}
 
 	public BranchHandle append(InstructionHandle ih, BranchInstruction i) {
-		BranchHandle bh = BranchHandle.getBranchHandle(i);
-		InstructionList il = new InstructionList();
+		final BranchHandle bh = BranchHandle.getBranchHandle(i);
+		final InstructionList il = new InstructionList();
 		il.append(bh);
 		append(ih, il);
 		return bh;
@@ -217,7 +217,7 @@ public class InstructionList implements Serializable {
 		if (il.isEmpty()) {
 			return ih;
 		}
-		InstructionHandle prev = ih.prev, ret = il.start;
+		final InstructionHandle prev = ih.prev, ret = il.start;
 		ih.prev = il.end;
 		il.end.next = ih;
 		il.start.prev = prev;
@@ -262,13 +262,13 @@ public class InstructionList implements Serializable {
 	}
 
 	public InstructionHandle insert(Instruction i) {
-		InstructionHandle ih = InstructionHandle.getInstructionHandle(i);
+		final InstructionHandle ih = InstructionHandle.getInstructionHandle(i);
 		insert(ih);
 		return ih;
 	}
 
 	public BranchHandle insert(BranchInstruction i) {
-		BranchHandle ih = BranchHandle.getBranchHandle(i);
+		final BranchHandle ih = BranchHandle.getBranchHandle(i);
 		insert(ih);
 		return ih;
 	}
@@ -294,8 +294,8 @@ public class InstructionList implements Serializable {
 	}
 
 	public BranchHandle insert(InstructionHandle ih, BranchInstruction i) {
-		BranchHandle bh = BranchHandle.getBranchHandle(i);
-		InstructionList il = new InstructionList();
+		final BranchHandle bh = BranchHandle.getBranchHandle(i);
+		final InstructionList il = new InstructionList();
 		il.append(bh);
 		insert(ih, il);
 		return bh;
@@ -316,7 +316,8 @@ public class InstructionList implements Serializable {
 						"Invalid range: From " + start + " to " + end + " contains target " + target);
 			}
 		}
-		InstructionHandle prev = start.prev, next = end.next;
+		final InstructionHandle prev = start.prev;
+		InstructionHandle next = end.next;
 		if (prev != null) {
 			prev.next = next;
 		} else {
@@ -374,11 +375,11 @@ public class InstructionList implements Serializable {
 		}
 		first.prev = null;
 		last.next = null;
-		List target_vec = new ArrayList();
+		final List target_vec = new ArrayList();
 		for (InstructionHandle ih = first; ih != null; ih = ih.next) {
 			ih.getInstruction().dispose();
 		}
-		StringBuffer buf = new StringBuffer("{ ");
+		final StringBuffer buf = new StringBuffer("{ ");
 		for (InstructionHandle ih = first; ih != null; ih = next) {
 			next = ih.next;
 			length--;
@@ -392,7 +393,7 @@ public class InstructionList implements Serializable {
 		}
 		buf.append("}");
 		if (!target_vec.isEmpty()) {
-			InstructionHandle[] targeted = new InstructionHandle[target_vec.size()];
+			final InstructionHandle[] targeted = new InstructionHandle[target_vec.size()];
 			target_vec.toArray(targeted);
 			throw new TargetLostException(targeted, buf.toString());
 		}
@@ -466,10 +467,10 @@ public class InstructionList implements Serializable {
 	public void setPositions(boolean check) {
 		int max_additional_bytes = 0, additional_bytes = 0;
 		int index = 0, count = 0;
-		int[] pos = new int[length];
+		final int[] pos = new int[length];
 		if (check) {
 			for (InstructionHandle ih = start; ih != null; ih = ih.next) {
-				Instruction i = ih.instruction;
+				final Instruction i = ih.instruction;
 				if (i instanceof BranchInstruction) {
 					Instruction inst = ((BranchInstruction) i).getTarget().instruction;
 					if (!contains(inst)) {
@@ -477,7 +478,7 @@ public class InstructionList implements Serializable {
 								+ " not in instruction list");
 					}
 					if (i instanceof Select) {
-						InstructionHandle[] targets = ((Select) i).getTargets();
+						final InstructionHandle[] targets = ((Select) i).getTargets();
 						for (int j = 0; j < targets.length; j++) {
 							inst = targets[j].instruction;
 							if (!contains(inst)) {
@@ -494,7 +495,7 @@ public class InstructionList implements Serializable {
 			}
 		}
 		for (InstructionHandle ih = start; ih != null; ih = ih.next) {
-			Instruction i = ih.instruction;
+			final Instruction i = ih.instruction;
 			ih.setPosition(index);
 			pos[count++] = index;
 			switch (i.getOpcode()) {
@@ -514,7 +515,7 @@ public class InstructionList implements Serializable {
 		}
 		index = count = 0;
 		for (InstructionHandle ih = start; ih != null; ih = ih.next) {
-			Instruction i = ih.instruction;
+			final Instruction i = ih.instruction;
 			ih.setPosition(index);
 			pos[count++] = index;
 			index += i.getLength();
@@ -525,68 +526,72 @@ public class InstructionList implements Serializable {
 
 	public byte[] getByteCode() {
 		setPositions();
-		ByteArrayOutputStream b = new ByteArrayOutputStream();
-		DataOutputStream out = new DataOutputStream(b);
+		final ByteArrayOutputStream b = new ByteArrayOutputStream();
+		final DataOutputStream out = new DataOutputStream(b);
 		try {
 			for (InstructionHandle ih = start; ih != null; ih = ih.next) {
-				Instruction i = ih.instruction;
+				final Instruction i = ih.instruction;
 				i.dump(out);
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			System.err.println(e);
 			return null;
 		}
 		return b.toByteArray();
 	}
-	
+
 	public Instruction[] getInstructions() {
-		ByteSequence bytes = new ByteSequence(getByteCode());
-		List instructions = new ArrayList();
+		final ByteSequence bytes = new ByteSequence(getByteCode());
+		final List instructions = new ArrayList();
 		try {
 			while (bytes.available() > 0) {
 				instructions.add(Instruction.readInstruction(bytes));
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			throw new ClassGenException(e.toString());
 		}
 		return (Instruction[]) instructions.toArray(new Instruction[instructions.size()]);
 	}
 
+	@Override
 	public String toString() {
 		return toString(true);
 	}
-	
+
 	public String toString(boolean verbose) {
-		StringBuffer buf = new StringBuffer();
+		final StringBuffer buf = new StringBuffer();
 		for (InstructionHandle ih = start; ih != null; ih = ih.next) {
 			buf.append(ih.toString(verbose)).append("\n");
 		}
 		return buf.toString();
 	}
-	
+
 	public Iterator iterator() {
 		return new Iterator() {
 
 			private InstructionHandle ih = start;
 
+			@Override
 			public Object next() {
-				InstructionHandle i = ih;
+				final InstructionHandle i = ih;
 				ih = ih.next;
 				return i;
 			}
 
+			@Override
 			public void remove() {
 				throw new UnsupportedOperationException();
 			}
 
+			@Override
 			public boolean hasNext() {
 				return ih != null;
 			}
 		};
 	}
-	
+
 	public InstructionHandle[] getInstructionHandles() {
-		InstructionHandle[] ihs = new InstructionHandle[length];
+		final InstructionHandle[] ihs = new InstructionHandle[length];
 		InstructionHandle ih = start;
 		for (int i = 0; i < length; i++) {
 			ihs[i] = ih;
@@ -594,17 +599,17 @@ public class InstructionList implements Serializable {
 		}
 		return ihs;
 	}
-	
+
 	public int[] getInstructionPositions() {
 		return byte_positions;
 	}
-	
+
 	public InstructionList copy() {
-		Map map = new HashMap();
-		InstructionList il = new InstructionList();
+		final Map map = new HashMap();
+		final InstructionList il = new InstructionList();
 		for (InstructionHandle ih = start; ih != null; ih = ih.next) {
-			Instruction i = ih.instruction;
-			Instruction c = i.copy(); // Use clone for shallow copy
+			final Instruction i = ih.instruction;
+			final Instruction c = i.copy(); // Use clone for shallow copy
 			if (c instanceof BranchInstruction) {
 				map.put(ih, il.append((BranchInstruction) c));
 			} else {
@@ -614,16 +619,16 @@ public class InstructionList implements Serializable {
 		InstructionHandle ih = start;
 		InstructionHandle ch = il.start;
 		while (ih != null) {
-			Instruction i = ih.instruction;
-			Instruction c = ch.instruction;
+			final Instruction i = ih.instruction;
+			final Instruction c = ch.instruction;
 			if (i instanceof BranchInstruction) {
-				BranchInstruction bi = (BranchInstruction) i;
-				BranchInstruction bc = (BranchInstruction) c;
-				InstructionHandle itarget = bi.getTarget();
+				final BranchInstruction bi = (BranchInstruction) i;
+				final BranchInstruction bc = (BranchInstruction) c;
+				final InstructionHandle itarget = bi.getTarget();
 				bc.setTarget((InstructionHandle) map.get(itarget));
 				if (bi instanceof Select) {
-					InstructionHandle[] itargets = ((Select) bi).getTargets();
-					InstructionHandle[] ctargets = ((Select) bc).getTargets();
+					final InstructionHandle[] itargets = ((Select) bi).getTargets();
+					final InstructionHandle[] ctargets = ((Select) bc).getTargets();
 					for (int j = 0; j < itargets.length; j++) {
 						ctargets[j] = (InstructionHandle) map.get(itargets[j]);
 					}
@@ -634,13 +639,13 @@ public class InstructionList implements Serializable {
 		}
 		return il;
 	}
-	
+
 	public void replaceConstantPool(ConstantPoolGen old_cp, ConstantPoolGen new_cp) {
 		for (InstructionHandle ih = start; ih != null; ih = ih.next) {
-			Instruction i = ih.instruction;
+			final Instruction i = ih.instruction;
 			if (i instanceof CPInstruction) {
-				CPInstruction ci = (CPInstruction) i;
-				Constant c = old_cp.getConstant(ci.getIndex());
+				final CPInstruction ci = (CPInstruction) i;
+				final Constant c = old_cp.getConstant(ci.getIndex());
 				ci.setIndex(new_cp.addConstant(c, old_cp));
 			}
 		}
@@ -650,41 +655,41 @@ public class InstructionList implements Serializable {
 		start = end = null;
 		length = 0;
 	}
-	
+
 	public void dispose() {
 		for (InstructionHandle ih = end; ih != null; ih = ih.prev) {
 			ih.dispose();
 		}
 		clear();
 	}
-	
+
 	public InstructionHandle getStart() {
 		return start;
 	}
-	
+
 	public InstructionHandle getEnd() {
 		return end;
 	}
-	
+
 	public int getLength() {
 		return length;
 	}
-	
+
 	public int size() {
 		return length;
 	}
-	
+
 	public void redirectBranches(InstructionHandle old_target, InstructionHandle new_target) {
 		for (InstructionHandle ih = start; ih != null; ih = ih.next) {
-			Instruction i = ih.getInstruction();
+			final Instruction i = ih.getInstruction();
 			if (i instanceof BranchInstruction) {
-				BranchInstruction b = (BranchInstruction) i;
-				InstructionHandle target = b.getTarget();
+				final BranchInstruction b = (BranchInstruction) i;
+				final InstructionHandle target = b.getTarget();
 				if (target == old_target) {
 					b.setTarget(new_target);
 				}
 				if (b instanceof Select) {
-					InstructionHandle[] targets = ((Select) b).getTargets();
+					final InstructionHandle[] targets = ((Select) b).getTargets();
 					for (int j = 0; j < targets.length; j++) {
 						if (targets[j] == old_target) {
 							((Select) b).setTarget(j, new_target);
@@ -694,12 +699,12 @@ public class InstructionList implements Serializable {
 			}
 		}
 	}
-	
+
 	public void redirectLocalVariables(LocalVariableGen[] lg, InstructionHandle old_target,
 			InstructionHandle new_target) {
 		for (int i = 0; i < lg.length; i++) {
-			InstructionHandle start = lg[i].getStart();
-			InstructionHandle end = lg[i].getEnd();
+			final InstructionHandle start = lg[i].getStart();
+			final InstructionHandle end = lg[i].getEnd();
 			if (start == old_target) {
 				lg[i].setStart(new_target);
 			}
@@ -708,7 +713,7 @@ public class InstructionList implements Serializable {
 			}
 		}
 	}
-	
+
 	public void redirectExceptionHandlers(CodeExceptionGen[] exceptions, InstructionHandle old_target,
 			InstructionHandle new_target) {
 		for (int i = 0; i < exceptions.length; i++) {
@@ -725,23 +730,23 @@ public class InstructionList implements Serializable {
 	}
 
 	private List observers;
-	
+
 	public void addObserver(InstructionListObserver o) {
 		if (observers == null) {
 			observers = new ArrayList();
 		}
 		observers.add(o);
 	}
-	
+
 	public void removeObserver(InstructionListObserver o) {
 		if (observers != null) {
 			observers.remove(o);
 		}
 	}
-	
+
 	public void update() {
 		if (observers != null) {
-			for (Iterator e = observers.iterator(); e.hasNext();) {
+			for (final Iterator e = observers.iterator(); e.hasNext();) {
 				((InstructionListObserver) e.next()).notify(this);
 			}
 		}

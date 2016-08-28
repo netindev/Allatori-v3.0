@@ -10,10 +10,12 @@ public class IF_ICMPNE extends IfInstruction {
 		super((short) 160, target);
 	}
 
+	@Override
 	public IfInstruction negate() {
 		return new IF_ICMPEQ(target);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackConsumer(this);
 		v.visitBranchInstruction(this);

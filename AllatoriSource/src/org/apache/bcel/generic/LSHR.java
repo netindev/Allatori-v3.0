@@ -7,6 +7,7 @@ public class LSHR extends ArithmeticInstruction {
 		super((short) 123);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

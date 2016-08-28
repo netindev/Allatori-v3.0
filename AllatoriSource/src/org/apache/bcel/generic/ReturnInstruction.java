@@ -32,10 +32,12 @@ public abstract class ReturnInstruction extends Instruction
 		}
 	}
 
+	@Override
 	public Class[] getExceptions() {
 		return new Class[] { ExceptionConstants.ILLEGAL_MONITOR_STATE };
 	}
 
+	@Override
 	public Type getType(ConstantPoolGen cp) {
 		return getType();
 	}

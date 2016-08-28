@@ -10,10 +10,12 @@ public class IFNONNULL extends IfInstruction {
 		super((short) 199, target);
 	}
 
+	@Override
 	public IfInstruction negate() {
 		return new IFNULL(target);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackConsumer(this);
 		v.visitBranchInstruction(this);

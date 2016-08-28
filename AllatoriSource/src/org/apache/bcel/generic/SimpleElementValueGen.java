@@ -115,6 +115,7 @@ public class SimpleElementValueGen extends ElementValueGen {
 		}
 	}
 
+	@Override
 	public ElementValue getElementValue() {
 		return new SimpleElementValue(type, idx, cpGen.getConstantPool());
 	}
@@ -126,55 +127,56 @@ public class SimpleElementValueGen extends ElementValueGen {
 	public String getValueString() {
 		if (type != 115)
 			throw new RuntimeException("Dont call getValueString() on a non STRING ElementValue");
-		ConstantUtf8 c = (ConstantUtf8) cpGen.getConstant(idx);
+		final ConstantUtf8 c = (ConstantUtf8) cpGen.getConstant(idx);
 		return c.getBytes();
 	}
 
 	public int getValueInt() {
 		if (type != 73)
 			throw new RuntimeException("Dont call getValueString() on a non STRING ElementValue");
-		ConstantInteger c = (ConstantInteger) cpGen.getConstant(idx);
+		final ConstantInteger c = (ConstantInteger) cpGen.getConstant(idx);
 		return c.getBytes();
 	}
 
+	@Override
 	public String stringifyValue() {
 		switch (type) {
 		case 73: {
-			ConstantInteger c = (ConstantInteger) cpGen.getConstant(idx);
+			final ConstantInteger c = (ConstantInteger) cpGen.getConstant(idx);
 			return Integer.toString(c.getBytes());
 		}
 		case 74: {
-			ConstantLong j = (ConstantLong) cpGen.getConstant(idx);
+			final ConstantLong j = (ConstantLong) cpGen.getConstant(idx);
 			return Long.toString(j.getBytes());
 		}
 		case 68: {
-			ConstantDouble d = (ConstantDouble) cpGen.getConstant(idx);
+			final ConstantDouble d = (ConstantDouble) cpGen.getConstant(idx);
 			return Double.toString(d.getBytes());
 		}
 		case 70: {
-			ConstantFloat f = (ConstantFloat) cpGen.getConstant(idx);
+			final ConstantFloat f = (ConstantFloat) cpGen.getConstant(idx);
 			return Float.toString(f.getBytes());
 		}
 		case 83: {
-			ConstantInteger s = (ConstantInteger) cpGen.getConstant(idx);
+			final ConstantInteger s = (ConstantInteger) cpGen.getConstant(idx);
 			return Integer.toString(s.getBytes());
 		}
 		case 66: {
-			ConstantInteger b = (ConstantInteger) cpGen.getConstant(idx);
+			final ConstantInteger b = (ConstantInteger) cpGen.getConstant(idx);
 			return Integer.toString(b.getBytes());
 		}
 		case 67: {
-			ConstantInteger ch = (ConstantInteger) cpGen.getConstant(idx);
+			final ConstantInteger ch = (ConstantInteger) cpGen.getConstant(idx);
 			return Integer.toString(ch.getBytes());
 		}
 		case 90: {
-			ConstantInteger bo = (ConstantInteger) cpGen.getConstant(idx);
+			final ConstantInteger bo = (ConstantInteger) cpGen.getConstant(idx);
 			if (bo.getBytes() == 0)
 				return "false";
 			return "true";
 		}
 		case 115: {
-			ConstantUtf8 cu8 = (ConstantUtf8) cpGen.getConstant(idx);
+			final ConstantUtf8 cu8 = (ConstantUtf8) cpGen.getConstant(idx);
 			return cu8.getBytes();
 		}
 		default:
@@ -184,6 +186,7 @@ public class SimpleElementValueGen extends ElementValueGen {
 		}
 	}
 
+	@Override
 	public void dump(DataOutputStream dos) throws IOException {
 		dos.writeByte(type);
 		switch (type) {

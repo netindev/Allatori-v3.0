@@ -2,11 +2,12 @@ package org.apache.bcel.generic;
 
 public interface InstructionComparator {
 	public static final InstructionComparator DEFAULT = new InstructionComparator() {
+		@Override
 		public boolean equals(Instruction i1, Instruction i2) {
 			if (i1.opcode == i2.opcode) {
 				if (i1 instanceof Select) {
-					InstructionHandle[] t1 = ((Select) i1).getTargets();
-					InstructionHandle[] t2 = ((Select) i2).getTargets();
+					final InstructionHandle[] t1 = ((Select) i1).getTargets();
+					final InstructionHandle[] t2 = ((Select) i2).getTargets();
 					if (t1.length == t2.length) {
 						for (int i = 0; i < t1.length; i++) {
 							if (t1[i] != t2[i])

@@ -7,6 +7,7 @@ public class BREAKPOINT extends Instruction {
 		super((short) 202, (short) 1);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitBREAKPOINT(this);
 	}

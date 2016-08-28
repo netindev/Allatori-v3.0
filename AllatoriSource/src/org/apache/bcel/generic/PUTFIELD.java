@@ -12,12 +12,14 @@ public class PUTFIELD extends FieldInstruction implements PopInstruction, Except
 		super((short) 181, index);
 	}
 
+	@Override
 	public int consumeStack(ConstantPoolGen cpg) {
 		return getFieldSize(cpg) + 1;
 	}
 
+	@Override
 	public Class[] getExceptions() {
-		Class[] cs = new Class[2 + (ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION).length];
+		final Class[] cs = new Class[2 + (ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION).length];
 		System.arraycopy(ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION, 0, cs, 0,
 				(ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION).length);
 		cs[ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION.length
@@ -26,6 +28,7 @@ public class PUTFIELD extends FieldInstruction implements PopInstruction, Except
 		return cs;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitExceptionThrower(this);
 		v.visitStackConsumer(this);

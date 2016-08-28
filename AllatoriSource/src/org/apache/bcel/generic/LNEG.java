@@ -7,6 +7,7 @@ public class LNEG extends ArithmeticInstruction {
 		super((short) 117);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

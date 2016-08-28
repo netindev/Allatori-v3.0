@@ -1,32 +1,29 @@
 package com.allatori;
 
-public class Class105 implements Interface22 {
-	
-	// arryn
-	
-    private String aString1162 = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
-    private long aLong1163;
-    private int anInt1164;
+public class ObfuscationStyle implements Interface22 {
 
+	private final String obfuscationStyle = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
+	private long pLong;
+	private final int obfuscationStyleLength;
 
-    public Class105() {
-        this.anInt1164 = this.aString1162.length();
-        this.aLong1163 = 0L;
-    }
+	public ObfuscationStyle() {
+		this.obfuscationStyleLength = this.obfuscationStyle.length();
+		this.pLong = 0L;
+	}
 
-    public void method263() {
-        this.aLong1163 = 0L;
-    }
+	@Override
+	public void method263() {
+		this.pLong = 0L;
+	}
 
-    public String method262() {
-        String var1 = "";
-        long var2 = this.aLong1163;
-
-        do {
-            var1 = var1 + this.aString1162.charAt((int) (var2 % (long) this.anInt1164));
-        } while ((var2 /= (long) this.anInt1164) > 0L);
-
-        ++this.aLong1163;
-        return var1;
-    }
+	@Override
+	public String method262() {
+		String emptyString = "";
+		long lLong = this.pLong;
+		do {
+			emptyString = emptyString + this.obfuscationStyle.charAt((int) (lLong % this.obfuscationStyleLength));
+		} while ((lLong /= this.obfuscationStyleLength) > 0L);
+		++this.pLong;
+		return emptyString;
+	}
 }

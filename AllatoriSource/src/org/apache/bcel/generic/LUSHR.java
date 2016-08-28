@@ -7,6 +7,7 @@ public class LUSHR extends ArithmeticInstruction {
 		super((short) 125);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

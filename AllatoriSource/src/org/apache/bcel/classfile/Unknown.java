@@ -9,11 +9,11 @@ import java.util.Map;
 public final class Unknown extends Attribute {
 	private static final long serialVersionUID = -4099655108069755015L;
 	private byte[] bytes;
-	private String name;
+	private final String name;
 	private static final Map unknown_attributes = new HashMap();
 
 	static Unknown[] getUnknownAttributes() {
-		Unknown[] unknowns = new Unknown[unknown_attributes.size()];
+		final Unknown[] unknowns = new Unknown[unknown_attributes.size()];
 		unknown_attributes.values().toArray(unknowns);
 		unknown_attributes.clear();
 		return unknowns;
@@ -38,10 +38,12 @@ public final class Unknown extends Attribute {
 		}
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitUnknown(this);
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		super.dump(file);
 		if (length > 0)
@@ -52,6 +54,7 @@ public final class Unknown extends Attribute {
 		return bytes;
 	}
 
+	@Override
 	public final String getName() {
 		return name;
 	}
@@ -60,12 +63,13 @@ public final class Unknown extends Attribute {
 		this.bytes = bytes;
 	}
 
+	@Override
 	public final String toString() {
 		if (length == 0 || bytes == null)
 			return new StringBuilder().append("(Unknown attribute ").append(name).append(")").toString();
 		String hex;
 		if (length > 10) {
-			byte[] tmp = new byte[10];
+			final byte[] tmp = new byte[10];
 			System.arraycopy(bytes, 0, tmp, 0, 10);
 			hex = new StringBuilder().append(Utility.toHexString(tmp)).append("... (truncated)").toString();
 		} else
@@ -74,8 +78,9 @@ public final class Unknown extends Attribute {
 				.toString();
 	}
 
+	@Override
 	public Attribute copy(ConstantPool _constant_pool) {
-		Unknown c = (Unknown) clone();
+		final Unknown c = (Unknown) clone();
 		if (bytes != null) {
 			c.bytes = new byte[bytes.length];
 			System.arraycopy(bytes, 0, c.bytes, 0, bytes.length);

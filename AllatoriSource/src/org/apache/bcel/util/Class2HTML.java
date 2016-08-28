@@ -14,37 +14,37 @@ import org.apache.bcel.classfile.Method;
 import org.apache.bcel.classfile.Utility;
 
 public class Class2HTML implements Constants {
-	private JavaClass java_class;
-	private String dir;
+	private final JavaClass java_class;
+	private final String dir;
 	private static String class_package;
 	private static String class_name;
 	private static ConstantPool constant_pool;
 
 	public Class2HTML(JavaClass java_class, String dir) throws IOException {
-		Method[] methods = java_class.getMethods();
+		final Method[] methods = java_class.getMethods();
 		this.java_class = java_class;
 		this.dir = dir;
 		class_name = java_class.getClassName();
 		constant_pool = java_class.getConstantPool();
-		int index = class_name.lastIndexOf('.');
+		final int index = class_name.lastIndexOf('.');
 		if (index > -1)
 			class_package = class_name.substring(0, index);
 		else
 			class_package = "";
-		ConstantHTML constant_html = new ConstantHTML(dir, class_name, class_package, methods, constant_pool);
-		AttributeHTML attribute_html = new AttributeHTML(dir, class_name, constant_pool, constant_html);
+		final ConstantHTML constant_html = new ConstantHTML(dir, class_name, class_package, methods, constant_pool);
+		final AttributeHTML attribute_html = new AttributeHTML(dir, class_name, constant_pool, constant_html);
 		writeMainHTML(attribute_html);
 		new CodeHTML(dir, class_name, methods, constant_pool, constant_html);
 		attribute_html.close();
 	}
 
 	public static void main(String[] args) {
-		String[] file_name = new String[args.length];
+		final String[] file_name = new String[args.length];
 		int files = 0;
 		ClassParser parser = null;
 		JavaClass java_class = null;
 		String zip_file = null;
-		char sep = System.getProperty("file.separator").toCharArray()[0];
+		final char sep = System.getProperty("file.separator").toCharArray()[0];
 		String dir = new StringBuilder().append(".").append(sep).toString();
 		try {
 			for (int i = 0; i < args.length; i++) {
@@ -76,7 +76,7 @@ public class Class2HTML implements Constants {
 					System.out.println("Done.");
 				}
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println(e);
 			e.printStackTrace(System.out);
 		}
@@ -94,7 +94,7 @@ public class Class2HTML implements Constants {
 		String short_type = Utility.compactClassName(type);
 		short_type = Utility.compactClassName(short_type,
 				new StringBuilder().append(class_package).append(".").toString(), true);
-		int index = type.indexOf('[');
+		final int index = type.indexOf('[');
 		String base_type = type;
 		if (index > -1)
 			base_type = type.substring(0, index);
@@ -107,7 +107,7 @@ public class Class2HTML implements Constants {
 	}
 
 	static String toHTML(String str) {
-		StringBuilder buf = new StringBuilder();
+		final StringBuilder buf = new StringBuilder();
 		try {
 			for (int i = 0; i < str.length(); i++) {
 				char ch;
@@ -128,14 +128,15 @@ public class Class2HTML implements Constants {
 					buf.append(ch);
 				}
 			}
-		} catch (StringIndexOutOfBoundsException stringindexoutofboundsexception) {}
+		} catch (final StringIndexOutOfBoundsException stringindexoutofboundsexception) {
+		}
 		return buf.toString();
 	}
 
 	private void writeMainHTML(AttributeHTML attribute_html) throws IOException {
-		PrintWriter file = new PrintWriter(
+		final PrintWriter file = new PrintWriter(
 				new FileOutputStream(new StringBuilder().append(dir).append(class_name).append(".html").toString()));
-		Attribute[] attributes = java_class.getAttributes();
+		final Attribute[] attributes = java_class.getAttributes();
 		file.println(new StringBuilder().append("<HTML>\n<HEAD><TITLE>Documentation for ").append(class_name)
 				.append("</TITLE>").append("</HEAD>\n").append("<FRAMESET BORDER=1 cols=\"30%,*\">\n")
 				.append("<FRAMESET BORDER=1 rows=\"80%,*\">\n").append("<FRAME NAME=\"ConstantPool\" SRC=\"")

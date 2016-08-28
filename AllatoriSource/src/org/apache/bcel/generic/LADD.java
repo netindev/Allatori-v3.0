@@ -7,6 +7,7 @@ public class LADD extends ArithmeticInstruction {
 		super((short) 97);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

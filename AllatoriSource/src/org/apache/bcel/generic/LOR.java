@@ -7,6 +7,7 @@ public class LOR extends ArithmeticInstruction {
 		super((short) 129);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

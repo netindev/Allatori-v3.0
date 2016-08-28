@@ -4,7 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 
 public final class ByteSequence extends DataInputStream {
-	private ByteArrayStream byte_stream = (ByteArrayStream) in;
+	private final ByteArrayStream byte_stream = (ByteArrayStream) in;
 
 	private static final class ByteArrayStream extends ByteArrayInputStream {
 		ByteArrayStream(byte[] bytes) {

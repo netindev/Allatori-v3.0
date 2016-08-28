@@ -7,6 +7,7 @@ public class ISHR extends ArithmeticInstruction {
 		super((short) 122);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

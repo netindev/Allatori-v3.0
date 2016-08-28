@@ -46,10 +46,12 @@ public final class Code extends Attribute {
 		setAttributes(attributes);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitCode(this);
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		super.dump(file);
 		file.writeShort(max_stack);
@@ -138,7 +140,7 @@ public final class Code extends Attribute {
 	}
 
 	public final String toString(boolean verbose) {
-		StringBuilder buf = new StringBuilder(100);
+		final StringBuilder buf = new StringBuilder(100);
 		buf.append("Code(max_stack = ").append(max_stack).append(", max_locals = ").append(max_locals)
 				.append(", code_length = ").append(code_length).append(")\n")
 				.append(Utility.codeToString(code, constant_pool, 0, -1, verbose));
@@ -155,12 +157,14 @@ public final class Code extends Attribute {
 		return buf.toString();
 	}
 
+	@Override
 	public final String toString() {
 		return toString(true);
 	}
 
+	@Override
 	public Attribute copy(ConstantPool _constant_pool) {
-		Code c = (Code) clone();
+		final Code c = (Code) clone();
 		if (code != null) {
 			c.code = new byte[code.length];
 			System.arraycopy(code, 0, c.code, 0, code.length);

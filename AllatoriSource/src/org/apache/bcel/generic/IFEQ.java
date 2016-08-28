@@ -10,10 +10,12 @@ public class IFEQ extends IfInstruction {
 		super((short) 153, target);
 	}
 
+	@Override
 	public IfInstruction negate() {
 		return new IFNE(target);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackConsumer(this);
 		v.visitBranchInstruction(this);

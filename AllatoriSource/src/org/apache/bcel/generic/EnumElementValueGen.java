@@ -30,6 +30,7 @@ public class EnumElementValueGen extends ElementValueGen {
 		this.valueIdx = valueIdx;
 	}
 
+	@Override
 	public ElementValue getElementValue() {
 		System.err.println(new StringBuilder().append("Duplicating value: ").append(getEnumTypeString()).append(":")
 				.append(getEnumValueString()).toString());
@@ -53,14 +54,16 @@ public class EnumElementValueGen extends ElementValueGen {
 		}
 	}
 
+	@Override
 	public void dump(DataOutputStream dos) throws IOException {
 		dos.writeByte(type);
 		dos.writeShort(typeIdx);
 		dos.writeShort(valueIdx);
 	}
 
+	@Override
 	public String stringifyValue() {
-		ConstantUtf8 cu8 = (ConstantUtf8) getConstantPool().getConstant(valueIdx);
+		final ConstantUtf8 cu8 = (ConstantUtf8) getConstantPool().getConstant(valueIdx);
 		return cu8.getBytes();
 	}
 

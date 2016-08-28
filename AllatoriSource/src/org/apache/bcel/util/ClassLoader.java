@@ -12,8 +12,8 @@ import org.apache.bcel.classfile.Utility;
 
 public class ClassLoader extends java.lang.ClassLoader {
 	public static final String[] DEFAULT_IGNORED_PACKAGES = { "java.", "javax.", "sun." };
-	private Hashtable classes;
-	private String[] ignored_packages;
+	private final Hashtable classes;
+	private final String[] ignored_packages;
 	private Repository repository;
 
 	public ClassLoader() {
@@ -39,6 +39,7 @@ public class ClassLoader extends java.lang.ClassLoader {
 		repository = new ClassLoaderRepository(deferTo);
 	}
 
+	@Override
 	protected Class loadClass(String class_name, boolean resolve) throws ClassNotFoundException {
 		Class cl = null;
 		if ((cl = (Class) classes.get(class_name)) == null) {
@@ -57,7 +58,7 @@ public class ClassLoader extends java.lang.ClassLoader {
 				else
 					throw new ClassNotFoundException(class_name);
 				if (clazz != null) {
-					byte[] bytes = clazz.getBytes();
+					final byte[] bytes = clazz.getBytes();
 					cl = defineClass(class_name, bytes, 0, bytes.length);
 				} else
 					cl = Class.forName(class_name);
@@ -74,20 +75,20 @@ public class ClassLoader extends java.lang.ClassLoader {
 	}
 
 	protected JavaClass createClass(String class_name) {
-		int index = class_name.indexOf("$$BCEL$$");
-		String real_name = class_name.substring(index + 8);
+		final int index = class_name.indexOf("$$BCEL$$");
+		final String real_name = class_name.substring(index + 8);
 		JavaClass clazz = null;
 		try {
-			byte[] bytes = Utility.decode(real_name, true);
-			ClassParser parser = new ClassParser(new ByteArrayInputStream(bytes), "foo");
+			final byte[] bytes = Utility.decode(real_name, true);
+			final ClassParser parser = new ClassParser(new ByteArrayInputStream(bytes), "foo");
 			clazz = parser.parse();
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			e.printStackTrace();
 			return null;
 		}
-		ConstantPool cp = clazz.getConstantPool();
-		ConstantClass cl = ((ConstantClass) cp.getConstant(clazz.getClassNameIndex(), (byte) 7));
-		ConstantUtf8 name = (ConstantUtf8) cp.getConstant(cl.getNameIndex(), (byte) 1);
+		final ConstantPool cp = clazz.getConstantPool();
+		final ConstantClass cl = ((ConstantClass) cp.getConstant(clazz.getClassNameIndex(), (byte) 7));
+		final ConstantUtf8 name = (ConstantUtf8) cp.getConstant(cl.getNameIndex(), (byte) 1);
 		name.setBytes(class_name.replace('.', '/'));
 		return clazz;
 	}

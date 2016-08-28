@@ -7,6 +7,7 @@ public class NOP extends Instruction {
 		super((short) 0, (short) 1);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitNOP(this);
 	}

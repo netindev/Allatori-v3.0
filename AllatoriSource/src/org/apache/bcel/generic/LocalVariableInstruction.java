@@ -30,6 +30,7 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
 		setIndex(n);
 	}
 
+	@Override
 	public void dump(DataOutputStream out) throws IOException {
 		if (wide())
 			out.writeByte(196);
@@ -42,12 +43,14 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
 		}
 	}
 
+	@Override
 	public String toString(boolean verbose) {
 		if (opcode >= 26 && opcode <= 45 || opcode >= 59 && opcode <= 78)
 			return super.toString(verbose);
 		return new StringBuilder().append(super.toString(verbose)).append(" ").append(n).toString();
 	}
 
+	@Override
 	protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
 		if (wide) {
 			n = bytes.readUnsignedShort();
@@ -64,10 +67,12 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
 		}
 	}
 
+	@Override
 	public final int getIndex() {
 		return n;
 	}
 
+	@Override
 	public void setIndex(int n) {
 		if (n < 0 || n > 65535)
 			throw new ClassGenException(new StringBuilder().append("Illegal value: ").append(n).toString());
@@ -88,6 +93,7 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
 		return canon_tag;
 	}
 
+	@Override
 	public Type getType(ConstantPoolGen cp) {
 		switch (canon_tag) {
 		case 21:

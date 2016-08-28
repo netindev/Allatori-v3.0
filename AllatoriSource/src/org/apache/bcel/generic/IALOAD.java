@@ -7,6 +7,7 @@ public class IALOAD extends ArrayInstruction implements StackProducer {
 		super((short) 46);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackProducer(this);
 		v.visitExceptionThrower(this);

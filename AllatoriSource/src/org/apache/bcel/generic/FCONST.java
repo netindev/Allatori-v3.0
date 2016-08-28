@@ -9,11 +9,11 @@ public class FCONST extends Instruction implements ConstantPushInstruction {
 
 	public FCONST(float f) {
 		super((short) 11, (short) 1);
-		if ((double) f == 0.0)
+		if (f == 0.0)
 			opcode = (short) 11;
-		else if ((double) f == 1.0)
+		else if (f == 1.0)
 			opcode = (short) 12;
-		else if ((double) f == 2.0)
+		else if (f == 2.0)
 			opcode = (short) 13;
 		else
 			throw new ClassGenException(
@@ -21,14 +21,17 @@ public class FCONST extends Instruction implements ConstantPushInstruction {
 		value = f;
 	}
 
+	@Override
 	public Number getValue() {
 		return new Float(value);
 	}
 
+	@Override
 	public Type getType(ConstantPoolGen cp) {
 		return Type.FLOAT;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitPushInstruction(this);
 		v.visitStackProducer(this);

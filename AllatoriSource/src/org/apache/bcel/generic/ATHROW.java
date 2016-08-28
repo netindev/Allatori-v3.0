@@ -9,10 +9,12 @@ public class ATHROW extends Instruction implements UnconditionalBranch, Exceptio
 		super((short) 191, (short) 1);
 	}
 
+	@Override
 	public Class[] getExceptions() {
 		return new Class[] { ExceptionConstants.THROWABLE };
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitUnconditionalBranch(this);
 		v.visitExceptionThrower(this);

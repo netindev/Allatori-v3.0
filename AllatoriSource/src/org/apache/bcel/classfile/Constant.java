@@ -11,14 +11,16 @@ import org.apache.bcel.util.BCELComparator;
 public abstract class Constant implements Cloneable, Node, Serializable {
 	private static final long serialVersionUID = 5739037344085356353L;
 	private static BCELComparator _cmp = new BCELComparator() {
+		@Override
 		public boolean equals(Object o1, Object o2) {
-			Constant THIS = (Constant) o1;
-			Constant THAT = (Constant) o2;
+			final Constant THIS = (Constant) o1;
+			final Constant THAT = (Constant) o2;
 			return THIS.toString().equals(THAT.toString());
 		}
 
+		@Override
 		public int hashCode(Object o) {
-			Constant THIS = (Constant) o;
+			final Constant THIS = (Constant) o;
 			return THIS.toString().hashCode();
 		}
 	};
@@ -28,6 +30,7 @@ public abstract class Constant implements Cloneable, Node, Serializable {
 		this.tag = tag;
 	}
 
+	@Override
 	public abstract void accept(Visitor visitor);
 
 	public abstract void dump(DataOutputStream dataoutputstream) throws IOException;
@@ -36,6 +39,7 @@ public abstract class Constant implements Cloneable, Node, Serializable {
 		return tag;
 	}
 
+	@Override
 	public String toString() {
 		return new StringBuilder().append(Constants.CONSTANT_NAMES[tag]).append("[").append(tag).append("]").toString();
 	}
@@ -44,18 +48,19 @@ public abstract class Constant implements Cloneable, Node, Serializable {
 		Constant constant;
 		try {
 			constant = (Constant) super.clone();
-		} catch (CloneNotSupportedException clonenotsupportedexception) {
+		} catch (final CloneNotSupportedException clonenotsupportedexception) {
 			return null;
 		}
 		return constant;
 	}
 
+	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
 
 	static final Constant readConstant(DataInputStream file) throws IOException, ClassFormatException {
-		byte b = file.readByte();
+		final byte b = file.readByte();
 		switch (b) {
 		case 7:
 			return new ConstantClass(file);
@@ -93,10 +98,12 @@ public abstract class Constant implements Cloneable, Node, Serializable {
 		_cmp = comparator;
 	}
 
+	@Override
 	public boolean equals(Object obj) {
 		return _cmp.equals(this, obj);
 	}
 
+	@Override
 	public int hashCode() {
 		return _cmp.hashCode(this);
 	}

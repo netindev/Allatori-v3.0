@@ -7,6 +7,7 @@ public class BASTORE extends ArrayInstruction implements StackConsumer {
 		super((short) 84);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackConsumer(this);
 		v.visitExceptionThrower(this);

@@ -23,10 +23,12 @@ public final class PMGClass extends Attribute {
 		this.pmg_class_index = pmg_class_index;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		System.err.println("Visiting non-standard PMGClass object");
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		super.dump(file);
 		file.writeShort(pmg_index);
@@ -50,20 +52,22 @@ public final class PMGClass extends Attribute {
 	}
 
 	public final String getPMGName() {
-		ConstantUtf8 c = (ConstantUtf8) constant_pool.getConstant(pmg_index, (byte) 1);
+		final ConstantUtf8 c = (ConstantUtf8) constant_pool.getConstant(pmg_index, (byte) 1);
 		return c.getBytes();
 	}
 
 	public final String getPMGClassName() {
-		ConstantUtf8 c = ((ConstantUtf8) constant_pool.getConstant(pmg_class_index, (byte) 1));
+		final ConstantUtf8 c = ((ConstantUtf8) constant_pool.getConstant(pmg_class_index, (byte) 1));
 		return c.getBytes();
 	}
 
+	@Override
 	public final String toString() {
 		return new StringBuilder().append("PMGClass(").append(getPMGName()).append(", ").append(getPMGClassName())
 				.append(")").toString();
 	}
 
+	@Override
 	public Attribute copy(ConstantPool _constant_pool) {
 		return (PMGClass) clone();
 	}

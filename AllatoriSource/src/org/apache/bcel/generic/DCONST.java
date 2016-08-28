@@ -19,14 +19,17 @@ public class DCONST extends Instruction implements ConstantPushInstruction {
 		value = f;
 	}
 
+	@Override
 	public Number getValue() {
 		return new Double(value);
 	}
 
+	@Override
 	public Type getType(ConstantPoolGen cp) {
 		return Type.DOUBLE;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitPushInstruction(this);
 		v.visitStackProducer(this);

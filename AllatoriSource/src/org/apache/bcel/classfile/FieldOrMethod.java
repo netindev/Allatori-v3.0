@@ -84,12 +84,12 @@ public abstract class FieldOrMethod extends AccessFlags implements Cloneable, No
 	}
 
 	public final String getName() {
-		ConstantUtf8 c = (ConstantUtf8) constant_pool.getConstant(name_index, (byte) 1);
+		final ConstantUtf8 c = (ConstantUtf8) constant_pool.getConstant(name_index, (byte) 1);
 		return c.getBytes();
 	}
 
 	public final String getSignature() {
-		ConstantUtf8 c = ((ConstantUtf8) constant_pool.getConstant(signature_index, (byte) 1));
+		final ConstantUtf8 c = ((ConstantUtf8) constant_pool.getConstant(signature_index, (byte) 1));
 		return c.getBytes();
 	}
 
@@ -97,7 +97,7 @@ public abstract class FieldOrMethod extends AccessFlags implements Cloneable, No
 		FieldOrMethod c = null;
 		try {
 			c = (FieldOrMethod) this.clone();
-		} catch (CloneNotSupportedException clonenotsupportedexception) {
+		} catch (final CloneNotSupportedException clonenotsupportedexception) {
 			/* empty */
 		}
 		c.constant_pool = constant_pool;
@@ -109,12 +109,12 @@ public abstract class FieldOrMethod extends AccessFlags implements Cloneable, No
 
 	private void ensureAnnotationsUpToDate() {
 		if (annotationsOutOfDate) {
-			Attribute[] attrs = getAttributes();
-			java.util.List accumulatedAnnotations = new ArrayList();
+			final Attribute[] attrs = getAttributes();
+			final java.util.List accumulatedAnnotations = new ArrayList();
 			for (int i = 0; i < attrs.length; i++) {
-				Attribute attribute = attrs[i];
+				final Attribute attribute = attrs[i];
 				if (attribute instanceof Annotations) {
-					Annotations annotations = (Annotations) attribute;
+					final Annotations annotations = (Annotations) attribute;
 					for (int j = 0; j < annotations.getAnnotationEntries().length; j++)
 						accumulatedAnnotations.add(annotations.getAnnotationEntries()[j]);
 				}
@@ -132,8 +132,8 @@ public abstract class FieldOrMethod extends AccessFlags implements Cloneable, No
 
 	public void addAnnotationEntry(AnnotationEntry a) {
 		ensureAnnotationsUpToDate();
-		int len = annotationEntries.length;
-		AnnotationEntry[] newAnnotations = new AnnotationEntry[len + 1];
+		final int len = annotationEntries.length;
+		final AnnotationEntry[] newAnnotations = new AnnotationEntry[len + 1];
 		System.arraycopy(annotationEntries, 0, newAnnotations, 0, len);
 		newAnnotations[len] = a;
 		annotationEntries = newAnnotations;

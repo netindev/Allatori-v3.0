@@ -7,6 +7,7 @@ public class D2I extends ConversionInstruction {
 		super((short) 142);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

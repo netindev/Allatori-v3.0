@@ -9,10 +9,12 @@ public class LREM extends ArithmeticInstruction implements ExceptionThrower {
 		super((short) 113);
 	}
 
+	@Override
 	public Class[] getExceptions() {
 		return new Class[] { ExceptionConstants.ARITHMETIC_EXCEPTION };
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitExceptionThrower(this);
 		v.visitTypedInstruction(this);

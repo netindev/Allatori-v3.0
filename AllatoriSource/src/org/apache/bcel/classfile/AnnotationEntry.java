@@ -18,9 +18,9 @@ public class AnnotationEntry implements Node, Constants, Serializable {
 
 	public static AnnotationEntry read(DataInputStream file, ConstantPool constant_pool, boolean isRuntimeVisible)
 			throws IOException {
-		AnnotationEntry annotationEntry = new AnnotationEntry(file.readUnsignedShort(), constant_pool,
+		final AnnotationEntry annotationEntry = new AnnotationEntry(file.readUnsignedShort(), constant_pool,
 				isRuntimeVisible);
-		int num_element_value_pairs = file.readUnsignedShort();
+		final int num_element_value_pairs = file.readUnsignedShort();
 		annotationEntry.element_value_pairs = new ArrayList();
 		for (int i = 0; i < num_element_value_pairs; i++)
 			annotationEntry.element_value_pairs.add(new ElementValuePair(file.readUnsignedShort(),
@@ -46,11 +46,12 @@ public class AnnotationEntry implements Node, Constants, Serializable {
 		return isRuntimeVisible;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 	}
 
 	public String getAnnotationType() {
-		ConstantUtf8 c = (ConstantUtf8) constant_pool.getConstant(type_index, (byte) 1);
+		final ConstantUtf8 c = (ConstantUtf8) constant_pool.getConstant(type_index, (byte) 1);
 		return c.getBytes();
 	}
 
@@ -70,7 +71,7 @@ public class AnnotationEntry implements Node, Constants, Serializable {
 		dos.writeShort(type_index);
 		dos.writeShort(element_value_pairs.size());
 		for (int i = 0; i < element_value_pairs.size(); i++) {
-			ElementValuePair envp = (ElementValuePair) element_value_pairs.get(i);
+			final ElementValuePair envp = (ElementValuePair) element_value_pairs.get(i);
 			envp.dump(dos);
 		}
 	}
@@ -80,13 +81,13 @@ public class AnnotationEntry implements Node, Constants, Serializable {
 	}
 
 	public String toShortString() {
-		StringBuilder result = new StringBuilder();
+		final StringBuilder result = new StringBuilder();
 		result.append("@");
 		result.append(getAnnotationType());
 		if (getElementValuePairs().length > 0) {
 			result.append("(");
 			for (int i = 0; i < getElementValuePairs().length; i++) {
-				ElementValuePair element = getElementValuePairs()[i];
+				final ElementValuePair element = getElementValuePairs()[i];
 				result.append(element.toShortString());
 			}
 			result.append(")");

@@ -18,6 +18,7 @@ public class RET extends Instruction implements IndexedInstruction, TypedInstruc
 		setIndex(index);
 	}
 
+	@Override
 	public void dump(DataOutputStream out) throws IOException {
 		if (wide)
 			out.writeByte(196);
@@ -36,6 +37,7 @@ public class RET extends Instruction implements IndexedInstruction, TypedInstruc
 			length = (short) 2;
 	}
 
+	@Override
 	protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
 		this.wide = wide;
 		if (wide) {
@@ -47,10 +49,12 @@ public class RET extends Instruction implements IndexedInstruction, TypedInstruc
 		}
 	}
 
+	@Override
 	public final int getIndex() {
 		return index;
 	}
 
+	@Override
 	public final void setIndex(int n) {
 		if (n < 0)
 			throw new ClassGenException(new StringBuilder().append("Negative index value: ").append(n).toString());
@@ -58,14 +62,17 @@ public class RET extends Instruction implements IndexedInstruction, TypedInstruc
 		setWide();
 	}
 
+	@Override
 	public String toString(boolean verbose) {
 		return new StringBuilder().append(super.toString(verbose)).append(" ").append(index).toString();
 	}
 
+	@Override
 	public Type getType(ConstantPoolGen cp) {
 		return ReturnaddressType.NO_TARGET;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitRET(this);
 	}

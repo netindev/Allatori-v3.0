@@ -7,6 +7,7 @@ public class FNEG extends ArithmeticInstruction {
 		super((short) 118);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

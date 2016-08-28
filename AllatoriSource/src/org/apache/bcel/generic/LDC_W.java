@@ -14,6 +14,7 @@ public class LDC_W extends LDC {
 		super(index);
 	}
 
+	@Override
 	protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
 		setIndex(bytes.readUnsignedShort());
 		opcode = (short) 19;

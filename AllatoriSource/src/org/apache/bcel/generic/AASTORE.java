@@ -7,6 +7,7 @@ public class AASTORE extends ArrayInstruction implements StackConsumer {
 		super((short) 83);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackConsumer(this);
 		v.visitExceptionThrower(this);

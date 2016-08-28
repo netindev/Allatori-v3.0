@@ -7,6 +7,7 @@ public class ISHL extends ArithmeticInstruction {
 		super((short) 120);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

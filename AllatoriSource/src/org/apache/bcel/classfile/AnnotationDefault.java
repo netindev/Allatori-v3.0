@@ -19,6 +19,7 @@ public class AnnotationDefault extends Attribute {
 		setDefaultValue(defaultValue);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 	}
 
@@ -30,10 +31,12 @@ public class AnnotationDefault extends Attribute {
 		return default_value;
 	}
 
+	@Override
 	public Attribute copy(ConstantPool _constant_pool) {
 		throw new RuntimeException("Not implemented yet!");
 	}
 
+	@Override
 	public final void dump(DataOutputStream dos) throws IOException {
 		super.dump(dos);
 		default_value.dump(dos);

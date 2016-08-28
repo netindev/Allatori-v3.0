@@ -7,6 +7,7 @@ public class FRETURN extends ReturnInstruction {
 		super((short) 174);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitExceptionThrower(this);
 		v.visitTypedInstruction(this);

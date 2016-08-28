@@ -30,14 +30,16 @@ public abstract class Select extends BranchInstruction implements VariableLength
 		indices = new int[match_length];
 	}
 
+	@Override
 	protected int updatePosition(int offset, int max_offset) {
 		position += offset;
-		short old_length = length;
+		final short old_length = length;
 		padding = (4 - (position + 1) % 4) % 4;
 		length = (short) (fixed_length + padding);
 		return length - old_length;
 	}
 
+	@Override
 	public void dump(DataOutputStream out) throws IOException {
 		out.writeByte(opcode);
 		for (int i = 0; i < padding; i++)
@@ -46,6 +48,7 @@ public abstract class Select extends BranchInstruction implements VariableLength
 		out.writeInt(index);
 	}
 
+	@Override
 	protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
 		padding = (4 - bytes.getIndex() % 4) % 4;
 		for (int i = 0; i < padding; i++)
@@ -53,8 +56,9 @@ public abstract class Select extends BranchInstruction implements VariableLength
 		index = bytes.readInt();
 	}
 
+	@Override
 	public String toString(boolean verbose) {
-		StringBuilder buf = new StringBuilder(super.toString(verbose));
+		final StringBuilder buf = new StringBuilder(super.toString(verbose));
 		if (verbose) {
 			for (int i = 0; i < match_length; i++) {
 				String s = "null";
@@ -72,6 +76,7 @@ public abstract class Select extends BranchInstruction implements VariableLength
 		targets[i] = target;
 	}
 
+	@Override
 	public void updateTarget(InstructionHandle old_ih, InstructionHandle new_ih) {
 		boolean targeted = false;
 		if (target == old_ih) {
@@ -88,6 +93,7 @@ public abstract class Select extends BranchInstruction implements VariableLength
 			throw new ClassGenException(new StringBuilder().append("Not targeting ").append(old_ih).toString());
 	}
 
+	@Override
 	public boolean containsTarget(InstructionHandle ih) {
 		if (target == ih)
 			return true;
@@ -98,14 +104,16 @@ public abstract class Select extends BranchInstruction implements VariableLength
 		return false;
 	}
 
+	@Override
 	protected Object clone() throws CloneNotSupportedException {
-		Select copy = (Select) super.clone();
-		copy.match = (int[]) match.clone();
-		copy.indices = (int[]) indices.clone();
-		copy.targets = (InstructionHandle[]) targets.clone();
+		final Select copy = (Select) super.clone();
+		copy.match = match.clone();
+		copy.indices = indices.clone();
+		copy.targets = targets.clone();
 		return copy;
 	}
 
+	@Override
 	void dispose() {
 		super.dispose();
 		for (int i = 0; i < targets.length; i++)

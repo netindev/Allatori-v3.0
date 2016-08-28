@@ -11,6 +11,7 @@ public abstract class StoreInstruction extends LocalVariableInstruction implemen
 		super(opcode, c_tag, n);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackConsumer(this);
 		v.visitPopInstruction(this);

@@ -7,6 +7,7 @@ public class IOR extends ArithmeticInstruction {
 		super((short) 128);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

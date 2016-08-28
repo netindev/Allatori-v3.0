@@ -17,29 +17,33 @@ public abstract class InvokeInstruction extends FieldOrMethod
 		super(opcode, index);
 	}
 
+	@Override
 	public String toString(ConstantPool cp) {
-		Constant c = cp.getConstant(index);
-		StringTokenizer tok = new StringTokenizer(cp.constantToString(c));
+		final Constant c = cp.getConstant(index);
+		final StringTokenizer tok = new StringTokenizer(cp.constantToString(c));
 		return new StringBuilder().append(Constants.OPCODE_NAMES[opcode]).append(" ")
 				.append(tok.nextToken().replace('.', '/')).append(tok.nextToken()).toString();
 	}
 
+	@Override
 	public int consumeStack(ConstantPoolGen cpg) {
 		int sum;
 		if (opcode == 184)
 			sum = 0;
 		else
 			sum = 1;
-		String signature = getSignature(cpg);
+		final String signature = getSignature(cpg);
 		sum += Type.getArgumentTypesSize(signature);
 		return sum;
 	}
 
+	@Override
 	public int produceStack(ConstantPoolGen cpg) {
-		String signature = getSignature(cpg);
+		final String signature = getSignature(cpg);
 		return Type.getReturnTypeSize(signature);
 	}
 
+	@Override
 	public Type getType(ConstantPoolGen cpg) {
 		return getReturnType(cpg);
 	}

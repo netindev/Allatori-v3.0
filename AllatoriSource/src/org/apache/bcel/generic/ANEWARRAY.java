@@ -13,14 +13,16 @@ public class ANEWARRAY extends CPInstruction
 		super((short) 189, index);
 	}
 
+	@Override
 	public Class[] getExceptions() {
-		Class[] cs = new Class[1 + (ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION).length];
+		final Class[] cs = new Class[1 + (ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION).length];
 		System.arraycopy((ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION), 0, cs, 0,
 				(ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION).length);
 		cs[ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION.length] = ExceptionConstants.NEGATIVE_ARRAY_SIZE_EXCEPTION;
 		return cs;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitLoadClass(this);
 		v.visitAllocationInstruction(this);
@@ -31,6 +33,7 @@ public class ANEWARRAY extends CPInstruction
 		v.visitANEWARRAY(this);
 	}
 
+	@Override
 	public ObjectType getLoadClassType(ConstantPoolGen cpg) {
 		Type t = getType(cpg);
 		if (t instanceof ArrayType)

@@ -24,7 +24,7 @@ public abstract class ReferenceType extends Type {
 	public boolean isAssignmentCompatibleWith(Type t) throws ClassNotFoundException {
 		if (!(t instanceof ReferenceType))
 			return false;
-		ReferenceType T = (ReferenceType) t;
+		final ReferenceType T = (ReferenceType) t;
 		if (equals(Type.NULL))
 			return true;
 		if (this instanceof ObjectType && ((ObjectType) this).referencesClassExact()) {
@@ -52,8 +52,8 @@ public abstract class ReferenceType extends Type {
 			if (T instanceof ObjectType && ((ObjectType) T).referencesClassExact() && T.equals(Type.OBJECT))
 				return true;
 			if (T instanceof ArrayType) {
-				Type sc = ((ArrayType) this).getElementType();
-				Type tc = ((ArrayType) T).getElementType();
+				final Type sc = ((ArrayType) this).getElementType();
+				final Type tc = ((ArrayType) T).getElementType();
 				if (sc instanceof BasicType && tc instanceof BasicType && sc.equals(tc))
 					return true;
 				if (tc instanceof ReferenceType && sc instanceof ReferenceType
@@ -78,8 +78,8 @@ public abstract class ReferenceType extends Type {
 		if (equals(t))
 			return this;
 		if (this instanceof ArrayType && t instanceof ArrayType) {
-			ArrayType arrType1 = (ArrayType) this;
-			ArrayType arrType2 = (ArrayType) t;
+			final ArrayType arrType1 = (ArrayType) this;
+			final ArrayType arrType2 = (ArrayType) t;
 			if (arrType1.getDimensions() == arrType2.getDimensions() && arrType1.getBasicType() instanceof ObjectType
 					&& arrType2.getBasicType() instanceof ObjectType)
 				return new ArrayType(
@@ -92,14 +92,14 @@ public abstract class ReferenceType extends Type {
 		if ((this instanceof ObjectType && ((ObjectType) this).referencesInterface())
 				|| (t instanceof ObjectType && ((ObjectType) t).referencesInterface()))
 			return Type.OBJECT;
-		ObjectType thiz = (ObjectType) this;
-		ObjectType other = (ObjectType) t;
-		JavaClass[] thiz_sups = Repository.getSuperClasses(thiz.getClassName());
-		JavaClass[] other_sups = Repository.getSuperClasses(other.getClassName());
+		final ObjectType thiz = (ObjectType) this;
+		final ObjectType other = (ObjectType) t;
+		final JavaClass[] thiz_sups = Repository.getSuperClasses(thiz.getClassName());
+		final JavaClass[] other_sups = Repository.getSuperClasses(other.getClassName());
 		if (thiz_sups == null || other_sups == null)
 			return null;
-		JavaClass[] this_sups = new JavaClass[thiz_sups.length + 1];
-		JavaClass[] t_sups = new JavaClass[other_sups.length + 1];
+		final JavaClass[] this_sups = new JavaClass[thiz_sups.length + 1];
+		final JavaClass[] t_sups = new JavaClass[other_sups.length + 1];
 		System.arraycopy(thiz_sups, 0, this_sups, 1, thiz_sups.length);
 		System.arraycopy(other_sups, 0, t_sups, 1, other_sups.length);
 		this_sups[0] = Repository.lookupClass(thiz.getClassName());
@@ -116,6 +116,7 @@ public abstract class ReferenceType extends Type {
 	/**
 	 * @deprecated
 	 */
+	@Deprecated
 	public ReferenceType firstCommonSuperclass(ReferenceType t) throws ClassNotFoundException {
 		if (equals(Type.NULL))
 			return t;
@@ -128,14 +129,14 @@ public abstract class ReferenceType extends Type {
 		if ((this instanceof ObjectType && ((ObjectType) this).referencesInterface())
 				|| (t instanceof ObjectType && ((ObjectType) t).referencesInterface()))
 			return Type.OBJECT;
-		ObjectType thiz = (ObjectType) this;
-		ObjectType other = (ObjectType) t;
-		JavaClass[] thiz_sups = Repository.getSuperClasses(thiz.getClassName());
-		JavaClass[] other_sups = Repository.getSuperClasses(other.getClassName());
+		final ObjectType thiz = (ObjectType) this;
+		final ObjectType other = (ObjectType) t;
+		final JavaClass[] thiz_sups = Repository.getSuperClasses(thiz.getClassName());
+		final JavaClass[] other_sups = Repository.getSuperClasses(other.getClassName());
 		if (thiz_sups == null || other_sups == null)
 			return null;
-		JavaClass[] this_sups = new JavaClass[thiz_sups.length + 1];
-		JavaClass[] t_sups = new JavaClass[other_sups.length + 1];
+		final JavaClass[] this_sups = new JavaClass[thiz_sups.length + 1];
+		final JavaClass[] t_sups = new JavaClass[other_sups.length + 1];
 		System.arraycopy(thiz_sups, 0, this_sups, 1, thiz_sups.length);
 		System.arraycopy(other_sups, 0, t_sups, 1, other_sups.length);
 		this_sups[0] = Repository.lookupClass(thiz.getClassName());

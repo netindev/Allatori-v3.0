@@ -12,11 +12,13 @@ public class RuntimeInvisibleAnnotations extends Annotations {
 		super((byte) 13, name_index, length, file, constant_pool, false);
 	}
 
+	@Override
 	public Attribute copy(ConstantPool constant_pool) {
-		Annotations c = (Annotations) clone();
+		final Annotations c = (Annotations) clone();
 		return c;
 	}
 
+	@Override
 	public final void dump(DataOutputStream dos) throws IOException {
 		super.dump(dos);
 		writeAnnotations(dos);

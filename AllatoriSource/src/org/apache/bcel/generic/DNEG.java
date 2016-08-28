@@ -7,6 +7,7 @@ public class DNEG extends ArithmeticInstruction {
 		super((short) 119);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

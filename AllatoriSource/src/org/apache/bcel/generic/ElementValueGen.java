@@ -45,7 +45,7 @@ public abstract class ElementValueGen {
 	public abstract void dump(DataOutputStream dataoutputstream) throws IOException;
 
 	public static ElementValueGen readElementValue(DataInputStream dis, ConstantPoolGen cpGen) throws IOException {
-		int type = dis.readUnsignedByte();
+		final int type = dis.readUnsignedByte();
 		switch (type) {
 		case 66:
 			return new SimpleElementValueGen(66, dis.readUnsignedShort(), cpGen);
@@ -74,8 +74,8 @@ public abstract class ElementValueGen {
 					(new AnnotationEntryGen(AnnotationEntry.read(dis, cpGen.getConstantPool(), true), cpGen, false)),
 					cpGen));
 		case 91: {
-			int numArrayVals = dis.readUnsignedShort();
-			ElementValue[] evalues = new ElementValue[numArrayVals];
+			final int numArrayVals = dis.readUnsignedShort();
+			final ElementValue[] evalues = new ElementValue[numArrayVals];
 			for (int j = 0; j < numArrayVals; j++)
 				evalues[j] = ElementValue.readElementValue(dis, cpGen.getConstantPool());
 			return new ArrayElementValueGen(91, evalues, cpGen);

@@ -7,10 +7,12 @@ public class FCMPG extends Instruction implements TypedInstruction, StackProduce
 		super((short) 150, (short) 1);
 	}
 
+	@Override
 	public Type getType(ConstantPoolGen cp) {
 		return Type.FLOAT;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

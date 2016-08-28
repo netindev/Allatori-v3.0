@@ -7,6 +7,7 @@ public class L2F extends ConversionInstruction {
 		super((short) 137);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

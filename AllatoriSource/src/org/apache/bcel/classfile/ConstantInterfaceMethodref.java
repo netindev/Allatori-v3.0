@@ -18,6 +18,7 @@ public final class ConstantInterfaceMethodref extends ConstantCP {
 		super((byte) 11, class_index, name_and_type_index);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitConstantInterfaceMethodref(this);
 	}

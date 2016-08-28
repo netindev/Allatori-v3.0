@@ -15,16 +15,18 @@ public class ReturnaddressType extends Type {
 		this.returnTarget = returnTarget;
 	}
 
+	@Override
 	public int hashCode() {
 		if (returnTarget == null)
 			return 0;
 		return returnTarget.hashCode();
 	}
 
+	@Override
 	public boolean equals(Object rat) {
 		if (!(rat instanceof ReturnaddressType))
 			return false;
-		ReturnaddressType that = (ReturnaddressType) rat;
+		final ReturnaddressType that = (ReturnaddressType) rat;
 		if (returnTarget == null || that.returnTarget == null)
 			return that.returnTarget == returnTarget;
 		return that.returnTarget.equals(returnTarget);

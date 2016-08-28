@@ -21,10 +21,12 @@ public final class SourceFile extends Attribute {
 		this.sourcefile_index = sourcefile_index;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitSourceFile(this);
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		super.dump(file);
 		file.writeShort(sourcefile_index);
@@ -39,14 +41,16 @@ public final class SourceFile extends Attribute {
 	}
 
 	public final String getSourceFileName() {
-		ConstantUtf8 c = ((ConstantUtf8) constant_pool.getConstant(sourcefile_index, (byte) 1));
+		final ConstantUtf8 c = ((ConstantUtf8) constant_pool.getConstant(sourcefile_index, (byte) 1));
 		return c.getBytes();
 	}
 
+	@Override
 	public final String toString() {
 		return new StringBuilder().append("SourceFile(").append(getSourceFileName()).append(")").toString();
 	}
 
+	@Override
 	public Attribute copy(ConstantPool _constant_pool) {
 		return (SourceFile) clone();
 	}

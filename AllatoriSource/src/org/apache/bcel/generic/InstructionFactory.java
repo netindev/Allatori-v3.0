@@ -48,7 +48,7 @@ public class InstructionFactory implements InstructionConstants, Serializable {
 
 	public InvokeInstruction createInvoke(String class_name, String name, Type ret_type, Type[] arg_types, short kind) {
 		int nargs = 0;
-		String signature = Type.getMethodSignature(ret_type, arg_types);
+		final String signature = Type.getMethodSignature(ret_type, arg_types);
 		for (int i = 0; i < arg_types.length; i++)
 			nargs += arg_types[i].getSize();
 		int index;
@@ -72,9 +72,9 @@ public class InstructionFactory implements InstructionConstants, Serializable {
 	}
 
 	public InstructionList createPrintln(String s) {
-		InstructionList il = new InstructionList();
-		int out = cp.addFieldref("java.lang.System", "out", "Ljava/io/PrintStream;");
-		int println = cp.addMethodref("java.io.PrintStream", "println", "(Ljava/lang/String;)V");
+		final InstructionList il = new InstructionList();
+		final int out = cp.addFieldref("java.lang.System", "out", "Ljava/io/PrintStream;");
+		final int println = cp.addMethodref("java.io.PrintStream", "println", "(Ljava/lang/String;)V");
 		il.append(new GETSTATIC(out));
 		il.append(new PUSH(cp, s));
 		il.append(new INVOKEVIRTUAL(println));
@@ -106,7 +106,7 @@ public class InstructionFactory implements InstructionConstants, Serializable {
 	}
 
 	public Instruction createAppend(Type type) {
-		byte t = type.getType();
+		final byte t = type.getType();
 		if (isString(type))
 			return createInvoke(append_mos[0], (short) 182);
 		switch (t) {
@@ -129,8 +129,8 @@ public class InstructionFactory implements InstructionConstants, Serializable {
 	}
 
 	public FieldInstruction createFieldAccess(String class_name, String name, Type type, short kind) {
-		String signature = type.getSignature();
-		int index = cp.addFieldref(class_name, name, signature);
+		final String signature = type.getSignature();
+		final int index = cp.addFieldref(class_name, name, signature);
 		switch (kind) {
 		case 180:
 			return new GETFIELD(index);
@@ -263,7 +263,7 @@ public class InstructionFactory implements InstructionConstants, Serializable {
 	}
 
 	public static ArithmeticInstruction createBinaryOperation(String op, Type type) {
-		char first = op.toCharArray()[0];
+		final char first = op.toCharArray()[0];
 		switch (type.getType()) {
 		case 5:
 		case 8:
@@ -393,16 +393,16 @@ public class InstructionFactory implements InstructionConstants, Serializable {
 
 	public Instruction createCast(Type src_type, Type dest_type) {
 		if (src_type instanceof BasicType && dest_type instanceof BasicType) {
-			byte dest = dest_type.getType();
+			final byte dest = dest_type.getType();
 			byte src = src_type.getType();
 			if (dest == 11 && (src == 5 || src == 8 || src == 9))
 				src = (byte) 10;
-			String name = new StringBuilder().append("org.apache.bcel.generic.").append(short_names[src - 5])
+			final String name = new StringBuilder().append("org.apache.bcel.generic.").append(short_names[src - 5])
 					.append("2").append(short_names[dest - 5]).toString();
 			Instruction i = null;
 			try {
 				i = (Instruction) Class.forName(name).newInstance();
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				throw new RuntimeException(
 						new StringBuilder().append("Could not find instruction: ").append(name).toString(), e);
 			}

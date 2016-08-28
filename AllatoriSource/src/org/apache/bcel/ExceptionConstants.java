@@ -1,7 +1,7 @@
 package org.apache.bcel;
 
 public interface ExceptionConstants {
-	
+
 	Class THROWABLE = Throwable.class;
 	Class RUNTIME_EXCEPTION = RuntimeException.class;
 	Class LINKING_EXCEPTION = LinkageError.class;
@@ -30,5 +30,5 @@ public interface ExceptionConstants {
 	Class[] EXCS_INTERFACE_METHOD_RESOLUTION = new Class[0];
 	Class[] EXCS_STRING_RESOLUTION = new Class[0];
 	Class[] EXCS_ARRAY_EXCEPTION = new Class[] { NULL_POINTER_EXCEPTION, ARRAY_INDEX_OUT_OF_BOUNDS_EXCEPTION };
-	
+
 }

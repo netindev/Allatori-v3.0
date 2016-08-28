@@ -7,6 +7,7 @@ public class LASTORE extends ArrayInstruction implements StackConsumer {
 		super((short) 80);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackConsumer(this);
 		v.visitExceptionThrower(this);

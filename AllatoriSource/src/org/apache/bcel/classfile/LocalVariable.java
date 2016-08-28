@@ -35,6 +35,7 @@ public final class LocalVariable implements Constants, Cloneable, Node, Serializ
 		this.constant_pool = constant_pool;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitLocalVariable(this);
 	}
@@ -56,7 +57,7 @@ public final class LocalVariable implements Constants, Cloneable, Node, Serializ
 	}
 
 	public final String getName() {
-		ConstantUtf8 c = (ConstantUtf8) constant_pool.getConstant(name_index, (byte) 1);
+		final ConstantUtf8 c = (ConstantUtf8) constant_pool.getConstant(name_index, (byte) 1);
 		return c.getBytes();
 	}
 
@@ -65,7 +66,7 @@ public final class LocalVariable implements Constants, Cloneable, Node, Serializ
 	}
 
 	public final String getSignature() {
-		ConstantUtf8 c = ((ConstantUtf8) constant_pool.getConstant(signature_index, (byte) 1));
+		final ConstantUtf8 c = ((ConstantUtf8) constant_pool.getConstant(signature_index, (byte) 1));
 		return c.getBytes();
 	}
 
@@ -105,9 +106,10 @@ public final class LocalVariable implements Constants, Cloneable, Node, Serializ
 		this.start_pc = start_pc;
 	}
 
+	@Override
 	public final String toString() {
-		String name = getName();
-		String signature = Utility.signatureToString(getSignature());
+		final String name = getName();
+		final String signature = Utility.signatureToString(getSignature());
 		return new StringBuilder().append("LocalVariable(start_pc = ").append(start_pc).append(", length = ")
 				.append(length).append(", index = ").append(index).append(":").append(signature).append(" ")
 				.append(name).append(")").toString();
@@ -117,7 +119,7 @@ public final class LocalVariable implements Constants, Cloneable, Node, Serializ
 		LocalVariable localvariable;
 		try {
 			localvariable = (LocalVariable) this.clone();
-		} catch (CloneNotSupportedException clonenotsupportedexception) {
+		} catch (final CloneNotSupportedException clonenotsupportedexception) {
 			return null;
 		}
 		return localvariable;

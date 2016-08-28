@@ -7,6 +7,7 @@ public class IASTORE extends ArrayInstruction implements StackConsumer {
 		super((short) 79);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackConsumer(this);
 		v.visitExceptionThrower(this);

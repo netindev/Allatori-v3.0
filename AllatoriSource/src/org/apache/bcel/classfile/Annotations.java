@@ -12,7 +12,7 @@ public abstract class Annotations extends Attribute {
 	public Annotations(byte annotation_type, int name_index, int length, DataInputStream file,
 			ConstantPool constant_pool, boolean isRuntimeVisible) throws IOException {
 		this(annotation_type, name_index, length, (AnnotationEntry[]) null, constant_pool, isRuntimeVisible);
-		int annotation_table_length = file.readUnsignedShort();
+		final int annotation_table_length = file.readUnsignedShort();
 		annotation_table = new AnnotationEntry[annotation_table_length];
 		for (int i = 0; i < annotation_table_length; i++)
 			annotation_table[i] = AnnotationEntry.read(file, constant_pool, isRuntimeVisible);
@@ -25,6 +25,7 @@ public abstract class Annotations extends Attribute {
 		this.isRuntimeVisible = isRuntimeVisible;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitAnnotation(this);
 	}

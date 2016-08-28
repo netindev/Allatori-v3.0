@@ -21,10 +21,12 @@ public final class ConstantString extends Constant implements ConstantObject {
 		this.string_index = string_index;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitConstantString(this);
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		file.writeByte(tag);
 		file.writeShort(string_index);
@@ -38,13 +40,15 @@ public final class ConstantString extends Constant implements ConstantObject {
 		this.string_index = string_index;
 	}
 
+	@Override
 	public final String toString() {
 		return new StringBuilder().append(super.toString()).append("(string_index = ").append(string_index).append(")")
 				.toString();
 	}
 
+	@Override
 	public Object getConstantValue(ConstantPool cp) {
-		Constant c = cp.getConstant(string_index, (byte) 1);
+		final Constant c = cp.getConstant(string_index, (byte) 1);
 		return ((ConstantUtf8) c).getBytes();
 	}
 

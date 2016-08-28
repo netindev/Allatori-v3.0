@@ -12,8 +12,9 @@ public class INVOKESTATIC extends InvokeInstruction {
 		super((short) 184, index);
 	}
 
+	@Override
 	public Class[] getExceptions() {
-		Class[] cs = new Class[2 + (ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION).length];
+		final Class[] cs = new Class[2 + (ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION).length];
 		System.arraycopy(ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION, 0, cs, 0,
 				(ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION).length);
 		cs[ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION.length] = ExceptionConstants.UNSATISFIED_LINK_ERROR;
@@ -22,6 +23,7 @@ public class INVOKESTATIC extends InvokeInstruction {
 		return cs;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitExceptionThrower(this);
 		v.visitTypedInstruction(this);

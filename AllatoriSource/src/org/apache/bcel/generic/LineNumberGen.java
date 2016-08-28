@@ -14,10 +14,12 @@ public class LineNumberGen implements InstructionTargeter, Cloneable, Serializab
 		setSourceLine(src_line);
 	}
 
+	@Override
 	public boolean containsTarget(InstructionHandle ih) {
 		return this.ih == ih;
 	}
 
+	@Override
 	public void updateTarget(InstructionHandle old_ih, InstructionHandle new_ih) {
 		if (old_ih != ih)
 			throw new ClassGenException(new StringBuilder().append("Not targeting ").append(old_ih).append(", but ")
@@ -34,11 +36,12 @@ public class LineNumberGen implements InstructionTargeter, Cloneable, Serializab
 		this.ih = ih;
 	}
 
+	@Override
 	public Object clone() {
 		Object object;
 		try {
 			object = super.clone();
-		} catch (CloneNotSupportedException e) {
+		} catch (final CloneNotSupportedException e) {
 			System.err.println(e);
 			return null;
 		}

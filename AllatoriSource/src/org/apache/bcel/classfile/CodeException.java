@@ -29,6 +29,7 @@ public final class CodeException implements Cloneable, Constants, Node, Serializ
 		this.catch_type = catch_type;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitCodeException(this);
 	}
@@ -72,6 +73,7 @@ public final class CodeException implements Cloneable, Constants, Node, Serializ
 		this.start_pc = start_pc;
 	}
 
+	@Override
 	public final String toString() {
 		return new StringBuilder().append("CodeException(start_pc = ").append(start_pc).append(", end_pc = ")
 				.append(end_pc).append(", handler_pc = ").append(handler_pc).append(", catch_type = ")
@@ -99,7 +101,7 @@ public final class CodeException implements Cloneable, Constants, Node, Serializ
 		CodeException codeexception;
 		try {
 			codeexception = (CodeException) this.clone();
-		} catch (CloneNotSupportedException clonenotsupportedexception) {
+		} catch (final CloneNotSupportedException clonenotsupportedexception) {
 			return null;
 		}
 		return codeexception;

@@ -20,11 +20,11 @@ import org.apache.bcel.classfile.Method;
 import org.apache.bcel.classfile.Utility;
 
 final class CodeHTML implements Constants {
-	private String class_name;
-	private PrintWriter file;
+	private final String class_name;
+	private final PrintWriter file;
 	private BitSet goto_set;
-	private ConstantPool constant_pool;
-	private ConstantHTML constant_html;
+	private final ConstantPool constant_pool;
+	private final ConstantHTML constant_html;
 	private static boolean wide = false;
 
 	CodeHTML(String dir, String class_name, Method[] methods, ConstantPool constant_pool, ConstantHTML constant_html)
@@ -42,13 +42,13 @@ final class CodeHTML implements Constants {
 	}
 
 	private final String codeToHTML(ByteSequence bytes, int method_number) throws IOException {
-		short opcode = (short) bytes.readUnsignedByte();
+		final short opcode = (short) bytes.readUnsignedByte();
 		int default_offset = 0;
 		int no_pad_bytes = 0;
-		StringBuilder buf = new StringBuilder(256);
+		final StringBuilder buf = new StringBuilder(256);
 		buf.append("<TT>").append(OPCODE_NAMES[opcode]).append("</TT></TD><TD>");
 		if (opcode == 170 || opcode == 171) {
-			int remainder = bytes.getIndex() % 4;
+			final int remainder = bytes.getIndex() % 4;
 			no_pad_bytes = remainder == 0 ? 0 : 4 - remainder;
 			for (int i = 0; i < no_pad_bytes; i++)
 				bytes.readByte();
@@ -56,12 +56,12 @@ final class CodeHTML implements Constants {
 		}
 		switch (opcode) {
 		case 170: {
-			int low = bytes.readInt();
-			int high = bytes.readInt();
-			int offset = bytes.getIndex() - 12 - no_pad_bytes - 1;
+			final int low = bytes.readInt();
+			final int high = bytes.readInt();
+			final int offset = bytes.getIndex() - 12 - no_pad_bytes - 1;
 			default_offset += offset;
 			buf.append("<TABLE BORDER=1><TR>");
-			int[] jump_table = new int[high - low + 1];
+			final int[] jump_table = new int[high - low + 1];
 			for (int i = 0; i < jump_table.length; i++) {
 				jump_table[i] = offset + bytes.readInt();
 				buf.append("<TH>").append(low + i).append("</TH>");
@@ -75,13 +75,13 @@ final class CodeHTML implements Constants {
 			break;
 		}
 		case 171: {
-			int npairs = bytes.readInt();
-			int offset = bytes.getIndex() - 8 - no_pad_bytes - 1;
-			int[] jump_table = new int[npairs];
+			final int npairs = bytes.readInt();
+			final int offset = bytes.getIndex() - 8 - no_pad_bytes - 1;
+			final int[] jump_table = new int[npairs];
 			default_offset += offset;
 			buf.append("<TABLE BORDER=1><TR>");
 			for (int i = 0; i < npairs; i++) {
-				int match = bytes.readInt();
+				final int match = bytes.readInt();
 				jump_table[i] = offset + bytes.readInt();
 				buf.append("<TH>").append(match).append("</TH>");
 			}
@@ -111,14 +111,14 @@ final class CodeHTML implements Constants {
 		case 168:
 		case 198:
 		case 199: {
-			int index = bytes.getIndex() + bytes.readShort() - 1;
+			final int index = bytes.getIndex() + bytes.readShort() - 1;
 			buf.append("<A HREF=\"#code").append(method_number).append("@").append(index).append("\">").append(index)
 					.append("</A>");
 			break;
 		}
 		case 200:
 		case 201: {
-			int windex = bytes.getIndex() + bytes.readInt() - 1;
+			final int windex = bytes.getIndex() + bytes.readInt() - 1;
 			buf.append("<A HREF=\"#code").append(method_number).append("@").append(windex).append("\">").append(windex)
 					.append("</A>");
 			break;
@@ -155,12 +155,12 @@ final class CodeHTML implements Constants {
 		case 180:
 		case 181: {
 			int index = bytes.readShort();
-			ConstantFieldref c1 = ((ConstantFieldref) constant_pool.getConstant(index, (byte) 9));
-			int class_index = c1.getClassIndex();
+			final ConstantFieldref c1 = ((ConstantFieldref) constant_pool.getConstant(index, (byte) 9));
+			final int class_index = c1.getClassIndex();
 			String name = constant_pool.getConstantString(class_index, (byte) 7);
 			name = Utility.compactClassName(name, false);
 			index = c1.getNameAndTypeIndex();
-			String field_name = constant_pool.constantToString(index, (byte) 12);
+			final String field_name = constant_pool.constantToString(index, (byte) 12);
 			if (name.equals(class_name))
 				buf.append("<A HREF=\"").append(class_name).append("_methods.html#field").append(field_name)
 						.append("\" TARGET=Methods>").append(field_name).append("</A>\n");
@@ -171,7 +171,7 @@ final class CodeHTML implements Constants {
 		case 187:
 		case 192:
 		case 193: {
-			int index = bytes.readShort();
+			final int index = bytes.readShort();
 			buf.append(constant_html.referenceConstant(index));
 			break;
 		}
@@ -179,29 +179,30 @@ final class CodeHTML implements Constants {
 		case 183:
 		case 184:
 		case 185: {
-			int m_index = bytes.readShort();
+			final int m_index = bytes.readShort();
 			int class_index;
 			int index;
 			if (opcode == 185) {
 				bytes.readUnsignedByte();
 				bytes.readUnsignedByte();
-				ConstantInterfaceMethodref c = ((ConstantInterfaceMethodref) constant_pool.getConstant(m_index,
+				final ConstantInterfaceMethodref c = ((ConstantInterfaceMethodref) constant_pool.getConstant(m_index,
 						(byte) 11));
 				class_index = c.getClassIndex();
-				String str = constant_pool.constantToString(c);
+				constant_pool.constantToString(c);
 				index = c.getNameAndTypeIndex();
 			} else {
-				ConstantMethodref c = ((ConstantMethodref) constant_pool.getConstant(m_index, (byte) 10));
+				final ConstantMethodref c = ((ConstantMethodref) constant_pool.getConstant(m_index, (byte) 10));
 				class_index = c.getClassIndex();
-				String str = constant_pool.constantToString(c);
+				constant_pool.constantToString(c);
 				index = c.getNameAndTypeIndex();
 			}
-			String name = Class2HTML.referenceClass(class_index);
-			String str = Class2HTML.toHTML(constant_pool.constantToString(constant_pool.getConstant(index, (byte) 12)));
-			ConstantNameAndType c2 = ((ConstantNameAndType) constant_pool.getConstant(index, (byte) 12));
-			String signature = constant_pool.constantToString(c2.getSignatureIndex(), (byte) 1);
-			String[] args = Utility.methodSignatureArgumentTypes(signature, false);
-			String type = Utility.methodSignatureReturnType(signature, false);
+			final String name = Class2HTML.referenceClass(class_index);
+			final String str = Class2HTML
+					.toHTML(constant_pool.constantToString(constant_pool.getConstant(index, (byte) 12)));
+			final ConstantNameAndType c2 = ((ConstantNameAndType) constant_pool.getConstant(index, (byte) 12));
+			final String signature = constant_pool.constantToString(c2.getSignatureIndex(), (byte) 1);
+			final String[] args = Utility.methodSignatureArgumentTypes(signature, false);
+			final String type = Utility.methodSignatureReturnType(signature, false);
 			buf.append(name).append(".<A HREF=\"").append(class_name).append("_cp.html#cp").append(m_index)
 					.append("\" TARGET=ConstantPool>").append(str).append("</A>").append("(");
 			for (int i = 0; i < args.length; i++) {
@@ -214,7 +215,7 @@ final class CodeHTML implements Constants {
 		}
 		case 19:
 		case 20: {
-			int index = bytes.readShort();
+			final int index = bytes.readShort();
 			buf.append("<A HREF=\"").append(class_name).append("_cp.html#cp").append(index)
 					.append("\" TARGET=\"ConstantPool\">")
 					.append(Class2HTML
@@ -223,7 +224,7 @@ final class CodeHTML implements Constants {
 			break;
 		}
 		case 18: {
-			int index = bytes.readUnsignedByte();
+			final int index = bytes.readUnsignedByte();
 			buf.append("<A HREF=\"").append(class_name).append("_cp.html#cp").append(index)
 					.append("\" TARGET=\"ConstantPool\">")
 					.append(Class2HTML
@@ -232,13 +233,13 @@ final class CodeHTML implements Constants {
 			break;
 		}
 		case 189: {
-			int index = bytes.readShort();
+			final int index = bytes.readShort();
 			buf.append(constant_html.referenceConstant(index));
 			break;
 		}
 		case 197: {
-			int index = bytes.readShort();
-			int dimensions = bytes.readByte();
+			final int index = bytes.readShort();
+			final int dimensions = bytes.readByte();
 			buf.append(constant_html.referenceConstant(index)).append(":").append(dimensions).append("-dimensional");
 			break;
 		}
@@ -284,20 +285,20 @@ final class CodeHTML implements Constants {
 	private final void findGotos(ByteSequence bytes, Method method, Code code) throws IOException {
 		goto_set = new BitSet(bytes.available());
 		if (code != null) {
-			CodeException[] ce = code.getExceptionTable();
-			int len = ce.length;
+			final CodeException[] ce = code.getExceptionTable();
+			final int len = ce.length;
 			for (int i = 0; i < len; i++) {
 				goto_set.set(ce[i].getStartPC());
 				goto_set.set(ce[i].getEndPC());
 				goto_set.set(ce[i].getHandlerPC());
 			}
-			Attribute[] attributes = code.getAttributes();
+			final Attribute[] attributes = code.getAttributes();
 			for (int i = 0; i < attributes.length; i++) {
 				if (attributes[i].getTag() == 5) {
-					LocalVariable[] vars = ((LocalVariableTable) attributes[i]).getLocalVariableTable();
+					final LocalVariable[] vars = ((LocalVariableTable) attributes[i]).getLocalVariableTable();
 					for (int j = 0; j < vars.length; j++) {
-						int start = vars[j].getStartPC();
-						int end = start + vars[j].getLength();
+						final int start = vars[j].getStartPC();
+						final int end = start + vars[j].getLength();
 						goto_set.set(start);
 						goto_set.set(end);
 					}
@@ -305,35 +306,34 @@ final class CodeHTML implements Constants {
 				}
 			}
 		}
-		int i = 0;
 		while (bytes.available() > 0) {
-			int opcode = bytes.readUnsignedByte();
+			final int opcode = bytes.readUnsignedByte();
 			switch (opcode) {
 			case 170:
 			case 171: {
-				int remainder = bytes.getIndex() % 4;
-				int no_pad_bytes = remainder == 0 ? 0 : 4 - remainder;
+				final int remainder = bytes.getIndex() % 4;
+				final int no_pad_bytes = remainder == 0 ? 0 : 4 - remainder;
 				for (int j = 0; j < no_pad_bytes; j++)
 					bytes.readByte();
 				int default_offset = bytes.readInt();
 				if (opcode == 170) {
-					int low = bytes.readInt();
-					int high = bytes.readInt();
-					int offset = bytes.getIndex() - 12 - no_pad_bytes - 1;
+					final int low = bytes.readInt();
+					final int high = bytes.readInt();
+					final int offset = bytes.getIndex() - 12 - no_pad_bytes - 1;
 					default_offset += offset;
 					goto_set.set(default_offset);
 					for (int j = 0; j < high - low + 1; j++) {
-						int index = offset + bytes.readInt();
+						final int index = offset + bytes.readInt();
 						goto_set.set(index);
 					}
 				} else {
-					int npairs = bytes.readInt();
-					int offset = bytes.getIndex() - 8 - no_pad_bytes - 1;
+					final int npairs = bytes.readInt();
+					final int offset = bytes.getIndex() - 8 - no_pad_bytes - 1;
 					default_offset += offset;
 					goto_set.set(default_offset);
 					for (int j = 0; j < npairs; j++) {
 						bytes.readInt();
-						int index = offset + bytes.readInt();
+						final int index = offset + bytes.readInt();
 						goto_set.set(index);
 					}
 				}
@@ -357,13 +357,13 @@ final class CodeHTML implements Constants {
 			case 168:
 			case 198:
 			case 199: {
-				int index = bytes.getIndex() + bytes.readShort() - 1;
+				final int index = bytes.getIndex() + bytes.readShort() - 1;
 				goto_set.set(index);
 				break;
 			}
 			case 200:
 			case 201: {
-				int index = bytes.getIndex() + bytes.readInt() - 1;
+				final int index = bytes.getIndex() + bytes.readInt() - 1;
 				goto_set.set(index);
 				break;
 			}
@@ -371,19 +371,18 @@ final class CodeHTML implements Constants {
 				bytes.unreadByte();
 				codeToHTML(bytes, 0);
 			}
-			i++;
 		}
 	}
 
 	private void writeMethod(Method method, int method_number) throws IOException {
-		String signature = method.getSignature();
-		String[] args = Utility.methodSignatureArgumentTypes(signature, false);
-		String type = Utility.methodSignatureReturnType(signature, false);
-		String name = method.getName();
-		String html_name = Class2HTML.toHTML(name);
+		final String signature = method.getSignature();
+		final String[] args = Utility.methodSignatureArgumentTypes(signature, false);
+		final String type = Utility.methodSignatureReturnType(signature, false);
+		final String name = method.getName();
+		final String html_name = Class2HTML.toHTML(name);
 		String access = Utility.accessToString(method.getAccessFlags());
 		access = Utility.replace(access, " ", "&nbsp;");
-		Attribute[] attributes = method.getAttributes();
+		final Attribute[] attributes = method.getAttributes();
 		file.print(new StringBuilder().append("<P><B><FONT COLOR=\"#FF0000\">").append(access).append("</FONT>&nbsp;")
 				.append("<A NAME=method").append(method_number).append(">").append(Class2HTML.referenceType(type))
 				.append("</A>&nbsp<A HREF=\"").append(class_name).append("_methods.html#method").append(method_number)
@@ -409,7 +408,7 @@ final class CodeHTML implements Constants {
 					file.print(new StringBuilder().append("<LI>").append(attributes[i]).append("</LI>").toString());
 				if (tag == 2) {
 					c = (Code) attributes[i];
-					Attribute[] attributes2 = c.getAttributes();
+					final Attribute[] attributes2 = c.getAttributes();
 					code = c.getCode();
 					file.print("<UL>");
 					for (int j = 0; j < attributes2.length; j++) {
@@ -425,16 +424,15 @@ final class CodeHTML implements Constants {
 			file.println("</UL>");
 		}
 		if (code != null) {
-			ByteSequence stream = new ByteSequence(code);
+			final ByteSequence stream = new ByteSequence(code);
 			stream.mark(stream.available());
 			findGotos(stream, method, c);
 			stream.reset();
 			file.println(
 					"<TABLE BORDER=0><TR><TH ALIGN=LEFT>Byte<BR>offset</TH><TH ALIGN=LEFT>Instruction</TH><TH ALIGN=LEFT>Argument</TH>");
-			int i = 0;
 			while (stream.available() > 0) {
-				int offset = stream.getIndex();
-				String str = codeToHTML(stream, method_number);
+				final int offset = stream.getIndex();
+				final String str = codeToHTML(stream, method_number);
 				String anchor = "";
 				if (goto_set.get(offset))
 					anchor = new StringBuilder().append("<A NAME=code").append(method_number).append("@").append(offset)
@@ -447,7 +445,6 @@ final class CodeHTML implements Constants {
 					anchor2 = new StringBuilder().append("").append(offset).toString();
 				file.println(new StringBuilder().append("<TR VALIGN=TOP><TD>").append(anchor2).append("</TD><TD>")
 						.append(anchor).append(str).append("</TR>").toString());
-				i++;
 			}
 			file.println("<TR><TD> </A></TD></TR>");
 			file.println("</TABLE>");

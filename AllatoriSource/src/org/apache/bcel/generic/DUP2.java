@@ -7,6 +7,7 @@ public class DUP2 extends StackInstruction implements PushInstruction {
 		super((short) 92);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackProducer(this);
 		v.visitPushInstruction(this);

@@ -7,6 +7,7 @@ public class I2C extends ConversionInstruction {
 		super((short) 146);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

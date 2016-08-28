@@ -7,6 +7,7 @@ public class FREM extends ArithmeticInstruction {
 		super((short) 114);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

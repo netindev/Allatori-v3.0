@@ -27,6 +27,7 @@ public final class InnerClass implements Cloneable, Node, Serializable {
 		this.inner_access_flags = inner_access_flags;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitInnerClass(this);
 	}
@@ -70,6 +71,7 @@ public final class InnerClass implements Cloneable, Node, Serializable {
 		this.outer_class_index = outer_class_index;
 	}
 
+	@Override
 	public final String toString() {
 		return new StringBuilder().append("InnerClass(").append(inner_class_index).append(", ")
 				.append(outer_class_index).append(", ").append(inner_name_index).append(", ").append(inner_access_flags)
@@ -100,7 +102,7 @@ public final class InnerClass implements Cloneable, Node, Serializable {
 		InnerClass innerclass;
 		try {
 			innerclass = (InnerClass) this.clone();
-		} catch (CloneNotSupportedException clonenotsupportedexception) {
+		} catch (final CloneNotSupportedException clonenotsupportedexception) {
 			return null;
 		}
 		return innerclass;

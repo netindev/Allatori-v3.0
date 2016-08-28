@@ -10,10 +10,12 @@ public class IFGT extends IfInstruction {
 		super((short) 157, target);
 	}
 
+	@Override
 	public IfInstruction negate() {
 		return new IFLE(target);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackConsumer(this);
 		v.visitBranchInstruction(this);

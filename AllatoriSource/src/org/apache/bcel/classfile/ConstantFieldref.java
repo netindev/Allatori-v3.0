@@ -18,6 +18,7 @@ public final class ConstantFieldref extends ConstantCP {
 		super((byte) 9, class_index, name_and_type_index);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitConstantFieldref(this);
 	}

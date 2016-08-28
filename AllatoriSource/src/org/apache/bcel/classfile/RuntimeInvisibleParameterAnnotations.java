@@ -11,8 +11,9 @@ public class RuntimeInvisibleParameterAnnotations extends ParameterAnnotations {
 		super((byte) 15, name_index, length, file, constant_pool);
 	}
 
+	@Override
 	public Attribute copy(ConstantPool constant_pool) {
-		Annotations c = (Annotations) clone();
+		final Annotations c = (Annotations) clone();
 		return c;
 	}
 }

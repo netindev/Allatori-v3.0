@@ -12,8 +12,9 @@ public class INVOKESPECIAL extends InvokeInstruction {
 		super((short) 183, index);
 	}
 
+	@Override
 	public Class[] getExceptions() {
-		Class[] cs = new Class[4 + (ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION).length];
+		final Class[] cs = new Class[4 + (ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION).length];
 		System.arraycopy(ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION, 0, cs, 0,
 				(ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION).length);
 		cs[ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION.length + 3] = ExceptionConstants.UNSATISFIED_LINK_ERROR;
@@ -24,6 +25,7 @@ public class INVOKESPECIAL extends InvokeInstruction {
 		return cs;
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitExceptionThrower(this);
 		v.visitTypedInstruction(this);

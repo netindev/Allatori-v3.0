@@ -21,28 +21,29 @@ public class ConstantPool implements Cloneable, Node, Serializable {
 		constant_pool = new Constant[constant_pool_count];
 		for (int i = 1; i < constant_pool_count; i++) {
 			constant_pool[i] = Constant.readConstant(file);
-			byte tag = constant_pool[i].getTag();
+			final byte tag = constant_pool[i].getTag();
 			if (tag == 6 || tag == 5)
 				i++;
 		}
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitConstantPool(this);
 	}
 
 	public String constantToString(Constant c) throws ClassFormatException {
-		byte tag = c.getTag();
+		final byte tag = c.getTag();
 		String str;
 		switch (tag) {
 		case 7: {
-			int i = ((ConstantClass) c).getNameIndex();
+			final int i = ((ConstantClass) c).getNameIndex();
 			c = getConstant(i, (byte) 1);
 			str = Utility.compactClassName(((ConstantUtf8) c).getBytes(), false);
 			break;
 		}
 		case 8: {
-			int i = ((ConstantString) c).getStringIndex();
+			final int i = ((ConstantString) c).getStringIndex();
 			c = getConstant(i, (byte) 1);
 			str = new StringBuilder().append("\"").append(escape(((ConstantUtf8) c).getBytes())).append("\"")
 					.toString();
@@ -81,9 +82,9 @@ public class ConstantPool implements Cloneable, Node, Serializable {
 	}
 
 	private static final String escape(String str) {
-		int len = str.length();
-		StringBuilder buf = new StringBuilder(len + 5);
-		char[] ch = str.toCharArray();
+		final int len = str.length();
+		final StringBuilder buf = new StringBuilder(len + 5);
+		final char[] ch = str.toCharArray();
 		for (int i = 0; i < len; i++) {
 			switch (ch[i]) {
 			case '\n':
@@ -109,7 +110,7 @@ public class ConstantPool implements Cloneable, Node, Serializable {
 	}
 
 	public String constantToString(int index, byte tag) throws ClassFormatException {
-		Constant c = getConstant(index, tag);
+		final Constant c = getConstant(index, tag);
 		return constantToString(c);
 	}
 
@@ -129,7 +130,7 @@ public class ConstantPool implements Cloneable, Node, Serializable {
 	}
 
 	public Constant getConstant(int index, byte tag) throws ClassFormatException {
-		Constant c = getConstant(index);
+		final Constant c = getConstant(index);
 		if (c == null)
 			throw new ClassFormatException(
 					new StringBuilder().append("Constant pool at index ").append(index).append(" is null.").toString());
@@ -175,8 +176,9 @@ public class ConstantPool implements Cloneable, Node, Serializable {
 		constant_pool_count = constant_pool == null ? 0 : constant_pool.length;
 	}
 
+	@Override
 	public String toString() {
-		StringBuilder buf = new StringBuilder();
+		final StringBuilder buf = new StringBuilder();
 		for (int i = 1; i < constant_pool_count; i++)
 			buf.append(i).append(")").append(constant_pool[i]).append("\n");
 		return buf.toString();
@@ -191,7 +193,7 @@ public class ConstantPool implements Cloneable, Node, Serializable {
 				if (constant_pool[i] != null)
 					c.constant_pool[i] = constant_pool[i].copy();
 			}
-		} catch (CloneNotSupportedException clonenotsupportedexception) {
+		} catch (final CloneNotSupportedException clonenotsupportedexception) {
 		}
 		return c;
 	}

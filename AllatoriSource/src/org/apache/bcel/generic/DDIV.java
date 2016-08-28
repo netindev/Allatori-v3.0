@@ -7,6 +7,7 @@ public class DDIV extends ArithmeticInstruction {
 		super((short) 111);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitTypedInstruction(this);
 		v.visitStackProducer(this);

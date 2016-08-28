@@ -7,6 +7,7 @@ public class DUP2_X1 extends StackInstruction {
 		super((short) 93);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitStackInstruction(this);
 		v.visitDUP2_X1(this);

@@ -11,6 +11,7 @@ public class ALOAD extends LoadInstruction {
 		super((short) 25, (short) 42, n);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		super.accept(v);
 		v.visitALOAD(this);

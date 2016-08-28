@@ -7,6 +7,7 @@ public class RETURN extends ReturnInstruction {
 		super((short) 177);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitExceptionThrower(this);
 		v.visitTypedInstruction(this);

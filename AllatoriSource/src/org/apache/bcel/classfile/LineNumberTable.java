@@ -26,10 +26,12 @@ public final class LineNumberTable extends Attribute {
 			line_number_table[i] = new LineNumber(file);
 	}
 
+	@Override
 	public void accept(Visitor v) {
 		v.visitLineNumberTable(this);
 	}
 
+	@Override
 	public final void dump(DataOutputStream file) throws IOException {
 		super.dump(file);
 		file.writeShort(line_number_table_length);
@@ -46,10 +48,11 @@ public final class LineNumberTable extends Attribute {
 		line_number_table_length = line_number_table == null ? 0 : line_number_table.length;
 	}
 
+	@Override
 	public final String toString() {
-		StringBuilder buf = new StringBuilder();
-		StringBuilder line = new StringBuilder();
-		String newLine = System.getProperty("line.separator", "\n");
+		final StringBuilder buf = new StringBuilder();
+		final StringBuilder line = new StringBuilder();
+		final String newLine = System.getProperty("line.separator", "\n");
 		for (int i = 0; i < line_number_table_length; i++) {
 			line.append(line_number_table[i].toString());
 			if (i < line_number_table_length - 1)
@@ -60,7 +63,7 @@ public final class LineNumberTable extends Attribute {
 				line.setLength(0);
 			}
 		}
-		buf.append((CharSequence) line);
+		buf.append(line);
 		return buf.toString();
 	}
 
@@ -72,8 +75,8 @@ public final class LineNumberTable extends Attribute {
 		int min_index = -1;
 		int min = -1;
 		do {
-			int i = (l + r) / 2;
-			int j = line_number_table[i].getStartPC();
+			final int i = (l + r) / 2;
+			final int j = line_number_table[i].getStartPC();
 			if (j == pos)
 				return line_number_table[i].getLineNumber();
 			if (pos < j)
@@ -90,8 +93,9 @@ public final class LineNumberTable extends Attribute {
 		return line_number_table[min_index].getLineNumber();
 	}
 
+	@Override
 	public Attribute copy(ConstantPool _constant_pool) {
-		LineNumberTable c = (LineNumberTable) clone();
+		final LineNumberTable c = (LineNumberTable) clone();
 		c.line_number_table = new LineNumber[line_number_table_length];
 		for (int i = 0; i < line_number_table_length; i++)
 			c.line_number_table[i] = line_number_table[i].copy();

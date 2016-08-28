@@ -4,7 +4,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class ClassElementValue extends ElementValue {
-	private int idx;
+	private final int idx;
 
 	public ClassElementValue(int type, int idx, ConstantPool cpool) {
 		super(type, cpool);
@@ -16,15 +16,17 @@ public class ClassElementValue extends ElementValue {
 	}
 
 	public String getClassString() {
-		ConstantUtf8 c = (ConstantUtf8) cpool.getConstant(idx, (byte) 1);
+		final ConstantUtf8 c = (ConstantUtf8) cpool.getConstant(idx, (byte) 1);
 		return c.getBytes();
 	}
 
+	@Override
 	public String stringifyValue() {
-		ConstantUtf8 cu8 = (ConstantUtf8) cpool.getConstant(idx, (byte) 1);
+		final ConstantUtf8 cu8 = (ConstantUtf8) cpool.getConstant(idx, (byte) 1);
 		return cu8.getBytes();
 	}
 
+	@Override
 	public void dump(DataOutputStream dos) throws IOException {
 		dos.writeByte(type);
 		dos.writeShort(idx);
