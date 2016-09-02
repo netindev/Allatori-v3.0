@@ -19,7 +19,6 @@ public class DefaultHandler_Sub2 extends DefaultHandler {
 	private String newClassName;
 	private String oldClassName;
 	private final RenamingMap aRenamingMap_964;
-	// $FF: synthetic field
 	private final Renamer aRenamer_965;
 
 	private DefaultHandler_Sub2(Renamer var1) {
@@ -150,13 +149,11 @@ public class DefaultHandler_Sub2 extends DefaultHandler {
 		this.method1847();
 	}
 
-	// $FF: synthetic method
 	public static void method1851(DefaultHandler_Sub2 var0) throws Exception {
 		var0.method1850();
 	}
 
-	// $FF: synthetic method
-	public DefaultHandler_Sub2(Renamer var1, Class178 var2) {
+	public DefaultHandler_Sub2(Renamer var1, EmptyClass var2) {
 		this(var1);
 	}
 

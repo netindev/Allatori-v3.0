@@ -56,7 +56,7 @@ public class Class56 {
 					int var7;
 					try {
 						java.lang.reflect.Method[] var6;
-						for (int var10 = var7 = (var6 = Class.forName(var4, false, this.aClassStorage_608.method675())
+						for (int var10 = var7 = (var6 = Class.forName(var4, false, this.aClassStorage_608.cLoader())
 								.getDeclaredMethods()).length - 1; var10 >= 0; var10 = var7) {
 							final java.lang.reflect.Method var8 = var6[var7];
 							if (this.method706(var8)) {
@@ -137,7 +137,7 @@ public class Class56 {
 
 	public void method699() {
 		Iterator var1;
-		for (Iterator var10000 = var1 = this.aClassStorage_608.method671(); var10000.hasNext(); var10000 = var1) {
+		for (Iterator var10000 = var1 = this.aClassStorage_608.iterator(); var10000.hasNext(); var10000 = var1) {
 			final ClassGen var2 = (ClassGen) var1.next();
 			this.method695(var2);
 			this.method707(var2);
@@ -218,7 +218,7 @@ public class Class56 {
 
 		Iterator var2;
 		Iterator var10000;
-		for (var10000 = var2 = this.aClassStorage_608.method671(); var10000.hasNext(); var10000 = var2) {
+		for (var10000 = var2 = this.aClassStorage_608.iterator(); var10000.hasNext(); var10000 = var2) {
 			var1.add(var2.next());
 		}
 
@@ -270,7 +270,7 @@ public class Class56 {
 		} else {
 			try {
 				Class var8;
-				if ((var8 = Class.forName(var2, false, this.aClassStorage_608.method675())).getSuperclass() != null) {
+				if ((var8 = Class.forName(var2, false, this.aClassStorage_608.cLoader())).getSuperclass() != null) {
 					this.method708(var1, var8.getSuperclass().getName());
 				}
 

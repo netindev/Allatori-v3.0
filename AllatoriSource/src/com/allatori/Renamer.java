@@ -53,7 +53,7 @@ public class Renamer {
 	private static boolean aBoolean506 = false;
 	private static RenamingMap namingMap = new RenamingMap();
 	private final Class56 aClass56_508;
-	private final Class172 aClass172_509 = new Class172(this, (Class178) null);
+	private final Class172 aClass172_509 = new Class172(this, (EmptyClass) null);
 	private final Class26 aClass26_510 = new Class26();
 
 	private void method296(ElementValueGen var1, ConstantPoolGen var2) {

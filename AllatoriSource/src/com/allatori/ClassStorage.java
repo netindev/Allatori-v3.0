@@ -7,38 +7,40 @@ import java.util.Vector;
 import org.apache.bcel.generic.ClassGen;
 
 public class ClassStorage {
+	
+	/* OK */
 
-	private final Hashtable table = new Hashtable();
+	private final Hashtable<String, ClassGen> table = new Hashtable<String, ClassGen>();
 	private final ClassLoader classLoader;
-	private final Vector vector = new Vector();
+	private final Vector<ClassGen> vector = new Vector<ClassGen>();
 
-	public ClassGen getClassGen(String var1) {
-		return (ClassGen) this.table.get(var1);
+	public ClassGen getClassGen(String str) {
+		return (ClassGen) this.table.get(str);
 	}
 
-	public Iterator method671() {
+	public Iterator<ClassGen> iterator() {
 		return this.table.values().iterator();
 	}
 
-	public void method672(ClassGen var1) {
-		this.table.put(var1.getClassName(), var1);
+	public void put(ClassGen cg) {
+		this.table.put(cg.getClassName(), cg);
 	}
 
-	public void addClass(ClassGen var1) {
-		this.table.put(var1.getClassName(), var1);
-		this.vector.add(var1);
+	public void addClass(ClassGen cg) {
+		this.table.put(cg.getClassName(), cg);
+		this.vector.add(cg);
 	}
 
-	public Vector method674() {
+	public Vector<ClassGen> vector() {
 		return this.vector;
 	}
 
-	public ClassStorage(URLClassLoaderImpl var1) {
-		this.classLoader = var1;
-		var1.setClasses(this);
+	public ClassStorage(URLClassLoaderImpl cli) {
+		this.classLoader = cli;
+		cli.setClasses(this);
 	}
 
-	public ClassLoader method675() {
+	public ClassLoader cLoader() {
 		return this.classLoader;
 	}
 }

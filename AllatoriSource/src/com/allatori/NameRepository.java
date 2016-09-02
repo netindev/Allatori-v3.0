@@ -19,7 +19,7 @@ public class NameRepository {
 	}
 
 	// $FF: synthetic method
-	public NameRepository(Class172 var1, Class178 var2) {
+	public NameRepository(Class172 var1, EmptyClass var2) {
 		this(var1);
 	}
 

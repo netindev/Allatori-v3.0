@@ -24,7 +24,7 @@ public class Class172 {
 		this.aClass156_874 = new Class156(this, null);
 	}
 
-	public Class172(Renamer var1, Class178 var2) {
+	public Class172(Renamer var1, EmptyClass var2) {
 		this(var1);
 	}
 

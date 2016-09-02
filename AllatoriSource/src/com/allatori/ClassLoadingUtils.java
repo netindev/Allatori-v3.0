@@ -28,7 +28,7 @@ public class ClassLoadingUtils {
 
 			if (var5.getName().endsWith(".class")) {
 				try {
-					var1.method672(parseClassGen(new BufferedInputStream(new FileInputStream(var5)), var5.getName()));
+					var1.put(parseClassGen(new BufferedInputStream(new FileInputStream(var5)), var5.getName()));
 				} catch (final Exception var7) {
 					Logger.printError("Cannot parse class " + var5.getName());
 				}

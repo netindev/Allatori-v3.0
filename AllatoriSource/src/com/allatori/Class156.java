@@ -4,7 +4,7 @@ public class Class156 {
 
 	private final Interface22 anInterface22_809;
 
-	public Class156(Class172 var1, Class178 var2) {
+	public Class156(Class172 var1, EmptyClass var2) {
 		this(var1);
 	}
 

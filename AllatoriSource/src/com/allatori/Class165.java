@@ -22,7 +22,7 @@ public class Class165 {
 		return var0.aRenamingMap_847;
 	}
 
-	public Class165(Class172 var1, Class178 var2) {
+	public Class165(Class172 var1, EmptyClass var2) {
 		this(var1);
 	}
 

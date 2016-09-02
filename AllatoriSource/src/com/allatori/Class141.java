@@ -24,7 +24,7 @@ public class Class141 {
 		return var0.aRenamingMap_781;
 	}
 
-	public Class141(Class172 var1, Class178 var2) {
+	public Class141(Class172 var1, EmptyClass var2) {
 		this(var1);
 	}
 }

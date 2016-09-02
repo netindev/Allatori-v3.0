@@ -126,7 +126,7 @@ public class Class20 {
 		}
 
 		method449(var7, var6, var4);
-		method449(var2.method674(), var6, var4);
+		method449(var2.vector(), var6, var4);
 		var5.close();
 		if (!Tuning.isWeakStringEncryption()) {
 			method448(var6);

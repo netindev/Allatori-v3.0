@@ -19,41 +19,43 @@ import com.allatori.InitUtils;
 import com.allatori.ObfuscationType;
 
 public class AntiJDTransform implements ObfuscationType {
+	
+	/* OK */
 
 	private final ClassStorage classes;
 
 	@Override
-	public void execute(ClassGen _cg) {
-		final int type = AntiJD.getType(this.classes, _cg);
+	public void execute(ClassGen cg) {
+		final int type = AntiJD.getType(this.classes, cg);
 		if (type != 0) {
 			try {
-				for (final Method method : _cg.getMethods()) {
+				for (final Method method : cg.getMethods()) {
 					if (method.getCode() != null) {
-						final MethodGen _mg = InitUtils.createMethodGen(method, _cg.getClassName(),
-								_cg.getConstantPool(), _cg.getConstantPool().getConstantPool());
-						final InstructionList _il = _mg.getInstructionList();
-						InstructionHandle currentHandle = _il.getStart();
+						final MethodGen mg = InitUtils.createMethodGen(method, cg.getClassName(),
+								cg.getConstantPool(), cg.getConstantPool().getConstantPool());
+						final InstructionList il = mg.getInstructionList();
+						InstructionHandle currentHandle = il.getStart();
 						while (currentHandle != null) {
 							if (currentHandle.getInstruction() instanceof NEWARRAY
 									|| currentHandle.getInstruction() instanceof ANEWARRAY) {
-								InstructionHandle h = _il.append(currentHandle, new PUSH(_cg.getConstantPool(), 1));
-								h = _il.append(h, new DUP());
-								_il.append(h, new POP2());
+								InstructionHandle h = il.append(currentHandle, new PUSH(cg.getConstantPool(), 1));
+								h = il.append(h, new DUP());
+								il.append(h, new POP2());
 								currentHandle = currentHandle.getNext().getNext().getNext().getNext();
 							} else if (type == 2 && (currentHandle.getInstruction() instanceof BIPUSH
 									|| currentHandle.getInstruction() instanceof SIPUSH
 									|| currentHandle.getInstruction() instanceof ICONST)) {
-								InstructionHandle h = _il.append(currentHandle, new PUSH(_cg.getConstantPool(), 1));
-								h = _il.append(h, new DUP());
-								_il.append(h, new POP2());
+								InstructionHandle h = il.append(currentHandle, new PUSH(cg.getConstantPool(), 1));
+								h = il.append(h, new DUP());
+								il.append(h, new POP2());
 								currentHandle = currentHandle.getNext().getNext().getNext().getNext();
 							} else {
 								currentHandle = currentHandle.getNext();
 							}
 						}
-						_mg.setMaxStack();
-						_mg.setMaxLocals();
-						_cg.replaceMethod(method, _mg.getMethod());
+						mg.setMaxStack();
+						mg.setMaxLocals();
+						cg.replaceMethod(method, mg.getMethod());
 					}
 				}
 			} catch (final Exception e) {
@@ -63,11 +65,12 @@ public class AntiJDTransform implements ObfuscationType {
 		}
 	}
 
-	public AntiJDTransform(ClassStorage var1) {
-		this.classes = var1;
+	public AntiJDTransform(ClassStorage cs) {
+		this.classes = cs;
 	}
 
 	@Override
 	public void terminate() {
+		/* empty */
 	}
 }

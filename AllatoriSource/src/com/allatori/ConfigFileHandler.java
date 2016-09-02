@@ -19,7 +19,6 @@ public class ConfigFileHandler extends DefaultHandler {
 	private ClassConstraint aClassConstraint_953;
 	private String aString954;
 	private Locator locator;
-	// $FF: synthetic field
 	private final ConfigFile configFile;
 	private int anInt959;
 	private String aString960;

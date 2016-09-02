@@ -19,16 +19,18 @@ import com.allatori.ControlFlowTransform;
 import com.allatori.InitUtils;
 
 public class BranchTransform implements ControlFlowTransform {
+	
+	/* OK */
 
 	@Override
-	public void patch(ClassGen _cg) {
-		for (final Method method : _cg.getMethods()) {
+	public void patch(ClassGen cg) {
+		for (final Method method : cg.getMethods()) {
 			if (method.getCode() != null) {
-				final MethodGen _mg = InitUtils.createMethodGen(method, _cg.getClassName(), _cg.getConstantPool(),
-						_cg.getConstantPool().getConstantPool());
-				final InstructionList _il = _mg.getInstructionList();
-				_il.setPositions();
-				for (InstructionHandle current = _il.getStart(); current != null; current = current.getNext()) {
+				final MethodGen mg = InitUtils.createMethodGen(method, cg.getClassName(), cg.getConstantPool(),
+						cg.getConstantPool().getConstantPool());
+				final InstructionList il = mg.getInstructionList();
+				il.setPositions();
+				for (InstructionHandle current = il.getStart(); current != null; current = current.getNext()) {
 					if (current.getInstruction() instanceof IfInstruction) {
 						boolean targetPosLower = true;
 						boolean targetPosHigher = true;
@@ -36,11 +38,9 @@ public class BranchTransform implements ControlFlowTransform {
 						if (target.getPosition() >= current.getPosition()) {
 							targetPosLower = false;
 						}
-
 						if (target.getPosition() <= current.getPosition()) {
 							targetPosHigher = false;
 						}
-
 						InstructionHandle targetPrev;
 						if ((targetPosLower || targetPosHigher) && (targetPrev = target.getPrev()) != null
 								&& targetPrev.getInstruction() instanceof GotoInstruction) {
@@ -59,30 +59,27 @@ public class BranchTransform implements ControlFlowTransform {
 									&& !(targetPrevTarget.getInstruction() instanceof ANEWARRAY)
 									&& this.hasOnlyNonInstructionTargeters(targetPrevTarget.getPrev().getTargeters())) {
 								gi.setTarget(targetPrevTarget.getNext());
-								_il.insert(targetPrevTarget.getPrev(), targetPrevTarget.getInstruction());
+								il.insert(targetPrevTarget.getPrev(), targetPrevTarget.getInstruction());
 							}
 						}
 					}
 				}
-
-				_mg.setMaxStack();
-				_cg.replaceMethod(method, _mg.getMethod());
+				mg.setMaxStack();
+				cg.replaceMethod(method, mg.getMethod());
 			}
 		}
 
 	}
 
-	private boolean hasOnlyNonInstructionTargeters(InstructionTargeter[] var1) {
-		if (var1 == null) {
+	private boolean hasOnlyNonInstructionTargeters(InstructionTargeter[] it) {
+		if (it == null) {
 			return true;
 		}
-		for (final InstructionTargeter targeter : var1) {
+		for (final InstructionTargeter targeter : it) {
 			if (!(targeter instanceof LineNumberGen) && !(targeter instanceof LocalVariableGen)) {
 				return false;
 			}
 		}
-
 		return true;
-
 	}
 }

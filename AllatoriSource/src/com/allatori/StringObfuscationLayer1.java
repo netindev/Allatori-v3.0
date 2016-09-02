@@ -461,7 +461,7 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 		this.aClassStorage_1153 = var1;
 
 		Iterator var2;
-		for (Iterator var10000 = var2 = var1.method671(); var10000.hasNext(); var10000 = var2) {
+		for (Iterator var10000 = var2 = var1.iterator(); var10000.hasNext(); var10000 = var2) {
 			final ClassGen var3 = (ClassGen) var2.next();
 			int var4;
 			if ((var4 = Tuning.method1726(var1, var3, null)) == Tuning.STRING_ENCRYPTION_DEFAULT) {

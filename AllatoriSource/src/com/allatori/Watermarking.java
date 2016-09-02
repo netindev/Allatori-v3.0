@@ -121,7 +121,7 @@ public class Watermarking {
 
 		Iterator<?> var2;
 		int var5;
-		for (Iterator<?> var10000 = var2 = this.aClassStorage_892.method671(); var10000.hasNext(); var10000 = var2) {
+		for (Iterator<?> var10000 = var2 = this.aClassStorage_892.iterator(); var10000.hasNext(); var10000 = var2) {
 			ClassGen var3;
 			Method[] var4;
 			for (int var7 = var5 = (var4 = (var3 = (ClassGen) var2.next()).getMethods()).length
