@@ -8,24 +8,20 @@ public class Obfuscate extends Configurable {
 		} else {
 			System.out.println(Configurable.printSplash());
 		}
-
 		if (arguments.length != 1 && !Logger.silentExecution()) {
 			printUsage();
 			System.exit(0);
 		}
-
 		Configurable.parseConfigFile(arguments[0]);
-
 		try {
 			execute();
-		} catch (final Exception var2) {
-			Logger.printError(var2.getMessage());
+		} catch (final Exception e) {
+			Logger.printError(e.getMessage());
 			System.out.println("############### EXCEPTION ###############");
-			var2.printStackTrace();
+			e.printStackTrace();
 			System.out.println("#########################################");
 			System.exit(-1);
 		}
-
 	}
 
 	private static void method1276(ClassStorage classStorage) throws Exception {

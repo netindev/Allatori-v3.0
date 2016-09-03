@@ -4,15 +4,16 @@ import java.util.Comparator;
 
 import org.apache.bcel.generic.ClassGen;
 
-public class ClassGenComparator implements Comparator {
+public class ClassGenComparator implements Comparator<Object> {
+	
+	/* OK */
 
-	public ClassGenComparator() {
-	}
+	public ClassGenComparator() {}
 
 	@Override
-	public int compare(Object var1, Object var2) {
-		final String var3 = ((ClassGen) var1).getClassName();
-		final String var4 = ((ClassGen) var2).getClassName();
-		return var3.compareTo(var4);
+	public int compare(Object obj, Object toComp) {
+		final String classNameObj = ((ClassGen) obj).getClassName();
+		final String classNameToComp = ((ClassGen) toComp).getClassName();
+		return classNameObj.compareTo(classNameToComp);
 	}
 }

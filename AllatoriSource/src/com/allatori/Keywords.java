@@ -2,7 +2,7 @@ package com.allatori;
 
 import java.util.Arrays;
 
-public class Class94_Sub1 extends Class94 {
+public class Keywords extends Class94 {
 
 	private static final String[] KEYWORDS = new String[] { "abstract", "assert", "boolean", "break", "byte", "case", "catch",
 			"char", "class", "const", "continue", "default", "do", "double", "else", "enum", "extends", "false",
@@ -11,7 +11,7 @@ public class Class94_Sub1 extends Class94 {
 			"strictfp", "super", "switch", "synchronized", "this", "throw", "throws", "transient", "true", "try",
 			"void", "volatile", "while" };
 
-	public Class94_Sub1() {
+	public Keywords() {
 		super(KEYWORDS);
 	}
 

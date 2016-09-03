@@ -26,7 +26,7 @@ public class Configurable {
 	}
 
 	private static void method1268(ClassStorage var0) throws Exception {
-		final Vector var1 = Class45.method660();
+		final Vector<?> var1 = Class45.method660();
 
 		int var2;
 		int var10000;
@@ -52,7 +52,7 @@ public class Configurable {
 
 	static ClassStorage method1269() throws Exception {
 		final ClassStorage var0 = new ClassStorage(method1272());
-		final Vector var1 = Class45.method660();
+		final Vector<?> var1 = Class45.method660();
 
 		int var2;
 		int var10000;
@@ -61,7 +61,7 @@ public class Configurable {
 			++var2;
 		}
 
-		final Vector var3 = Class45.method657();
+		final Vector<?> var3 = Class45.method657();
 
 		int var4;
 		for (var10000 = var4 = 0; var10000 < var3.size(); var10000 = var4) {
@@ -160,7 +160,7 @@ public class Configurable {
 	}
 
 	private static void method1273(ClassStorage var0) throws Exception {
-		final Vector var1 = Class45.method657();
+		final Vector<?> var1 = Class45.method657();
 
 		int var2;
 		for (int var10000 = var2 = 0; var10000 < var1.size(); var10000 = var2) {

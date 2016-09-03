@@ -13,7 +13,7 @@ public class Unknown {
 	}
 
 	public static Interface22 method333() {
-		return anInt518 == 1 ? new Class113() : (anInt518 == 3 ? new Class94_Sub1() : new ObfuscationStyle());
+		return anInt518 == 1 ? new Class113() : (anInt518 == 3 ? new Keywords() : new ObfuscationStyle());
 	}
 
 	public static Interface22 method334() {
@@ -25,7 +25,7 @@ public class Unknown {
 	}
 
 	public static Interface22 method336() {
-		return anInt519 == 1 ? new Class113() : (anInt519 == 3 ? new Class94_Sub1() : new ObfuscationStyle());
+		return anInt519 == 1 ? new Class113() : (anInt519 == 3 ? new Keywords() : new ObfuscationStyle());
 	}
 
 	public static Interface22 method337() {

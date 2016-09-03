@@ -16,17 +16,14 @@ public class MethodUtils {
 		return (var1 = var0.lastIndexOf(46)) == -1 ? "" : var0.substring(0, var1);
 	}
 
-	// $FF: synthetic method
 	public static void method1448(AccessFlags var0) {
 		method1451(var0);
 	}
 
-	// $FF: synthetic method
 	public static Type method1449(Type var0, RenamingMap var1) {
 		return method1453(var0, var1);
 	}
 
-	// $FF: synthetic method
 	public static boolean method1450(AccessFlags var0) {
 		return method1446(var0);
 	}

@@ -17,7 +17,6 @@ public class ControlFlow implements ObfuscationType {
 		vector.add(new BranchTransform());
 		vector.add(new SelectBlockTransform());
 		vector.add(new LocalVariableTransform());
-		
 		for (Iterator<ControlFlowTransform> iterator = vector.iterator(); iterator.hasNext();) {
 			((ControlFlowTransform) iterator.next()).patch(cg);
 		}

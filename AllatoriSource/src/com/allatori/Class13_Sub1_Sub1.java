@@ -128,7 +128,7 @@ public class Class13_Sub1_Sub1 extends Class13_Sub1 implements Serializable {
 		return var1;
 	}
 
-	public Class13_Sub1_Sub1(Date var1) {
-		this.method368((int) Class13_Sub1.method366(var1) % anInt1342);
+	public Class13_Sub1_Sub1(Date date) {
+		this.method368((int) Class13_Sub1.getTime(date) % anInt1342);
 	}
 }

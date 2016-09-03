@@ -122,10 +122,8 @@ public class ClassConstraint {
 			if (((FieldConstraint) this.fieldConstraints.get(var2)).apply(var1)) {
 				return true;
 			}
-
 			--var2;
 		}
-
 		return false;
 	}
 
