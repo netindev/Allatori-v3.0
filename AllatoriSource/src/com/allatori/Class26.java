@@ -12,8 +12,8 @@ public class Class26 {
 
 	private final RenamingMap aRenamingMap_566 = new RenamingMap();
 	private final IObfuscationStyle anInterface22_567 = ObfuscationStyleUtils.method334();
-	private final Vector aVector568 = new Vector();
-	private final Vector aVector569 = new Vector();
+	private final Vector<Object> aVector568 = new Vector<Object>();
+	private final Vector<Class118> aVector569 = new Vector<Class118>();
 
 	public void method494(MethodGen var1) {
 		if (LineNumbers.method454() != 2) {
@@ -30,7 +30,7 @@ public class Class26 {
 						if ((var5 = (var4 = var2[var3]).getSourceLine()) > this.aVector568.size() - 1) {
 							final int var6 = this.aVector568.size();
 							final int var7 = var5 - var6 + 200;
-							final Vector var8 = new Vector(var7);
+							final Vector<Object> var8 = new Vector<Object>(var7);
 
 							int var9;
 							for (var10000 = var9 = 0; var10000 < var7; var10000 = var9) {
@@ -56,11 +56,11 @@ public class Class26 {
 		this.aRenamingMap_566.put(var1, var2);
 	}
 
-	public Vector method496() {
+	public Vector<Class118> method496() {
 		return this.aVector569;
 	}
 
-	public Vector method497() {
+	public Vector<Object> method497() {
 		return this.aVector568;
 	}
 

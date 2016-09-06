@@ -23,24 +23,24 @@ public class Class63 implements ObfuscationType {
 
 	@Override
 	public void execute(ClassGen var1) {
-		final String className = Class180.method1778();
-		final String methodName = Class180.method1780();
+		final String className = ClassUtils.method1778();
+		final String methodName = ClassUtils.method1780();
 		if (className != null && methodName != null) {
-			if (Class180.method1777().apply(this.aClassStorage_1143, var1)) {
+			if (ClassUtils.method1777().apply(this.aClassStorage_1143, var1)) {
 				try {
 					final Method[] var4 = var1.getMethods();
 
 					int var5;
 					for (int var10000 = var5 = 0; var10000 < var4.length; var10000 = var5) {
 						Method var6;
-						if ((var6 = var4[var5]).getCode() != null && Class180.method1777().apply(var6)) {
+						if ((var6 = var4[var5]).getCode() != null && ClassUtils.method1777().apply(var6)) {
 							final MethodGen var7 = InitUtils.createMethodGen(var6, var1.getClassName(),
 									var1.getConstantPool(), var1.getConstantPool().getConstantPool());
 							final InstructionFactory iFac = new InstructionFactory(var1);
 							InstructionList var9;
 							final InstructionHandle endHandle = (var9 = var7.getInstructionList()).getEnd();
 							InstructionHandle _tmp;
-							if (Class180.method1776()) {
+							if (ClassUtils.method1776()) {
 								_tmp = var9.insert(endHandle, iFac.createInvoke(className, methodName, Type.VOID,
 										new Type[] { Type.OBJECT }, (short) 184));
 								_tmp = var9.insert(_tmp, InstructionFactory.createThis());

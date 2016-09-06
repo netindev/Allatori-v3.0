@@ -26,7 +26,7 @@ public class Obfuscator {
 	}
 
 	private void executeTransforms() {
-		final Vector transformsVector = new Vector();
+		final Vector<ObfuscationType> transformsVector = new Vector<ObfuscationType>();
 		transformsVector.add(new DemoWaterMark());
 		transformsVector.add(new Class63(this.classes));
 		transformsVector.add(new ExpiryObfuscation(this.classes));
@@ -44,18 +44,18 @@ public class Obfuscator {
 
 		transformsVector.add(new AntiJDTransform(this.classes));
 
-		Iterator var2;
-		Iterator var10000;
+		Iterator<?> var2;
+		Iterator<?> var10000;
 		for (var10000 = var2 = this.classes.method671(); var10000.hasNext(); var10000 = var2) {
 			final ClassGen var3 = (ClassGen) var2.next();
 
-			Iterator var4;
+			Iterator<ObfuscationType> var4;
 			for (var10000 = var4 = transformsVector.iterator(); var10000.hasNext(); var10000 = var4) {
 				((ObfuscationType) var4.next()).execute(var3);
 			}
 		}
 
-		Iterator var5;
+		Iterator<ObfuscationType> var5;
 		for (var10000 = var5 = transformsVector.iterator(); var10000.hasNext(); var10000 = var5) {
 			((ObfuscationType) var5.next()).terminate();
 		}
@@ -70,16 +70,16 @@ public class Obfuscator {
 	private void method1525() {
 		final Class95 var1 = new Class95();
 
-		Iterator var2;
-		for (Iterator var10000 = var2 = this.classes.method671(); var10000.hasNext(); var10000 = var2) {
+		Iterator<?> var2;
+		for (Iterator<?> var10000 = var2 = this.classes.method671(); var10000.hasNext(); var10000 = var2) {
 			var1.method1258((ClassGen) var2.next());
 		}
 
 	}
 
 	public void method1526() {
-		Iterator var1;
-		Iterator var10000;
+		Iterator<?> var1;
+		Iterator<?> var10000;
 		for (var10000 = var1 = this.classes.method671(); var10000.hasNext(); var10000 = var1) {
 			if (((ClassGen) var1.next()).getSuperclassName().startsWith("javax.microedition.")) {
 				Tuning.method1723();
@@ -92,7 +92,7 @@ public class Obfuscator {
 		if (Tuning.isStringObfuscationLayer2Enabled()) {
 			final StringObfuscationLayer2 var2 = new StringObfuscationLayer2();
 
-			Iterator var3;
+			Iterator<?> var3;
 			for (var10000 = var3 = this.classes.method671(); var10000.hasNext(); var10000 = var3) {
 				final ClassGen var4 = (ClassGen) var3.next();
 				var2.execute(var4);

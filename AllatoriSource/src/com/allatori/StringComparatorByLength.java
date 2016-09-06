@@ -2,7 +2,7 @@ package com.allatori;
 
 import java.util.Comparator;
 
-public class StringComparatorByLength implements Comparator {
+public class StringComparatorByLength implements Comparator<Object> {
 
 	@Override
 	public int compare(Object var1, Object var2) {

@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class RenamingMap {
 
-	private final Hashtable nameTable = new Hashtable();
+	private final Hashtable<String, String> nameTable = new Hashtable<String, String>();
 
 	public void method440(String var1) {
 		this.nameTable.remove(var1);
@@ -23,7 +23,7 @@ public class RenamingMap {
 		this.nameTable.put(var1, var2);
 	}
 
-	public Set method444() {
+	public Set<String> method444() {
 		return this.nameTable.keySet();
 	}
 

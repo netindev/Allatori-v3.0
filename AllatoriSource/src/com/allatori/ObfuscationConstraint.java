@@ -7,7 +7,7 @@ import org.apache.bcel.generic.MethodGen;
 
 public class ObfuscationConstraint {
 
-	private final Vector obfuscationConstraints = new Vector();
+	private final Vector<ObfuscationTypeConstraint> obfuscationConstraints = new Vector<ObfuscationTypeConstraint>();
 	private final int defaultType;
 
 	public void addConstraint(ObfuscationTypeConstraint typeConstraint) {

@@ -20,12 +20,8 @@ public class FileUtils {
 		final StringBuilder var2 = new StringBuilder((int) var0.length());
 		BufferedReader var4;
 		BufferedReader var10000;
-		if ("UTF-8" != null) {
-			var4 = new BufferedReader(new InputStreamReader(new FileInputStream(var0), "UTF-8"));
-			var10000 = var4;
-		} else {
-			var10000 = var4 = new BufferedReader(new FileReader(var0));
-		}
+		var4 = new BufferedReader(new InputStreamReader(new FileInputStream(var0), "UTF-8"));
+		var10000 = var4;
 
 		int var3;
 		while ((var3 = var10000.read()) != -1) {
@@ -61,11 +57,7 @@ public class FileUtils {
 
 	public static void method690(File var0, String var2) throws Exception {
 		BufferedWriter var3;
-		if ("UTF-8" != null) {
-			var3 = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(var0), "UTF-8"));
-		} else {
-			var3 = new BufferedWriter(new FileWriter(var0));
-		}
+		var3 = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(var0), "UTF-8"));
 
 		var3.write(var2);
 		var3.close();

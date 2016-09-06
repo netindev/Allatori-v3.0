@@ -20,13 +20,12 @@ public class ConfigFileHandler extends DefaultHandler {
 	private ClassConstraint aClassConstraint_953;
 	private String aString954;
 	private Locator locator;
-	// $FF: synthetic field
 	private final ConfigFile configFile;
 	private int anInt959;
 	private String aString960;
-	public static Vector aVector645 = new Vector<>();
+	public static Vector<Object> aVector645 = new Vector<>();
 
-	public static Vector method832() {
+	public static Vector<Object> method832() {
 		return aVector645;
 	}
 
@@ -376,20 +375,20 @@ public class ConfigFileHandler extends DefaultHandler {
 						} else if ("trial".equals(var3)) {
 							var5 = this.getAttributeByName(var4, "class", true, null, true);
 							var6 = this.getAttributeByName(var4, "method", true, null, true);
-							Class180.method1774(var5);
-							Class180.method1773(var6);
+							ClassUtils.method1774(var5);
+							ClassUtils.method1773(var6);
 							var7 = this.getAttributeByName(var4, "add2class", false, "private+ class *", true);
 							ClassConstraint var18;
-							Class180.method1779(var18 = this.createClassFilter(var7, null, null, null, "add2class"));
+							ClassUtils.method1779(var18 = this.createClassFilter(var7, null, null, null, "add2class"));
 							final String var23 = this.getAttributeByName(var4, "add2method", false,
 									"private+ <init>(**)", true);
 							final MethodConstraint var10 = this.method1825(var23, null);
 							var18.addMethodConstraint(var10);
 							final String var11 = this.getAttributeByName(var4, "passthis", false, "no", true);
 							if (!"yes".equals(var11) && !"true".equals(var11)) {
-								Class180.method1775(false);
+								ClassUtils.method1775(false);
 							} else {
-								Class180.method1775(true);
+								ClassUtils.method1775(true);
 							}
 						} else {
 							if (!"expiry".equals(var3)) {

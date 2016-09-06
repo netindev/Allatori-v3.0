@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Class13_Sub1_Sub1 extends TimeUtils implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	public int anInt1339;
 	public double aDouble1341;
 	public static int anInt1342 = 899999963;

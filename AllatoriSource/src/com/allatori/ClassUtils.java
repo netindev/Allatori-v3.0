@@ -1,6 +1,6 @@
 package com.allatori;
 
-public class Class180 {
+public class ClassUtils {
 
 	private static ClassConstraint aClassConstraint_894;
 	private static String aString895;

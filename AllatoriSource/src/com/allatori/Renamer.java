@@ -49,7 +49,6 @@ import org.apache.bcel.generic.Type;
 public class Renamer {
 
 	private final ClassStorage aClassStorage_504;
-	public static final String aString505 = "&";
 	private static boolean aBoolean506 = false;
 	private static RenamingMap namingMap = new RenamingMap();
 	private final Class56 aClass56_508;
@@ -62,7 +61,7 @@ public class Renamer {
 		} else {
 			int var5;
 			if (var1 instanceof ArrayElementValueGen) {
-				List var4;
+				List<?> var4;
 				for (int var10000 = var5 = (var4 = ((ArrayElementValueGen) var1).getElementValues()).size()
 						- 1; var10000 >= 0; var10000 = var5) {
 					this.method296((ElementValueGen) var4.get(var5), var2);
@@ -99,8 +98,8 @@ public class Renamer {
 	}
 
 	private void method297() {
-		Iterator var1;
-		for (Iterator var10000 = var1 = this.aClass56_508.method703().iterator(); var10000.hasNext(); var10000 = var1) {
+		Iterator<?> var1;
+		for (Iterator<?> var10000 = var1 = this.aClass56_508.method703().iterator(); var10000.hasNext(); var10000 = var1) {
 			final ClassGen var2 = (ClassGen) var1.next();
 			this.renameConstantPoolConstants(var2);
 			final ConstantPoolGen var3 = var2.getConstantPool();
@@ -196,8 +195,8 @@ public class Renamer {
 	}
 
 	private void method301() throws Exception_Sub2 {
-		Iterator var1;
-		for (Iterator var10000 = var1 = this.aClass56_508.method703().iterator(); var10000.hasNext(); var10000 = var1) {
+		Iterator<?> var1;
+		for (Iterator<?> var10000 = var1 = this.aClass56_508.method703().iterator(); var10000.hasNext(); var10000 = var1) {
 			final ClassGen var2 = (ClassGen) var1.next();
 			this.unrenamePackage(var2);
 			this.method298(var2);
@@ -374,7 +373,7 @@ public class Renamer {
 	}
 
 	private void method306(ClassGen var1, String var2, String var3, String var4) {
-		Vector var5;
+		Vector<?> var5;
 		int var6;
 		for (int var10000 = var6 = (var5 = this.aClass56_508.method691(var1.getClassName())).size()
 				- 1; var10000 >= 0; var10000 = var6) {
@@ -397,8 +396,8 @@ public class Renamer {
 	}
 
 	private void method308() {
-		Iterator var1;
-		for (Iterator var10000 = var1 = this.aClass56_508.method703().iterator(); var10000.hasNext(); var10000 = var1) {
+		Iterator<?> var1;
+		for (Iterator<?> var10000 = var1 = this.aClass56_508.method703().iterator(); var10000.hasNext(); var10000 = var1) {
 			final ClassGen var2 = (ClassGen) var1.next();
 			this.renameFields(var2);
 			this.renameMethods(var2);
@@ -791,7 +790,7 @@ public class Renamer {
 				.get(var1.getClassName() + "&" + var2 + "&" + var3)) != null) {
 			return var4;
 		} else {
-			Vector var5;
+			Vector<?> var5;
 			int var6;
 			for (int var10000 = var6 = (var5 = this.aClass56_508.method691(var1.getClassName())).size()
 					- 1; var10000 >= 0; var10000 = var6) {
@@ -809,8 +808,8 @@ public class Renamer {
 	private void method318() {
 		Class141.method1520(Class172.method1711(this.aClass172_509)).put("", "");
 
-		Iterator var1;
-		for (Iterator var10000 = var1 = this.aClass56_508.method703().iterator(); var10000.hasNext(); var10000 = var1) {
+		Iterator<?> var1;
+		for (Iterator<?> var10000 = var1 = this.aClass56_508.method703().iterator(); var10000.hasNext(); var10000 = var1) {
 			final ClassGen var2 = (ClassGen) var1.next();
 			this.renamePackage(var2);
 			this.method323(var2);
@@ -839,7 +838,7 @@ public class Renamer {
 			} while (var7 != null);
 		}
 
-		Vector var10;
+		Vector<?> var10;
 		int var11;
 		for (int var10000 = var11 = (var10 = this.aClass56_508.method691(var1.getClassName())).size()
 				- 1; var10000 >= 0; var10000 = var11) {
@@ -866,7 +865,7 @@ public class Renamer {
 
 	}
 
-	private void method320(List var1, ConstantPoolGen var2) {
+	private void method320(List<?> var1, ConstantPoolGen var2) {
 		if (var1 != null) {
 			int var3;
 			for (int var10000 = var3 = var1.size() - 1; var10000 >= 0; var10000 = var3) {
@@ -889,7 +888,7 @@ public class Renamer {
 				++var6;
 			}
 
-			Class156.method1603(Class172.method1709(this.aClass172_509)).method263();
+			RenamingUtils.method1603(Class172.method1709(this.aClass172_509)).method263();
 
 			int var7;
 			for (int var10000 = var7 = var5.length - 1; var10000 >= 0; var10000 = var7) {
@@ -901,7 +900,7 @@ public class Renamer {
 				}
 
 				if ((var3 != 5 || var7 >= var6) && !var4) {
-					var8.setName(Class156.method1603(Class172.method1709(this.aClass172_509)).method262());
+					var8.setName(RenamingUtils.method1603(Class172.method1709(this.aClass172_509)).method262());
 				}
 
 				--var7;
@@ -930,7 +929,7 @@ public class Renamer {
 		} else if (!var4) {
 			return false;
 		} else {
-			Vector var8;
+			Vector<?> var8;
 			int var9;
 			for (int var10000 = var9 = (var8 = this.aClass56_508.method691(var1.getClassName())).size()
 					- 1; var10000 >= 0; var10000 = var9) {
@@ -1014,7 +1013,7 @@ public class Renamer {
 		} else if (!var4) {
 			return false;
 		} else {
-			Vector var5;
+			Vector<?> var5;
 			int var6;
 			for (int var10000 = var6 = (var5 = this.aClass56_508.method691(var1.getClassName())).size()
 					- 1; var10000 >= 0; var10000 = var6) {
@@ -1088,7 +1087,7 @@ public class Renamer {
 			}
 		}
 
-		List var11;
+		List<?> var11;
 		int var12;
 		for (int var10000 = var12 = (var11 = var1.getValues()).size() - 1; var10000 >= 0; var10000 = var12) {
 			final ElementValuePairGen var7 = (ElementValuePairGen) var11.get(var12);

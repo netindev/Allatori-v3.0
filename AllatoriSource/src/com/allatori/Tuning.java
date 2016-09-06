@@ -65,11 +65,7 @@ public class Tuning {
 	public static void method1723() {
 		aBoolean890 = true;
 	}
-
-	public static int getStringEncryptionLevel() {
-		return stringEncryptionLevel;
-	}
-
+	
 	public static void setStringObfuscationConstraint(ObfuscationTypeConstraint var0) {
 		aObfuscationConstraint_886.addConstraint(var0);
 	}
@@ -94,7 +90,4 @@ public class Tuning {
 		anInt888 = var0;
 	}
 
-	public static int method1731() {
-		return aBoolean890 ? STRING_ENCRYPTION_DEFAULT_TYPE : anInt888;
-	}
 }

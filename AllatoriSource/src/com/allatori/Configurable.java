@@ -6,9 +6,9 @@ import java.util.Vector;
 
 public class Configurable {
 
-	private static Vector aVector596 = new Vector();
+	private static Vector<Class149> aVector596 = new Vector<Class149>();
 	private static String aString597 = null;
-	private static Vector aVector598 = new Vector();
+	private static Vector<Class157> aVector598 = new Vector<Class157>();
 
 	public static String method655() {
 		return aString597;
@@ -18,7 +18,7 @@ public class Configurable {
 		aVector596.add(var0);
 	}
 
-	public static Vector method657() {
+	public static Vector<Class157> method657() {
 		return aVector598;
 	}
 
@@ -30,7 +30,7 @@ public class Configurable {
 		aVector598.add(var0);
 	}
 
-	public static Vector method660() {
+	public static Vector<Class149> method660() {
 		return aVector596;
 	}
 
@@ -54,7 +54,7 @@ public class Configurable {
 	}
 
 	private static void method1268(ClassStorage var0) throws Exception {
-		final Vector var1 = method660();
+		final Vector<Class149> var1 = method660();
 
 		int var2;
 		int var10000;
@@ -80,7 +80,7 @@ public class Configurable {
 
 	static ClassStorage method1269() throws Exception {
 		final ClassStorage var0 = new ClassStorage(method1272());
-		final Vector var1 = method660();
+		final Vector<Class149> var1 = method660();
 
 		int var2;
 		int var10000;
@@ -89,7 +89,7 @@ public class Configurable {
 			++var2;
 		}
 
-		final Vector var3 = method657();
+		final Vector<Class157> var3 = method657();
 
 		int var4;
 		for (var10000 = var4 = 0; var10000 < var3.size(); var10000 = var4) {
@@ -169,8 +169,9 @@ public class Configurable {
 		return var0;
 	}
 
+	@SuppressWarnings("deprecation")
 	private static URLClassLoaderImpl method1272() {
-		final Vector var0 = ConfigFileHandler.method832();
+		final Vector<Object> var0 = ConfigFileHandler.method832();
 
 		int var1;
 		for (int var10000 = var1 = 0; var10000 < var0.size(); var10000 = var1) {
@@ -188,7 +189,7 @@ public class Configurable {
 	}
 
 	private static void method1273(ClassStorage var0) throws Exception {
-		final Vector var1 = method657();
+		final Vector<Class157> var1 = method657();
 
 		int var2;
 		for (int var10000 = var2 = 0; var10000 < var1.size(); var10000 = var2) {

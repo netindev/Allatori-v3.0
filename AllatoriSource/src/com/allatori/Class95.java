@@ -306,7 +306,7 @@ public class Class95 {
 
 	}
 
-	private void method1251(List var1, ConstantPoolGen var2) {
+	private void method1251(List<?> var1, ConstantPoolGen var2) {
 		if (var1 != null) {
 			int var3;
 			for (int var10000 = var3 = var1.size() - 1; var10000 >= 0; var10000 = var3) {
@@ -576,7 +576,7 @@ public class Class95 {
 	private void method1257(AnnotationEntryGen var1) {
 		var1.setTypeIndex(this.mappedNameCPReferences[var1.getTypeIndex()]);
 
-		List var2;
+		List<?> var2;
 		int var3;
 		for (int var10000 = var3 = (var2 = var1.getValues()).size() - 1; var10000 >= 0; var10000 = var3) {
 			ElementValuePairGen var4;
@@ -593,7 +593,7 @@ public class Class95 {
 		this.method1250(var1);
 	}
 
-	private void method1259(List var1) {
+	private void method1259(List<?> var1) {
 		if (var1 != null) {
 			int var2;
 			for (int var10000 = var2 = var1.size() - 1; var10000 >= 0; var10000 = var2) {
@@ -642,7 +642,7 @@ public class Class95 {
 		if (var1 instanceof AnnotationElementValueGen) {
 			this.method1263(((AnnotationElementValueGen) var1).getAnnotation(), var2);
 		} else if (var1 instanceof ArrayElementValueGen) {
-			final List var4 = ((ArrayElementValueGen) var1).getElementValues();
+			final List<?> var4 = ((ArrayElementValueGen) var1).getElementValues();
 			int var5 = var4.size() - 1;
 
 			for (int var10000 = var5; var10000 >= 0; var10000 = var5) {
@@ -666,7 +666,7 @@ public class Class95 {
 		} else {
 			int var4;
 			if (var1 instanceof ArrayElementValueGen) {
-				List var3;
+				List<?> var3;
 				for (int var10000 = var4 = (var3 = ((ArrayElementValueGen) var1).getElementValues()).size()
 						- 1; var10000 >= 0; var10000 = var4) {
 					this.method1262((ElementValueGen) var3.get(var4));
@@ -690,7 +690,7 @@ public class Class95 {
 	private void method1263(AnnotationEntryGen var1, ConstantPoolGen var2) {
 		this.method1260(var1.getTypeIndex(), var2);
 
-		List var3;
+		List<?> var3;
 		int var4;
 		for (int var10000 = var4 = (var3 = var1.getValues()).size() - 1; var10000 >= 0; var10000 = var4) {
 			final ElementValuePairGen var5 = (ElementValuePairGen) var3.get(var4);

@@ -11,10 +11,10 @@ import java.util.zip.ZipEntry;
 public class URLClassLoaderImpl extends URLClassLoader {
 
 	private ClassStorage classes;
-	public static Class classLoaderClass;
+	public static Class<?> classLoaderClass;
 
 	@Override
-	public Class findClass(String var1) throws ClassNotFoundException {
+	public Class<?> findClass(String var1) throws ClassNotFoundException {
 		try {
 			try {
 				if (this.classes.getClassGen(var1) != null) {
@@ -33,7 +33,7 @@ public class URLClassLoaderImpl extends URLClassLoader {
 		}
 	}
 
-	public static Class forName(String var0) {
+	public static Class<?> forName(String var0) {
 		try {
 			return Class.forName(var0);
 		} catch (final ClassNotFoundException var2) {
@@ -58,9 +58,9 @@ public class URLClassLoaderImpl extends URLClassLoader {
 		return var3;
 	}
 
-	private Class findClassInJars(String className) throws Exception {
+	private Class<?> findClassInJars(String className) throws Exception {
 		final String fullClassName = className.replace('.', '/').concat(".class");
-		final Vector var3 = Configurable.method660();
+		final Vector<?> var3 = Configurable.method660();
 		int var4;
 		for (int var10000 = var4 = 0; var10000 < var3.size(); var10000 = var4) {
 			final Class149 var5 = (Class149) var3.get(var4);

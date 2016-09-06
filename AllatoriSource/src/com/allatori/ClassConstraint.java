@@ -14,11 +14,11 @@ public class ClassConstraint {
 	private String superNamePattern;
 	private boolean aBoolean756;
 	private int accessType;
-	private final Vector fieldConstraints = new Vector();
+	private final Vector<FieldConstraint> fieldConstraints = new Vector<FieldConstraint>();
 	private String instanceofPattern;
 	private String[] interfacePattern;
 	private boolean aBoolean761;
-	private final Vector methodConstraints = new Vector();
+	private final Vector<MethodConstraint> methodConstraints = new Vector<MethodConstraint>();
 	private String namePattern;
 
 	private void parseTemplate(String var1) throws TemplateException {

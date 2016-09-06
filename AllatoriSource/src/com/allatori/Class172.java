@@ -4,7 +4,7 @@ public class Class172 {
 
 	private final Class141 aClass141_871;
 	private final NameRepository aNameRepository_873;
-	private final Class156 aClass156_874;
+	private final RenamingUtils aClass156_874;
 	private final Class159 aClass159_875;
 	private final Class165 aClass165_876;
 
@@ -21,14 +21,14 @@ public class Class172 {
 		this.aClass165_876 = new Class165(this, null);
 		this.aNameRepository_873 = new NameRepository(this, null);
 		this.aClass159_875 = new Class159(this, null);
-		this.aClass156_874 = new Class156(this, null);
+		this.aClass156_874 = new RenamingUtils(this, null);
 	}
 
 	public Class172(Renamer var1, EmptyClass var2) {
 		this(var1);
 	}
 
-	public static Class156 method1709(Class172 var0) {
+	public static RenamingUtils method1709(Class172 var0) {
 		return var0.aClass156_874;
 	}
 

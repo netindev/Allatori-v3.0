@@ -19,7 +19,7 @@ public class Watermarking {
 
 	public String extractWatermark() throws Exception_Sub1 {
 		try {
-			final Vector var1 = this.method1761();
+			final Vector<Class171> var1 = this.method1761();
 			final short[] var2 = this.method1759(var1);
 			return this.method1765(var2);
 		} catch (final Exception var3) {
@@ -27,8 +27,8 @@ public class Watermarking {
 		}
 	}
 
-	private short[] method1759(Vector var1) {
-		final Vector var2 = new Vector();
+	private short[] method1759(Vector<Class171> var1) {
+		final Vector<Number> var2 = new Vector<Number>();
 
 		int var3;
 		int var10000;
@@ -57,7 +57,7 @@ public class Watermarking {
 		return var4;
 	}
 
-	private void method1760(Vector var1, short[] var2) {
+	private void method1760(Vector<Class171> var1, short[] var2) {
 		final int var3 = var2.length / 4;
 		final int var4 = var1.size();
 		final int var5 = (var3 - 1) / var4 + 1;
@@ -128,11 +128,11 @@ public class Watermarking {
 	}
 
 	private Vector method1761() {
-		final Vector var1 = new Vector();
+		final Vector<Class171> var1 = new Vector<Class171>();
 
-		Iterator var2;
+		Iterator<?> var2;
 		int var5;
-		for (Iterator var10000 = var2 = this.aClassStorage_892.method671(); var10000.hasNext(); var10000 = var2) {
+		for (Iterator<?> var10000 = var2 = this.aClassStorage_892.method671(); var10000.hasNext(); var10000 = var2) {
 			ClassGen var3;
 			Method[] var4;
 			for (int var7 = var5 = (var4 = (var3 = (ClassGen) var2.next()).getMethods()).length
@@ -161,7 +161,7 @@ public class Watermarking {
 				&& var1.getNext().getNext().getNext().getNext().getNext().getInstruction() instanceof POP2;
 	}
 
-	private boolean method1763(Vector var1) {
+	private boolean method1763(Vector<Class171> var1) {
 		int var2;
 		for (int var10000 = var2 = var1.size() - 1; var10000 >= 0; var10000 = var2) {
 			final InstructionList var4 = Class171.method1704((Class171) var1.get(var2)).getInstructionList();
@@ -240,7 +240,7 @@ public class Watermarking {
 			var12 += 4;
 		}
 
-		final Hashtable var13 = new Hashtable();
+		final Hashtable<Short, String> var13 = new Hashtable<Short, String>();
 		final short var23 = (short) (this.aString891.hashCode());
 		var13.put(var23, "");
 
@@ -248,7 +248,7 @@ public class Watermarking {
 		for (var10000 = var15 = 0; var10000 < var11.length; var10000 = var15) {
 			short var16 = (short) (Class34.method571(65536) - '\u8000');
 
-			for (Hashtable var25 = var13; var25.containsKey(new Short(var16)); var25 = var13) {
+			for (Hashtable<Short, String> var25 = var13; var25.containsKey(new Short(var16)); var25 = var13) {
 				++var16;
 			}
 
@@ -344,7 +344,7 @@ public class Watermarking {
 		var4 = (short) (var17 | var16);
 		var5 = (short) (var18 | var16 >> 16);
 		int var19 = -1;
-		final Hashtable var7 = new Hashtable();
+		final Hashtable<Short, Integer> var7 = new Hashtable<Short, Integer>();
 
 		int var8;
 		for (var10000 = var8 = 0; var10000 < var1.length; var10000 = var8) {

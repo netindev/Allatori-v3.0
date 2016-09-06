@@ -53,7 +53,7 @@ public class DumpUtils {
 			++var5;
 		}
 
-		final Vector var10 = cs.method674();
+		final Vector<?> var10 = cs.method674();
 
 		int var11;
 		for (var10000 = var11 = 0; var10000 < var10.size(); var10000 = var11) {

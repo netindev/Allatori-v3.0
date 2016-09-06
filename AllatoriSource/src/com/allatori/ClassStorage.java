@@ -8,15 +8,15 @@ import org.apache.bcel.generic.ClassGen;
 
 public class ClassStorage {
 
-	private final Hashtable table = new Hashtable();
+	private final Hashtable<String, ClassGen> table = new Hashtable<String, ClassGen>();
 	private final ClassLoader classLoader;
-	private final Vector vector = new Vector();
+	private final Vector<ClassGen> vector = new Vector<ClassGen>();
 
 	public ClassGen getClassGen(String var1) {
 		return (ClassGen) this.table.get(var1);
 	}
 
-	public Iterator method671() {
+	public Iterator<ClassGen> method671() {
 		return this.table.values().iterator();
 	}
 
@@ -29,7 +29,7 @@ public class ClassStorage {
 		this.vector.add(var1);
 	}
 
-	public Vector method674() {
+	public Vector<ClassGen> method674() {
 		return this.vector;
 	}
 
