@@ -9,7 +9,7 @@ public class Tuning {
 	public static int STRING_ENCRYPTION_MAXIMUM = 2;
 	private static boolean isFinalizingEnabled = false;
 	public static int STRING_ENCRYPTION_DISABLE = 0;
-	private static boolean aBoolean882 = true;
+	private static boolean rearrangeClassMembers = true;
 	public static int STRING_ENCRYPTION_DEFAULT = 1;
 	public static int STRING_ENCRYPTION_DEFAULT_TYPE = 0;
 	private static String randomSeed = null;
@@ -26,7 +26,7 @@ public class Tuning {
 	}
 
 	public static void enableMemberReorder(boolean var0) {
-		aBoolean882 = var0;
+		rearrangeClassMembers = var0;
 	}
 
 	public static void enableControlFlowObfuscation(boolean var0) {
@@ -78,7 +78,7 @@ public class Tuning {
 	}
 
 	public static boolean rearrangeClassMembers() {
-		return aBoolean882;
+		return rearrangeClassMembers;
 	}
 
 	public static boolean isFinalizingEnabled() {

@@ -27,7 +27,7 @@ public class RenamingUtils {
 
 	public static IObfStyle method337() {
 		return LocalVariables.getInt() == 2 ? new ObfuscationStyleLowCase()
-				: (LocalVariables.getInt() == 1 ? new ObfuscationStyleA() : new ObfuscationStyleLowCase());
+				: (LocalVariables.getInt() == 1 ? new ObfuscationStyleUnk() : new ObfuscationStyleLowCase());
 	}
 
 	public static void setFieldNamingType(int i) {

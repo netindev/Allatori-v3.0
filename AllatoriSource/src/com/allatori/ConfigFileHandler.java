@@ -394,16 +394,16 @@ public class ConfigFileHandler extends DefaultHandler {
 										Integer.parseInt(var17.group(2)) - 1, Integer.parseInt(var17.group(3)), 0, 0,
 										0);
 								Date var21;
-								Class64.setDate(var21 = var20.getTime());
+								DateObfuscation.setDate(var21 = var20.getTime());
 								final SimpleDateFormat var22 = new SimpleDateFormat("MMMMM dd, yyyy");
 								Logger.printInfo("Expiry date set to " + var22.format(var21));
 							} catch (final Exception var13) {
 								throw new SAXException("Date format is yyyy-mm-dd. " + this.method1839());
 							}
 
-							Class64.setString(this.getAttributeByName(var4, "string", true, null, true));
+							DateObfuscation.setString(this.getAttributeByName(var4, "string", true, null, true));
 							var8 = this.getAttributeByName(var4, "add2class", false, "private+ class *", true);
-							Class64.setClassConstraint(var9 = this.createClassFilter(var8, null, null, null, "add2class"));
+							DateObfuscation.setClassConstraint(var9 = this.createClassFilter(var8, null, null, null, "add2class"));
 							final String var25 = this.getAttributeByName(var4, "add2method", false, "no input value",
 									true);
 							MethodConstraint var24;

@@ -2,7 +2,9 @@ package com.allatori;
 
 import java.util.Date;
 
-public class Class64 {
+public class DateObfuscation {
+	
+	/* OK */
 
 	private static String string;
 	private static Date date;

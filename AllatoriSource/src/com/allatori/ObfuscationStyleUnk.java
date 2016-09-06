@@ -1,12 +1,12 @@
 package com.allatori;
 
-public class ObfuscationStyleA implements IObfStyle {
+public class ObfuscationStyleUnk implements IObfStyle {
 	
 	/* OK */
 
 	private final String string;
 
-	public ObfuscationStyleA() {
+	public ObfuscationStyleUnk() {
 		this.string = "a";
 	}
 
