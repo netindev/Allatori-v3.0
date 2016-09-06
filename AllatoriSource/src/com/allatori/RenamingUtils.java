@@ -1,6 +1,6 @@
 package com.allatori;
 
-public class Unknown {
+public class RenamingUtils {
 
 	private static int anInt518 = 2;
 	private static int anInt519 = 2;
@@ -27,7 +27,7 @@ public class Unknown {
 
 	public static IObfStyle method337() {
 		return LocalVariables.getInt() == 2 ? new ObfuscationStyleLowCase()
-				: (LocalVariables.getInt() == 1 ? new Class69() : new ObfuscationStyleLowCase());
+				: (LocalVariables.getInt() == 1 ? new ObfuscationStyleA() : new ObfuscationStyleLowCase());
 	}
 
 	public static void setFieldNamingType(int i) {

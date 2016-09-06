@@ -26,7 +26,7 @@ public class LogFile {
 
 	public static void writeLogFile() {
 		String var0;
-		if ((var0 = Class57.method710()) == null) {
+		if ((var0 = LogFileRepository.getLogFile()) == null) {
 			Logger.printWarning("Log file is not set.");
 		} else {
 			PrintWriter var1 = null;

@@ -233,7 +233,7 @@ public class Class56 {
 			}
 		}
 
-		Collections.sort(this.aVector609, new Class35());
+		Collections.sort(this.aVector609, new CompareInterface());
 		this.method697();
 	}
 

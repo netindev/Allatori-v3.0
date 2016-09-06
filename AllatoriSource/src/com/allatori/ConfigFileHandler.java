@@ -98,21 +98,21 @@ public class ConfigFileHandler extends DefaultHandler {
 						new ObfuscationTypeConstraint(localVarNamingType, classConstraint));
 			} else if ("fields-naming".equals(name)) {
 				if ("abc".equals(value)) {
-					Unknown.setFieldNamingType(1);
+					RenamingUtils.setFieldNamingType(1);
 				} else if ("compact".equals(value)) {
-					Unknown.setFieldNamingType(2);
+					RenamingUtils.setFieldNamingType(2);
 				} else if ("keywords".equals(value)) {
-					Unknown.setFieldNamingType(3);
+					RenamingUtils.setFieldNamingType(3);
 				} else {
 					this.throw4AttributeException("value", "abc", "compact", "keywords");
 				}
 			} else if ("methods-naming".equals(name)) {
 				if ("abc".equals(value)) {
-					Unknown.setMethodNamingType(1);
+					RenamingUtils.setMethodNamingType(1);
 				} else if ("compact".equals(value)) {
-					Unknown.setMethodNamingType(2);
+					RenamingUtils.setMethodNamingType(2);
 				} else if ("keywords".equals(value)) {
-					Unknown.setMethodNamingType(3);
+					RenamingUtils.setMethodNamingType(3);
 				} else {
 					this.throw4AttributeException("value", "abc", "compact", "keywords");
 				}
@@ -162,7 +162,7 @@ public class ConfigFileHandler extends DefaultHandler {
 						}
 					}
 
-					Class57.setLogFile(value);
+					LogFileRepository.setLogFile(value);
 				} else if ("random-seed".equals(name)) {
 					Tuning.setRandomSeed(value);
 				} else if ("incremental-obfuscation".equals(name)) {
@@ -394,16 +394,16 @@ public class ConfigFileHandler extends DefaultHandler {
 										Integer.parseInt(var17.group(2)) - 1, Integer.parseInt(var17.group(3)), 0, 0,
 										0);
 								Date var21;
-								Class64.method749(var21 = var20.getTime());
+								Class64.setDate(var21 = var20.getTime());
 								final SimpleDateFormat var22 = new SimpleDateFormat("MMMMM dd, yyyy");
 								Logger.printInfo("Expiry date set to " + var22.format(var21));
 							} catch (final Exception var13) {
 								throw new SAXException("Date format is yyyy-mm-dd. " + this.method1839());
 							}
 
-							Class64.method744(this.getAttributeByName(var4, "string", true, null, true));
+							Class64.setString(this.getAttributeByName(var4, "string", true, null, true));
 							var8 = this.getAttributeByName(var4, "add2class", false, "private+ class *", true);
-							Class64.method745(var9 = this.createClassFilter(var8, null, null, null, "add2class"));
+							Class64.setClassConstraint(var9 = this.createClassFilter(var8, null, null, null, "add2class"));
 							final String var25 = this.getAttributeByName(var4, "add2method", false, "no input value",
 									true);
 							MethodConstraint var24;
@@ -507,7 +507,7 @@ public class ConfigFileHandler extends DefaultHandler {
 		}
 
 		if (var1.indexOf(42) == -1) {
-			Class72.method833(var1);
+			Class72.add(var1);
 		} else {
 			String var2 = ".";
 			String var3 = var1;
@@ -695,7 +695,7 @@ public class ConfigFileHandler extends DefaultHandler {
 		for (int var10000 = var5 = (var4 = var1.listFiles()).length - 1; var10000 >= 0; var10000 = var5) {
 			File var6;
 			if (!(var6 = var4[var5]).isDirectory() && var6.getName().matches(var2)) {
-				Class72.method833(var6.getAbsolutePath());
+				Class72.add(var6.getAbsolutePath());
 			}
 
 			if (var3 && var6.isDirectory()) {

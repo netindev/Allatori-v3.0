@@ -12,7 +12,7 @@ public class Class165 {
 	}
 
 	private Class165(Class172 var1) {
-		this.anInterface22_850 = Unknown.method339();
+		this.anInterface22_850 = RenamingUtils.method339();
 		this.aRenamingMap_847 = new RenamingMap();
 		this.aRenamingMap_851 = new RenamingMap();
 		this.aRenamingMap_849 = new RenamingMap();

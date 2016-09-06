@@ -6,12 +6,12 @@ public class Class72 {
 
 	private static Vector<Object> vector = new Vector<Object>();
 
-	public static Vector<Object> method832() {
+	public static Vector<Object> getVector() {
 		return vector;
 	}
 
-	public static void method833(String str) {
-		vector.add(str);
+	public static void add(String string) {
+		vector.add(string);
 	}
 
 }

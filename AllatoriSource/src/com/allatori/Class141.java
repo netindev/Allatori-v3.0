@@ -15,7 +15,7 @@ public class Class141 {
 	}
 
 	private Class141(Class172 var1) {
-		this.anInterface22_783 = Unknown.method335();
+		this.anInterface22_783 = RenamingUtils.method335();
 		this.aRenamingMap_782 = new RenamingMap();
 		this.aRenamingMap_781 = new RenamingMap();
 	}

@@ -21,7 +21,7 @@ public class NameRepository {
 	}
 
 	private NameRepository(Class172 unkClass) { /* Not used param */
-		this.obfStyle = Unknown.method333();
+		this.obfStyle = RenamingUtils.method333();
 		this.constantNameMap = new RenamingMap();
 		this.signatureMap = new RenamingMap();
 		this.methodNameMap = new RenamingMap();

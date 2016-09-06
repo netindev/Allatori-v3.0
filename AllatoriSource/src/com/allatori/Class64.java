@@ -6,29 +6,29 @@ public class Class64 {
 
 	private static String string;
 	private static Date date;
-	private static ClassConstraint clConstraint;
+	private static ClassConstraint classConstraint;
 
-	public static void method744(String str) {
-		string = str;
+	public static void setString(String stringToSet) {
+		string = stringToSet;
 	}
 
-	public static void method745(ClassConstraint clc) {
-		clConstraint = clc;
+	public static void setClassConstraint(ClassConstraint classConstraintToSet) {
+		classConstraint = classConstraintToSet;
 	}
 
-	public static Date method746() {
+	public static Date getDate() {
 		return date;
 	}
 
-	public static ClassConstraint method747() {
-		return clConstraint;
+	public static ClassConstraint getClassConstraint() {
+		return classConstraint;
 	}
 
-	public static String method748() {
+	public static String getString() {
 		return string;
 	}
 
-	public static void method749(Date var0) {
-		date = var0;
+	public static void setDate(Date dateToSet) {
+		date = dateToSet;
 	}
 }

@@ -30,7 +30,7 @@ public class Watermarking {
 	private short[] method1759(Vector<Class171> parVector) {
 		final Vector<Number> vector = new Vector<Number>();
 		for (int i = parVector.size() - 1; i >= 0; i--) {
-			for (final InstructionHandle instructionHandle = Class171.method1704(parVector.get(i)).getInstructionList()
+			for (final InstructionHandle instructionHandle = Class171.getMethodGen(parVector.get(i)).getInstructionList()
 					.getStart(); instructionHandle != null; instructionHandle.getNext()) {
 				if (this.method1762(instructionHandle)) {
 					vector.add(((SIPUSH) instructionHandle.getInstruction()).getValue());
@@ -59,7 +59,7 @@ public class Watermarking {
 			Class171 var8;
 			InstructionList var9;
 			int var10;
-			if ((var10 = (var9 = Class171.method1704(var8 = var1.get(var7)).getInstructionList()).getLength()) > 0) {
+			if ((var10 = (var9 = Class171.getMethodGen(var8 = var1.get(var7)).getInstructionList()).getLength()) > 0) {
 				var10 = Class34.method571(var10);
 			}
 
@@ -95,9 +95,9 @@ public class Watermarking {
 						++var12;
 					} while (var12 < var5 && var7 < var3 - var6 / 4);
 
-					Class171.method1704(var8).setMaxStack();
-					Class171.method1705(var8).replaceMethod(Class171.method1706(var8),
-							Class171.method1704(var8).getMethod());
+					Class171.getMethodGen(var8).setMaxStack();
+					Class171.getClassGen(var8).replaceMethod(Class171.getMethod(var8),
+							Class171.getMethodGen(var8).getMethod());
 					--var7;
 					var10000 = var7;
 					break;
@@ -153,7 +153,7 @@ public class Watermarking {
 	private boolean method1763(Vector<Class171> var1) {
 		int var2;
 		for (int var10000 = var2 = var1.size() - 1; var10000 >= 0; var10000 = var2) {
-			final InstructionList var4 = Class171.method1704(var1.get(var2)).getInstructionList();
+			final InstructionList var4 = Class171.getMethodGen(var1.get(var2)).getInstructionList();
 			InstructionHandle var5 = var4.getStart();
 
 			for (InstructionHandle var6 = var5; var6 != null; var6 = var5) {

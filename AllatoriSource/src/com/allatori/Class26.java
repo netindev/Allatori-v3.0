@@ -11,7 +11,7 @@ import org.apache.bcel.generic.MethodGen;
 public class Class26 {
 
 	private final RenamingMap aRenamingMap_566 = new RenamingMap();
-	private final IObfStyle anInterface22_567 = Unknown.method334();
+	private final IObfStyle anInterface22_567 = RenamingUtils.method334();
 	private final Vector<Object> aVector568 = new Vector<Object>();
 	private final Vector<Object> aVector569 = new Vector<Object>();
 

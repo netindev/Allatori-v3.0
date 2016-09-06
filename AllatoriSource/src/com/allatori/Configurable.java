@@ -46,7 +46,7 @@ public class Configurable {
 		int var2;
 		int var10000;
 		for (var10000 = var2 = 0; var10000 < var1.size(); var10000 = var2) {
-			Class27.parseClass(((Class149) var1.get(var2)).aString799, var0);
+			ParseClass.parseClass(((Class149) var1.get(var2)).aString799, var0);
 			++var2;
 		}
 
@@ -132,7 +132,7 @@ public class Configurable {
 
 	@SuppressWarnings("deprecation")
 	private static URLClassLoaderImpl method1272() {
-		final Vector<Object> var0 = Class72.method832();
+		final Vector<Object> var0 = Class72.getVector();
 
 		int var1;
 		for (int var10000 = var1 = 0; var10000 < var0.size(); var10000 = var1) {
