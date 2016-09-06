@@ -3,6 +3,8 @@ package com.allatori;
 import java.util.Arrays;
 
 public class Keywords extends Class94 {
+	
+	/* OK */
 
 	private static final String[] KEYWORDS = new String[] { "abstract", "assert", "boolean", "break", "byte", "case", "catch",
 			"char", "class", "const", "continue", "default", "do", "double", "else", "enum", "extends", "false",

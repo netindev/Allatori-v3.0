@@ -10,11 +10,11 @@ import org.apache.bcel.classfile.ArrayElementValue;
 import org.apache.bcel.classfile.ElementValue;
 
 public class ArrayElementValueGen extends ElementValueGen {
-	private final List evalues;
+	private final List<ElementValueGen> evalues;
 
 	public ArrayElementValueGen(ConstantPoolGen cp) {
 		super(91, cp);
-		evalues = new ArrayList();
+		evalues = new ArrayList<ElementValueGen>();
 	}
 
 	public ArrayElementValueGen(int type, ElementValue[] datums, ConstantPoolGen cpool) {
@@ -23,7 +23,7 @@ public class ArrayElementValueGen extends ElementValueGen {
 			throw new RuntimeException(new StringBuilder()
 					.append("Only element values of type array can be built with this ctor - type specified: ")
 					.append(type).toString());
-		evalues = new ArrayList();
+		evalues = new ArrayList<ElementValueGen>();
 		for (int i = 0; i < datums.length; i++)
 			evalues.add(ElementValueGen.copy(datums[i], cpool, true));
 	}
@@ -32,7 +32,7 @@ public class ArrayElementValueGen extends ElementValueGen {
 	public ElementValue getElementValue() {
 		final ElementValue[] immutableData = new ElementValue[evalues.size()];
 		int i = 0;
-		final Iterator i$ = evalues.iterator();
+		final Iterator<ElementValueGen> i$ = evalues.iterator();
 		while (i$.hasNext()) {
 			final ElementValueGen element = (ElementValueGen) i$.next();
 			immutableData[i++] = element.getElementValue();
@@ -42,7 +42,7 @@ public class ArrayElementValueGen extends ElementValueGen {
 
 	public ArrayElementValueGen(ArrayElementValue value, ConstantPoolGen cpool, boolean copyPoolEntries) {
 		super(91, cpool);
-		evalues = new ArrayList();
+		evalues = new ArrayList<ElementValueGen>();
 		final ElementValue[] in = value.getElementValuesArray();
 		for (int i = 0; i < in.length; i++)
 			evalues.add(ElementValueGen.copy(in[i], cpool, copyPoolEntries));
@@ -52,7 +52,7 @@ public class ArrayElementValueGen extends ElementValueGen {
 	public void dump(DataOutputStream dos) throws IOException {
 		dos.writeByte(type);
 		dos.writeShort(evalues.size());
-		final Iterator i$ = evalues.iterator();
+		final Iterator<ElementValueGen> i$ = evalues.iterator();
 		while (i$.hasNext()) {
 			final ElementValueGen element = (ElementValueGen) i$.next();
 			element.dump(dos);
@@ -64,7 +64,7 @@ public class ArrayElementValueGen extends ElementValueGen {
 		final StringBuilder sb = new StringBuilder();
 		sb.append("[");
 		String comma = "";
-		final Iterator i$ = evalues.iterator();
+		final Iterator<ElementValueGen> i$ = evalues.iterator();
 		while (i$.hasNext()) {
 			final ElementValueGen element = (ElementValueGen) i$.next();
 			sb.append(comma);
@@ -75,7 +75,7 @@ public class ArrayElementValueGen extends ElementValueGen {
 		return sb.toString();
 	}
 
-	public List getElementValues() {
+	public List<ElementValueGen> getElementValues() {
 		return evalues;
 	}
 

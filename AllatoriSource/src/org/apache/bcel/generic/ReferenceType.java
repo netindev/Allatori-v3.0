@@ -70,6 +70,7 @@ public abstract class ReferenceType extends Type {
 		return false;
 	}
 
+	@SuppressWarnings("deprecation")
 	public ReferenceType getFirstCommonSuperclass(ReferenceType t) throws ClassNotFoundException {
 		if (equals(Type.NULL))
 			return t;

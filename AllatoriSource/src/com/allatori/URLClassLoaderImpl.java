@@ -9,72 +9,71 @@ import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
 public class URLClassLoaderImpl extends URLClassLoader {
+	
+	/* OK */
 
 	private ClassStorage classes;
-	public static Class classLoaderClass;
+	public static Class<?> classLoaderClass;
 
 	@Override
-	public Class findClass(String var1) throws ClassNotFoundException {
+	public Class<?> findClass(String str) throws ClassNotFoundException {
 		try {
 			try {
-				if (this.classes.getClassGen(var1) != null) {
-					return this.findClassInJars(var1);
+				if (this.classes.getClassGen(str) != null) {
+					return this.findClassInJars(str);
 				}
-			} catch (final Exception var5) {
+			} catch (final Exception e) {
+				e.printStackTrace();
 			}
-
-			return super.findClass(var1);
-		} catch (final ClassNotFoundException var6) {
+			return super.findClass(str);
+		} catch (final ClassNotFoundException f) {
 			try {
-				return this.findClassInJars(var1);
-			} catch (final Exception var4) {
-				throw var6;
+				return this.findClassInJars(str);
+			} catch (final Exception e) {
+				throw f;
 			}
 		}
 	}
 
-	public static Class forName(String var0) {
+	public static Class<?> forName(String str) {
 		try {
-			return Class.forName(var0);
-		} catch (final ClassNotFoundException var2) {
-			throw new NoClassDefFoundError(var2.getMessage());
+			return Class.forName(str);
+		} catch (final ClassNotFoundException e) {
+			throw new NoClassDefFoundError(e.getMessage());
 		}
 	}
 
-	public void setClasses(ClassStorage var1) {
-		this.classes = var1;
+	public void setClasses(ClassStorage cs) {
+		this.classes = cs;
 	}
 
-	public URLClassLoaderImpl(URL[] var1) {
-		super(var1, (classLoaderClass == null ? (classLoaderClass = forName("com.allatori.URLClassLoaderImpl"))
-				: classLoaderClass).getClassLoader());
+	public URLClassLoaderImpl(URL[] urlArr) {
+		super(urlArr, (classLoaderClass == null ? (classLoaderClass = forName("com.allatori.URLClassLoaderImpl")) : classLoaderClass).getClassLoader());
 	}
 
-	private byte[] readZipEntry(JarFile var1, ZipEntry var2) throws IOException {
-		final byte[] var3 = new byte[(int) var2.getSize()];
-		final DataInputStream var4 = new DataInputStream(var1.getInputStream(var2));
-		var4.readFully(var3, 0, var3.length);
-		var4.close();
-		return var3;
+	private byte[] readZipEntry(JarFile jar, ZipEntry entry) throws IOException {
+		final byte[] byteArray = new byte[(int) entry.getSize()];
+		final DataInputStream dataInput = new DataInputStream(jar.getInputStream(entry));
+		dataInput.readFully(byteArray, 0, byteArray.length);
+		dataInput.close();
+		return byteArray;
 	}
 
-	private Class findClassInJars(String className) throws Exception {
+	private Class<?> findClassInJars(String className) throws Exception {
 		final String fullClassName = className.replace('.', '/').concat(".class");
-		final Vector var3 = Class45.method660();
-		int var4;
-		for (int var10000 = var4 = 0; var10000 < var3.size(); var10000 = var4) {
-			final Class149 var5 = (Class149) var3.get(var4);
-			final JarFile var6 = new JarFile(var5.aString799);
+		final Vector<?> vector = Class45.method660();
+		for (int i = 0; i < vector.size(); i++) {
+			final Class149 cls = (Class149) vector.get(i);
+			final JarFile jar = new JarFile(cls.aString799);
 			try {
 				ZipEntry entry;
-				if ((entry = var6.getEntry(fullClassName)) != null) {
-					final byte[] var8 = this.readZipEntry(var6, entry);
-					return this.defineClass(className, var8, 0, var8.length);
+				if ((entry = jar.getEntry(fullClassName)) != null) {
+					final byte[] byteArray = this.readZipEntry(jar, entry);
+					return this.defineClass(className, byteArray, 0, byteArray.length);
 				}
 			} finally {
-				var6.close();
+				jar.close();
 			}
-			++var4;
 		}
 		throw new Exception();
 	}

@@ -16,6 +16,8 @@ import org.apache.bcel.util.ByteSequence;
 
 public class InstructionList implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private InstructionHandle start = null, end = null;
 	private int length = 0;
 	private int[] byte_positions;
@@ -375,7 +377,7 @@ public class InstructionList implements Serializable {
 		}
 		first.prev = null;
 		last.next = null;
-		final List target_vec = new ArrayList();
+		final List<InstructionHandle> target_vec = new ArrayList<InstructionHandle>();
 		for (InstructionHandle ih = first; ih != null; ih = ih.next) {
 			ih.getInstruction().dispose();
 		}
@@ -542,7 +544,7 @@ public class InstructionList implements Serializable {
 
 	public Instruction[] getInstructions() {
 		final ByteSequence bytes = new ByteSequence(getByteCode());
-		final List instructions = new ArrayList();
+		final List<Instruction> instructions = new ArrayList<Instruction>();
 		try {
 			while (bytes.available() > 0) {
 				instructions.add(Instruction.readInstruction(bytes));
@@ -566,8 +568,8 @@ public class InstructionList implements Serializable {
 		return buf.toString();
 	}
 
-	public Iterator iterator() {
-		return new Iterator() {
+	public Iterator<?> iterator() {
+		return new Iterator<Object>() {
 
 			private InstructionHandle ih = start;
 
@@ -605,7 +607,7 @@ public class InstructionList implements Serializable {
 	}
 
 	public InstructionList copy() {
-		final Map map = new HashMap();
+		final Map<InstructionHandle, InstructionHandle> map = new HashMap<InstructionHandle, InstructionHandle>();
 		final InstructionList il = new InstructionList();
 		for (InstructionHandle ih = start; ih != null; ih = ih.next) {
 			final Instruction i = ih.instruction;
@@ -729,11 +731,11 @@ public class InstructionList implements Serializable {
 		}
 	}
 
-	private List observers;
+	private List<InstructionListObserver> observers;
 
 	public void addObserver(InstructionListObserver o) {
 		if (observers == null) {
-			observers = new ArrayList();
+			observers = new ArrayList<InstructionListObserver>();
 		}
 		observers.add(o);
 	}
@@ -746,7 +748,7 @@ public class InstructionList implements Serializable {
 
 	public void update() {
 		if (observers != null) {
-			for (final Iterator e = observers.iterator(); e.hasNext();) {
+			for (final Iterator<InstructionListObserver> e = observers.iterator(); e.hasNext();) {
 				((InstructionListObserver) e.next()).notify(this);
 			}
 		}

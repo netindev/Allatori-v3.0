@@ -13,7 +13,7 @@ public class INSTANCEOF extends CPInstruction implements LoadClass, ExceptionThr
 	}
 
 	@Override
-	public Class[] getExceptions() {
+	public Class<?>[] getExceptions() {
 		return ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION;
 	}
 

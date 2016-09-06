@@ -13,7 +13,7 @@ public abstract class ArrayInstruction extends Instruction implements ExceptionT
 	}
 
 	@Override
-	public Class[] getExceptions() {
+	public Class<?>[] getExceptions() {
 		return ExceptionConstants.EXCS_ARRAY_EXCEPTION;
 	}
 

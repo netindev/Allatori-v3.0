@@ -6,5 +6,5 @@ public interface ControlFlowTransform {
 	
 	/* OK */
 
-	void patch(ClassGen cg);
+	void patch(ClassGen classGen);
 }

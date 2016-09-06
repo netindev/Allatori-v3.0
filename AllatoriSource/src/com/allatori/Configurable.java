@@ -6,8 +6,8 @@ import java.util.Vector;
 
 public class Configurable {
 
-	static void method1266(ClassStorage var0) throws Exception_Sub1 {
-		(new Watermarking(var0, Class167.method1660())).createWatermark(Class167.method1656());
+	protected static void method1266(ClassStorage var0) throws Exception_Sub1 {
+		new Watermarking(var0, Class167.method1660()).createWatermark(Class167.method1656());
 	}
 
 	public static void parseConfigFile(String fileName) {

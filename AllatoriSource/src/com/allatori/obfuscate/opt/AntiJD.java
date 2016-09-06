@@ -10,7 +10,6 @@ public class AntiJD {
 	
 	/* OK */
 
-	private static int antiJDOption = 0;
 	private static ObfuscationConstraint obfuscationConstraint = new ObfuscationConstraint(0);
 
 	public static void addObfuscationTypeConstraint(ObfuscationTypeConstraint obf) {
@@ -19,13 +18,5 @@ public class AntiJD {
 
 	public static int getType(ClassStorage storage, ClassGen cg) {
 		return obfuscationConstraint.getType(storage, cg, null);
-	}
-
-	public static int getType() {
-		return antiJDOption;
-	}
-
-	public static void setType(int i) {
-		antiJDOption = i;
 	}
 }

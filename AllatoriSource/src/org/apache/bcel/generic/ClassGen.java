@@ -28,11 +28,11 @@ public class ClassGen extends AccessFlags implements Cloneable {
 	private int major = 45;
 	private int minor = 3;
 	private ConstantPoolGen cp;
-	private final List field_vec;
-	private final List method_vec;
-	private final List attribute_vec;
-	private final List interface_vec;
-	private final List annotation_vec;
+	private final List<Field> field_vec;
+	private final List<Method> method_vec;
+	private final List<Attribute> attribute_vec;
+	private final List<String> interface_vec;
+	private final List<AnnotationEntryGen> annotation_vec;
 	private static BCELComparator _cmp = new BCELComparator() {
 		@Override
 		public boolean equals(Object o1, Object o2) {
@@ -47,15 +47,15 @@ public class ClassGen extends AccessFlags implements Cloneable {
 			return THIS.getClassName().hashCode();
 		}
 	};
-	private List observers;
+	private List<ClassObserver> observers;
 
 	public ClassGen(String class_name, String super_class_name, String file_name, int access_flags, String[] interfaces,
 			ConstantPoolGen cp) {
-		field_vec = new ArrayList();
-		method_vec = new ArrayList();
-		attribute_vec = new ArrayList();
-		interface_vec = new ArrayList();
-		annotation_vec = new ArrayList();
+		field_vec = new ArrayList<Field>();
+		method_vec = new ArrayList<Method>();
+		attribute_vec = new ArrayList<Attribute>();
+		interface_vec = new ArrayList<String>();
+		annotation_vec = new ArrayList<AnnotationEntryGen>();
 		this.class_name = class_name;
 		this.super_class_name = super_class_name;
 		this.file_name = file_name;
@@ -77,11 +77,11 @@ public class ClassGen extends AccessFlags implements Cloneable {
 	}
 
 	public ClassGen(JavaClass clazz) {
-		field_vec = new ArrayList();
-		method_vec = new ArrayList();
-		attribute_vec = new ArrayList();
-		interface_vec = new ArrayList();
-		annotation_vec = new ArrayList();
+		field_vec = new ArrayList<Field>();
+		method_vec = new ArrayList<Method>();
+		attribute_vec = new ArrayList<Attribute>();
+		interface_vec = new ArrayList<String>();
+		annotation_vec = new ArrayList<AnnotationEntryGen>();
 		class_name_index = clazz.getClassNameIndex();
 		superclass_name_index = clazz.getSuperclassNameIndex();
 		class_name = clazz.getClassName();
@@ -111,7 +111,7 @@ public class ClassGen extends AccessFlags implements Cloneable {
 	}
 
 	private AnnotationEntryGen[] unpackAnnotations(Attribute[] attrs) {
-		final List annotationGenObjs = new ArrayList();
+		final List<AnnotationEntryGen> annotationGenObjs = new ArrayList<AnnotationEntryGen>();
 		for (int i = 0; i < attrs.length; i++) {
 			final Attribute attr = attrs[i];
 			if (attr instanceof RuntimeVisibleAnnotations) {
@@ -206,7 +206,7 @@ public class ClassGen extends AccessFlags implements Cloneable {
 	}
 
 	public Field containsField(String name) {
-		final Iterator i$ = field_vec.iterator();
+		final Iterator<Field> i$ = field_vec.iterator();
 		while (i$.hasNext()) {
 			final Field f = (Field) i$.next();
 			if (f.getName().equals(name))
@@ -216,7 +216,7 @@ public class ClassGen extends AccessFlags implements Cloneable {
 	}
 
 	public Method containsMethod(String name, String signature) {
-		final Iterator i$ = method_vec.iterator();
+		final Iterator<Method> i$ = method_vec.iterator();
 		while (i$.hasNext()) {
 			final Method m = (Method) i$.next();
 			if (m.getName().equals(name) && m.getSignature().equals(signature))
@@ -352,7 +352,7 @@ public class ClassGen extends AccessFlags implements Cloneable {
 
 	public void addObserver(ClassObserver o) {
 		if (observers == null)
-			observers = new ArrayList();
+			observers = new ArrayList<ClassObserver>();
 		observers.add(o);
 	}
 
@@ -363,7 +363,7 @@ public class ClassGen extends AccessFlags implements Cloneable {
 
 	public void update() {
 		if (observers != null) {
-			final Iterator i$ = observers.iterator();
+			final Iterator<ClassObserver> i$ = observers.iterator();
 			while (i$.hasNext()) {
 				final ClassObserver observer = (ClassObserver) i$.next();
 				observer.notify(this);

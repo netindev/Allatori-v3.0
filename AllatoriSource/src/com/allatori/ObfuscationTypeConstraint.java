@@ -1,12 +1,14 @@
 package com.allatori;
 
 public class ObfuscationTypeConstraint {
+	
+	/* OK */
 
 	public int type;
 	public ClassConstraint classConstraint;
 
-	public ObfuscationTypeConstraint(int type, ClassConstraint var2) {
+	public ObfuscationTypeConstraint(int type, ClassConstraint classConstraint) {
 		this.type = type;
-		this.classConstraint = var2;
+		this.classConstraint = classConstraint;
 	}
 }

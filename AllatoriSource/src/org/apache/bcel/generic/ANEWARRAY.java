@@ -14,8 +14,8 @@ public class ANEWARRAY extends CPInstruction
 	}
 
 	@Override
-	public Class[] getExceptions() {
-		final Class[] cs = new Class[1 + (ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION).length];
+	public Class<?>[] getExceptions() {
+		final Class<?>[] cs = new Class[1 + (ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION).length];
 		System.arraycopy((ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION), 0, cs, 0,
 				(ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION).length);
 		cs[ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION.length] = ExceptionConstants.NEGATIVE_ARRAY_SIZE_EXCEPTION;

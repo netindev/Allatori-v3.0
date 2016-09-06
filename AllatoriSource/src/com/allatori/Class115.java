@@ -6,20 +6,6 @@ import org.apache.bcel.generic.Type;
 
 public class Class115 {
 
-	public static final int anInt720 = 64;
-	public static final int anInt721 = 32;
-	public static final int anInt722 = 2;
-	public static final int anInt723 = 256;
-	public static final int anInt724 = 128;
-	public static final int anInt725 = 16;
-	public static final int anInt726 = 512;
-	public static final int anInt727 = 4;
-	public static final int anInt728 = 1;
-	public static final int anInt729 = 4096;
-	public static final int anInt730 = 8;
-	public static final int anInt731 = 2048;
-	public static final int anInt732 = 1024;
-
 	public static boolean method1388(Type[] var0, String var1) {
 		final StringBuffer var2 = new StringBuffer("");
 
@@ -227,8 +213,8 @@ public class Class115 {
 				return method1398(var0, var3.getSuperclassName(), var2);
 			} else {
 				try {
-					Class var4;
-					Class[] var5;
+					Class<?> var4;
+					Class<?>[] var5;
 					int var6;
 					for (var10000 = var6 = (var5 = (var4 = Class.forName(var1, false, var0.cLoader()))
 							.getInterfaces()).length - 1; var10000 >= 0; var10000 = var6) {

@@ -50,7 +50,7 @@ public class NEWARRAY extends Instruction implements AllocationInstruction, Exce
 	}
 
 	@Override
-	public Class[] getExceptions() {
+	public Class<?>[] getExceptions() {
 		return (new Class[] { ExceptionConstants.NEGATIVE_ARRAY_SIZE_EXCEPTION });
 	}
 

@@ -1,6 +1,8 @@
 package com.allatori;
 
 public class Obfuscate extends Configurable {
+	
+	/* OK */
 
 	public static void main(String[] arguments) {
 		if (arguments.length > 1 && "-silent".equals(arguments[1])) {

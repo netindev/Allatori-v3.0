@@ -61,12 +61,10 @@ public class MethodUtils {
 		return (Type) var2;
 	}
 
-	// $FF: synthetic method
 	public static String method1454(String var0) {
 		return method1452(var0);
 	}
 
-	// $FF: synthetic method
 	public static String getPackageName(String var0) {
 		return getPackage(var0);
 	}

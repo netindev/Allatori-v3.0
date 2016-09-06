@@ -25,22 +25,23 @@ public class FileUtils {
 		return strBuilder.toString();
 	}
 
-	public static void method689(File var0, File var1) throws IOException {
-		FileChannel var2 = null;
-		FileChannel var3 = null;
+	public static void method689(File file0, File file1) throws IOException {
+		FileInputStream inputStream = new FileInputStream(file0);
+		FileOutputStream outputStream = new FileOutputStream(file1);
+		FileChannel fileChannel0 = inputStream.getChannel(), fileChannel1 = outputStream.getChannel();
 		try {
-			var2 = (new FileInputStream(var0)).getChannel();
-			var3 = (new FileOutputStream(var1)).getChannel();
-			final MappedByteBuffer var4 = var2.map(MapMode.READ_ONLY, 0L, var2.size());
-			var3.write(var4);
+			MappedByteBuffer mappedByteBuffer = fileChannel0.map(MapMode.READ_ONLY, 0L, fileChannel0.size());
+			fileChannel1.write(mappedByteBuffer);
 		} finally {
-			if (var2 != null) {
-				var2.close();
+			if (fileChannel0 != null) {
+				fileChannel0.close();
 			}
-			if (var3 != null) {
-				var3.close();
+			if (fileChannel1 != null) {
+				fileChannel1.close();
 			}
 		}
+		inputStream.close();
+		outputStream.close();
 	}
 
 	public static void write(File file, String toWrite) throws Exception {

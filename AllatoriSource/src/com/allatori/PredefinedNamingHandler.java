@@ -16,7 +16,7 @@ public class PredefinedNamingHandler extends DefaultHandler {
 		this.aClass166_967 = var1;
 		var1.aRenamingMap_852 = new RenamingMap();
 		var1.aRenamingMap_854 = new RenamingMap();
-		var1.aVector853 = new Vector();
+		var1.aVector853 = new Vector<Object>();
 	}
 
 	@Override

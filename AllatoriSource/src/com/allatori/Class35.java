@@ -4,10 +4,7 @@ import java.util.Comparator;
 
 import org.apache.bcel.generic.ClassGen;
 
-public class Class35 implements Comparator {
-
-	public Class35() {
-	}
+public class Class35 implements Comparator<Object> {
 
 	@Override
 	public int compare(Object var1, Object var2) {

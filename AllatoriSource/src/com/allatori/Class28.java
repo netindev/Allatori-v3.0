@@ -8,7 +8,7 @@ import org.apache.bcel.generic.ClassGen;
 
 public class Class28 {
 
-	private static Vector aVector570 = new Vector();
+	private static Vector<ClassConstraint> aVector570 = new Vector<ClassConstraint>();
 	private static ClassConstraint aClassConstraint_571;
 
 	public static void method501(FieldConstraint var0) {

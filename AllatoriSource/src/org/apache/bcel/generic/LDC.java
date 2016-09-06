@@ -95,7 +95,7 @@ public class LDC extends CPInstruction implements PushInstruction, ExceptionThro
 	}
 
 	@Override
-	public Class[] getExceptions() {
+	public Class<?>[] getExceptions() {
 		return ExceptionConstants.EXCS_STRING_RESOLUTION;
 	}
 

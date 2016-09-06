@@ -41,7 +41,7 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 	private boolean aBoolean1149 = false;
 	public static String aString1150 = "allatori-12321-32123:";
 	private static String string_decryptor_class_name = "com_allatori_string_decryptor";
-	private final Collection aCollection1152 = new TreeSet();
+	private final Collection<String> aCollection1152 = new TreeSet<String>();
 	private final ClassStorage aClassStorage_1153;
 	private static String decryptString2MethodName = "DecryptString2";
 
@@ -460,8 +460,8 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 	public StringObfuscationLayer1(ClassStorage var1) {
 		this.aClassStorage_1153 = var1;
 
-		Iterator var2;
-		for (Iterator var10000 = var2 = var1.iterator(); var10000.hasNext(); var10000 = var2) {
+		Iterator<?> var2;
+		for (Iterator<?> var10000 = var2 = var1.iterator(); var10000.hasNext(); var10000 = var2) {
 			final ClassGen var3 = (ClassGen) var2.next();
 			int var4;
 			if ((var4 = Tuning.method1726(var1, var3, null)) == Tuning.STRING_ENCRYPTION_DEFAULT) {

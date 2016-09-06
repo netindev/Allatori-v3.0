@@ -8,17 +8,14 @@ public class NameRepository {
 	private final RenamingMap signatureMap;
 	private final RenamingMap constantNameMap;
 
-	// $FF: synthetic method
 	public static RenamingMap getMethodRenamingMap(NameRepository var0) {
 		return var0.methodNameMap;
 	}
 
-	// $FF: synthetic method
 	public static RenamingMap getConstantNamingMap(NameRepository var0) {
 		return var0.constantNameMap;
 	}
 
-	// $FF: synthetic method
 	public NameRepository(Class172 var1, EmptyClass var2) {
 		this(var1);
 	}
@@ -31,17 +28,14 @@ public class NameRepository {
 		this.aRenamingMap_792 = new RenamingMap();
 	}
 
-	// $FF: synthetic method
 	public static RenamingMap method1534(NameRepository var0) {
 		return var0.aRenamingMap_792;
 	}
 
-	// $FF: synthetic method
 	public static RenamingMap getSignatureNamingMap(NameRepository var0) {
 		return var0.signatureMap;
 	}
 
-	// $FF: synthetic method
 	public static Interface22 method1536(NameRepository var0) {
 		return var0.anInterface22_794;
 	}

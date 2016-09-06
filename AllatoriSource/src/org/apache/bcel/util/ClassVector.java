@@ -8,7 +8,7 @@ import org.apache.bcel.classfile.JavaClass;
 
 public class ClassVector implements Serializable {
 	private static final long serialVersionUID = 5600397075672780806L;
-	protected List vec = new ArrayList();
+	protected List<JavaClass> vec = new ArrayList<JavaClass>();
 
 	public void addElement(JavaClass clazz) {
 		vec.add(clazz);

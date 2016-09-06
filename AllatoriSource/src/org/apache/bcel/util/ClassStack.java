@@ -7,7 +7,7 @@ import org.apache.bcel.classfile.JavaClass;
 
 public class ClassStack implements Serializable {
 	private static final long serialVersionUID = 6126079269396985982L;
-	private final Stack stack = new Stack();
+	private final Stack<JavaClass> stack = new Stack<JavaClass>();
 
 	public void push(JavaClass clazz) {
 		stack.push(clazz);

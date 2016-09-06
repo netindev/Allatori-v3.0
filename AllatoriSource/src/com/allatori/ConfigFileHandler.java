@@ -231,10 +231,6 @@ public class ConfigFileHandler extends DefaultHandler {
 						this.throw4AttributeException("value", "disable", "normal", "maximum");
 					}
 
-					if ("private+ class *".equals(apply2class) && "private+ *(**)".equals(apply2method)) {
-						AntiJD.setType(localVarNamingType);
-					}
-
 					(classConstraint = this.createClassFilter(apply2class, null, null, null, "apply2class"))
 							.addMethodConstraint(this.createMethodFilter(apply2method, null, "apply2method"));
 					AntiJD.addObfuscationTypeConstraint(

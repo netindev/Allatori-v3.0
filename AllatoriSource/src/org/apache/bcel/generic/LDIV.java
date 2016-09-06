@@ -10,7 +10,7 @@ public class LDIV extends ArithmeticInstruction implements ExceptionThrower {
 	}
 
 	@Override
-	public Class[] getExceptions() {
+	public Class<?>[] getExceptions() {
 		return new Class[] { ExceptionConstants.ARITHMETIC_EXCEPTION };
 	}
 

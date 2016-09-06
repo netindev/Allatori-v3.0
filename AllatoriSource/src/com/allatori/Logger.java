@@ -10,12 +10,6 @@ public class Logger {
 		return isSilent;
 	}
 
-	public static void printDebug(String str) {
-		if (!isSilent) {
-			System.out.println("[DEBUG] " + str);
-		}
-	}
-
 	public static void printError(String str) {
 		System.out.println("[ERROR] " + str);
 	}

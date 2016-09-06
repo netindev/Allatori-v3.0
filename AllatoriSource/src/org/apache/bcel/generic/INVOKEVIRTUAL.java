@@ -13,8 +13,8 @@ public class INVOKEVIRTUAL extends InvokeInstruction {
 	}
 
 	@Override
-	public Class[] getExceptions() {
-		final Class[] cs = new Class[4 + (ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION).length];
+	public Class<?>[] getExceptions() {
+		final Class<?>[] cs = new Class[4 + (ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION).length];
 		System.arraycopy(ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION, 0, cs, 0,
 				(ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION).length);
 		cs[ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION.length + 3] = ExceptionConstants.UNSATISFIED_LINK_ERROR;

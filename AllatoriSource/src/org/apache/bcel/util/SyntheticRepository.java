@@ -11,10 +11,11 @@ import org.apache.bcel.classfile.JavaClass;
 
 public class SyntheticRepository implements Repository {
 
-	private static final String DEFAULT_PATH = ClassPath.getClassPath();
-	private static Map _instances = new HashMap();
+	private static final long serialVersionUID = 1L;
+	
+	private static Map<ClassPath, SyntheticRepository> _instances = new HashMap<ClassPath, SyntheticRepository>();
 	private ClassPath _path = null;
-	private final Map _loadedClasses = new HashMap();
+	private final Map<String, SoftReference<JavaClass>> _loadedClasses = new HashMap<String, SoftReference<JavaClass>>();
 
 	private SyntheticRepository(ClassPath path) {
 		_path = path;
@@ -35,7 +36,7 @@ public class SyntheticRepository implements Repository {
 
 	@Override
 	public void storeClass(JavaClass clazz) {
-		_loadedClasses.put(clazz.getClassName(), new SoftReference(clazz));
+		_loadedClasses.put(clazz.getClassName(), new SoftReference<JavaClass>(clazz));
 		clazz.setRepository(this);
 	}
 
@@ -46,7 +47,7 @@ public class SyntheticRepository implements Repository {
 
 	@Override
 	public JavaClass findClass(String className) {
-		final SoftReference ref = (SoftReference) _loadedClasses.get(className);
+		final SoftReference<?> ref = (SoftReference<?>) _loadedClasses.get(className);
 		if (ref == null) {
 			return null;
 		}
@@ -71,7 +72,7 @@ public class SyntheticRepository implements Repository {
 	}
 
 	@Override
-	public JavaClass loadClass(Class clazz) throws ClassNotFoundException {
+	public JavaClass loadClass(Class<?> clazz) throws ClassNotFoundException {
 		final String className = clazz.getName();
 		final JavaClass repositoryClass = findClass(className);
 		if (repositoryClass != null) {

@@ -35,7 +35,7 @@ public abstract class Type implements Serializable {
 		private static final long serialVersionUID = 1321113605813486066L;
 	};
 
-	private static ThreadLocal consumed_chars = new ThreadLocal() {
+	private static ThreadLocal<Object> consumed_chars = new ThreadLocal<Object>() {
 		@Override
 		protected Object initialValue() {
 			return new Integer(0);
@@ -101,12 +101,12 @@ public abstract class Type implements Serializable {
 		return buf.toString();
 	}
 
-	private static int unwrap(ThreadLocal tl) {
-		return ((Integer) tl.get()).intValue();
+	private static int unwrap(ThreadLocal<Object> consumed_chars2) {
+		return ((Integer) consumed_chars2.get()).intValue();
 	}
 
-	private static void wrap(ThreadLocal tl, int value) {
-		tl.set(Integer.valueOf(value));
+	private static void wrap(ThreadLocal<Object> consumed_chars2, int value) {
+		consumed_chars2.set(Integer.valueOf(value));
 	}
 
 	public static final Type getType(String signature) throws StringIndexOutOfBoundsException {
@@ -146,7 +146,7 @@ public abstract class Type implements Serializable {
 	}
 
 	public static Type[] getArgumentTypes(String signature) {
-		final java.util.List vec = new ArrayList();
+		final ArrayList<Type> vec = new ArrayList<Type>();
 		try {
 			if (signature.charAt(0) != '(')
 				throw new ClassFormatException(
@@ -162,7 +162,7 @@ public abstract class Type implements Serializable {
 		return types;
 	}
 
-	public static Type getType(Class cl) {
+	public static Type getType(Class<?> cl) {
 		if (cl == null)
 			throw new IllegalArgumentException("Class must not be null");
 		if (cl.isArray())
@@ -194,7 +194,7 @@ public abstract class Type implements Serializable {
 		return new ObjectType(cl.getName());
 	}
 
-	public static Type[] getTypes(Class[] classes) {
+	public static Type[] getTypes(Class<?>[] classes) {
 		final Type[] ret = new Type[classes.length];
 		for (int i = 0; i < ret.length; i++)
 			ret[i] = getType(classes[i]);
@@ -203,7 +203,7 @@ public abstract class Type implements Serializable {
 
 	public static String getSignature(Method meth) {
 		final StringBuilder sb = new StringBuilder("(");
-		final Class[] params = meth.getParameterTypes();
+		final Class<?>[] params = meth.getParameterTypes();
 		for (int j = 0; j < params.length; j++)
 			sb.append(getType(params[j]).getSignature());
 		sb.append(")");

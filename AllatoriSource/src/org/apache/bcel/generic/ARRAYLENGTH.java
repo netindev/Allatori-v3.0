@@ -10,7 +10,7 @@ public class ARRAYLENGTH extends Instruction implements ExceptionThrower, StackP
 	}
 
 	@Override
-	public Class[] getExceptions() {
+	public Class<?>[] getExceptions() {
 		return new Class[] { ExceptionConstants.NULL_POINTER_EXCEPTION };
 	}
 

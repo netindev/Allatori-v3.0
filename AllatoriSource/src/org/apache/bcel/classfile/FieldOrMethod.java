@@ -110,7 +110,7 @@ public abstract class FieldOrMethod extends AccessFlags implements Cloneable, No
 	private void ensureAnnotationsUpToDate() {
 		if (annotationsOutOfDate) {
 			final Attribute[] attrs = getAttributes();
-			final java.util.List accumulatedAnnotations = new ArrayList();
+			final java.util.List<AnnotationEntry> accumulatedAnnotations = new ArrayList<AnnotationEntry>();
 			for (int i = 0; i < attrs.length; i++) {
 				final Attribute attribute = attrs[i];
 				if (attribute instanceof Annotations) {
@@ -119,8 +119,8 @@ public abstract class FieldOrMethod extends AccessFlags implements Cloneable, No
 						accumulatedAnnotations.add(annotations.getAnnotationEntries()[j]);
 				}
 			}
-			annotationEntries = ((AnnotationEntry[]) accumulatedAnnotations
-					.toArray(new AnnotationEntry[accumulatedAnnotations.size()]));
+			annotationEntries = accumulatedAnnotations
+					.toArray(new AnnotationEntry[accumulatedAnnotations.size()]);
 			annotationsOutOfDate = false;
 		}
 	}

@@ -12,7 +12,6 @@ public class StackTrace {
 
 	public static void main(String[] var0) {
 		System.out.println(Configurable.printSplash());
-
 		try {
 			if (var0.length != 3) {
 				printUsage();

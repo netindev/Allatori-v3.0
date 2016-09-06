@@ -15,18 +15,18 @@ import org.apache.bcel.generic.ClassGen;
 
 public class Class20 {
 
-	private static Hashtable aHashtable544;
+	private static Hashtable<String, String> aHashtable544;
 
 	public static void method446(String[] var0, String var1) throws Exception {
 		final byte[] var2 = new byte[65536];
 		final JarOutputStream var3 = new JarOutputStream(new FileOutputStream(var1 + ".tmp"));
-		final Hashtable var4 = new Hashtable();
+		final Hashtable<String, String> var4 = new Hashtable<String, String>();
 
 		int var5;
 		for (int var10000 = var5 = 0; var10000 < var0.length; var10000 = var5) {
 			JarFile var6;
-			Enumeration var7;
-			for (Enumeration var12 = var7 = (var6 = new JarFile(var0[var5])).entries(); var12
+			Enumeration<?> var7;
+			for (Enumeration<?> var12 = var7 = (var6 = new JarFile(var0[var5])).entries(); var12
 					.hasMoreElements(); var12 = var7) {
 				final JarEntry var8 = (JarEntry) var7.nextElement();
 				if (!var4.containsKey(var8.getName().toLowerCase())) {
@@ -76,7 +76,7 @@ public class Class20 {
 		var0.setComment("Obfuscation by " + Info.name() + " " + Info.version() + "\n" + Info.website());
 	}
 
-	private static void method449(Vector var0, JarOutputStream var1, String var2) throws Exception {
+	private static void method449(Vector<ClassGen> var0, JarOutputStream var1, String var2) throws Exception {
 		int var3;
 		for (int var10000 = var3 = var0.size() - 1; var10000 >= 0; var10000 = var3) {
 			method451((ClassGen) var0.get(var3), var1, var2);
@@ -86,15 +86,15 @@ public class Class20 {
 	}
 
 	public static void method450(String var0, String var1, ClassStorage var2) throws Exception {
-		aHashtable544 = new Hashtable();
+		aHashtable544 = new Hashtable<String, String>();
 		final byte[] var3 = new byte[65536];
 		String var4 = null;
 		final JarFile var5 = new JarFile(var0);
 		final JarOutputStream var6 = new JarOutputStream(new FileOutputStream(var1 + ".tmp"));
-		final Vector var7 = new Vector();
+		final Vector<ClassGen> var7 = new Vector<ClassGen>();
 
-		Enumeration var8;
-		for (Enumeration var10000 = var8 = var5.entries(); var10000.hasMoreElements(); var10000 = var8) {
+		Enumeration<?> var8;
+		for (Enumeration<?> var10000 = var8 = var5.entries(); var10000.hasMoreElements(); var10000 = var8) {
 			JarEntry var9;
 			if (!(var9 = (JarEntry) var8.nextElement()).isDirectory()) {
 				if (var9.getName().endsWith(".class")) {

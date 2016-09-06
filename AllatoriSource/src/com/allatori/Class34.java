@@ -34,7 +34,7 @@ public class Class34 {
 				--var3;
 			}
 
-			final ListIterator var4 = var0.listIterator();
+			final ListIterator<Object> var4 = var0.listIterator();
 
 			int var5;
 			for (var10000 = var5 = 0; var10000 < var6.length; var10000 = var5) {
@@ -57,7 +57,7 @@ public class Class34 {
 		var0[var2] = var3;
 	}
 
-	private static void method569(List var0, int var1, int var2) {
+	private static void method569(List<Object> var0, int var1, int var2) {
 		var0.set(var1, var0.set(var2, var0.get(var1)));
 	}
 

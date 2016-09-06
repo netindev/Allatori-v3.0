@@ -1,12 +1,12 @@
 package com.allatori;
 
 import java.io.Serializable;
-import java.util.Date;
 
-public class Class13_Sub1_Sub1 extends Class13_Sub1 implements Serializable {
+public class Class13_Sub1_Sub1 extends DateUtils implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	public int anInt1339;
-	public double[] aDoubleArray1340;
 	public double aDouble1341;
 	public static int anInt1342 = 899999963;
 	public double aDouble1343;
@@ -17,7 +17,6 @@ public class Class13_Sub1_Sub1 extends Class13_Sub1 implements Serializable {
 
 	public void method368(int var1) {
 		this.aDoubleArray1347 = new double[97];
-		this.aDoubleArray1340 = new double[97];
 		final int var2 = var1 / 30082;
 		final int var3 = var1 - 30082 * var2;
 		int var4 = var2 / 177 % 177 + 2;
@@ -126,9 +125,5 @@ public class Class13_Sub1_Sub1 extends Class13_Sub1 implements Serializable {
 		}
 
 		return var1;
-	}
-
-	public Class13_Sub1_Sub1(Date date) {
-		this.method368((int) Class13_Sub1.getTime(date) % anInt1342);
 	}
 }

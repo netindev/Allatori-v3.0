@@ -28,12 +28,12 @@ public class JavaWrapper {
 	}
 
 	public void runMain(String class_name, String[] argv) throws ClassNotFoundException {
-		final Class cl = loader.loadClass(class_name);
+		final Class<?> cl = loader.loadClass(class_name);
 		Method method = null;
 		try {
 			method = cl.getMethod("main", new Class[] { argv.getClass() });
 			final int m = method.getModifiers();
-			final Class r = method.getReturnType();
+			final Class<?> r = method.getReturnType();
 			if (!Modifier.isPublic(m) || !Modifier.isStatic(m) || Modifier.isAbstract(m) || r != Void.TYPE)
 				throw new NoSuchMethodException();
 		} catch (final NoSuchMethodException no) {

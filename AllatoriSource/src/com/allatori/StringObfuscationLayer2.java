@@ -14,8 +14,7 @@ public class StringObfuscationLayer2 implements ObfuscationType {
 	public Class95 aClass95_1146 = new Class95();
 
 	@Override
-	public void terminate() {
-	}
+	public void terminate() {}
 
 	private void patch(ClassGen var1) {
 		final Method[] var2 = var1.getMethods();

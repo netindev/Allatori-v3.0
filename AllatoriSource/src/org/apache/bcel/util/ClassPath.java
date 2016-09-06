@@ -17,13 +17,15 @@ import java.util.zip.ZipFile;
 
 public class ClassPath implements Serializable {
 
+	private static final long serialVersionUID = -7769396876028050656L;
+	
 	public static final ClassPath SYSTEM_CLASS_PATH = new ClassPath();
 	private final PathEntry[] paths;
 	private final String class_path;
 
 	public ClassPath(String class_path) {
 		this.class_path = class_path;
-		final List vec = new ArrayList();
+		final List<PathEntry> vec = new ArrayList<PathEntry>();
 		for (final StringTokenizer tok = new StringTokenizer(class_path, System.getProperty("path.separator")); tok
 				.hasMoreTokens();) {
 			final String path = tok.nextToken();
@@ -68,7 +70,7 @@ public class ClassPath implements Serializable {
 		return false;
 	}
 
-	private static final void getPathComponents(String path, List list) {
+	private static final void getPathComponents(String path, List<String> list) {
 		if (path != null) {
 			final StringTokenizer tok = new StringTokenizer(path, File.pathSeparator);
 			while (tok.hasMoreTokens()) {
@@ -85,12 +87,12 @@ public class ClassPath implements Serializable {
 		final String class_path = System.getProperty("java.class.path");
 		final String boot_path = System.getProperty("sun.boot.class.path");
 		final String ext_path = System.getProperty("java.ext.dirs");
-		final List list = new ArrayList();
+		final List<String> list = new ArrayList<String>();
 		getPathComponents(class_path, list);
 		getPathComponents(boot_path, list);
-		final List dirs = new ArrayList();
+		final List<String> dirs = new ArrayList<String>();
 		getPathComponents(ext_path, dirs);
-		for (final Iterator e = dirs.iterator(); e.hasNext();) {
+		for (final Iterator<String> e = dirs.iterator(); e.hasNext();) {
 			final File ext_dir = new File((String) e.next());
 			final String[] extensions = ext_dir.list(new FilenameFilter() {
 
@@ -107,7 +109,7 @@ public class ClassPath implements Serializable {
 			}
 		}
 		final StringBuffer buf = new StringBuffer();
-		for (final Iterator e = list.iterator(); e.hasNext();) {
+		for (final Iterator<String> e = list.iterator(); e.hasNext();) {
 			buf.append((String) e.next());
 			if (e.hasNext()) {
 				buf.append(File.pathSeparatorChar);
@@ -183,6 +185,11 @@ public class ClassPath implements Serializable {
 	}
 
 	private static abstract class PathEntry implements Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -8416003584705594546L;
+
 		abstract ClassFile getClassFile(String name, String suffix) throws IOException;
 	}
 
@@ -199,6 +206,10 @@ public class ClassPath implements Serializable {
 	}
 
 	private static class Dir extends PathEntry {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 4456654190221513714L;
 		private final String dir;
 
 		Dir(String d) {
@@ -247,6 +258,10 @@ public class ClassPath implements Serializable {
 	}
 
 	private static class Zip extends PathEntry {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 6091477032709796156L;
 		private final ZipFile zip;
 
 		Zip(ZipFile z) {

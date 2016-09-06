@@ -22,6 +22,7 @@ import org.apache.bcel.classfile.ParameterAnnotationEntry;
 import org.apache.bcel.classfile.ParameterAnnotations;
 import org.apache.bcel.classfile.RuntimeVisibleParameterAnnotations;
 import org.apache.bcel.classfile.Utility;
+import org.apache.bcel.generic.MethodGen.BranchTarget;
 import org.apache.bcel.util.BCELComparator;
 
 public class MethodGen extends FieldGenOrMethodGen {
@@ -33,12 +34,12 @@ public class MethodGen extends FieldGenOrMethodGen {
 	private int max_stack;
 	private InstructionList il;
 	private boolean strip_attributes;
-	private final List variable_vec = new ArrayList();
-	private final List line_number_vec = new ArrayList();
-	private final List exception_vec = new ArrayList();
-	private final List throws_vec = new ArrayList();
-	private final List code_attrs_vec = new ArrayList();
-	private List[] param_annotations;
+	private final List<LocalVariableGen> variable_vec = new ArrayList<LocalVariableGen>();
+	private final List<LineNumberGen> line_number_vec = new ArrayList<LineNumberGen>();
+	private final List<CodeExceptionGen> exception_vec = new ArrayList<CodeExceptionGen>();
+	private final List<String> throws_vec = new ArrayList<String>();
+	private final List<Attribute> code_attrs_vec = new ArrayList<Attribute>();
+	private List<Object>[] param_annotations;
 	private boolean hasParameterAnnotations = false;
 	private boolean haveUnpackedParameterAnnotations = false;
 	private static BCELComparator _cmp = new BCELComparator() {
@@ -55,11 +56,11 @@ public class MethodGen extends FieldGenOrMethodGen {
 			return THIS.getSignature().hashCode() ^ THIS.getName().hashCode();
 		}
 	};
-	private List observers;
+	private List<MethodObserver> observers;
 
 	static final class BranchStack {
-		Stack branchTargets = new Stack();
-		Hashtable visitedTargets = new Hashtable();
+		Stack<BranchTarget> branchTargets = new Stack<BranchTarget>();
+		Hashtable<InstructionHandle, BranchTarget> visitedTargets = new Hashtable<InstructionHandle, BranchTarget>();
 
 		public void push(InstructionHandle target, int stackDepth) {
 			if (!visited(target))
@@ -68,7 +69,7 @@ public class MethodGen extends FieldGenOrMethodGen {
 
 		public BranchTarget pop() {
 			if (!branchTargets.empty()) {
-				final BranchTarget bt = (BranchTarget) branchTargets.pop();
+				final BranchTarget bt = branchTargets.pop();
 				return bt;
 			}
 			return null;
@@ -334,7 +335,7 @@ public class MethodGen extends FieldGenOrMethodGen {
 		final LineNumber[] ln = new LineNumber[size];
 		try {
 			for (int i = 0; i < size; i++)
-				ln[i] = ((LineNumberGen) line_number_vec.get(i)).getLineNumber();
+				ln[i] = line_number_vec.get(i).getLineNumber();
 		} catch (final ArrayIndexOutOfBoundsException arrayindexoutofboundsexception) {
 		}
 		return new LineNumberTable(cp.addUtf8("LineNumberTable"), 2 + ln.length * 4, ln, cp.getConstantPool());
@@ -368,7 +369,7 @@ public class MethodGen extends FieldGenOrMethodGen {
 		final CodeException[] c_exc = new CodeException[size];
 		try {
 			for (int i = 0; i < size; i++) {
-				final CodeExceptionGen c = (CodeExceptionGen) exception_vec.get(i);
+				final CodeExceptionGen c = exception_vec.get(i);
 				c_exc[i] = c.getCodeException(cp);
 			}
 		} catch (final ArrayIndexOutOfBoundsException arrayindexoutofboundsexception) {
@@ -399,7 +400,7 @@ public class MethodGen extends FieldGenOrMethodGen {
 		final int[] ex = new int[size];
 		try {
 			for (int i = 0; i < size; i++)
-				ex[i] = cp.addClass((String) throws_vec.get(i));
+				ex[i] = cp.addClass(throws_vec.get(i));
 		} catch (final ArrayIndexOutOfBoundsException arrayindexoutofboundsexception) {
 		}
 		return new ExceptionTable(cp.addUtf8("Exceptions"), 2 + 2 * size, ex, cp.getConstantPool());
@@ -665,7 +666,7 @@ public class MethodGen extends FieldGenOrMethodGen {
 
 	public void addObserver(MethodObserver o) {
 		if (observers == null)
-			observers = new ArrayList();
+			observers = new ArrayList<MethodObserver>();
 		observers.add(o);
 	}
 
@@ -676,9 +677,9 @@ public class MethodGen extends FieldGenOrMethodGen {
 
 	public void update() {
 		if (observers != null) {
-			final Iterator i$ = observers.iterator();
+			final Iterator<MethodObserver> i$ = observers.iterator();
 			while (i$.hasNext()) {
-				final MethodObserver observer = (MethodObserver) i$.next();
+				final MethodObserver observer = i$.next();
 				observer.notify(this);
 			}
 		}
@@ -696,9 +697,9 @@ public class MethodGen extends FieldGenOrMethodGen {
 				buf.append(" [").append(a.toString()).append("]");
 		}
 		if (throws_vec.size() > 0) {
-			final Iterator i$ = throws_vec.iterator();
+			final Iterator<String> i$ = throws_vec.iterator();
 			while (i$.hasNext()) {
-				final String throwsDescriptor = (String) i$.next();
+				final String throwsDescriptor = i$.next();
 				buf.append("\n\t\tthrows ").append(throwsDescriptor);
 			}
 		}
@@ -715,7 +716,7 @@ public class MethodGen extends FieldGenOrMethodGen {
 		return mg;
 	}
 
-	public List getAnnotationsOnParameter(int i) {
+	public List<?> getAnnotationsOnParameter(int i) {
 		ensureExistingParameterAnnotationsUnpacked();
 		if (!hasParameterAnnotations || i > arg_types.length)
 			return null;
@@ -733,7 +734,7 @@ public class MethodGen extends FieldGenOrMethodGen {
 					if (!hasParameterAnnotations) {
 						param_annotations = new List[arg_types.length];
 						for (int j = 0; j < arg_types.length; j++)
-							param_annotations[j] = new ArrayList();
+							param_annotations[j] = new ArrayList<Object>();
 					}
 					hasParameterAnnotations = true;
 					final ParameterAnnotations rpa = (ParameterAnnotations) attribute;
@@ -743,7 +744,7 @@ public class MethodGen extends FieldGenOrMethodGen {
 						paramAnnInvisAttr = rpa;
 					for (int j = 0; j < arg_types.length; j++) {
 						final ParameterAnnotationEntry immutableArray = rpa.getParameterAnnotationEntries()[j];
-						final List mutable = makeMutableVersion(immutableArray.getAnnotationEntries());
+						final List<AnnotationEntryGen> mutable = makeMutableVersion(immutableArray.getAnnotationEntries());
 						param_annotations[j].addAll(mutable);
 					}
 				}
@@ -756,8 +757,8 @@ public class MethodGen extends FieldGenOrMethodGen {
 		}
 	}
 
-	private List makeMutableVersion(AnnotationEntry[] mutableArray) {
-		final List result = new ArrayList();
+	private List<AnnotationEntryGen> makeMutableVersion(AnnotationEntry[] mutableArray) {
+		final List<AnnotationEntryGen> result = new ArrayList<AnnotationEntryGen>();
 		for (int i = 0; i < mutableArray.length; i++)
 			result.add(new AnnotationEntryGen(mutableArray[i], getConstantPool(), false));
 		return result;
@@ -769,11 +770,11 @@ public class MethodGen extends FieldGenOrMethodGen {
 			param_annotations = new List[arg_types.length];
 			hasParameterAnnotations = true;
 		}
-		final List existingAnnotations = param_annotations[parameterIndex];
+		final List<Object> existingAnnotations = param_annotations[parameterIndex];
 		if (existingAnnotations != null)
 			existingAnnotations.add(annotation);
 		else {
-			final List l = new ArrayList();
+			final List<Object> l = new ArrayList<Object>();
 			l.add(annotation);
 			param_annotations[parameterIndex] = l;
 		}

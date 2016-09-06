@@ -2,11 +2,8 @@ package com.allatori;
 
 public class Unknown {
 
-	public static final int anInt517 = 1;
 	private static int anInt518 = 2;
 	private static int anInt519 = 2;
-	public static final int anInt520 = 3;
-	public static final int anInt521 = 2;
 
 	public static void setMethodNamingType(int var0) {
 		anInt518 = var0;

@@ -24,10 +24,6 @@ public abstract class Class13 implements Cloneable {
 		}
 	}
 
-	public boolean method356(double var1) {
-		return this.method359() <= var1;
-	}
-
 	public void method357(double[] var1, int var2) {
 		int var3;
 		for (int var10000 = var3 = 0; var10000 < var2; var10000 = var3) {
@@ -35,10 +31,6 @@ public abstract class Class13 implements Cloneable {
 			++var3;
 		}
 
-	}
-
-	public void method358(double[] var1) {
-		this.method357(var1, var1.length);
 	}
 
 	public abstract double method359();
@@ -54,22 +46,6 @@ public abstract class Class13 implements Cloneable {
 
 	public double method361(double var1) {
 		return var1 + (1.0D - var1) * this.method359();
-	}
-
-	public double method362(double var1, double var3) {
-		return var3 * Math.pow(this.method359(), 1.0D / (var1 + 1.0D));
-	}
-
-	public boolean method363() {
-		return this.method359() <= 0.5D;
-	}
-
-	public int method364(int var1) {
-		return this.method360(1, var1);
-	}
-
-	public double method365(double var1) {
-		return this.method355() * var1;
 	}
 
 	@Override

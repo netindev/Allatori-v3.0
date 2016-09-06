@@ -24,11 +24,11 @@ public class ConstantPoolGen implements Serializable {
 	protected int size;
 	protected Constant[] constants;
 	protected int index = 1;
-	private final Map string_table;
-	private final Map class_table;
-	private final Map utf8_table;
-	private final Map n_a_t_table;
-	private final Map cp_table;
+	private final Map<String, Index> string_table;
+	private final Map<String, Index> class_table;
+	private final Map<String, Index> utf8_table;
+	private final Map<String, Index> n_a_t_table;
+	private final Map<String, Index> cp_table;
 
 	private static class Index implements Serializable {
 		private static final long serialVersionUID = -9187078620578535161L;
@@ -40,11 +40,11 @@ public class ConstantPoolGen implements Serializable {
 	}
 
 	public ConstantPoolGen(Constant[] cs) {
-		string_table = new HashMap();
-		class_table = new HashMap();
-		utf8_table = new HashMap();
-		n_a_t_table = new HashMap();
-		cp_table = new HashMap();
+		string_table = new HashMap<String, Index>();
+		class_table = new HashMap<String, Index>();
+		utf8_table = new HashMap<String, Index>();
+		n_a_t_table = new HashMap<String, Index>();
+		cp_table = new HashMap<String, Index>();
 		final StringBuilder sb = new StringBuilder(256);
 		size = Math.max(256, cs.length + 64);
 		constants = new Constant[size];
@@ -114,11 +114,11 @@ public class ConstantPoolGen implements Serializable {
 	}
 
 	public ConstantPoolGen() {
-		string_table = new HashMap();
-		class_table = new HashMap();
-		utf8_table = new HashMap();
-		n_a_t_table = new HashMap();
-		cp_table = new HashMap();
+		string_table = new HashMap<String, Index>();
+		class_table = new HashMap<String, Index>();
+		utf8_table = new HashMap<String, Index>();
+		n_a_t_table = new HashMap<String, Index>();
+		cp_table = new HashMap<String, Index>();
 		size = 256;
 		constants = new Constant[size];
 	}

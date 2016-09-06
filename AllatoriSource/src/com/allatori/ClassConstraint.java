@@ -14,11 +14,11 @@ public class ClassConstraint {
 	private String superNamePattern;
 	private boolean aBoolean756;
 	private int accessType;
-	private final Vector fieldConstraints = new Vector();
+	private final Vector<FieldConstraint> fieldConstraints = new Vector<FieldConstraint>();
 	private String instanceofPattern;
 	private String[] interfacePattern;
 	private boolean aBoolean761;
-	private final Vector methodConstraints = new Vector();
+	private final Vector<MethodConstraint> methodConstraints = new Vector<MethodConstraint>();
 	private String namePattern;
 
 	private void parseTemplate(String var1) throws TemplateException {
@@ -57,7 +57,7 @@ public class ClassConstraint {
 	public boolean apply(MethodGen var1) {
 		int var2;
 		for (int var10000 = var2 = this.methodConstraints.size() - 1; var10000 >= 0; var10000 = var2) {
-			if (((MethodConstraint) this.methodConstraints.get(var2)).apply(var1)) {
+			if (this.methodConstraints.get(var2).apply(var1)) {
 				return true;
 			}
 
@@ -77,7 +77,7 @@ public class ClassConstraint {
 	public boolean apply(Method var1) {
 		int var2;
 		for (int var10000 = var2 = this.methodConstraints.size() - 1; var10000 >= 0; var10000 = var2) {
-			if (((MethodConstraint) this.methodConstraints.get(var2)).apply(var1)) {
+			if (this.methodConstraints.get(var2).apply(var1)) {
 				return true;
 			}
 
@@ -119,7 +119,7 @@ public class ClassConstraint {
 	public boolean apply(Field var1) {
 		int var2;
 		for (int var10000 = var2 = this.fieldConstraints.size() - 1; var10000 >= 0; var10000 = var2) {
-			if (((FieldConstraint) this.fieldConstraints.get(var2)).apply(var1)) {
+			if (this.fieldConstraints.get(var2).apply(var1)) {
 				return true;
 			}
 			--var2;

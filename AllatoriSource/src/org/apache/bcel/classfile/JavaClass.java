@@ -19,7 +19,7 @@ import org.apache.bcel.util.ClassQueue;
 import org.apache.bcel.util.Repository;
 import org.apache.bcel.util.SyntheticRepository;
 
-public class JavaClass extends AccessFlags implements Cloneable, Node, Comparable {
+public class JavaClass extends AccessFlags implements Cloneable, Node, Comparable<Object> {
 
 	public JavaClass(int class_name_index, int superclass_name_index, String file_name, int major, int minor,
 			int access_flags, ConstantPool constant_pool, int interfaces[], Field fields[],
@@ -176,7 +176,7 @@ public class JavaClass extends AccessFlags implements Cloneable, Node, Comparabl
 	public AnnotationEntry[] getAnnotationEntries() {
 		if (annotationsOutOfDate) {
 			final Attribute attrs[] = getAttributes();
-			final List accumulatedAnnotations = new ArrayList();
+			final List<AnnotationEntry> accumulatedAnnotations = new ArrayList<AnnotationEntry>();
 			for (int i = 0; i < attrs.length; i++) {
 				final Attribute attribute = attrs[i];
 				if (!(attribute instanceof Annotations))
@@ -494,7 +494,7 @@ public class JavaClass extends AccessFlags implements Cloneable, Node, Comparabl
 
 	public JavaClass[] getSuperClasses() throws ClassNotFoundException {
 		JavaClass clazz = this;
-		final List allSuperClasses = new ArrayList();
+		final List<JavaClass> allSuperClasses = new ArrayList<JavaClass>();
 		for (clazz = clazz.getSuperClass(); clazz != null; clazz = clazz.getSuperClass())
 			allSuperClasses.add(clazz);
 
@@ -512,7 +512,7 @@ public class JavaClass extends AccessFlags implements Cloneable, Node, Comparabl
 
 	public JavaClass[] getAllInterfaces() throws ClassNotFoundException {
 		final ClassQueue queue = new ClassQueue();
-		final Set allInterfaces = new TreeSet();
+		final Set<JavaClass> allInterfaces = new TreeSet<JavaClass>();
 		queue.enqueue(this);
 		while (!queue.empty()) {
 			final JavaClass clazz = queue.dequeue();

@@ -4,30 +4,28 @@ import java.util.Hashtable;
 import java.util.Set;
 
 public class RenamingMap {
+	
+	/* OK */
 
-	private final Hashtable nameTable = new Hashtable();
+	private final Hashtable<String, String> nameTable = new Hashtable<String, String>();
 
-	public void method440(String var1) {
-		this.nameTable.remove(var1);
-	}
-
-	public int method441() {
+	public int size() {
 		return this.nameTable.size();
 	}
 
-	public String get(String var1) {
-		return (String) this.nameTable.get(var1);
+	public String get(String str) {
+		return this.nameTable.get(str);
 	}
 
-	public void put(String var1, String var2) {
-		this.nameTable.put(var1, var2);
+	public void put(String str0, String str1) {
+		this.nameTable.put(str0, str1);
 	}
 
-	public Set method444() {
+	public Set<String> keySet() {
 		return this.nameTable.keySet();
 	}
 
-	public boolean containsKey(String var1) {
-		return this.nameTable.containsKey(var1);
+	public boolean containsKey(String str) {
+		return this.nameTable.containsKey(str);
 	}
 }

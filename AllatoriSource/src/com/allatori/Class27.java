@@ -18,8 +18,8 @@ public class Class27 {
 
 	public static void parseClass(String var0, ClassStorage var1) throws Exception {
 		JarFile var2;
-		Enumeration var3;
-		for (Enumeration var10000 = var3 = (var2 = new JarFile(var0)).entries(); var10000
+		Enumeration<?> var3;
+		for (Enumeration<?> var10000 = var3 = (var2 = new JarFile(var0)).entries(); var10000
 				.hasMoreElements(); var10000 = var3) {
 			JarEntry var4;
 			if (!(var4 = (JarEntry) var3.nextElement()).isDirectory() && var4.getName().endsWith(".class")) {
