@@ -5,50 +5,69 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 
 public class FileUtils {
-	
-	/* OK */
 
-	public static String read(File file) throws Exception {
-		StringBuilder strBuilder = new StringBuilder((int) file.length());
-		BufferedReader bfReader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-		int i;
-		while ((i = bfReader.read()) != -1) {
-			strBuilder.append((char) i);
+	public static String method688(File var0) throws Exception {
+		final StringBuilder var2 = new StringBuilder((int) var0.length());
+		BufferedReader var4;
+		BufferedReader var10000;
+		if ("UTF-8" != null) {
+			var4 = new BufferedReader(new InputStreamReader(new FileInputStream(var0), "UTF-8"));
+			var10000 = var4;
+		} else {
+			var10000 = var4 = new BufferedReader(new FileReader(var0));
 		}
-		bfReader.close();
-		return strBuilder.toString();
+
+		int var3;
+		while ((var3 = var10000.read()) != -1) {
+			var2.append((char) var3);
+			var10000 = var4;
+		}
+
+		var4.close();
+		return var2.toString();
 	}
 
-	public static void map(File file0, File file1) throws IOException {
-		FileInputStream inputStream = new FileInputStream(file0);
-		FileOutputStream outputStream = new FileOutputStream(file1);
-		FileChannel fileChannel0 = inputStream.getChannel(), fileChannel1 = outputStream.getChannel();
+	public static void method689(File var0, File var1) throws IOException {
+		FileChannel var2 = null;
+		FileChannel var3 = null;
+
 		try {
-			MappedByteBuffer mappedByteBuffer = fileChannel0.map(MapMode.READ_ONLY, 0L, fileChannel0.size());
-			fileChannel1.write(mappedByteBuffer);
+			var2 = (new FileInputStream(var0)).getChannel();
+			var3 = (new FileOutputStream(var1)).getChannel();
+			final MappedByteBuffer var4 = var2.map(MapMode.READ_ONLY, 0L, var2.size());
+			var3.write(var4);
 		} finally {
-			if (fileChannel0 != null) {
-				fileChannel0.close();
+			if (var2 != null) {
+				var2.close();
 			}
-			if (fileChannel1 != null) {
-				fileChannel1.close();
+
+			if (var3 != null) {
+				var3.close();
 			}
+
 		}
-		inputStream.close();
-		outputStream.close();
+
 	}
 
-	public static void write(File file, String toWrite) throws Exception {
-		BufferedWriter bfReader = new BufferedWriter(new FileWriter(file));
-		bfReader.write(toWrite);
-		bfReader.close();
+	public static void method690(File var0, String var2) throws Exception {
+		BufferedWriter var3;
+		if ("UTF-8" != null) {
+			var3 = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(var0), "UTF-8"));
+		} else {
+			var3 = new BufferedWriter(new FileWriter(var0));
+		}
+
+		var3.write(var2);
+		var3.close();
 	}
 }

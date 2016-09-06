@@ -3,7 +3,6 @@
  */
 package org.apache.bcel.classfile;
 
-public interface ConstantObject
-{
-    public Object getConstantValue(ConstantPool constantpool);
+public interface ConstantObject {
+	public Object getConstantValue(ConstantPool constantpool);
 }

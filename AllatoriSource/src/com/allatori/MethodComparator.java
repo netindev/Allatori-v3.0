@@ -5,20 +5,22 @@ import org.apache.bcel.util.BCELComparator;
 
 public class MethodComparator implements BCELComparator {
 
-	public static MethodComparator instance() {
-		return new MethodComparator();
+	private static MethodComparator aClass42_1196 = new MethodComparator();
+
+	public static MethodComparator method652() {
+		return aClass42_1196;
 	}
 
 	@Override
-	public int hashCode(Object obj) {
-		Method method = (Method) obj;
-		return method.getSignature().hashCode() ^ method.getName().hashCode();
+	public int hashCode(Object var1) {
+		Method var2;
+		return (var2 = (Method) var1).getSignature().hashCode() ^ var2.getName().hashCode();
 	}
 
 	@Override
-	public boolean equals(Object comp, Object toComp) {
-		final Method c = (Method) comp;
-		final Method toC = (Method) toComp;
-		return c.getName().equals(toC.getName()) && c.getSignature().equals(toC.getSignature());
+	public boolean equals(Object var1, Object var2) {
+		final Method var3 = (Method) var1;
+		final Method var4 = (Method) var2;
+		return var3.getName().equals(var4.getName()) && var3.getSignature().equals(var4.getSignature());
 	}
 }

@@ -4,24 +4,26 @@ import org.xml.sax.Locator;
 
 public class LocatorImpl implements Locator {
 
+	public LocatorImpl(ConfigFileHandler var1) {
+	}
 
-    public LocatorImpl(ConfigFileHandler var1) {
-        ConfigFileHandler configFileHandler = var1;
-    }
+	@Override
+	public int getLineNumber() {
+		return -1;
+	}
 
-    public int getLineNumber() {
-        return -1;
-    }
+	@Override
+	public String getSystemId() {
+		return null;
+	}
 
-    public String getSystemId() {
-        return null;
-    }
+	@Override
+	public String getPublicId() {
+		return null;
+	}
 
-    public String getPublicId() {
-        return null;
-    }
-
-    public int getColumnNumber() {
-        return -1;
-    }
+	@Override
+	public int getColumnNumber() {
+		return -1;
+	}
 }

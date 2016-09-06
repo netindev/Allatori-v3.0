@@ -4,5 +4,5 @@ import org.apache.bcel.generic.ClassGen;
 
 public interface ControlFlowTransform {
 
-    void patch(ClassGen var1);
+	void patch(ClassGen var1);
 }

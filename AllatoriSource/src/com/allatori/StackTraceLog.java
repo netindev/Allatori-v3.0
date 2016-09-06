@@ -5,7 +5,7 @@ import java.util.Vector;
 public class StackTraceLog {
 
 	public RenamingMap aRenamingMap_852;
-	public Vector<Object> vector;
+	public Vector aVector853;
 	public RenamingMap aRenamingMap_854;
 
 }

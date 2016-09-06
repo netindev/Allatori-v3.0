@@ -15,18 +15,18 @@ import org.apache.bcel.generic.ClassGen;
 
 public class JarUtils {
 
-	private static Hashtable<String, String> hashTable;
+	private static Hashtable aHashtable544;
 
 	public static void method446(String[] var0, String var1) throws Exception {
 		final byte[] var2 = new byte[65536];
 		final JarOutputStream var3 = new JarOutputStream(new FileOutputStream(var1 + ".tmp"));
-		final Hashtable<String, String> var4 = new Hashtable<String, String>();
+		final Hashtable var4 = new Hashtable();
 
 		int var5;
 		for (int var10000 = var5 = 0; var10000 < var0.length; var10000 = var5) {
 			JarFile var6;
-			Enumeration<?> var7;
-			for (Enumeration<?> var12 = var7 = (var6 = new JarFile(var0[var5])).entries(); var12
+			Enumeration var7;
+			for (Enumeration var12 = var7 = (var6 = new JarFile(var0[var5])).entries(); var12
 					.hasMoreElements(); var12 = var7) {
 				final JarEntry var8 = (JarEntry) var7.nextElement();
 				if (!var4.containsKey(var8.getName().toLowerCase())) {
@@ -49,7 +49,7 @@ public class JarUtils {
 		}
 
 		if (!Tuning.isWeakStringEncryption()) {
-			setComment(var3);
+			method448(var3);
 		}
 
 		var3.finish();
@@ -63,8 +63,8 @@ public class JarUtils {
 		for (String var10000 = var0; var10000.indexOf(47) > 0; var10000 = var0) {
 			var2 = var2 + var0.substring(0, var0.indexOf(47) + 1);
 			var0 = var0.substring(var0.indexOf(47) + 1);
-			if (!hashTable.containsKey(var2)) {
-				hashTable.put(var2, ".tmp");
+			if (!aHashtable544.containsKey(var2)) {
+				aHashtable544.put(var2, ".tmp");
 				var1.putNextEntry(new JarEntry(var2));
 				var1.closeEntry();
 			}
@@ -72,11 +72,11 @@ public class JarUtils {
 
 	}
 
-	private static void setComment(JarOutputStream var0) {
+	private static void method448(JarOutputStream var0) {
 		var0.setComment("Obfuscation by " + Info.name() + " " + Info.version() + "\n" + Info.website());
 	}
 
-	private static void method449(Vector<ClassGen> var0, JarOutputStream var1, String var2) throws Exception {
+	private static void method449(Vector var0, JarOutputStream var1, String var2) throws Exception {
 		int var3;
 		for (int var10000 = var3 = var0.size() - 1; var10000 >= 0; var10000 = var3) {
 			method451((ClassGen) var0.get(var3), var1, var2);
@@ -86,15 +86,15 @@ public class JarUtils {
 	}
 
 	public static void method450(String var0, String var1, ClassStorage var2) throws Exception {
-		hashTable = new Hashtable<String, String>();
+		aHashtable544 = new Hashtable();
 		final byte[] var3 = new byte[65536];
 		String var4 = null;
 		final JarFile var5 = new JarFile(var0);
 		final JarOutputStream var6 = new JarOutputStream(new FileOutputStream(var1 + ".tmp"));
-		final Vector<ClassGen> var7 = new Vector<ClassGen>();
+		final Vector var7 = new Vector();
 
-		Enumeration<?> var8;
-		for (Enumeration<?> var10000 = var8 = var5.entries(); var10000.hasMoreElements(); var10000 = var8) {
+		Enumeration var8;
+		for (Enumeration var10000 = var8 = var5.entries(); var10000.hasMoreElements(); var10000 = var8) {
 			JarEntry var9;
 			if (!(var9 = (JarEntry) var8.nextElement()).isDirectory()) {
 				if (var9.getName().endsWith(".class")) {
@@ -126,10 +126,10 @@ public class JarUtils {
 		}
 
 		method449(var7, var6, var4);
-		method449(var2.vector(), var6, var4);
+		method449(var2.method674(), var6, var4);
 		var5.close();
 		if (!Tuning.isWeakStringEncryption()) {
-			setComment(var6);
+			method448(var6);
 		}
 
 		var6.finish();
@@ -142,6 +142,7 @@ public class JarUtils {
 		var3 = var2 + var3.replace('.', '/') + ".class";
 		final JarEntry var4 = new JarEntry(var3);
 		method447(var3, var1);
+
 		try {
 			var1.putNextEntry(var4);
 			var1.write(var0.getJavaClass().getBytes());
@@ -157,6 +158,7 @@ public class JarUtils {
 		if ((var3 = new File(var1)).exists() && !var3.delete()) {
 			Logger.printWarning("Cannot delete \'" + var3.getPath() + "\'");
 		}
+
 		if (!var2.renameTo(var3)) {
 			Logger.printWarning("Cannot rename \'" + var2.getPath() + "\' to \'" + var3.getPath() + "\'");
 			Logger.printWarning("Resulting file is \'" + var2.getPath() + "\'");
