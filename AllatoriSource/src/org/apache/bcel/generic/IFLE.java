@@ -1,25 +1,28 @@
+/* IFLE - Decompiled by JODE
+ * Visit http://jode.sourceforge.net/
+ */
 package org.apache.bcel.generic;
 
-public class IFLE extends IfInstruction {
-	private static final long serialVersionUID = 7916641859064664263L;
-
-	IFLE() {
-	}
-
-	public IFLE(InstructionHandle target) {
-		super((short) 158, target);
-	}
-
-	@Override
-	public IfInstruction negate() {
-		return new IFGT(target);
-	}
-
-	@Override
-	public void accept(Visitor v) {
-		v.visitStackConsumer(this);
-		v.visitBranchInstruction(this);
-		v.visitIfInstruction(this);
-		v.visitIFLE(this);
-	}
+public class IFLE extends IfInstruction
+{
+    private static final long serialVersionUID = 7916641859064664263L;
+    
+    IFLE() {
+	/* empty */
+    }
+    
+    public IFLE(InstructionHandle target) {
+	super((short) 158, target);
+    }
+    
+    public IfInstruction negate() {
+	return new IFGT(target);
+    }
+    
+    public void accept(Visitor v) {
+	v.visitStackConsumer(this);
+	v.visitBranchInstruction(this);
+	v.visitIfInstruction(this);
+	v.visitIFLE(this);
+    }
 }

@@ -13,6 +13,8 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 
 public class FileUtils {
+	
+	/* OK */
 
 	public static String read(File file) throws Exception {
 		StringBuilder strBuilder = new StringBuilder((int) file.length());

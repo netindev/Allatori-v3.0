@@ -6,73 +6,74 @@ import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.MethodGen;
 
 public class DemoWaterMark implements ObfuscationType {
-	
-	/* OK */
 
-	@Override
-	public void terminate() {}
+    public void terminate() {
+    }
 
-	@Override
-	public void execute(ClassGen classGen) {
-		try {
-			if (classGen.getClassName().startsWith("com.allatori.")) {
-				return;
-			}
-			Method method = classGen.containsMethod("main", "([Ljava/lang/String;)V");
-			if (method != null) {
-				final MethodGen methodGen = InitUtils.createMethodGen(method, classGen.getClassName(), classGen.getConstantPool(),
-						classGen.getConstantPool().getConstantPool());
-				final InstructionFactory instructionFactory = new InstructionFactory(classGen);
-				methodGen.getInstructionList().append(instructionFactory.createPrintln(this.getWaterMark()));
-				methodGen.setMaxStack();
-				classGen.replaceMethod(method, methodGen.getMethod());
-			}
-		} catch (final Exception e) {
-			e.printStackTrace();
-		}
-	}
+    public void execute(ClassGen var1) {
+        try {
+            if (var1.getClassName().startsWith("com.allatori.")) {
+                return;
+            }
 
-	private StringBuffer app(StringBuffer stringBuffer, char c, int length) {
-		for (int i = 0; i < length; i++) {
-			stringBuffer.append(c);
-		}
-		return stringBuffer;
-	}
+            Method var2;
+            if ((var2 = var1.containsMethod("main", "([Ljava/lang/String;)V")) != null) {
+                MethodGen var3 = InitUtils.createMethodGen(var2, var1.getClassName(), var1.getConstantPool(), var1.getConstantPool().getConstantPool());
+                InstructionFactory var4 = new InstructionFactory(var1);
+                var3.getInstructionList().append(var4.createPrintln(this.getWaterMark()));
+                var3.setMaxStack();
+                var1.replaceMethod(var2, var3.getMethod());
+            }
+        } catch (Exception var5) {
+            var5.printStackTrace();
+        }
 
-	private String getWaterMark() {
-		final String firstLine = " ## #   #    ## ### ### ##  ###";
-		final String secondLine = "# # #   #   # #  #  # # # #  # ";
-		final String thirdLine = "### #   #   ###  #  # # ##   # ";
-		final String fourthLine = "# # ### ### # #  #  ### # # ###";
-		final String credits = "Obfuscation by " + Info.name() + " " + Info.version();
-		final String webSite = Info.website();
-		int i = Math.max(firstLine.length(), Math.max(credits.length(), webSite.length()));
-		i += 4;
-		final StringBuffer stringBuffer = new StringBuffer("\n");
-		this.app(stringBuffer, '#', i).append("\n#");
-		this.app(stringBuffer, ' ', i - 2).append("#\n#");
-		int firstLineD2 = (i - firstLine.length() - 2) / 2;
-		int mif = i - firstLineD2 - firstLine.length() - 2;
-		this.app(stringBuffer, ' ', firstLineD2).append(firstLine);
-		this.app(stringBuffer, ' ', mif).append("#\n#");
-		this.app(stringBuffer, ' ', firstLineD2).append(secondLine);
-		this.app(stringBuffer, ' ', mif).append("#\n#");
-		this.app(stringBuffer, ' ', firstLineD2).append(thirdLine);
-		this.app(stringBuffer, ' ', mif).append("#\n#");
-		this.app(stringBuffer, ' ', firstLineD2).append(fourthLine);
-		this.app(stringBuffer, ' ', mif).append("#\n#");
-		this.app(stringBuffer, ' ', i - 2).append("#\n#");
-		firstLineD2 = (i - credits.length() - 2) / 2;
-		mif = i - firstLineD2 - credits.length() - 2;
-		this.app(stringBuffer, ' ', firstLineD2).append(credits);
-		this.app(stringBuffer, ' ', mif).append("#\n#");
-		this.app(stringBuffer, ' ', i - 2).append("#\n#");
-		firstLineD2 = (i - webSite.length() - 2) / 2;
-		mif = i - firstLineD2 - webSite.length() - 2;
-		this.app(stringBuffer, ' ', firstLineD2).append(webSite);
-		this.app(stringBuffer, ' ', mif).append("#\n#");
-		this.app(stringBuffer, ' ', i - 2).append("#\n");
-		this.app(stringBuffer, '#', i).append("\n");
-		return stringBuffer.toString();
-	}
+    }
+
+    private StringBuffer method1213(StringBuffer var1, char var2, int var3) {
+        int var4;
+        for (int var10000 = var4 = 0; var10000 < var3; var10000 = var4) {
+            var1.append(var2);
+            ++var4;
+        }
+
+        return var1;
+    }
+
+    private String getWaterMark() {
+        String var1 = " ## #   #    ## ### ### ##  ###";
+        String var2 = "# # #   #   # #  #  # # # #  # ";
+        String var3 = "### #   #   ###  #  # # ##   # ";
+        String var4 = "# # ### ### # #  #  ### # # ###";
+        String var5 = "Obfuscation by " + Info.name() + " " + Info.version();
+        String var6 = Info.website();
+        int var7 = Math.max(var1.length(), Math.max(var5.length(), var6.length()));
+        var7 += 4;
+        StringBuffer var8 = new StringBuffer("\n");
+        this.method1213(var8, '#', var7).append("\n#");
+        this.method1213(var8, ' ', var7 - 2).append("#\n#");
+        int var9 = (var7 - var1.length() - 2) / 2;
+        int var10 = var7 - var9 - var1.length() - 2;
+        this.method1213(var8, ' ', var9).append(var1);
+        this.method1213(var8, ' ', var10).append("#\n#");
+        this.method1213(var8, ' ', var9).append(var2);
+        this.method1213(var8, ' ', var10).append("#\n#");
+        this.method1213(var8, ' ', var9).append(var3);
+        this.method1213(var8, ' ', var10).append("#\n#");
+        this.method1213(var8, ' ', var9).append(var4);
+        this.method1213(var8, ' ', var10).append("#\n#");
+        this.method1213(var8, ' ', var7 - 2).append("#\n#");
+        var9 = (var7 - var5.length() - 2) / 2;
+        var10 = var7 - var9 - var5.length() - 2;
+        this.method1213(var8, ' ', var9).append(var5);
+        this.method1213(var8, ' ', var10).append("#\n#");
+        this.method1213(var8, ' ', var7 - 2).append("#\n#");
+        var9 = (var7 - var6.length() - 2) / 2;
+        var10 = var7 - var9 - var6.length() - 2;
+        this.method1213(var8, ' ', var9).append(var6);
+        this.method1213(var8, ' ', var10).append("#\n#");
+        this.method1213(var8, ' ', var7 - 2).append("#\n");
+        this.method1213(var8, '#', var7).append("\n");
+        return var8.toString();
+    }
 }

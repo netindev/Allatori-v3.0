@@ -1,21 +1,18 @@
 package com.allatori;
 
-import java.io.Reader;
-
-import javax.xml.parsers.SAXParserFactory;
-
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
-public class StackTraceLogFileReader {
-	
-	/* OK */
+import javax.xml.parsers.SAXParserFactory;
+import java.io.Reader;
 
-	public static StackTraceLog readLogFile(Reader reader) throws Exception {
-		final XMLReader xml = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
-		final StackTraceLog cl = new StackTraceLog();
-		xml.setContentHandler(new PredefinedNamingHandler(cl));
-		xml.parse(new InputSource(reader));
-		return cl;
-	}
+public class StackTraceLogFileReader {
+
+    public static Class166 readLogFile(Reader var0) throws Exception {
+        XMLReader var2 = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
+        Class166 var3 = new Class166();
+        var2.setContentHandler(new PredefinedNamingHandler(var3));
+        var2.parse(new InputSource(var0));
+        return var3;
+    }
 }

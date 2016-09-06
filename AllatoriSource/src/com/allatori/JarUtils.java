@@ -15,7 +15,7 @@ import org.apache.bcel.generic.ClassGen;
 
 public class JarUtils {
 
-	private static Hashtable<String, String> aHashtable544;
+	private static Hashtable<String, String> hashTable;
 
 	public static void method446(String[] var0, String var1) throws Exception {
 		final byte[] var2 = new byte[65536];
@@ -63,8 +63,8 @@ public class JarUtils {
 		for (String var10000 = var0; var10000.indexOf(47) > 0; var10000 = var0) {
 			var2 = var2 + var0.substring(0, var0.indexOf(47) + 1);
 			var0 = var0.substring(var0.indexOf(47) + 1);
-			if (!aHashtable544.containsKey(var2)) {
-				aHashtable544.put(var2, ".tmp");
+			if (!hashTable.containsKey(var2)) {
+				hashTable.put(var2, ".tmp");
 				var1.putNextEntry(new JarEntry(var2));
 				var1.closeEntry();
 			}
@@ -86,7 +86,7 @@ public class JarUtils {
 	}
 
 	public static void method450(String var0, String var1, ClassStorage var2) throws Exception {
-		aHashtable544 = new Hashtable<String, String>();
+		hashTable = new Hashtable<String, String>();
 		final byte[] var3 = new byte[65536];
 		String var4 = null;
 		final JarFile var5 = new JarFile(var0);
@@ -142,7 +142,6 @@ public class JarUtils {
 		var3 = var2 + var3.replace('.', '/') + ".class";
 		final JarEntry var4 = new JarEntry(var3);
 		method447(var3, var1);
-
 		try {
 			var1.putNextEntry(var4);
 			var1.write(var0.getJavaClass().getBytes());
@@ -158,7 +157,6 @@ public class JarUtils {
 		if ((var3 = new File(var1)).exists() && !var3.delete()) {
 			Logger.printWarning("Cannot delete \'" + var3.getPath() + "\'");
 		}
-
 		if (!var2.renameTo(var3)) {
 			Logger.printWarning("Cannot rename \'" + var2.getPath() + "\' to \'" + var3.getPath() + "\'");
 			Logger.printWarning("Resulting file is \'" + var2.getPath() + "\'");

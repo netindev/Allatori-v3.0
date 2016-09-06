@@ -1,19 +1,18 @@
 package com.allatori;
 
-import java.util.Comparator;
-
 import org.apache.bcel.generic.ClassGen;
 
-public class ClassGenComparator implements Comparator<Object> {
-	
-	/* OK */
+import java.util.Comparator;
 
-	public ClassGenComparator() {}
+public class ClassGenComparator implements Comparator {
 
-	@Override
-	public int compare(Object obj, Object toComp) {
-		final String classNameObj = ((ClassGen) obj).getClassName();
-		final String classNameToComp = ((ClassGen) toComp).getClassName();
-		return classNameObj.compareTo(classNameToComp);
-	}
+
+    public ClassGenComparator() {
+    }
+
+    public int compare(Object var1, Object var2) {
+        String var3 = ((ClassGen) var1).getClassName();
+        String var4 = ((ClassGen) var2).getClassName();
+        return var3.compareTo(var4);
+    }
 }

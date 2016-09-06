@@ -6,26 +6,29 @@ import org.apache.bcel.generic.MethodGen;
 
 public class Class171 {
 
-	private final Method method;
-	private final ClassGen classGen;
-	private final MethodGen methodGen;
+    private Method aMethod__868;
+    private ClassGen aClass85_Sub2_869;
+    private MethodGen aMethodGen_870;
 
-	public static MethodGen getMethodGen(Class171 c) {
-		return c.methodGen;
-	}
 
-	public static ClassGen getClassGen(Class171 c) {
-		return c.classGen;
-	}
+    // $FF: synthetic method
+    public static MethodGen method1704(Class171 var0) {
+        return var0.aMethodGen_870;
+    }
 
-	public Class171(ClassGen classGen, Method method) {
-		this.classGen = classGen;
-		this.method = method;
-		this.methodGen = InitUtils.createMethodGen(method, classGen.getClassName(), classGen.getConstantPool(),
-				classGen.getConstantPool().getConstantPool());
-	}
+    // $FF: synthetic method
+    public static ClassGen method1705(Class171 var0) {
+        return var0.aClass85_Sub2_869;
+    }
 
-	public static Method getMethod(Class171 c) {
-		return c.method;
-	}
+    public Class171(ClassGen var1, Method var2) {
+        this.aClass85_Sub2_869 = var1;
+        this.aMethod__868 = var2;
+        this.aMethodGen_870 = InitUtils.createMethodGen(var2, var1.getClassName(), var1.getConstantPool(), var1.getConstantPool().getConstantPool());
+    }
+
+    // $FF: synthetic method
+    public static Method method1706(Class171 var0) {
+        return var0.aMethod__868;
+    }
 }

@@ -1,127 +1,121 @@
 package com.allatori;
 
 import org.apache.bcel.classfile.Method;
-import org.apache.bcel.generic.BranchInstruction;
-import org.apache.bcel.generic.ClassGen;
-import org.apache.bcel.generic.ConstantPoolGen;
-import org.apache.bcel.generic.InstructionConstants;
-import org.apache.bcel.generic.InstructionFactory;
-import org.apache.bcel.generic.InstructionHandle;
-import org.apache.bcel.generic.InstructionList;
-import org.apache.bcel.generic.InstructionTargeter;
-import org.apache.bcel.generic.MethodGen;
-import org.apache.bcel.generic.NOP;
-import org.apache.bcel.generic.ObjectType;
-import org.apache.bcel.generic.PUSH;
-import org.apache.bcel.generic.SWAP;
-import org.apache.bcel.generic.Type;
+import org.apache.bcel.generic.*;
 
 public class ExpiryObfuscation implements ObfuscationType {
 
-	private final ClassStorage classStorage;
+    private ClassStorage aClassStorage_1144;
 
-	@Override
-	public void execute(ClassGen classGen) {
-		if (DateObfuscation.getDate() != null) {
-			if (DateObfuscation.getClassConstraint().apply(this.classStorage, classGen)) {
-				try {
-					final Method[] methodArr = classGen.getMethods();
-					for (int i = 0; i < methodArr.length; i++) {
-						final Method actualMethod = methodArr[i];
-						if (actualMethod.getCode() != null && DateObfuscation.getClassConstraint().apply(actualMethod)) {
-							final MethodGen methodGen = InitUtils.createMethodGen(actualMethod, classGen.getClassName(),
-									classGen.getConstantPool(), classGen.getConstantPool().getConstantPool());
-							final InstructionFactory instructionFactory = new InstructionFactory(classGen);
-							final InstructionList instructionList0 = methodGen.getInstructionList();
-							InstructionList instructionList1 = null;
-							if (Tuning.isWeakStringEncryption()) {
-								instructionList1 = this.method830(classGen.getConstantPool(), instructionFactory);
-							} else {
-								instructionList1 = this.method831(classGen.getConstantPool(), instructionFactory);
-							}
-							if ("<init>".equals(actualMethod.getName())) {
-								final InstructionHandle instructionHandle0 = instructionList0.getEnd();
-								final InstructionHandle instructionHandle1 = instructionList0.insert(instructionHandle0, instructionList1);
-								final InstructionTargeter[] instructionTargeter = instructionHandle0.getTargeters();
-								for (int j = instructionTargeter.length - 1; j >= 0; j--) {
-									final InstructionTargeter actualInstructionTargeter = instructionTargeter[j];
-									actualInstructionTargeter.updateTarget(instructionHandle0, instructionHandle1);
-								}
-							} else {
-								instructionList0.insert(instructionList1);
-							}
-							methodGen.setMaxStack();
-							methodGen.setMaxLocals();
-							classGen.replaceMethod(actualMethod, methodGen.getMethod());
-							instructionList1.dispose();
-						}
-					}
-				} catch (final Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
 
-	public ExpiryObfuscation(ClassStorage classStorage) {
-		this.classStorage = classStorage;
-	}
+    public void execute(ClassGen var1) {
+        if (Class64.method746() != null) {
+            if (Class64.method747().apply(this.aClassStorage_1144, var1)) {
+                try {
+                    Method[] var3 = var1.getMethods();
+                    int var4 = 0;
 
-	private InstructionList method830(ConstantPoolGen constantPoolGen, InstructionFactory instructionFactory) {
-		InstructionList instructionList = new InstructionList();
-		instructionList.append(instructionFactory.createNew("java.util.Date"));
-		instructionList.append(InstructionConstants.DUP);
-		instructionList.append(new PUSH(constantPoolGen, DateObfuscation.getDate().getTime()));
-		instructionList.append(instructionFactory.createInvoke("java.util.Date", "<init>", Type.VOID, new Type[] { Type.LONG }, (short) 183));
-		instructionList.append(instructionFactory.createNew("java.util.Date"));
-		instructionList.append(InstructionConstants.DUP);
-		instructionList.append(instructionFactory.createInvoke("java.util.Date", "<init>", Type.VOID, Type.NO_ARGS, (short) 183));
-		instructionList.append(InstructionConstants.LCONST_0);
-		instructionList.append(InstructionConstants.DUP2_X2);
-		instructionList.append(InstructionConstants.POP2);
-		instructionList.append(instructionFactory.createInvoke("java.util.Date", "getTime", Type.LONG, Type.NO_ARGS, (short) 182));
-		instructionList.append(InstructionConstants.DUP2_X1);
-		instructionList.append(InstructionConstants.POP2);
-		instructionList.append(instructionFactory.createInvoke("java.util.Date", "getTime", Type.LONG, Type.NO_ARGS, (short) 182));
-		instructionList.append(InstructionConstants.LSUB);
-		instructionList.append(InstructionConstants.LCMP);
-		BranchInstruction branchInstruction = InstructionFactory.createBranchInstruction((short) 156, null);
-		instructionList.append(branchInstruction);
-		instructionList.append(instructionFactory.createNew("java.lang.Throwable"));
-		instructionList.append(InstructionConstants.DUP);
-		instructionList.append(new PUSH(constantPoolGen, DateObfuscation.getString()));
-		instructionList.append(instructionFactory.createInvoke("java.lang.Throwable", "<init>", Type.VOID, new Type[] { Type.STRING }, (short) 183));
-		instructionList.append(InstructionConstants.ATHROW);
-		InstructionHandle instructionHandle = instructionList.append(new NOP());
-		branchInstruction.setTarget(instructionHandle);
-		return instructionList;
-	}
+                    for (int var10000 = var4; var10000 < var3.length; var10000 = var4) {
+                        Method var5 = var3[var4];
+                        if (var5.getCode() != null && Class64.method747().apply(var5)) {
+                            MethodGen var6 = InitUtils.createMethodGen(var5, var1.getClassName(), var1.getConstantPool(), var1.getConstantPool().getConstantPool());
+                            InstructionFactory var7 = new InstructionFactory(var1);
+                            InstructionList var8 = var6.getInstructionList();
+                            InstructionList var9;
+                            if (Tuning.isWeakStringEncryption()) {
+                                var9 = this.method830(var1.getConstantPool(), var7);
+                            } else {
+                                var9 = this.method831(var1.getConstantPool(), var7);
+                            }
 
-	private InstructionList method831(ConstantPoolGen constantPoolGen, InstructionFactory instructionFactory) {
-		InstructionList instructionList = new InstructionList();
-		instructionList.append(instructionFactory.createNew("java.util.Date"));
-		instructionList.append(InstructionConstants.DUP);
-		instructionList.append(new PUSH(constantPoolGen, DateObfuscation.getDate().getTime()));
-		instructionList.append(instructionFactory.createInvoke("java.util.Date", "<init>", Type.VOID, new Type[] { Type.LONG }, (short) 183));
-		instructionList.append(instructionFactory.createNew("java.util.Date"));
-		instructionList.append(InstructionConstants.DUP);
-		instructionList.append(instructionFactory.createInvoke("java.util.Date", "<init>", Type.VOID, Type.NO_ARGS, (short) 183));
-		instructionList.append(new SWAP());
-		instructionList.append(instructionFactory.createInvoke("java.util.Date", "after", Type.BOOLEAN,new Type[] { new ObjectType("java.util.Date") }, (short) 182));
-		BranchInstruction branchInstruction = InstructionFactory.createBranchInstruction((short) 153, null);
-		instructionList.append(branchInstruction);
-		instructionList.append(instructionFactory.createNew("java.lang.Throwable"));
-		instructionList.append(InstructionConstants.DUP);
-		instructionList.append(new PUSH(constantPoolGen, DateObfuscation.getString()));
-		instructionList.append(instructionFactory.createInvoke("java.lang.Throwable", "<init>", Type.VOID, new Type[] { Type.STRING }, (short) 183));
-		instructionList.append(InstructionConstants.ATHROW);
-		InstructionHandle instructionHandle = instructionList.append(new NOP());
-		branchInstruction.setTarget(instructionHandle);
-		return instructionList;
-	}
+                            if ("<init>".equals(var5.getName())) {
+                                InstructionHandle var10 = var8.getEnd();
+                                InstructionHandle var11 = var8.insert(var10, var9);
+                                InstructionTargeter[] var12 = var10.getTargeters();
+                                int var13 = var12.length - 1;
 
-	@Override
-	public void terminate() {
-		/* empty */
-	}
+                                for (var10000 = var13; var10000 >= 0; var10000 = var13) {
+                                    InstructionTargeter var14 = var12[var13];
+                                    var14.updateTarget(var10, var11);
+                                    --var13;
+                                }
+                            } else {
+                                var8.insert(var9);
+                            }
+
+                            var6.setMaxStack();
+                            var6.setMaxLocals();
+                            var1.replaceMethod(var5, var6.getMethod());
+                            var9.dispose();
+                        }
+
+                        ++var4;
+                    }
+                } catch (Exception var15) {
+                    var15.printStackTrace();
+                }
+
+            }
+        }
+    }
+
+    public ExpiryObfuscation(ClassStorage var1) {
+        this.aClassStorage_1144 = var1;
+    }
+
+    private InstructionList method830(ConstantPoolGen var1, InstructionFactory var2) {
+        InstructionList var3;
+        (var3 = new InstructionList()).append(var2.createNew("java.util.Date"));
+        var3.append(InstructionConstants.DUP);
+        var3.append(new PUSH(var1, Class64.method746().getTime()));
+        var3.append(var2.createInvoke("java.util.Date", "<init>", Type.VOID, new Type[]{Type.LONG}, (short) 183));
+        var3.append(var2.createNew("java.util.Date"));
+        var3.append(InstructionConstants.DUP);
+        var3.append(var2.createInvoke("java.util.Date", "<init>", Type.VOID, Type.NO_ARGS, (short) 183));
+        var3.append(InstructionConstants.LCONST_0);
+        var3.append(InstructionConstants.DUP2_X2);
+        var3.append(InstructionConstants.POP2);
+        var3.append(var2.createInvoke("java.util.Date", "getTime", Type.LONG, Type.NO_ARGS, (short) 182));
+        var3.append(InstructionConstants.DUP2_X1);
+        var3.append(InstructionConstants.POP2);
+        var3.append(var2.createInvoke("java.util.Date", "getTime", Type.LONG, Type.NO_ARGS, (short) 182));
+        var3.append(InstructionConstants.LSUB);
+        var3.append(InstructionConstants.LCMP);
+        BranchInstruction var4 = InstructionFactory.createBranchInstruction((short) 156, null);
+        var3.append(var4);
+        var3.append(var2.createNew("java.lang.Throwable"));
+        var3.append(InstructionConstants.DUP);
+        var3.append(new PUSH(var1, Class64.method748()));
+        var3.append(var2.createInvoke("java.lang.Throwable", "<init>", Type.VOID, new Type[]{Type.STRING}, (short) 183));
+        var3.append(InstructionConstants.ATHROW);
+        InstructionHandle var5 = var3.append(new NOP());
+        var4.setTarget(var5);
+        return var3;
+    }
+
+    private InstructionList method831(ConstantPoolGen var1, InstructionFactory var2) {
+        InstructionList var3;
+        (var3 = new InstructionList()).append(var2.createNew("java.util.Date"));
+        var3.append(InstructionConstants.DUP);
+        var3.append(new PUSH(var1, Class64.method746().getTime()));
+        var3.append(var2.createInvoke("java.util.Date", "<init>", Type.VOID, new Type[]{Type.LONG}, (short) 183));
+        var3.append(var2.createNew("java.util.Date"));
+        var3.append(InstructionConstants.DUP);
+        var3.append(var2.createInvoke("java.util.Date", "<init>", Type.VOID, Type.NO_ARGS, (short) 183));
+        var3.append(new SWAP());
+        var3.append(var2.createInvoke("java.util.Date", "after", Type.BOOLEAN, new Type[]{new ObjectType("java.util.Date")}, (short) 182));
+        BranchInstruction var4 = InstructionFactory.createBranchInstruction((short) 153, null);
+        var3.append(var4);
+        var3.append(var2.createNew("java.lang.Throwable"));
+        var3.append(InstructionConstants.DUP);
+        var3.append(new PUSH(var1, Class64.method748()));
+        var3.append(var2.createInvoke("java.lang.Throwable", "<init>", Type.VOID, new Type[]{Type.STRING}, (short) 183));
+        var3.append(InstructionConstants.ATHROW);
+        InstructionHandle var5 = var3.append(new NOP());
+        var4.setTarget(var5);
+        return var3;
+    }
+
+    public void terminate() {
+    }
 }

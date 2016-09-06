@@ -1,142 +1,135 @@
 package com.allatori;
 
 import org.apache.bcel.classfile.Method;
-import org.apache.bcel.generic.ASTORE;
-import org.apache.bcel.generic.ClassGen;
-import org.apache.bcel.generic.DSTORE;
-import org.apache.bcel.generic.DUP;
-import org.apache.bcel.generic.DUP2;
-import org.apache.bcel.generic.FSTORE;
-import org.apache.bcel.generic.ISTORE;
-import org.apache.bcel.generic.Instruction;
-import org.apache.bcel.generic.InstructionHandle;
-import org.apache.bcel.generic.InstructionList;
-import org.apache.bcel.generic.InstructionTargeter;
-import org.apache.bcel.generic.LSTORE;
-import org.apache.bcel.generic.LineNumberGen;
-import org.apache.bcel.generic.LoadInstruction;
-import org.apache.bcel.generic.LocalVariableGen;
-import org.apache.bcel.generic.LocalVariableInstruction;
-import org.apache.bcel.generic.MethodGen;
-import org.apache.bcel.generic.StoreInstruction;
-import org.apache.bcel.generic.TargetLostException;
+import org.apache.bcel.generic.*;
 
 public class LocalVariableTransform implements ControlFlowTransform {
 
-	/* OK */
+    public void patch(ClassGen var1) {
+        Method[] methods = var1.getMethods();
+        int var3;
+        for (int var10000 = var3 = 0; var10000 < methods.length; var10000 = var3) {
+            Method method;
+            if ((method = methods[var3]).getCode() != null) {
+                MethodGen methodGen;
+                InstructionList il;
+                (il = (methodGen = InitUtils.createMethodGen(method, var1.getClassName(), var1.getConstantPool(), var1.getConstantPool().getConstantPool())).getInstructionList()).setPositions();
 
-	@Override
-	public void patch(ClassGen classGen) {
-		final Method[] methods = classGen.getMethods();
-		for (int i = 0; i < methods.length; i++) {
-			Method actualMethod = methods[i];
-			if (actualMethod.getCode() != null) {
-				MethodGen methodGen = InitUtils.createMethodGen(actualMethod, classGen.getClassName(),
-						classGen.getConstantPool(), classGen.getConstantPool().getConstantPool());
-				InstructionList instructionList = methodGen.getInstructionList();
-				instructionList.setPositions();
-				for (InstructionHandle instructionHandle = instructionList
-						.getStart(); instructionHandle != null; instructionHandle.getNext()) {
-					if (instructionHandle.getInstruction() instanceof StoreInstruction
-							&& instructionHandle.getNext() != null
-							&& instructionHandle.getNext().getInstruction() instanceof LoadInstruction) {
-						final InstructionHandle next = instructionHandle.getNext();
-						final StoreInstruction storeInstruction = (StoreInstruction) instructionHandle.getInstruction();
-						final LoadInstruction loadInstruction = (LoadInstruction) next.getInstruction();
-						if (storeInstruction.getIndex() == loadInstruction.getIndex()
-								&& this.instanceLineNumberGenOrLocalVariableGen(next.getTargeters())
-								&& this.instanceLineNumberGenOrLocalVariableGen(instructionHandle.getTargeters())) {
-							InstructionHandle nextInstruction = next.getNext();
-							if (this.localVariableWithSameValueNOTExist(instructionList, instructionHandle, next)) {
-								if (nextInstruction != null) {
-									this.updateTargeters(instructionHandle.getTargeters(), instructionHandle,
-											nextInstruction);
-									this.updateTargeters(next.getTargeters(), next, nextInstruction);
-									try {
-										instructionList.delete(storeInstruction);
-									} catch (final TargetLostException var16) {
-										this.updateTargeters(var16, nextInstruction);
-									}
-									try {
-										instructionList.delete(loadInstruction);
-									} catch (final TargetLostException e) {
-										this.updateTargeters(e, nextInstruction);
-									}
-								}
-							} else {
-								if (!(storeInstruction instanceof ASTORE) && !(storeInstruction instanceof FSTORE)
-										&& !(storeInstruction instanceof ISTORE)) {
-									if (storeInstruction instanceof DSTORE || storeInstruction instanceof LSTORE) {
-										instructionList.insert(instructionHandle, new DUP2());
-									}
-								} else {
-									instructionList.insert(instructionHandle, new DUP());
-								}
-								if ((nextInstruction = next.getNext()) != null) {
-									this.updateTargeters(next.getTargeters(), next, nextInstruction);
-									try {
-										instructionList.delete(next);
-									} catch (final TargetLostException e) {
-										this.updateTargeters(e, nextInstruction);
-									}
-								}
-							}
-						}
-					}
-				}
-				methodGen.setMaxStack();
-				classGen.replaceMethod(actualMethod, methodGen.getMethod());
-			}
-		}
+                InstructionHandle current;
+                for (InstructionHandle var17 = current = il.getStart(); var17 != null; var17 = current = current.getNext()) {
+                    if (current.getInstruction() instanceof StoreInstruction && current.getNext() != null && current.getNext().getInstruction() instanceof LoadInstruction) {
+                        InstructionHandle next = current.getNext();
+                        StoreInstruction var10 = (StoreInstruction) current.getInstruction();
+                        LoadInstruction var11 = (LoadInstruction) next.getInstruction();
+                        if (var10.getIndex() == var11.getIndex() && this.method1401(next.getTargeters()) && this.method1401(current.getTargeters())) {
+                            InstructionHandle nextNext;
+                            if (this.localVariableWithSameValueNOTExist(il, current, next)) {
+                                if ((nextNext = next.getNext()) != null) {
+                                    this.updateTargeters(current.getTargeters(), current, nextNext);
+                                    this.updateTargeters(next.getTargeters(), next, nextNext);
 
-	}
+                                    try {
+                                        il.delete(var10);
+                                    } catch (TargetLostException var16) {
+                                        this.updateTargeters(var16, nextNext);
+                                    }
 
-	private void updateTargeters(TargetLostException targetLostException, InstructionHandle instructionHandle) {
-		final InstructionHandle[] instructionHandleArray = targetLostException.getTargets();
-		for (int i = 0; i < instructionHandleArray.length; i++) {
-			final InstructionTargeter[] InstructionTargeterArray = instructionHandleArray[i].getTargeters();
-			for (i = 0; i < InstructionTargeterArray.length; i++) {
-				InstructionTargeterArray[i].updateTarget(instructionHandleArray[i], instructionHandle);
-				++i;
-			}
-		}
-	}
+                                    try {
+                                        il.delete(var11);
+                                    } catch (TargetLostException var15) {
+                                        this.updateTargeters(var15, nextNext);
+                                    }
+                                }
+                            } else {
+                                if (!(var10 instanceof ASTORE) && !(var10 instanceof FSTORE) && !(var10 instanceof ISTORE)) {
+                                    if (var10 instanceof DSTORE || var10 instanceof LSTORE) {
+                                        il.insert(current, new DUP2());
+                                    }
+                                } else {
+                                    il.insert(current, new DUP());
+                                }
 
-	private boolean instanceLineNumberGenOrLocalVariableGen(InstructionTargeter[] instructionTargeterArray) {
-		if (instructionTargeterArray == null) {
-			return true;
-		} else {
-			for (int i = 0; i < instructionTargeterArray.length; i++) {
-				InstructionTargeter actualInstructionTargeter = instructionTargeterArray[i];
-				if (!(actualInstructionTargeter instanceof LineNumberGen)
-						&& !(actualInstructionTargeter instanceof LocalVariableGen)) {
-					return false;
-				}
-			}
-			return true;
-		}
-	}
+                                if ((nextNext = next.getNext()) != null) {
+                                    this.updateTargeters(next.getTargeters(), next, nextNext);
 
-	private boolean localVariableWithSameValueNOTExist(InstructionList instructionList,
-			InstructionHandle instructionHandleIns, InstructionHandle instructionHandleNotEq) {
-		final int index = ((LocalVariableInstruction) instructionHandleIns.getInstruction()).getIndex();
-		for (InstructionHandle instructionHandleC = instructionList
-				.getStart(); instructionHandleC != null; instructionHandleC.getNext()) {
-			Instruction ins = instructionHandleC.getInstruction();
-			if (ins instanceof LocalVariableInstruction && ((LocalVariableInstruction) ins).getIndex() == index
-					&& instructionHandleC != instructionHandleIns && instructionHandleC != instructionHandleNotEq) {
-				return false;
-			}
-		}
-		return true;
-	}
+                                    try {
+                                        il.delete(next);
+                                    } catch (TargetLostException var14) {
+                                        this.updateTargeters(var14, nextNext);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
 
-	private void updateTargeters(InstructionTargeter[] instructionTargeterArray, InstructionHandle instructionHandleUp,
-			InstructionHandle instructionHandleT) {
-		if (instructionTargeterArray != null) {
-			for (int i = 0; i < instructionTargeterArray.length; i++) {
-				instructionTargeterArray[i].updateTarget(instructionHandleUp, instructionHandleT);
-			}
-		}
-	}
+                methodGen.setMaxStack();
+                var1.replaceMethod(method, methodGen.getMethod());
+            }
+
+            ++var3;
+        }
+
+    }
+
+    private void updateTargeters(TargetLostException var1, InstructionHandle var2) {
+        InstructionHandle[] var3 = var1.getTargets();
+
+        int var4;
+        for (int var10000 = var4 = 0; var10000 < var3.length; var10000 = var4) {
+            InstructionTargeter[] var5 = var3[var4].getTargeters();
+
+            int var6;
+            for (var10000 = var6 = 0; var10000 < var5.length; var10000 = var6) {
+                var5[var6].updateTarget(var3[var4], var2);
+                ++var6;
+            }
+
+            ++var4;
+        }
+
+    }
+
+    private boolean method1401(InstructionTargeter[] var1) {
+        if (var1 == null) {
+            return true;
+        } else {
+            int var2;
+            for (int var10000 = var2 = 0; var10000 < var1.length; var10000 = var2) {
+                InstructionTargeter var3;
+                if (!((var3 = var1[var2]) instanceof LineNumberGen) && !(var3 instanceof LocalVariableGen)) {
+                    return false;
+                }
+
+                ++var2;
+            }
+
+            return true;
+        }
+    }
+
+    private boolean localVariableWithSameValueNOTExist(InstructionList var1, InstructionHandle var2, InstructionHandle var3) {
+        int value1 = ((LocalVariableInstruction) var2.getInstruction()).getIndex();
+
+        InstructionHandle var5;
+        for (InstructionHandle var10000 = var5 = var1.getStart(); var10000 != null; var10000 = var5 = var5.getNext()) {
+            Instruction ins;
+            if ((ins = var5.getInstruction()) instanceof LocalVariableInstruction && ((LocalVariableInstruction) ins).getIndex() == value1 && var5 != var2 && var5 != var3) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void updateTargeters(InstructionTargeter[] var1, InstructionHandle var2, InstructionHandle var3) {
+        if (var1 != null) {
+            int var4;
+            for (int var10000 = var4 = 0; var10000 < var1.length; var10000 = var4) {
+                var1[var4].updateTarget(var2, var3);
+                ++var4;
+            }
+
+        }
+    }
 }

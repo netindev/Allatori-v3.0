@@ -1,32 +1,38 @@
 package com.allatori;
 
+
 public class Logger {
-	
-	/* OK */
 
-	private static boolean isSilent = false;
+    private static boolean isSilent = false;
 
-	public static boolean silentExecution() {
-		return isSilent;
-	}
 
-	public static void printError(String str) {
-		System.out.println("[ERROR] " + str);
-	}
+    public static boolean silentExecution() {
+        return isSilent;
+    }
 
-	public static void setSilentExecution(boolean bool) { /* Not used param */
-		isSilent = true;
-	}
+    public static void printDebug(String var0) {
+        if (!isSilent) {
+            System.out.println("[DEBUG] " + var0);
+        }
+    }
 
-	public static void printInfo(String str) {
-		if (!isSilent) {
-			System.out.println("[INFO] " + str);
-		}
-	}
+    public static void printError(String var0) {
+        System.out.println("[ERROR] " + var0);
+    }
 
-	public static void printWarning(String str) {
-		if (!isSilent) {
-			System.out.println("[WARNING] " + str);
-		}
-	}
+    public static void setSilentExecution(boolean var0) {
+        isSilent = true;
+    }
+
+    public static void printInfo(String var0) {
+        if (!isSilent) {
+            System.out.println("[INFO] " + var0);
+        }
+    }
+
+    public static void printWarning(String var0) {
+        if (!isSilent) {
+            System.out.println("[WARNING] " + var0);
+        }
+    }
 }

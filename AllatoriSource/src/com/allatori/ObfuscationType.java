@@ -3,10 +3,8 @@ package com.allatori;
 import org.apache.bcel.generic.ClassGen;
 
 public interface ObfuscationType {
-	
-	/* OK */
 
-	void execute(ClassGen classGen);
+    void execute(ClassGen var1);
 
-	void terminate();
+    void terminate();
 }
