@@ -9,33 +9,33 @@ public class Unknown {
 		anInt518 = var0;
 	}
 
-	public static Interface22 method333() {
-		return anInt518 == 1 ? new Class113() : (anInt518 == 3 ? new Keywords() : new ObfuscationStyle());
+	public static IObfStyle method333() {
+		return anInt518 == 1 ? new ObfuscationStyleLowCase() : (anInt518 == 3 ? new Keywords() : new ObfuscationStyleDifCase());
 	}
 
-	public static Interface22 method334() {
-		return new Class113();
+	public static IObfStyle method334() {
+		return new ObfuscationStyleLowCase();
 	}
 
-	public static Interface22 method335() {
-		return new Class113();
+	public static IObfStyle method335() {
+		return new ObfuscationStyleLowCase();
 	}
 
-	public static Interface22 method336() {
-		return anInt519 == 1 ? new Class113() : (anInt519 == 3 ? new Keywords() : new ObfuscationStyle());
+	public static IObfStyle method336() {
+		return anInt519 == 1 ? new ObfuscationStyleLowCase() : (anInt519 == 3 ? new Keywords() : new ObfuscationStyleDifCase());
 	}
 
-	public static Interface22 method337() {
-		return LocalVariables.method372() == 2 ? new Class113()
-				: (LocalVariables.method372() == 1 ? new Class69() : new Class113());
+	public static IObfStyle method337() {
+		return LocalVariables.getInt() == 2 ? new ObfuscationStyleLowCase()
+				: (LocalVariables.getInt() == 1 ? new Class69() : new ObfuscationStyleLowCase());
 	}
 
 	public static void setFieldNamingType(int i) {
 		anInt519 = i;
 	}
 
-	public static Interface22 method339() {
-		return new Class113();
+	public static IObfStyle method339() {
+		return new ObfuscationStyleLowCase();
 	}
 
 }

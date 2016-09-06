@@ -35,8 +35,8 @@ public class StringObfuscationLayer2 implements ObfuscationType {
 						if (var9 instanceof ConstantString) {
 							String var10 = ((ConstantUtf8) var1.getConstantPool()
 									.getConstant(((ConstantString) var9).getStringIndex())).getBytes();
-							if (var10 != null && var10.startsWith(StringObfuscationLayer1.aString1150)) {
-								var10 = var10.substring(StringObfuscationLayer1.aString1150.length());
+							if (var10 != null && var10.startsWith(StringObfuscationLayer1.allatoriString)) {
+								var10 = var10.substring(StringObfuscationLayer1.allatoriString.length());
 								final String var11 = var1.getClassName() + var5.getName();
 								var8.setIndex(var1.getConstantPool()
 										.addString(StringObfuscationLayer1.encryptHard(var10, var11)));

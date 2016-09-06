@@ -4,7 +4,7 @@ public class Class165 {
 
 	private final RenamingMap aRenamingMap_847;
 	private final RenamingMap aRenamingMap_849;
-	private final Interface22 anInterface22_850;
+	private final IObfStyle anInterface22_850;
 	private final RenamingMap aRenamingMap_851;
 
 	public static RenamingMap method1652(Class165 var0) {
@@ -26,7 +26,7 @@ public class Class165 {
 		this(var1);
 	}
 
-	public static Interface22 method1654(Class165 var0) {
+	public static IObfStyle method1654(Class165 var0) {
 		return var0.anInterface22_850;
 	}
 

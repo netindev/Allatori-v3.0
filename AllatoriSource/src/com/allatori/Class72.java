@@ -4,9 +4,9 @@ import java.util.Vector;
 
 public class Class72 {
 
-	private static Vector<String> vector = new Vector<String>();
+	private static Vector<Object> vector = new Vector<Object>();
 
-	public static Vector<String> method832() {
+	public static Vector<Object> method832() {
 		return vector;
 	}
 

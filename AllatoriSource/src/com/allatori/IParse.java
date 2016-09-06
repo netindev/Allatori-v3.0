@@ -1,6 +1,6 @@
 package com.allatori;
 
-public interface Interface26 {
+public interface IParse {
 
 	void parse() throws TemplateException;
 }

@@ -22,9 +22,9 @@ import org.apache.bcel.classfile.ParameterAnnotationEntry;
 import org.apache.bcel.classfile.ParameterAnnotations;
 import org.apache.bcel.classfile.RuntimeVisibleParameterAnnotations;
 import org.apache.bcel.classfile.Utility;
-import org.apache.bcel.generic.MethodGen.BranchTarget;
 import org.apache.bcel.util.BCELComparator;
 
+@SuppressWarnings("unchecked")
 public class MethodGen extends FieldGenOrMethodGen {
 	private static final long serialVersionUID = -3924667713338957720L;
 	private String class_name;

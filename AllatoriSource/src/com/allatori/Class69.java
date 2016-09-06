@@ -1,6 +1,6 @@
 package com.allatori;
 
-public class Class69 implements Interface22 {
+public class Class69 implements IObfStyle {
 
 	private final String str;
 
@@ -9,10 +9,10 @@ public class Class69 implements Interface22 {
 	}
 
 	@Override
-	public void method263() {}
+	public void resetNext() {}
 
 	@Override
-	public String method262() {
+	public String nextChar() {
 		return this.str;
 	}
 }

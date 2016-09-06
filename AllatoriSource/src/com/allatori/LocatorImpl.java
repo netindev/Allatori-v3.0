@@ -6,7 +6,9 @@ public class LocatorImpl implements Locator {
 	
 	/* OK */
 
-	public LocatorImpl(ConfigFileHandler cfh) {}
+	public LocatorImpl(ConfigFileHandler configFileHandler) { /* Not used param */
+		/* empty */
+	}
 
 	@Override
 	public int getLineNumber() {

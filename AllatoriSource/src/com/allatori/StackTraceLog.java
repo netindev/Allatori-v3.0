@@ -2,10 +2,10 @@ package com.allatori;
 
 import java.util.Vector;
 
-public class Class166 {
+public class StackTraceLog {
 
 	public RenamingMap aRenamingMap_852;
-	public Vector<Object> aVector853;
+	public Vector<Object> vector;
 	public RenamingMap aRenamingMap_854;
 
 }

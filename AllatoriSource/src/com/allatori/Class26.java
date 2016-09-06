@@ -11,17 +11,17 @@ import org.apache.bcel.generic.MethodGen;
 public class Class26 {
 
 	private final RenamingMap aRenamingMap_566 = new RenamingMap();
-	private final Interface22 anInterface22_567 = Unknown.method334();
+	private final IObfStyle anInterface22_567 = Unknown.method334();
 	private final Vector<Object> aVector568 = new Vector<Object>();
 	private final Vector<Object> aVector569 = new Vector<Object>();
 
 	public void method494(MethodGen var1) {
-		if (LineNumbers.method454() != 2) {
-			if (LineNumbers.method454() == 3) {
+		if (LineNumbers.getLineNumber() != 2) {
+			if (LineNumbers.getLineNumber() == 3) {
 				var1.removeLineNumbers();
 			} else {
 				int var3;
-				if (LineNumbers.method454() == 1) {
+				if (LineNumbers.getLineNumber() == 1) {
 					LineNumberGen[] var2;
 					for (int var10000 = var3 = (var2 = var1.getLineNumbers()).length
 							- 1; var10000 >= 0; var10000 = var3) {
@@ -65,12 +65,12 @@ public class Class26 {
 	}
 
 	public void method498(ClassGen var1) {
-		if (LineNumbers.method454() != 2) {
+		if (LineNumbers.getLineNumber() != 2) {
 			Attribute[] var2;
 			int var3;
 			Attribute var4;
 			int var10000;
-			if (LineNumbers.method454() == 3) {
+			if (LineNumbers.getLineNumber() == 3) {
 				for (var10000 = var3 = (var2 = var1.getAttributes()).length - 1; var10000 >= 0; var10000 = var3) {
 					if ((var4 = var2[var3]) instanceof SourceFile) {
 						var1.removeAttribute(var4);
@@ -79,14 +79,14 @@ public class Class26 {
 
 					--var3;
 				}
-			} else if (LineNumbers.method454() == 1) {
+			} else if (LineNumbers.getLineNumber() == 1) {
 				for (var10000 = var3 = (var2 = var1.getAttributes()).length - 1; var10000 >= 0; var10000 = var3) {
 					if ((var4 = var2[var3]) instanceof SourceFile) {
 						SourceFile var5;
 						final String var6 = (var5 = (SourceFile) var4).getSourceFileName();
 						String var7;
 						if ((var7 = this.aRenamingMap_566.get(var6)) == null) {
-							var7 = this.anInterface22_567.method262();
+							var7 = this.anInterface22_567.nextChar();
 							this.aVector569.add(new Class118(var6, var7));
 							this.aRenamingMap_566.put(var6, var7);
 						}

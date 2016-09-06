@@ -6,48 +6,37 @@ import java.util.Vector;
 
 public class Configurable {
 
-	protected static void method1266(ClassStorage var0) throws Exception_Sub1 {
-		new Watermarking(var0, Class167.method1660()).createWatermark(Class167.method1656());
+	protected static void createWatermark(ClassStorage classStorage) throws Exception_Sub1 {
+		new Watermarking(classStorage, Class167.method1660()).createWatermark(Class167.method1656());
 	}
 
 	public static void parseConfigFile(String fileName) {
 		try {
 			ParseConfig.parseConfigFile(fileName);
-		} catch (final TemplateException var2) {
-			if (var2.getCause() == null) {
-				Logger.printError("Configuration error. " + var2.getMessage());
+		} catch (final TemplateException e) {
+			if (e.getCause() == null) {
+				Logger.printError("Configuration error. " + e.getMessage());
 			} else {
-				Logger.printError("Error reading configuration. " + var2.getCause().getMessage());
+				Logger.printError("Error reading configuration. " + e.getCause().getMessage());
 			}
-
 			System.exit(-1);
 		}
-
 	}
 
-	private static void method1268(ClassStorage var0) throws Exception {
-		final Vector<?> var1 = Class45.method660();
-
-		int var2;
-		int var10000;
-		for (var10000 = var2 = 0; var10000 < var1.size(); var10000 = var2) {
-			Class149 var3;
-			Class20.method450((var3 = (Class149) var1.get(var2)).aString799, var3.aString800, var0);
-			++var2;
+	private static void method1268(ClassStorage classStorage) throws Exception {
+		final Vector<?> vector = Class45.method660();
+		for (int i = 0; i < vector.size(); i++) {
+			Class149 unknown = (Class149) vector.get(i);
+			Class20.method450(unknown.aString799, unknown.aString800, classStorage);
 		}
-
 		if (Class45.method655() != null) {
-			final String[] var5 = new String[var1.size()];
-
-			int var4;
-			for (var10000 = var4 = 0; var10000 < var1.size(); var10000 = var4) {
-				var5[var4] = ((Class149) var1.get(var4)).aString800;
-				++var4;
+			final String[] var5 = new String[vector.size()];
+			for (int var10000 = 0; var10000 < vector.size(); var10000++) {
+				var5[var10000] = ((Class149) vector.get(var10000)).aString800;
+				++var10000;
 			}
-
 			Class20.method446(var5, Class45.method655());
 		}
-
 	}
 
 	static ClassStorage method1269() throws Exception {
@@ -141,8 +130,9 @@ public class Configurable {
 		return var0;
 	}
 
+	@SuppressWarnings("deprecation")
 	private static URLClassLoaderImpl method1272() {
-		final Vector var0 = Class72.method832();
+		final Vector<Object> var0 = Class72.method832();
 
 		int var1;
 		for (int var10000 = var1 = 0; var10000 < var0.size(); var10000 = var1) {
@@ -165,7 +155,7 @@ public class Configurable {
 		int var2;
 		for (int var10000 = var2 = 0; var10000 < var1.size(); var10000 = var2) {
 			Class157 var3;
-			DumpUtils.method574((var3 = (Class157) var1.get(var2)).aString811, var3.aString812, var0);
+			DumpUtils.dumpClass((var3 = (Class157) var1.get(var2)).aString811, var3.aString812, var0);
 			++var2;
 		}
 

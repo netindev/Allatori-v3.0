@@ -25,7 +25,7 @@ public class FileUtils {
 		return strBuilder.toString();
 	}
 
-	public static void method689(File file0, File file1) throws IOException {
+	public static void map(File file0, File file1) throws IOException {
 		FileInputStream inputStream = new FileInputStream(file0);
 		FileOutputStream outputStream = new FileOutputStream(file1);
 		FileChannel fileChannel0 = inputStream.getChannel(), fileChannel1 = outputStream.getChannel();

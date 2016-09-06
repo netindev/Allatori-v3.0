@@ -40,7 +40,7 @@ public class Obfuscate extends Configurable {
 		final ClassStorage classStorage = Configurable.method1269();
 		method1276(classStorage);
 		if (Class167.method1660() != null && Class167.method1656() != null) {
-			Configurable.method1266(classStorage);
+			Configurable.createWatermark(classStorage);
 		}
 		Configurable.method1275(classStorage);
 		Logger.printInfo("Obfuscation completed. Writing log file...");

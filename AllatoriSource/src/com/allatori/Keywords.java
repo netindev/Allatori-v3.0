@@ -2,7 +2,7 @@ package com.allatori;
 
 import java.util.Arrays;
 
-public class Keywords extends Class94 {
+public class Keywords extends ObfuscationStyleCon {
 	
 	/* OK */
 

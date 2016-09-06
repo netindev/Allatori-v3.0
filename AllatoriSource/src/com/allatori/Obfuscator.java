@@ -14,12 +14,13 @@ public class Obfuscator {
 
 	private void executeRenamer() {
 		try {
-			(new Renamer(this.classes)).run();
-		} catch (final Exception_Sub2 var4) {
+			new Renamer(this.classes).run();
+		} catch (final Exception_Sub2 e) {
 			try {
 				Logger.printWarning("Rerunning obfuscation due to un-renamed packages.");
 				(new Renamer(this.classes)).run();
-			} catch (final Exception_Sub2 var3) {
+			} catch (final Exception_Sub2 f) {
+				f.printStackTrace();
 			}
 		}
 
@@ -33,17 +34,14 @@ public class Obfuscator {
 		if (Tuning.rearrangeClassMembers()) {
 			transformsVector.add(new ClassMemberRearranger());
 		}
-
 		if (Tuning.isStringObfuscationLayer2Enabled()) {
 			transformsVector.add(new StringObfuscationLayer1(this.classes));
 		}
-
 		if (Tuning.isControlFlowObfuscationEnabled()) {
 			transformsVector.add(new ControlFlow());
 		}
-
 		transformsVector.add(new AntiJDTransform(this.classes));
-
+		
 		Iterator<?> var2;
 		Iterator<?> var10000;
 		for (var10000 = var2 = this.classes.iterator(); var10000.hasNext(); var10000 = var2) {

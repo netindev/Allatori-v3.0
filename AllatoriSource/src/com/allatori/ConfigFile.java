@@ -7,7 +7,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
-public class ConfigFile implements Interface26 {
+public class ConfigFile implements IParse {
 	
 	/* OK */
 
@@ -20,7 +20,7 @@ public class ConfigFile implements Interface26 {
 			XMLReader reader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
 			reader.setContentHandler(new ConfigFileHandler(this, null));
 			reader.parse(new InputSource(fileReader));
-		} catch (final SAXException_Sub1 e) {
+		} catch (final SAXException e) {
 			throw new TemplateException(e.getMessage());
 		} catch (final Exception e) {
 			throw new TemplateException(e);

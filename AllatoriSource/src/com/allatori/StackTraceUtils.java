@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class StackTraceUtils {
 
-	public static void translateStackTrace(BufferedReader inputReader, Class166 log, PrintWriter outputWriter)
+	public static void translateStackTrace(BufferedReader inputReader, StackTraceLog log, PrintWriter outputWriter)
 			throws IOException {
 		final Pattern var3 = Pattern.compile("(.*(?:at|Frame)\\s+)(.*)\\((.*)\\)(.*)");
 		final Pattern var4 = Pattern.compile("(.*syslog:\\s+)(.*?)\\((.*)\\)(.*)");
@@ -57,7 +57,7 @@ public class StackTraceUtils {
 
 					try {
 						int var16;
-						if ((var16 = log.aVector853.indexOf(Integer.valueOf(var15))) >= 0) {
+						if ((var16 = log.vector.indexOf(Integer.valueOf(var15))) >= 0) {
 							var15 = "" + var16;
 						}
 					} catch (final NumberFormatException var17) {

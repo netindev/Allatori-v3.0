@@ -9,14 +9,14 @@ import org.xml.sax.helpers.DefaultHandler;
 public class PredefinedNamingHandler extends DefaultHandler {
 
 	private String aString966;
-	private final Class166 aClass166_967;
+	private final StackTraceLog aClass166_967;
 	private String aString968;
 
-	public PredefinedNamingHandler(Class166 var1) {
+	public PredefinedNamingHandler(StackTraceLog var1) {
 		this.aClass166_967 = var1;
 		var1.aRenamingMap_852 = new RenamingMap();
 		var1.aRenamingMap_854 = new RenamingMap();
-		var1.aVector853 = new Vector<Object>();
+		var1.vector = new Vector<Object>();
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class PredefinedNamingHandler extends DefaultHandler {
 				this.aClass166_967.aRenamingMap_854.put(var6, var5);
 			} else if ("line".equals(var3)) {
 				final Integer var8 = Integer.valueOf(var4.getValue("l"));
-				this.aClass166_967.aVector853.add(var8);
+				this.aClass166_967.vector.add(var8);
 			}
 		}
 

@@ -2,7 +2,7 @@ package com.allatori;
 
 public class Class159 {
 
-	private final Interface22 anInterface22_814;
+	private final IObfStyle anInterface22_814;
 	private final RenamingMap renamingMap0;
 	private final RenamingMap renamingMap1;
 	private final RenamingMap renamingMap2;
@@ -19,7 +19,7 @@ public class Class159 {
 		return var0.renamingMap0;
 	}
 
-	public static Interface22 method1627(Class159 var0) {
+	public static IObfStyle method1627(Class159 var0) {
 		return var0.anInterface22_814;
 	}
 

@@ -1,6 +1,8 @@
 package com.allatori;
 
 public class Watermark extends Configurable {
+	
+	/* OK */
 
 	public static void main(String[] args) {
 		System.out.println(Configurable.printSplash());
@@ -34,7 +36,7 @@ public class Watermark extends Configurable {
 					Logger.printError("Configuration error. Watermark value is not set.");
 					System.exit(0);
 				}
-				Configurable.method1266(classStorage);
+				Configurable.createWatermark(classStorage);
 				Configurable.method1275(classStorage);
 			}
 		} catch (final Exception e) {
