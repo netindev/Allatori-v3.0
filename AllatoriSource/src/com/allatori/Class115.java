@@ -85,90 +85,73 @@ public class Class115 {
 		return true;
 	}
 
-	public static int parseAccess(String var0) {
-		var0 = var0.trim();
-		int var1 = 0;
-		if (var0.indexOf("public") >= 0) {
-			var1 |= 1;
+	public static int parseAccess(String string) {
+		string = string.trim();
+		int i = 0;
+		if (string.indexOf("public") >= 0) {
+			i |= 1;
 		}
-
-		if (var0.indexOf("protected") >= 0) {
-			var1 |= 2;
+		if (string.indexOf("protected") >= 0) {
+			i |= 2;
 		}
-
-		if (var0.indexOf("package") >= 0) {
-			var1 |= 4;
+		if (string.indexOf("package") >= 0) {
+			i |= 4;
 		}
-
-		if (var0.indexOf("private") >= 0) {
-			var1 |= 8;
+		if (string.indexOf("private") >= 0) {
+			i |= 8;
 		}
-
-		if (var0.indexOf("protected+") >= 0) {
-			var1 |= 3;
+		if (string.indexOf("protected+") >= 0) {
+			i |= 3;
 		}
-
-		if (var0.indexOf("package+") >= 0) {
-			var1 |= 7;
+		if (string.indexOf("package+") >= 0) {
+			i |= 7;
 		}
-
-		if (var0.indexOf("private+") >= 0) {
-			var1 |= 15;
+		if (string.indexOf("private+") >= 0) {
+			i |= 15;
 		}
-
-		if (var1 == 0) {
-			var1 = 15;
+		if (i == 0) {
+			i = 15;
 		}
-
-		if (var0.indexOf("static") >= 0) {
-			var1 |= 16;
+		if (string.indexOf("static") >= 0) {
+			i |= 16;
 		}
-
-		if (var0.indexOf("final") >= 0) {
-			var1 |= 32;
+		if (string.indexOf("final") >= 0) {
+			i |= 32;
 		}
-
-		if (var0.indexOf("synchronized") >= 0) {
-			var1 |= 64;
+		if (string.indexOf("synchronized") >= 0) {
+			i |= 64;
 		}
-
-		if (var0.indexOf("volatile") >= 0) {
-			var1 |= 128;
+		if (string.indexOf("volatile") >= 0) {
+			i |= 128;
 		}
-
-		if (var0.indexOf("transient") >= 0) {
-			var1 |= 256;
+		if (string.indexOf("transient") >= 0) {
+			i |= 256;
 		}
-
-		if (var0.indexOf("native") >= 0) {
-			var1 |= 512;
+		if (string.indexOf("native") >= 0) {
+			i |= 512;
 		}
-
-		if (var0.indexOf("interface") >= 0) {
-			var1 |= 1024;
+		if (string.indexOf("interface") >= 0) {
+			i |= 1024;
 		}
-
-		if (var0.indexOf("abstract") >= 0) {
-			var1 |= 2048;
+		if (string.indexOf("abstract") >= 0) {
+			i |= 2048;
 		}
-
-		if (var0.indexOf("strictfp") >= 0) {
-			var1 |= 4096;
+		if (string.indexOf("strictfp") >= 0) {
+			i |= 4096;
 		}
-
-		return var1;
+		return i;
 	}
 
-	public static String parsePattern(String var0) {
-		return var0 == null ? ".*" : method1391(var0.trim());
+	public static String parsePattern(String string) {
+		return string == null ? ".*" : method1391(string.trim());
 	}
 
-	public static String method1395(String var0) {
-		return parsePattern(var0);
+	public static String parsePatt(String string) {
+		return parsePattern(string);
 	}
 
-	public static String method1396(String var0) {
-		return var0.replaceAll("\\s+", "").replaceAll("\\.", "\\\\.").replaceAll("\\*\\*", "%@#")
+	public static String replaceSt(String string) {
+		return string.replaceAll("\\s+", "").replaceAll("\\.", "\\\\.").replaceAll("\\*\\*", "%@#")
 				.replaceAll("\\*", "[^,]*").replaceAll("\\%\\@\\#", ".*");
 	}
 

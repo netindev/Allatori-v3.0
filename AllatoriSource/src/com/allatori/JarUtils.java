@@ -13,7 +13,7 @@ import java.util.jar.JarOutputStream;
 import org.apache.bcel.classfile.ClassParser;
 import org.apache.bcel.generic.ClassGen;
 
-public class Class20 {
+public class JarUtils {
 
 	private static Hashtable<String, String> aHashtable544;
 
@@ -49,7 +49,7 @@ public class Class20 {
 		}
 
 		if (!Tuning.isWeakStringEncryption()) {
-			method448(var3);
+			setComment(var3);
 		}
 
 		var3.finish();
@@ -72,7 +72,7 @@ public class Class20 {
 
 	}
 
-	private static void method448(JarOutputStream var0) {
+	private static void setComment(JarOutputStream var0) {
 		var0.setComment("Obfuscation by " + Info.name() + " " + Info.version() + "\n" + Info.website());
 	}
 
@@ -129,7 +129,7 @@ public class Class20 {
 		method449(var2.vector(), var6, var4);
 		var5.close();
 		if (!Tuning.isWeakStringEncryption()) {
-			method448(var6);
+			setComment(var6);
 		}
 
 		var6.finish();

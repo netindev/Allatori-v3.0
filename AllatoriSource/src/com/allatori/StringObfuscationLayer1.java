@@ -434,141 +434,137 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 	}
 
 	private ClassGen createDecryptionClass() {
-		final ClassGen var1 = new ClassGen(stringDecryptorClassName, "java.lang.Object", "", 33, new String[0]);
+		final ClassGen classGen = new ClassGen(stringDecryptorClassName, "java.lang.Object", "", 33, new String[0]);
 		if (Tuning.isWeakStringEncryption()) {
-			this.createWeakDecryptMethod(var1);
+			this.createWeakDecryptMethod(classGen);
 		} else {
-			this.createStrongDecryptMethod(var1);
-			this.createStrongDecrypt2Method(var1);
+			this.createStrongDecryptMethod(classGen);
+			this.createStrongDecrypt2Method(classGen);
 		}
-
-		return var1;
+		return classGen;
 	}
 
-	public StringObfuscationLayer1(ClassStorage var1) {
-		this.classStorage = var1;
-
-		Iterator<?> var2;
-		for (Iterator<?> var10000 = var2 = var1.iterator(); var10000.hasNext(); var10000 = var2) {
-			final ClassGen var3 = (ClassGen) var2.next();
-			int var4;
-			if ((var4 = Tuning.method1726(var1, var3, null)) == Tuning.STRING_ENCRYPTION_DEFAULT) {
-				this.method1366(var3);
-			} else if (var4 == Tuning.STRING_ENCRYPTION_MAXIMUM) {
-				this.method1367(var3);
+	public StringObfuscationLayer1(ClassStorage classStorage) {
+		this.classStorage = classStorage;
+		for (Iterator<?> iterator = classStorage.iterator(); iterator.hasNext(); iterator.next()) {
+			final ClassGen classGen = (ClassGen) iterator.next();
+			int stringEncryption = Tuning.method1726(classStorage, classGen, null);
+			if (stringEncryption == Tuning.STRING_ENCRYPTION_DEFAULT) {
+				this.method1366(classGen);
+			} else if (stringEncryption == Tuning.STRING_ENCRYPTION_MAXIMUM) {
+				this.method1367(classGen);
 			}
 		}
-
 	}
 
-	private void createStrongDecrypt2Method(ClassGen var1) {
-		final InstructionFactory var2 = new InstructionFactory(var1);
-		final ConstantPoolGen cp = var1.getConstantPool();
-		final InstructionList il = new InstructionList();
-		final MethodGen var6 = new MethodGen(9, Type.STRING, new Type[] { Type.STRING }, new String[] { "arg0" },
-				decryptString2MethodName, var1.getClassName(), il, cp);
-		il.append(InstructionFactory.createLoad(Type.OBJECT, 0));
-		il.append(new PUSH(cp, 1));
-		il.append(InstructionConstants.DUP);
-		il.append(InstructionConstants.DUP_X2);
-		il.append(var2.createNew("java.lang.Exception"));
-		il.append(InstructionConstants.DUP);
-		il.append(var2.createInvoke("java.lang.Exception", "<init>", Type.VOID, Type.NO_ARGS, (short) 183));
-		il.append(var2.createInvoke("java.lang.Exception", "getStackTrace",
+	private void createStrongDecrypt2Method(ClassGen classGen) {
+		final InstructionFactory instructionFactory = new InstructionFactory(classGen);
+		final ConstantPoolGen constantPoolGen = classGen.getConstantPool();
+		final InstructionList instructionList = new InstructionList();
+		final MethodGen methodGen = new MethodGen(9, Type.STRING, new Type[] { Type.STRING }, new String[] { "arg0" },
+				decryptString2MethodName, classGen.getClassName(), instructionList, constantPoolGen);
+		instructionList.append(InstructionFactory.createLoad(Type.OBJECT, 0));
+		instructionList.append(new PUSH(constantPoolGen, 1));
+		instructionList.append(InstructionConstants.DUP);
+		instructionList.append(InstructionConstants.DUP_X2);
+		instructionList.append(instructionFactory.createNew("java.lang.Exception"));
+		instructionList.append(InstructionConstants.DUP);
+		instructionList.append(instructionFactory.createInvoke("java.lang.Exception", "<init>", Type.VOID, Type.NO_ARGS, (short) 183));
+		instructionList.append(instructionFactory.createInvoke("java.lang.Exception", "getStackTrace",
 				new ArrayType(new ObjectType("java.lang.StackTraceElement"), 1), Type.NO_ARGS, (short) 182));
-		il.append(InstructionConstants.SWAP);
-		il.append(InstructionConstants.AALOAD);
-		il.append(var2.createNew("java.lang.StringBuffer"));
-		il.append(InstructionConstants.DUP);
-		il.append(var2.createInvoke("java.lang.StringBuffer", "<init>", Type.VOID, Type.NO_ARGS, (short) 183));
-		il.append(InstructionConstants.SWAP);
-		il.append(InstructionConstants.DUP);
-		il.append(var2.createInvoke("java.lang.StackTraceElement", "getClassName", Type.STRING, Type.NO_ARGS,
+		instructionList.append(InstructionConstants.SWAP);
+		instructionList.append(InstructionConstants.AALOAD);
+		instructionList.append(instructionFactory.createNew("java.lang.StringBuffer"));
+		instructionList.append(InstructionConstants.DUP);
+		instructionList.append(instructionFactory.createInvoke("java.lang.StringBuffer", "<init>", Type.VOID, Type.NO_ARGS, (short) 183));
+		instructionList.append(InstructionConstants.SWAP);
+		instructionList.append(InstructionConstants.DUP);
+		instructionList.append(instructionFactory.createInvoke("java.lang.StackTraceElement", "getClassName", Type.STRING, Type.NO_ARGS,
 				(short) 182));
-		il.append(InstructionConstants.SWAP);
-		il.append(var2.createInvoke("java.lang.StackTraceElement", "getMethodName", Type.STRING, Type.NO_ARGS,
+		instructionList.append(InstructionConstants.SWAP);
+		instructionList.append(instructionFactory.createInvoke("java.lang.StackTraceElement", "getMethodName", Type.STRING, Type.NO_ARGS,
 				(short) 182));
-		il.append(InstructionConstants.DUP_X2);
-		il.append(InstructionConstants.POP);
-		il.append(var2.createInvoke("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[] { Type.STRING },
+		instructionList.append(InstructionConstants.DUP_X2);
+		instructionList.append(InstructionConstants.POP);
+		instructionList.append(instructionFactory.createInvoke("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[] { Type.STRING },
 				(short) 182));
-		il.append(InstructionConstants.SWAP);
-		il.append(var2.createInvoke("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[] { Type.STRING },
+		instructionList.append(InstructionConstants.SWAP);
+		instructionList.append(instructionFactory.createInvoke("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[] { Type.STRING },
 				(short) 182));
-		il.append(var2.createInvoke("java.lang.StringBuffer", "toString", Type.STRING, Type.NO_ARGS, (short) 182));
-		il.append(InstructionConstants.DUP_X1);
-		il.append(var2.createInvoke("java.lang.String", "length", Type.INT, Type.NO_ARGS, (short) 182));
-		il.append(InstructionConstants.SWAP);
-		il.append(InstructionConstants.ISUB);
-		il.append(InstructionConstants.DUP_X1);
-		il.append(InstructionFactory.createStore(Type.INT, 3));
-		il.append(InstructionFactory.createStore(Type.OBJECT, 2));
-		il.append(InstructionFactory.createStore(Type.INT, 4));
-		il.append(var2.createInvoke("java.lang.String", "length", Type.INT, Type.NO_ARGS, (short) 182));
-		il.append(InstructionConstants.DUP);
-		il.append(var2.createNewArray(Type.CHAR, (short) 1));
-		il.append(InstructionFactory.createStore(Type.OBJECT, 5));
-		il.append(new PUSH(cp, 85));
-		il.append(InstructionFactory.createStore(Type.INT, 6));
-		il.append(InstructionConstants.SWAP);
-		il.append(InstructionConstants.ISUB);
-		il.append(InstructionFactory.createStore(Type.INT, 7));
-		final BranchInstruction var7 = InstructionFactory.createBranchInstruction((short) 167, null);
-		il.append(var7);
-		final InstructionHandle var8 = il.append(new PUSH(cp, 63));
-		il.append(InstructionConstants.DUP_X2);
-		il.append(InstructionConstants.POP);
-		il.append(InstructionConstants.DUP_X1);
-		il.append(InstructionConstants.POP);
-		il.append(InstructionFactory.createLoad(Type.INT, 6));
-		il.append(InstructionConstants.DUP_X2);
-		il.append(InstructionConstants.POP);
-		il.append(InstructionFactory.createLoad(Type.OBJECT, 2));
-		il.append(InstructionFactory.createLoad(Type.INT, 4));
-		il.append(var2.createInvoke("java.lang.String", "charAt", Type.CHAR, new Type[] { Type.INT }, (short) 182));
-		il.append(InstructionConstants.DUP_X1);
-		il.append(InstructionFactory.createLoad(Type.INT, 7));
-		il.append(InstructionConstants.DUP_X1);
-		il.append(InstructionFactory.createLoad(Type.OBJECT, 0));
-		il.append(InstructionConstants.SWAP);
-		il.append(var2.createInvoke("java.lang.String", "charAt", Type.CHAR, new Type[] { Type.INT }, (short) 182));
-		il.append(InstructionFactory.createLoad(Type.INT, 6));
-		il.append(InstructionConstants.IXOR);
-		il.append(InstructionConstants.IXOR);
-		il.append(InstructionConstants.I2C);
-		il.append(InstructionConstants.CASTORE);
-		il.append(InstructionConstants.IXOR);
-		il.append(InstructionConstants.IXOR);
-		il.append(InstructionConstants.IAND);
-		il.append(InstructionConstants.I2C);
-		il.append(InstructionFactory.createStore(Type.INT, 6));
-		il.append(new IINC(4, -1));
-		il.append(InstructionFactory.createLoad(Type.INT, 4));
-		final BranchInstruction var9 = InstructionFactory.createBranchInstruction((short) 156, null);
-		il.append(var9);
-		il.append(InstructionFactory.createLoad(Type.INT, 3));
-		il.append(InstructionFactory.createStore(Type.INT, 4));
-		final InstructionHandle var10 = il.append(new IINC(7, -1));
-		final InstructionHandle var11 = il.append(InstructionFactory.createLoad(Type.OBJECT, 5));
-		il.append(InstructionFactory.createLoad(Type.INT, 7));
-		il.append(InstructionConstants.DUP);
-		final BranchInstruction var12 = InstructionFactory.createBranchInstruction((short) 156, var8);
-		il.append(var12);
-		il.append(InstructionConstants.POP2);
-		il.append(var2.createNew("java.lang.String"));
-		il.append(InstructionFactory.createLoad(Type.OBJECT, 5));
-		il.append(InstructionConstants.SWAP);
-		il.append(InstructionConstants.DUP_X1);
-		il.append(InstructionConstants.SWAP);
-		il.append(var2.createInvoke("java.lang.String", "<init>", Type.VOID, new Type[] { new ArrayType(Type.CHAR, 1) },
+		instructionList.append(instructionFactory.createInvoke("java.lang.StringBuffer", "toString", Type.STRING, Type.NO_ARGS, (short) 182));
+		instructionList.append(InstructionConstants.DUP_X1);
+		instructionList.append(instructionFactory.createInvoke("java.lang.String", "length", Type.INT, Type.NO_ARGS, (short) 182));
+		instructionList.append(InstructionConstants.SWAP);
+		instructionList.append(InstructionConstants.ISUB);
+		instructionList.append(InstructionConstants.DUP_X1);
+		instructionList.append(InstructionFactory.createStore(Type.INT, 3));
+		instructionList.append(InstructionFactory.createStore(Type.OBJECT, 2));
+		instructionList.append(InstructionFactory.createStore(Type.INT, 4));
+		instructionList.append(instructionFactory.createInvoke("java.lang.String", "length", Type.INT, Type.NO_ARGS, (short) 182));
+		instructionList.append(InstructionConstants.DUP);
+		instructionList.append(instructionFactory.createNewArray(Type.CHAR, (short) 1));
+		instructionList.append(InstructionFactory.createStore(Type.OBJECT, 5));
+		instructionList.append(new PUSH(constantPoolGen, 85));
+		instructionList.append(InstructionFactory.createStore(Type.INT, 6));
+		instructionList.append(InstructionConstants.SWAP);
+		instructionList.append(InstructionConstants.ISUB);
+		instructionList.append(InstructionFactory.createStore(Type.INT, 7));
+		final BranchInstruction branchInstruction = InstructionFactory.createBranchInstruction((short) 167, null);
+		instructionList.append(branchInstruction);
+		final InstructionHandle instructionHandle = instructionList.append(new PUSH(constantPoolGen, 63));
+		instructionList.append(InstructionConstants.DUP_X2);
+		instructionList.append(InstructionConstants.POP);
+		instructionList.append(InstructionConstants.DUP_X1);
+		instructionList.append(InstructionConstants.POP);
+		instructionList.append(InstructionFactory.createLoad(Type.INT, 6));
+		instructionList.append(InstructionConstants.DUP_X2);
+		instructionList.append(InstructionConstants.POP);
+		instructionList.append(InstructionFactory.createLoad(Type.OBJECT, 2));
+		instructionList.append(InstructionFactory.createLoad(Type.INT, 4));
+		instructionList.append(instructionFactory.createInvoke("java.lang.String", "charAt", Type.CHAR, new Type[] { Type.INT }, (short) 182));
+		instructionList.append(InstructionConstants.DUP_X1);
+		instructionList.append(InstructionFactory.createLoad(Type.INT, 7));
+		instructionList.append(InstructionConstants.DUP_X1);
+		instructionList.append(InstructionFactory.createLoad(Type.OBJECT, 0));
+		instructionList.append(InstructionConstants.SWAP);
+		instructionList.append(instructionFactory.createInvoke("java.lang.String", "charAt", Type.CHAR, new Type[] { Type.INT }, (short) 182));
+		instructionList.append(InstructionFactory.createLoad(Type.INT, 6));
+		instructionList.append(InstructionConstants.IXOR);
+		instructionList.append(InstructionConstants.IXOR);
+		instructionList.append(InstructionConstants.I2C);
+		instructionList.append(InstructionConstants.CASTORE);
+		instructionList.append(InstructionConstants.IXOR);
+		instructionList.append(InstructionConstants.IXOR);
+		instructionList.append(InstructionConstants.IAND);
+		instructionList.append(InstructionConstants.I2C);
+		instructionList.append(InstructionFactory.createStore(Type.INT, 6));
+		instructionList.append(new IINC(4, -1));
+		instructionList.append(InstructionFactory.createLoad(Type.INT, 4));
+		final BranchInstruction branchInstruction0 = InstructionFactory.createBranchInstruction((short) 156, null);
+		instructionList.append(branchInstruction0);
+		instructionList.append(InstructionFactory.createLoad(Type.INT, 3));
+		instructionList.append(InstructionFactory.createStore(Type.INT, 4));
+		final InstructionHandle instructionHandle0 = instructionList.append(new IINC(7, -1));
+		final InstructionHandle instructionHandle1 = instructionList.append(InstructionFactory.createLoad(Type.OBJECT, 5));
+		instructionList.append(InstructionFactory.createLoad(Type.INT, 7));
+		instructionList.append(InstructionConstants.DUP);
+		final BranchInstruction branchInstruction1 = InstructionFactory.createBranchInstruction((short) 156, instructionHandle);
+		instructionList.append(branchInstruction1);
+		instructionList.append(InstructionConstants.POP2);
+		instructionList.append(instructionFactory.createNew("java.lang.String"));
+		instructionList.append(InstructionFactory.createLoad(Type.OBJECT, 5));
+		instructionList.append(InstructionConstants.SWAP);
+		instructionList.append(InstructionConstants.DUP_X1);
+		instructionList.append(InstructionConstants.SWAP);
+		instructionList.append(instructionFactory.createInvoke("java.lang.String", "<init>", Type.VOID, new Type[] { new ArrayType(Type.CHAR, 1) },
 				(short) 183));
-		il.append(InstructionFactory.createReturn(Type.OBJECT));
-		var7.setTarget(var11);
-		var9.setTarget(var10);
-		var6.setMaxStack();
-		var6.setMaxLocals();
-		var1.addMethod(var6.getMethod());
-		il.dispose();
+		instructionList.append(InstructionFactory.createReturn(Type.OBJECT));
+		branchInstruction.setTarget(instructionHandle1);
+		branchInstruction0.setTarget(instructionHandle0);
+		methodGen.setMaxStack();
+		methodGen.setMaxLocals();
+		classGen.addMethod(methodGen.getMethod());
+		instructionList.dispose();
 	}
 
 }

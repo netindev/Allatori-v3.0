@@ -27,7 +27,7 @@ public class Configurable {
 		final Vector<?> vector = Class45.method660();
 		for (int i = 0; i < vector.size(); i++) {
 			Class149 unknown = (Class149) vector.get(i);
-			Class20.method450(unknown.aString799, unknown.aString800, classStorage);
+			JarUtils.method450(unknown.aString799, unknown.aString800, classStorage);
 		}
 		if (Class45.method655() != null) {
 			final String[] var5 = new String[vector.size()];
@@ -35,7 +35,7 @@ public class Configurable {
 				var5[var10000] = ((Class149) vector.get(var10000)).aString800;
 				++var10000;
 			}
-			Class20.method446(var5, Class45.method655());
+			JarUtils.method446(var5, Class45.method655());
 		}
 	}
 

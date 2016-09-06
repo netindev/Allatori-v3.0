@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.RandomAccess;
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class Class34 {
 
 	private static boolean aBoolean577 = false;

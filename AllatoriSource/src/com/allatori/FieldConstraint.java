@@ -11,7 +11,7 @@ public class FieldConstraint {
 	private void method1404(String var1) throws TemplateException {
 		String[] var2;
 		if ((var2 = var1.split("\\s+")) != null && var2.length != 0) {
-			this.aString738 = Class115.method1395(var2[var2.length - 1]);
+			this.aString738 = Class115.parsePatt(var2[var2.length - 1]);
 			if (var2.length > 1 && !Class115.method1389(var2[var2.length - 2])) {
 				this.aString737 = Class115.parsePattern(var2[var2.length - 2]);
 			} else {
