@@ -285,11 +285,11 @@ public class ConfigFileHandler extends DefaultHandler {
 				String var6;
 				if ("jar".equals(var3) && this.anInt959 == 1) {
 					var5 = this.getAttributeByName(var4, "in", true, "", true);
-					var6 = this.getAttributeByName(var4, "out", !Class167.method1659(), "", true);
+					var6 = this.getAttributeByName(var4, "out", !WatermarkUtil.getBool(), "", true);
 					this.method1836(var5, var6);
 				} else if ("dir".equals(var3) && this.anInt959 == 1) {
 					var5 = this.getAttributeByName(var4, "in", true, "", true);
-					var6 = this.getAttributeByName(var4, "out", !Class167.method1659(), "", true);
+					var6 = this.getAttributeByName(var4, "out", !WatermarkUtil.getBool(), "", true);
 					this.method1829(var5, var6);
 				} else if ("jar".equals(var3) && this.anInt959 == 2) {
 					var5 = this.getAttributeByName(var4, "name", true, "", true);
@@ -361,14 +361,14 @@ public class ConfigFileHandler extends DefaultHandler {
 								this.method1831("key");
 							}
 
-							Class167.method1657(var5);
-							if (!Class167.method1659()) {
+							WatermarkUtil.setKey(var5);
+							if (!WatermarkUtil.getBool()) {
 								var6 = this.getAttributeByName(var4, "value", true, null, false);
 								if ("".equals(var6)) {
 									this.method1831("value");
 								}
 
-								Class167.method1658(var6);
+								WatermarkUtil.setValue(var6);
 							}
 						} else if ("property".equals(var3)) {
 							this.parseAttributes(var4);
@@ -407,16 +407,16 @@ public class ConfigFileHandler extends DefaultHandler {
 										Integer.parseInt(var17.group(2)) - 1, Integer.parseInt(var17.group(3)), 0, 0,
 										0);
 								Date var21;
-								DateUtils.method749(var21 = var20.getTime());
+								DateUtils.setDate(var21 = var20.getTime());
 								final SimpleDateFormat var22 = new SimpleDateFormat("MMMMM dd, yyyy");
 								Logger.printInfo("Expiry date set to " + var22.format(var21));
 							} catch (final Exception var13) {
 								throw new SAXException("Date format is yyyy-mm-dd. " + this.method1839());
 							}
 
-							DateUtils.method744(this.getAttributeByName(var4, "string", true, null, true));
+							DateUtils.setString(this.getAttributeByName(var4, "string", true, null, true));
 							var8 = this.getAttributeByName(var4, "add2class", false, "private+ class *", true);
-							DateUtils.method745(var9 = this.createClassFilter(var8, null, null, null, "add2class"));
+							DateUtils.setClassConstraint(var9 = this.createClassFilter(var8, null, null, null, "add2class"));
 							final String var25 = this.getAttributeByName(var4, "add2method", false, "no input value",
 									true);
 							MethodConstraint var24;
@@ -481,7 +481,7 @@ public class ConfigFileHandler extends DefaultHandler {
 		} else if (!(new File(var1)).isDirectory()) {
 			throw new SAXException("Cannot find directory \'" + var1 + "\'. " + this.method1839());
 		} else {
-			Configurable.method659(new Class157(var1, var2));
+			Configurable.method659(new RenameRepo(var1, var2));
 		}
 	}
 
@@ -604,7 +604,7 @@ public class ConfigFileHandler extends DefaultHandler {
 							var13 = var2.replaceFirst("\\*", var11);
 						}
 
-						Configurable.method656(new Class149(var12, var13));
+						Configurable.method656(new ConfigRepo(var12, var13));
 					}
 
 					--var8;
@@ -614,7 +614,7 @@ public class ConfigFileHandler extends DefaultHandler {
 		} else if (!(new File(var1)).exists()) {
 			throw new SAXException("Cannot find file \'" + var1 + "\'. " + this.method1839());
 		} else {
-			Configurable.method656(new Class149(var1, var2));
+			Configurable.method656(new ConfigRepo(var1, var2));
 		}
 	}
 

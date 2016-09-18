@@ -7,9 +7,9 @@ public class ObfuscationStyle implements IObfuscationStyle {
 	private final String[] aStringArray1161;
 
 	@Override
-	public String method262() {
+	public String next() {
 		return this.anInt1160 < this.aStringArray1161.length ? this.aStringArray1161[this.anInt1160++]
-				: this.aClass105_1159.method262();
+				: this.aClass105_1159.next();
 	}
 
 	public ObfuscationStyle(String[] var1) {
@@ -17,8 +17,8 @@ public class ObfuscationStyle implements IObfuscationStyle {
 	}
 
 	@Override
-	public void method263() {
+	public void reset() {
 		this.anInt1160 = 0;
-		this.aClass105_1159.method263();
+		this.aClass105_1159.reset();
 	}
 }

@@ -1,14 +1,12 @@
-/* DescendingVisitor - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.classfile;
 
+import java.io.Serializable;
 import java.util.Stack;
 
 public class DescendingVisitor implements Visitor {
 	private final JavaClass clazz;
 	private final Visitor visitor;
-	private final Stack stack = new Stack();
+	private final Stack<Serializable> stack = new Stack<Serializable>();
 
 	public Object predecessor() {
 		return predecessor(0);

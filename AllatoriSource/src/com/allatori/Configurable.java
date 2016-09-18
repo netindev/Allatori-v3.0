@@ -6,19 +6,19 @@ import java.util.Vector;
 
 public class Configurable {
 
-	private static Vector<Class149> aVector596 = new Vector<Class149>();
+	private static Vector<ConfigRepo> aVector596 = new Vector<ConfigRepo>();
 	private static String aString597 = null;
-	private static Vector<Class157> aVector598 = new Vector<Class157>();
+	private static Vector<RenameRepo> aVector598 = new Vector<RenameRepo>();
 
 	public static String method655() {
 		return aString597;
 	}
 
-	public static void method656(Class149 var0) {
+	public static void method656(ConfigRepo var0) {
 		aVector596.add(var0);
 	}
 
-	public static Vector<Class157> method657() {
+	public static Vector<RenameRepo> method657() {
 		return aVector598;
 	}
 
@@ -26,16 +26,16 @@ public class Configurable {
 		aString597 = var0;
 	}
 
-	public static void method659(Class157 var0) {
+	public static void method659(RenameRepo var0) {
 		aVector598.add(var0);
 	}
 
-	public static Vector<Class149> method660() {
+	public static Vector<ConfigRepo> method660() {
 		return aVector596;
 	}
 
-	static void method1266(ClassStorage var0) throws Exception_Sub1 {
-		new Watermarking(var0, Class167.method1660()).createWatermark(Class167.method1656());
+	static void method1266(ClassStorage classStorage) throws ExtractWatermarkException {
+		new Watermarking(classStorage, WatermarkUtil.getKey()).createWatermark(WatermarkUtil.getValue());
 	}
 
 	public static void parseConfigFile(String fileName) {
@@ -54,13 +54,13 @@ public class Configurable {
 	}
 
 	private static void method1268(ClassStorage var0) throws Exception {
-		final Vector<Class149> var1 = method660();
+		final Vector<ConfigRepo> var1 = method660();
 
 		int var2;
 		int var10000;
 		for (var10000 = var2 = 0; var10000 < var1.size(); var10000 = var2) {
-			Class149 var3;
-			JarUtils.method450((var3 = (Class149) var1.get(var2)).aString799, var3.aString800, var0);
+			ConfigRepo var3;
+			JarUtils.method450((var3 = (ConfigRepo) var1.get(var2)).aString799, var3.aString800, var0);
 			++var2;
 		}
 
@@ -69,7 +69,7 @@ public class Configurable {
 
 			int var4;
 			for (var10000 = var4 = 0; var10000 < var1.size(); var10000 = var4) {
-				var5[var4] = ((Class149) var1.get(var4)).aString800;
+				var5[var4] = ((ConfigRepo) var1.get(var4)).aString800;
 				++var4;
 			}
 
@@ -80,20 +80,20 @@ public class Configurable {
 
 	static ClassStorage method1269() throws Exception {
 		final ClassStorage var0 = new ClassStorage(method1272());
-		final Vector<Class149> var1 = method660();
+		final Vector<ConfigRepo> var1 = method660();
 
 		int var2;
 		int var10000;
 		for (var10000 = var2 = 0; var10000 < var1.size(); var10000 = var2) {
-			ParseClass.parseClass(((Class149) var1.get(var2)).aString799, var0);
+			ParseClass.parseClass(((ConfigRepo) var1.get(var2)).aString799, var0);
 			++var2;
 		}
 
-		final Vector<Class157> var3 = method657();
+		final Vector<RenameRepo> var3 = method657();
 
 		int var4;
 		for (var10000 = var4 = 0; var10000 < var3.size(); var10000 = var4) {
-			ClassLoadingUtils.loadClassesFromDir(((Class157) var3.get(var4)).aString811, var0);
+			ClassLoadingUtils.loadClassesFromDir(((RenameRepo) var3.get(var4)).aString811, var0);
 			++var4;
 		}
 
@@ -189,19 +189,19 @@ public class Configurable {
 	}
 
 	private static void method1273(ClassStorage var0) throws Exception {
-		final Vector<Class157> var1 = method657();
+		final Vector<RenameRepo> var1 = method657();
 
 		int var2;
 		for (int var10000 = var2 = 0; var10000 < var1.size(); var10000 = var2) {
-			Class157 var3;
-			DumpUtils.method574((var3 = (Class157) var1.get(var2)).aString811, var3.aString812, var0);
+			RenameRepo var3;
+			DumpUtils.method574((var3 = (RenameRepo) var1.get(var2)).aString811, var3.aString812, var0);
 			++var2;
 		}
 
 	}
 
-	static String method1274(ClassStorage var0) throws Exception_Sub1 {
-		return (new Watermarking(var0, Class167.method1660())).extractWatermark();
+	static String method1274(ClassStorage var0) throws ExtractWatermarkException {
+		return (new Watermarking(var0, WatermarkUtil.getKey())).extractWatermark();
 	}
 
 	static void method1275(ClassStorage var0) throws Exception {

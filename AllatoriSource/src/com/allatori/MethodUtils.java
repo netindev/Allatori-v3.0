@@ -11,22 +11,19 @@ public class MethodUtils {
 		return !var0.isPublic() && !var0.isProtected() && !var0.isPrivate();
 	}
 
-	private static String getPackage(String var0) {
-		int var1;
-		return (var1 = var0.lastIndexOf(46)) == -1 ? "" : var0.substring(0, var1);
+	private static String getPackage(String packageName) {
+		int i = packageName.lastIndexOf(46);
+		return i == -1 ? "" : packageName.substring(0, i);
 	}
 
-	// $FF: synthetic method
 	public static void method1448(AccessFlags var0) {
 		method1451(var0);
 	}
 
-	// $FF: synthetic method
 	public static Type method1449(Type var0, RenamingMap var1) {
 		return method1453(var0, var1);
 	}
 
-	// $FF: synthetic method
 	public static boolean method1450(AccessFlags var0) {
 		return method1446(var0);
 	}
@@ -64,13 +61,11 @@ public class MethodUtils {
 		return (Type) var2;
 	}
 
-	// $FF: synthetic method
 	public static String method1454(String var0) {
 		return method1452(var0);
 	}
 
-	// $FF: synthetic method
-	public static String getPackageName(String var0) {
-		return getPackage(var0);
+	public static String getPackageName(String packageName) {
+		return getPackage(packageName);
 	}
 }

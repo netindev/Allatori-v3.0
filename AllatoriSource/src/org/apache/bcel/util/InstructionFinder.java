@@ -1,6 +1,3 @@
-/* InstructionFinder - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.util;
 
 import java.util.ArrayList;
@@ -17,7 +14,7 @@ import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
 public class InstructionFinder {
-	private static final Map map = new HashMap();
+	private static final Map<String, String> map = new HashMap<String, String>();
 	private final InstructionList il;
 	private String il_string;
 	private InstructionHandle[] handles;
@@ -78,7 +75,7 @@ public class InstructionFinder {
 		return match;
 	}
 
-	public final Iterator search(String pattern, InstructionHandle from, CodeConstraint constraint) {
+	public final Iterator<InstructionHandle[]> search(String pattern, InstructionHandle from, CodeConstraint constraint) {
 		final String search = compilePattern(pattern);
 		int start = -1;
 		for (int i = 0; i < handles.length; i++) {
@@ -91,7 +88,7 @@ public class InstructionFinder {
 			throw new ClassGenException(new StringBuilder().append("Instruction handle ").append(from)
 					.append(" not found in instruction list.").toString());
 		final Pattern regex = Pattern.compile(search);
-		final java.util.List matches = new ArrayList();
+		final ArrayList<InstructionHandle[]> matches = new ArrayList<InstructionHandle[]>();
 		int endExpr;
 		for (final Matcher matcher = regex.matcher(il_string); start < il_string.length()
 				&& matcher.find(start); start = endExpr) {
@@ -105,15 +102,15 @@ public class InstructionFinder {
 		return matches.iterator();
 	}
 
-	public final Iterator search(String pattern) {
+	public final Iterator<InstructionHandle[]> search(String pattern) {
 		return search(pattern, il.getStart(), null);
 	}
 
-	public final Iterator search(String pattern, InstructionHandle from) {
+	public final Iterator<InstructionHandle[]> search(String pattern, InstructionHandle from) {
 		return search(pattern, from, null);
 	}
 
-	public final Iterator search(String pattern, CodeConstraint constraint) {
+	public final Iterator<InstructionHandle[]> search(String pattern, CodeConstraint constraint) {
 		return search(pattern, il.getStart(), constraint);
 	}
 
@@ -194,7 +191,7 @@ public class InstructionFinder {
 		map.put("dstore", precompile((short) 71, (short) 74, (short) 57));
 		map.put("fstore", precompile((short) 67, (short) 70, (short) 56));
 		map.put("astore", precompile((short) 75, (short) 78, (short) 58));
-		final Iterator i$ = map.keySet().iterator();
+		final Iterator<String> i$ = map.keySet().iterator();
 		while (i$.hasNext()) {
 			final String key = (String) i$.next();
 			final String value = (String) map.get(key);

@@ -41,7 +41,7 @@ public class Obfuscate extends Configurable {
 	public static void execute() throws Exception {
 		ClassStorage var0;
 		method1276(var0 = Configurable.method1269());
-		if (Class167.method1660() != null && Class167.method1656() != null) {
+		if (WatermarkUtil.getKey() != null && WatermarkUtil.getValue() != null) {
 			Configurable.method1266(var0);
 		}
 

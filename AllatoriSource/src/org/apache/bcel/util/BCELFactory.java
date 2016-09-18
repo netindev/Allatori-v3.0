@@ -1,6 +1,3 @@
-/* BCELFactory - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.util;
 
 import java.io.PrintWriter;
@@ -43,12 +40,13 @@ import org.apache.bcel.generic.ReturnInstruction;
 import org.apache.bcel.generic.Select;
 import org.apache.bcel.generic.Type;
 
+@SuppressWarnings("deprecation")
 class BCELFactory extends EmptyVisitor {
 	private final MethodGen _mg;
 	private final PrintWriter _out;
 	private final ConstantPoolGen _cp;
-	private final Map branch_map = new HashMap();
-	private final List branches = new ArrayList();
+	private final Map<Instruction, InstructionHandle> branch_map = new HashMap<Instruction, InstructionHandle>();
+	private final List<BranchInstruction> branches = new ArrayList<BranchInstruction>();
 
 	BCELFactory(MethodGen mg, PrintWriter out) {
 		_mg = mg;
@@ -273,7 +271,7 @@ class BCELFactory extends EmptyVisitor {
 	}
 
 	private void updateBranchTargets() {
-		final Iterator i$ = branches.iterator();
+		final Iterator<BranchInstruction> i$ = branches.iterator();
 		while (i$.hasNext()) {
 			final BranchInstruction bi = (BranchInstruction) i$.next();
 			final BranchHandle bh = (BranchHandle) branch_map.get(bi);

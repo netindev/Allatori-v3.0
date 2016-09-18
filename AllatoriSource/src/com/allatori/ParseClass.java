@@ -24,7 +24,7 @@ public class ParseClass {
 			JarEntry var4;
 			if (!(var4 = (JarEntry) var3.nextElement()).isDirectory() && var4.getName().endsWith(".class")) {
 				try {
-					var1.method672(parseClass(var2.getInputStream(var4), var4.getName()));
+					var1.put(parseClass(var2.getInputStream(var4), var4.getName()));
 				} catch (final Exception var6) {
 					Logger.printError("Cannot parse class " + var4.getName());
 				}

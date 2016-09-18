@@ -17,7 +17,6 @@ public class Tuning {
 			STRING_ENCRYPTION_DEFAULT);
 	private static ObfuscationConstraint aObfuscationConstraint_887 = new ObfuscationConstraint(
 			STRING_ENCRYPTION_DEFAULT_TYPE);
-	private static int anInt888 = STRING_ENCRYPTION_DEFAULT_TYPE;
 	public static int STRING_ENCRYPTION_STRONG_TYPE = 1;
 	private static boolean aBoolean890 = false;
 	private static int stringEncryptionLevel = STRING_ENCRYPTION_DEFAULT;
@@ -87,7 +86,6 @@ public class Tuning {
 	}
 
 	public static void setStringEncryptionType(int var0) {
-		anInt888 = var0;
 	}
 
 }

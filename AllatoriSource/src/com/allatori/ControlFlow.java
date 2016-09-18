@@ -25,5 +25,6 @@ public class ControlFlow implements ObfuscationType {
 
 	@Override
 	public void terminate() {
+		/* empty */
 	}
 }

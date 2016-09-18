@@ -213,10 +213,10 @@ public class Class115 {
 				return method1398(var0, var3.getSuperclassName(), var2);
 			} else {
 				try {
-					Class var4;
-					Class[] var5;
+					Class<?> var4;
+					Class<?>[] var5;
 					int var6;
-					for (var10000 = var6 = (var5 = (var4 = Class.forName(var1, false, var0.method675()))
+					for (var10000 = var6 = (var5 = (var4 = Class.forName(var1, false, var0.getClassLoader()))
 							.getInterfaces()).length - 1; var10000 >= 0; var10000 = var6) {
 						if (method1398(var0, var5[var6].getName(), var2)) {
 							return true;

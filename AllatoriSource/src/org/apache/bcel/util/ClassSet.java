@@ -1,6 +1,3 @@
-/* ClassSet - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.util;
 
 import java.io.Serializable;
@@ -12,7 +9,7 @@ import org.apache.bcel.classfile.JavaClass;
 
 public class ClassSet implements Serializable {
 	private static final long serialVersionUID = -7476907380350035254L;
-	private final Map _map = new HashMap();
+	private final Map<String, JavaClass> _map = new HashMap<String, JavaClass>();
 
 	public boolean add(JavaClass clazz) {
 		boolean result = false;
@@ -32,7 +29,7 @@ public class ClassSet implements Serializable {
 	}
 
 	public JavaClass[] toArray() {
-		final Collection values = _map.values();
+		final Collection<JavaClass> values = _map.values();
 		final JavaClass[] classes = new JavaClass[values.size()];
 		values.toArray(classes);
 		return classes;

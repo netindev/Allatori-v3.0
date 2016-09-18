@@ -5,12 +5,12 @@ public class ObfuscationStyleLow implements IObfuscationStyle {
 	private long aLong1167 = 0L;
 
 	@Override
-	public void method263() {
+	public void reset() {
 		this.aLong1167 = 0L;
 	}
 
 	@Override
-	public String method262() {
+	public String next() {
 		String var1 = "";
 		long var2 = this.aLong1167;
 

@@ -4,8 +4,7 @@ import org.xml.sax.Locator;
 
 public class LocatorImpl implements Locator {
 
-	public LocatorImpl(ConfigFileHandler var1) {
-	}
+	public LocatorImpl(ConfigFileHandler configFileHandler) {}
 
 	@Override
 	public int getLineNumber() {

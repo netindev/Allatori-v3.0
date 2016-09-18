@@ -63,7 +63,7 @@ public class URLClassLoaderImpl extends URLClassLoader {
 		final Vector<?> var3 = Configurable.method660();
 		int var4;
 		for (int var10000 = var4 = 0; var10000 < var3.size(); var10000 = var4) {
-			final Class149 var5 = (Class149) var3.get(var4);
+			final ConfigRepo var5 = (ConfigRepo) var3.get(var4);
 			final JarFile var6 = new JarFile(var5.aString799);
 			try {
 				ZipEntry entry;

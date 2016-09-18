@@ -1,6 +1,3 @@
-/* AnnotationElementValue - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.classfile;
 
 import java.io.DataOutputStream;

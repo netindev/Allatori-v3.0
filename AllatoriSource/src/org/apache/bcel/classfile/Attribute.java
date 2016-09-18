@@ -1,6 +1,3 @@
-/* Attribute - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.classfile;
 
 import java.io.DataInputStream;
@@ -18,7 +15,7 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
 	protected int length;
 	protected byte tag;
 	protected ConstantPool constant_pool;
-	private static final Map readers = new HashMap();
+	private static final Map<String, AttributeReader> readers = new HashMap<String, AttributeReader>();
 
 	protected Attribute(byte tag, int name_index, int length, ConstantPool constant_pool) {
 		this.tag = tag;

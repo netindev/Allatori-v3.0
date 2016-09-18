@@ -1,6 +1,3 @@
-/* AnnotationEntry - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.classfile;
 
 import java.io.DataInputStream;
@@ -17,14 +14,14 @@ public class AnnotationEntry implements Node, Constants, Serializable {
 	private final int type_index;
 	private final ConstantPool constant_pool;
 	private final boolean isRuntimeVisible;
-	private List element_value_pairs;
+	private List<ElementValuePair> element_value_pairs;
 
 	public static AnnotationEntry read(DataInputStream file, ConstantPool constant_pool, boolean isRuntimeVisible)
 			throws IOException {
 		final AnnotationEntry annotationEntry = new AnnotationEntry(file.readUnsignedShort(), constant_pool,
 				isRuntimeVisible);
 		final int num_element_value_pairs = file.readUnsignedShort();
-		annotationEntry.element_value_pairs = new ArrayList();
+		annotationEntry.element_value_pairs = new ArrayList<ElementValuePair>();
 		for (int i = 0; i < num_element_value_pairs; i++)
 			annotationEntry.element_value_pairs.add(new ElementValuePair(file.readUnsignedShort(),
 					ElementValue.readElementValue(file, constant_pool), constant_pool));

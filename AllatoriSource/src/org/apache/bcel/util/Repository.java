@@ -1,6 +1,3 @@
-/* Repository - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.util;
 
 import java.io.Serializable;
@@ -16,7 +13,7 @@ public interface Repository extends Serializable {
 
 	public JavaClass loadClass(String string) throws ClassNotFoundException;
 
-	public JavaClass loadClass(Class var_class) throws ClassNotFoundException;
+	public JavaClass loadClass(Class<?> var_class) throws ClassNotFoundException;
 
 	public void clear();
 

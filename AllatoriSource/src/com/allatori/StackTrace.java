@@ -10,55 +10,46 @@ import java.io.PrintWriter;
 
 public class StackTrace {
 
-	public static void main(String[] var0) {
+	public static void main(String[] args) {
 		System.out.println(Configurable.printSplash());
-
 		try {
-			if (var0.length != 3) {
+			if (args.length != 3) {
 				printUsage();
 				System.exit(0);
 			}
-
 			StackTraceLog log = null;
-			final String logFileName = var0[0];
-
+			final String logFileName = args[0];
 			try {
 				log = StackTraceLogFileReader.readLogFile(new FileReader(logFileName));
-			} catch (final FileNotFoundException var10) {
-				Logger.printError("Log file not found: " + var10.getMessage());
+			} catch (final FileNotFoundException e) {
+				Logger.printError("Log file not found: " + e.getMessage());
 				System.exit(0);
-			} catch (final Exception var11) {
-				Logger.printError("Error reading log file: " + var11.getMessage());
+			} catch (final Exception e) {
+				Logger.printError("Error reading log file: " + e.getMessage());
 				System.exit(0);
 			}
-
-			final String inputFileName = var0[1];
-			final String outputFileName = var0[2];
+			final String inputFileName = args[1];
+			final String outputFileName = args[2];
 			BufferedReader inputReader = null;
-
 			try {
 				inputReader = new BufferedReader(new FileReader(inputFileName));
-			} catch (final FileNotFoundException var9) {
-				Logger.printError("Input file not found: " + var9.getMessage());
+			} catch (final FileNotFoundException e) {
+				Logger.printError("Input file not found: " + e.getMessage());
 				System.exit(0);
 			}
-
 			PrintWriter outputWriter = null;
-
 			try {
 				outputWriter = new PrintWriter(new BufferedWriter(new FileWriter(outputFileName)));
-			} catch (final IOException var8) {
-				Logger.printError("Error writing output file: " + var8.getMessage());
+			} catch (final IOException e) {
+				Logger.printError("Error writing output file: " + e.getMessage());
 				System.exit(0);
 			}
-
 			StackTraceUtils.translateStackTrace(inputReader, log, outputWriter);
 			inputReader.close();
 			outputWriter.close();
-		} catch (final Exception var12) {
-			System.out.println("Error: " + var12.getMessage());
+		} catch (final Exception e) {
+			System.out.println("Error: " + e.getMessage());
 		}
-
 	}
 
 	private static void printUsage() {

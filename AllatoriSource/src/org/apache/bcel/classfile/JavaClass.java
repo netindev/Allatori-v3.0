@@ -1,8 +1,3 @@
-// Decompiled by DJ v3.12.12.96 Copyright 2011 Atanas Neshkov  Date: 8/02/2012 16:29:28
-// Home Page: http://members.fortunecity.com/neshkov/dj.html  http://www.neshkov.com/dj.html - Check often for new version!
-// Decompiler options: packimports(3)
-// Source File Name:   JavaClass.java
-
 package org.apache.bcel.classfile;
 
 import java.io.ByteArrayOutputStream;
@@ -24,13 +19,7 @@ import org.apache.bcel.util.ClassQueue;
 import org.apache.bcel.util.Repository;
 import org.apache.bcel.util.SyntheticRepository;
 
-// Referenced classes of package org.apache.bcel.classfile:
-//            AccessFlags, Attribute, Field, Method,
-//            SourceFile, Annotations, AnnotationEntry, InnerClasses,
-//            Node, ConstantPool, Utility, Visitor,
-//            InnerClass
-
-public class JavaClass extends AccessFlags implements Cloneable, Node, Comparable {
+public class JavaClass extends AccessFlags implements Cloneable, Node, Comparable<Object> {
 
 	public JavaClass(int class_name_index, int superclass_name_index, String file_name, int major, int minor,
 			int access_flags, ConstantPool constant_pool, int interfaces[], Field fields[],
@@ -107,13 +96,6 @@ public class JavaClass extends AccessFlags implements Cloneable, Node, Comparabl
 			System.out.println(str);
 	}
 
-	/**
-	 * Dump class to a file.
-	 *
-	 * @param file
-	 *            Output file
-	 * @throws IOException
-	 */
 	public void dump(File file) throws IOException {
 		final String parent = file.getParent();
 		if (parent != null) {
@@ -135,9 +117,6 @@ public class JavaClass extends AccessFlags implements Cloneable, Node, Comparabl
 		dump(new File(_file_name));
 	}
 
-	/**
-	 * @return class in binary format
-	 */
 	public byte[] getBytes() {
 		final ByteArrayOutputStream s = new ByteArrayOutputStream();
 		final DataOutputStream ds = new DataOutputStream(s);
@@ -197,7 +176,7 @@ public class JavaClass extends AccessFlags implements Cloneable, Node, Comparabl
 	public AnnotationEntry[] getAnnotationEntries() {
 		if (annotationsOutOfDate) {
 			final Attribute attrs[] = getAttributes();
-			final List accumulatedAnnotations = new ArrayList();
+			final List<AnnotationEntry> accumulatedAnnotations = new ArrayList<AnnotationEntry>();
 			for (int i = 0; i < attrs.length; i++) {
 				final Attribute attribute = attrs[i];
 				if (!(attribute instanceof Annotations))
@@ -515,7 +494,7 @@ public class JavaClass extends AccessFlags implements Cloneable, Node, Comparabl
 
 	public JavaClass[] getSuperClasses() throws ClassNotFoundException {
 		JavaClass clazz = this;
-		final List allSuperClasses = new ArrayList();
+		final List<JavaClass> allSuperClasses = new ArrayList<JavaClass>();
 		for (clazz = clazz.getSuperClass(); clazz != null; clazz = clazz.getSuperClass())
 			allSuperClasses.add(clazz);
 
@@ -533,7 +512,7 @@ public class JavaClass extends AccessFlags implements Cloneable, Node, Comparabl
 
 	public JavaClass[] getAllInterfaces() throws ClassNotFoundException {
 		final ClassQueue queue = new ClassQueue();
-		final Set allInterfaces = new TreeSet();
+		final Set<JavaClass> allInterfaces = new TreeSet<JavaClass>();
 		queue.enqueue(this);
 		while (!queue.empty()) {
 			final JavaClass clazz = queue.dequeue();

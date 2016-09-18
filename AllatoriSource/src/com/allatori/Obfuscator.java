@@ -15,11 +15,11 @@ public class Obfuscator {
 	private void executeRenamer() {
 		try {
 			(new Renamer(this.classes)).run();
-		} catch (final Exception_Sub2 var4) {
+		} catch (final RunException var4) {
 			try {
 				Logger.printWarning("Rerunning obfuscation due to un-renamed packages.");
 				(new Renamer(this.classes)).run();
-			} catch (final Exception_Sub2 var3) {
+			} catch (final RunException var3) {
 			}
 		}
 
@@ -46,7 +46,7 @@ public class Obfuscator {
 
 		Iterator<?> var2;
 		Iterator<?> var10000;
-		for (var10000 = var2 = this.classes.method671(); var10000.hasNext(); var10000 = var2) {
+		for (var10000 = var2 = this.classes.valuesIterator(); var10000.hasNext(); var10000 = var2) {
 			final ClassGen var3 = (ClassGen) var2.next();
 
 			Iterator<ObfuscationType> var4;
@@ -71,7 +71,7 @@ public class Obfuscator {
 		final Class95 var1 = new Class95();
 
 		Iterator<?> var2;
-		for (Iterator<?> var10000 = var2 = this.classes.method671(); var10000.hasNext(); var10000 = var2) {
+		for (Iterator<?> var10000 = var2 = this.classes.valuesIterator(); var10000.hasNext(); var10000 = var2) {
 			var1.method1258((ClassGen) var2.next());
 		}
 
@@ -80,7 +80,7 @@ public class Obfuscator {
 	public void method1526() {
 		Iterator<?> var1;
 		Iterator<?> var10000;
-		for (var10000 = var1 = this.classes.method671(); var10000.hasNext(); var10000 = var1) {
+		for (var10000 = var1 = this.classes.valuesIterator(); var10000.hasNext(); var10000 = var1) {
 			if (((ClassGen) var1.next()).getSuperclassName().startsWith("javax.microedition.")) {
 				Tuning.method1723();
 				break;
@@ -93,7 +93,7 @@ public class Obfuscator {
 			final StringObfuscationLayer2 var2 = new StringObfuscationLayer2();
 
 			Iterator<?> var3;
-			for (var10000 = var3 = this.classes.method671(); var10000.hasNext(); var10000 = var3) {
+			for (var10000 = var3 = this.classes.valuesIterator(); var10000.hasNext(); var10000 = var3) {
 				final ClassGen var4 = (ClassGen) var3.next();
 				var2.execute(var4);
 			}

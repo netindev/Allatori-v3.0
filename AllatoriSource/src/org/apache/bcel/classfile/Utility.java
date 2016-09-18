@@ -1,6 +1,3 @@
-/* Utility - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.classfile;
 
 import java.io.ByteArrayInputStream;
@@ -29,7 +26,7 @@ import org.apache.bcel.generic.ConstantPoolGen;
 import org.apache.bcel.util.ByteSequence;
 
 public abstract class Utility {
-	private static ThreadLocal consumed_chars = new ThreadLocal() {
+	private static ThreadLocal<Object> consumed_chars = new ThreadLocal<Object>() {
 
 		@Override
 		protected Object initialValue() {
@@ -110,12 +107,12 @@ public abstract class Utility {
 		}
 	}
 
-	private static int unwrap(ThreadLocal tl) {
-		return ((Integer) tl.get()).intValue();
+	private static int unwrap(ThreadLocal<Object> consumed_chars2) {
+		return ((Integer) consumed_chars2.get()).intValue();
 	}
 
-	private static void wrap(ThreadLocal tl, int value) {
-		tl.set(Integer.valueOf(value));
+	private static void wrap(ThreadLocal<Object> consumed_chars2, int value) {
+		consumed_chars2.set(Integer.valueOf(value));
 	}
 
 	public static final String accessToString(int access_flags) {
@@ -426,7 +423,7 @@ public abstract class Utility {
 
 	public static final String[] methodSignatureArgumentTypes(String signature, boolean chopit)
 			throws ClassFormatException {
-		final List vec = new ArrayList();
+		final List<String> vec = new ArrayList<String>();
 		try {
 			if (signature.charAt(0) != '(')
 				throw new ClassFormatException(
@@ -464,6 +461,7 @@ public abstract class Utility {
 		return methodSignatureToString(signature, name, access, chopit, null);
 	}
 
+	@SuppressWarnings("deprecation")
 	public static final String methodSignatureToString(String signature, String name, String access, boolean chopit,
 			LocalVariableTable vars) throws ClassFormatException {
 		final StringBuilder buf = new StringBuilder("(");
@@ -863,6 +861,7 @@ public abstract class Utility {
 			final int in = bytes[i] & 0xff;
 			jw.write(in);
 		}
+		jw.close();
 		return caw.toString();
 	}
 
@@ -918,14 +917,14 @@ public abstract class Utility {
 		return buf.toString();
 	}
 
-	public static Attribute[] getAnnotationAttributes(ConstantPoolGen cp, List vec) {
+	public static Attribute[] getAnnotationAttributes(ConstantPoolGen cp, List<?> vec) {
 		if (vec.isEmpty())
 			return new Attribute[0];
 		Attribute[] attributes;
 		try {
 			int countVisible = 0;
 			int countInvisible = 0;
-			final Iterator i$ = vec.iterator();
+			final Iterator<?> i$ = vec.iterator();
 			while (i$.hasNext()) {
 				final AnnotationEntryGen a = (AnnotationEntryGen) i$.next();
 				if (a.isRuntimeVisible())
@@ -939,7 +938,7 @@ public abstract class Utility {
 			final DataOutputStream riaDos = new DataOutputStream(riaBytes);
 			rvaDos.writeShort(countVisible);
 			riaDos.writeShort(countInvisible);
-			final Iterator i$_24_ = vec.iterator();
+			final Iterator<?> i$_24_ = vec.iterator();
 			while (i$_24_.hasNext()) {
 				final AnnotationEntryGen a = (AnnotationEntryGen) i$_24_.next();
 				if (a.isRuntimeVisible())
@@ -957,7 +956,7 @@ public abstract class Utility {
 				rvaIndex = cp.addUtf8("RuntimeVisibleAnnotations");
 			if (riaData.length > 2)
 				riaIndex = cp.addUtf8("RuntimeInvisibleAnnotations");
-			final List newAttributes = new ArrayList();
+			final List<Annotations> newAttributes = new ArrayList<Annotations>();
 			if (rvaData.length > 2)
 				newAttributes.add(new RuntimeVisibleAnnotations(rvaIndex, rvaData.length,
 						new DataInputStream(new ByteArrayInputStream(rvaData)), cp.getConstantPool()));
@@ -973,7 +972,7 @@ public abstract class Utility {
 		return attributes;
 	}
 
-	public static Attribute[] getParameterAnnotationAttributes(ConstantPoolGen cp, List[] vec) {
+	public static Attribute[] getParameterAnnotationAttributes(ConstantPoolGen cp, List<?>[] vec) {
 		final int[] visCount = new int[vec.length];
 		int totalVisCount = 0;
 		final int[] invisCount = new int[vec.length];
@@ -982,7 +981,7 @@ public abstract class Utility {
 		try {
 			for (int i = 0; i < vec.length; i++) {
 				if (vec[i] != null) {
-					final Iterator i$ = vec[i].iterator();
+					final Iterator<?> i$ = vec[i].iterator();
 					while (i$.hasNext()) {
 						final AnnotationEntryGen element = (AnnotationEntryGen) i$.next();
 						if (element.isRuntimeVisible()) {
@@ -1001,7 +1000,7 @@ public abstract class Utility {
 			for (int i = 0; i < vec.length; i++) {
 				rvaDos.writeShort(visCount[i]);
 				if (visCount[i] > 0) {
-					final Iterator i$ = vec[i].iterator();
+					final Iterator<?> i$ = vec[i].iterator();
 					while (i$.hasNext()) {
 						final AnnotationEntryGen element = (AnnotationEntryGen) i$.next();
 						if (element.isRuntimeVisible())
@@ -1016,7 +1015,7 @@ public abstract class Utility {
 			for (int i = 0; i < vec.length; i++) {
 				riaDos.writeShort(invisCount[i]);
 				if (invisCount[i] > 0) {
-					final Iterator i$ = vec[i].iterator();
+					final Iterator<?> i$ = vec[i].iterator();
 					while (i$.hasNext()) {
 						final AnnotationEntryGen element = (AnnotationEntryGen) i$.next();
 						if (!element.isRuntimeVisible())
@@ -1033,7 +1032,7 @@ public abstract class Utility {
 				rvaIndex = cp.addUtf8("RuntimeVisibleParameterAnnotations");
 			if (totalInvisCount > 0)
 				riaIndex = cp.addUtf8("RuntimeInvisibleParameterAnnotations");
-			final List newAttributes = new ArrayList();
+			final List<ParameterAnnotations> newAttributes = new ArrayList<ParameterAnnotations>();
 			if (totalVisCount > 0)
 				newAttributes.add(new RuntimeVisibleParameterAnnotations(rvaIndex, rvaData.length,
 						new DataInputStream(new ByteArrayInputStream(rvaData)), cp.getConstantPool()));

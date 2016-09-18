@@ -25,9 +25,9 @@ public class ObfuscatorTask extends Task {
 				} else {
 					File var2;
 					(var2 = new File(this.aString951 + ".resolved")).deleteOnExit();
-					String var3 = FileUtils.method688(var1);
+					String var3 = FileUtils.readFile(var1);
 					var3 = this.getProject().replaceProperties(var3);
-					FileUtils.method690(var2, var3);
+					FileUtils.writeFile(var2, var3);
 					ParseConfig.parseConfigFile(var2.getPath());
 					Obfuscate.execute();
 				}

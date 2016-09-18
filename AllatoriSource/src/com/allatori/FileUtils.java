@@ -5,8 +5,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -16,7 +14,7 @@ import java.nio.channels.FileChannel.MapMode;
 
 public class FileUtils {
 
-	public static String method688(File var0) throws Exception {
+	public static String readFile(File var0) throws Exception {
 		final StringBuilder var2 = new StringBuilder((int) var0.length());
 		BufferedReader var4;
 		BufferedReader var10000;
@@ -55,7 +53,7 @@ public class FileUtils {
 
 	}
 
-	public static void method690(File var0, String var2) throws Exception {
+	public static void writeFile(File var0, String var2) throws Exception {
 		BufferedWriter var3;
 		var3 = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(var0), "UTF-8"));
 

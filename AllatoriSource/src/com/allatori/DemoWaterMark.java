@@ -9,23 +9,24 @@ public class DemoWaterMark implements ObfuscationType {
 
 	@Override
 	public void terminate() {
+		/* empty */
 	}
 
 	@Override
-	public void execute(ClassGen var1) {
+	public void execute(ClassGen classGen) {
 		try {
-			if (var1.getClassName().startsWith("com.allatori.")) {
+			if (classGen.getClassName().startsWith("com.allatori.")) {
 				return;
 			}
 
 			Method var2;
-			if ((var2 = var1.containsMethod("main", "([Ljava/lang/String;)V")) != null) {
-				final MethodGen var3 = InitUtils.createMethodGen(var2, var1.getClassName(), var1.getConstantPool(),
-						var1.getConstantPool().getConstantPool());
-				final InstructionFactory var4 = new InstructionFactory(var1);
+			if ((var2 = classGen.containsMethod("main", "([Ljava/lang/String;)V")) != null) {
+				final MethodGen var3 = InitUtils.createMethodGen(var2, classGen.getClassName(), classGen.getConstantPool(),
+						classGen.getConstantPool().getConstantPool());
+				final InstructionFactory var4 = new InstructionFactory(classGen);
 				var3.getInstructionList().append(var4.createPrintln(this.getWaterMark()));
 				var3.setMaxStack();
-				var1.replaceMethod(var2, var3.getMethod());
+				classGen.replaceMethod(var2, var3.getMethod());
 			}
 		} catch (final Exception var5) {
 			var5.printStackTrace();

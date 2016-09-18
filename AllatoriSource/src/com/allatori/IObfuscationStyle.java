@@ -1,8 +1,10 @@
 package com.allatori;
 
 public interface IObfuscationStyle {
+	
+	/* OK */
 
-	String method262();
+	String next();
 
-	void method263();
+	void reset();
 }

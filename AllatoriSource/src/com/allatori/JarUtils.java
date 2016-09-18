@@ -49,7 +49,7 @@ public class JarUtils {
 		}
 
 		if (!Tuning.isWeakStringEncryption()) {
-			method448(var3);
+			setComment(var3);
 		}
 
 		var3.finish();
@@ -72,7 +72,7 @@ public class JarUtils {
 
 	}
 
-	private static void method448(JarOutputStream var0) {
+	private static void setComment(JarOutputStream var0) {
 		var0.setComment("Obfuscation by " + Info.name() + " " + Info.version() + "\n" + Info.website());
 	}
 
@@ -126,10 +126,10 @@ public class JarUtils {
 		}
 
 		method449(var7, var6, var4);
-		method449(var2.method674(), var6, var4);
+		method449(var2.getVector(), var6, var4);
 		var5.close();
 		if (!Tuning.isWeakStringEncryption()) {
-			method448(var6);
+			setComment(var6);
 		}
 
 		var6.finish();

@@ -57,5 +57,6 @@ public class ClassMemberRearranger implements ObfuscationType {
 
 	@Override
 	public void terminate() {
+		/* empty */
 	}
 }

@@ -10,25 +10,25 @@ import org.apache.bcel.generic.ClassGen;
 
 public class ClassLoadingUtils {
 
-	private static ClassGen parseClassGen(InputStream var0, String var1) throws Exception {
-		final ClassGen var2 = new ClassGen((new ClassParser(var0, var1)).parse());
-		var0.close();
-		return var2;
+	private static ClassGen parseClassGen(InputStream input, String file) throws Exception {
+		final ClassGen classGen = new ClassGen((new ClassParser(input, file)).parse());
+		input.close();
+		return classGen;
 	}
 
-	public static void loadClassesFromDir(String var0, ClassStorage var1) throws Exception {
-		final File[] var3 = (new File(var0)).listFiles();
+	public static void loadClassesFromDir(String file, ClassStorage classStorage) throws Exception {
+		final File[] var3 = (new File(file)).listFiles();
 		int var4 = 0;
 
 		for (int var10000 = var4; var10000 < var3.length; var10000 = var4) {
 			final File var5 = var3[var4];
 			if (var5.isDirectory()) {
-				loadClassesFromDir(var5.getPath(), var1);
+				loadClassesFromDir(var5.getPath(), classStorage);
 			}
 
 			if (var5.getName().endsWith(".class")) {
 				try {
-					var1.method672(parseClassGen(new BufferedInputStream(new FileInputStream(var5)), var5.getName()));
+					classStorage.put(parseClassGen(new BufferedInputStream(new FileInputStream(var5)), var5.getName()));
 				} catch (final Exception var7) {
 					Logger.printError("Cannot parse class " + var5.getName());
 				}

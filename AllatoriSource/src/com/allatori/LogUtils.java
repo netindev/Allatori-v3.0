@@ -1,14 +1,16 @@
 package com.allatori;
 
 public class LogUtils {
+	
+	/* OK */
 
-	private static String aString613;
+	private static String logFile;
 
-	public static void setLogFile(String var0) {
-		aString613 = var0;
+	public static void setLogFile(String newLogFile) {
+		logFile = newLogFile;
 	}
 
-	public static String method710() {
-		return aString613;
+	public static String getLogFile() {
+		return logFile;
 	}
 }

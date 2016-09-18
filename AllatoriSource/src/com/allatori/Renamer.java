@@ -194,7 +194,7 @@ public class Renamer {
 		return var0.aClassStorage_504;
 	}
 
-	private void method301() throws Exception_Sub2 {
+	private void method301() throws RunException {
 		Iterator<?> var1;
 		for (Iterator<?> var10000 = var1 = this.aClass56_508.method703().iterator(); var10000.hasNext(); var10000 = var1) {
 			final ClassGen var2 = (ClassGen) var1.next();
@@ -205,7 +205,7 @@ public class Renamer {
 
 		if (!aBoolean506 && namingMap.method441() > 0) {
 			aBoolean506 = true;
-			throw new Exception_Sub2();
+			throw new RunException();
 		}
 	}
 
@@ -263,12 +263,12 @@ public class Renamer {
 				var4 = var4 + ".";
 			}
 
-			Class165.method1654(Class172.method1708(this.aClass172_509)).method263();
+			Class165.method1654(Class172.method1708(this.aClass172_509)).reset();
 
 			String var5;
 			do {
 				do {
-					var5 = var4 + Class165.method1654(Class172.method1708(this.aClass172_509)).method262();
+					var5 = var4 + Class165.method1654(Class172.method1708(this.aClass172_509)).next();
 				} while (Class165.method1655(Class172.method1708(this.aClass172_509)).containsKey(var5));
 			} while (this.aClassStorage_504.getClassGen(var5) != null);
 
@@ -617,7 +617,7 @@ public class Renamer {
 
 				var2 = var2 + var3.nextToken();
 				if (!Class141.method1520(Class172.method1711(this.aClass172_509)).containsKey(var2)) {
-					Class141.method1521(Class172.method1711(this.aClass172_509)).method263();
+					Class141.method1521(Class172.method1711(this.aClass172_509)).reset();
 					String var5 = MethodUtils.getPackageName(var2);
 					if ((var5 = Class141.method1520(Class172.method1711(this.aClass172_509)).get(var5)).length() > 0) {
 						var5 = var5 + ".";
@@ -625,7 +625,7 @@ public class Renamer {
 
 					String var4;
 					do {
-						var4 = var5 + Class141.method1521(Class172.method1711(this.aClass172_509)).method262();
+						var4 = var5 + Class141.method1521(Class172.method1711(this.aClass172_509)).next();
 					} while (Class141.method1522(Class172.method1711(this.aClass172_509)).containsKey(var4));
 
 					Class141.method1520(Class172.method1711(this.aClass172_509)).put(var2, var4);
@@ -878,7 +878,7 @@ public class Renamer {
 
 	private void method321(ClassGen var1, MethodGen var2) {
 		int var3;
-		if ((var3 = LocalVariables.method369(this.aClassStorage_504, var1, var2)) == 4) {
+		if ((var3 = LocalVariables.getType(this.aClassStorage_504, var1, var2)) == 4) {
 			var2.removeLocalVariables();
 		} else {
 			final boolean var4 = var3 == 3;
@@ -888,7 +888,7 @@ public class Renamer {
 				++var6;
 			}
 
-			RenamingUtils.method1603(Class172.method1709(this.aClass172_509)).method263();
+			RenamingUtils.method1603(Class172.method1709(this.aClass172_509)).reset();
 
 			int var7;
 			for (int var10000 = var7 = var5.length - 1; var10000 >= 0; var10000 = var7) {
@@ -900,7 +900,7 @@ public class Renamer {
 				}
 
 				if ((var3 != 5 || var7 >= var6) && !var4) {
-					var8.setName(RenamingUtils.method1603(Class172.method1709(this.aClass172_509)).method262());
+					var8.setName(RenamingUtils.method1603(Class172.method1709(this.aClass172_509)).next());
 				}
 
 				--var7;
@@ -962,10 +962,10 @@ public class Renamer {
 			}
 
 			if (var8 == null) {
-				NameRepository.method1536(Class172.method1707(this.aClass172_509)).method263();
+				NameRepository.method1536(Class172.method1707(this.aClass172_509)).reset();
 
 				do {
-					var8 = NameRepository.method1536(Class172.method1707(this.aClass172_509)).method262();
+					var8 = NameRepository.method1536(Class172.method1707(this.aClass172_509)).next();
 				} while (this.method322(var1, var8, MethodUtils.method1454(var7), !var5.isPrivate(),
 						var1.isInterface()));
 			}
@@ -993,7 +993,7 @@ public class Renamer {
 		return var0.aClass172_509;
 	}
 
-	public void run() throws Exception_Sub2 {
+	public void run() throws RunException {
 		this.aClass56_508.method699();
 		this.method301();
 		this.method318();
@@ -1031,7 +1031,7 @@ public class Renamer {
 	private void method327(ClassGen var1) {
 		final String var2 = var1.getClassName();
 		final Field[] var3 = var1.getFields();
-		Class159.method1627(Class172.method1710(this.aClass172_509)).method263();
+		Class159.method1627(Class172.method1710(this.aClass172_509)).reset();
 
 		int var4;
 		for (int var10000 = var4 = var3.length - 1; var10000 >= 0; var10000 = var4) {
@@ -1041,10 +1041,10 @@ public class Renamer {
 			String var8;
 			if ((var8 = Class159.method1626(Class172.method1710(this.aClass172_509))
 					.get(var2 + "&" + var6 + "&" + var7)) == null) {
-				var8 = Class159.method1627(Class172.method1710(this.aClass172_509)).method262();
+				var8 = Class159.method1627(Class172.method1710(this.aClass172_509)).next();
 
 				for (Renamer var9 = this; var9.method326(var1, var8, var7, !var5.isPrivate()); var9 = this) {
-					var8 = Class159.method1627(Class172.method1710(this.aClass172_509)).method262();
+					var8 = Class159.method1627(Class172.method1710(this.aClass172_509)).next();
 				}
 
 				Class159.method1626(Class172.method1710(this.aClass172_509)).put(var2 + "&" + var6 + "&" + var7, var8);

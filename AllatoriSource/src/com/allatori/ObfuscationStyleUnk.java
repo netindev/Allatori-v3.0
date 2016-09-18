@@ -9,11 +9,11 @@ public class ObfuscationStyleUnk implements IObfuscationStyle {
 	}
 
 	@Override
-	public void method263() {
+	public void reset() {
 	}
 
 	@Override
-	public String method262() {
+	public String next() {
 		return this.aString1156;
 	}
 }

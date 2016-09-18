@@ -1,6 +1,3 @@
-/* EmptyVisitor - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.classfile;
 
 public class EmptyVisitor implements Visitor {

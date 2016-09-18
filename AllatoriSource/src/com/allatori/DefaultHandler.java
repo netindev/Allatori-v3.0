@@ -18,7 +18,6 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 	private String newClassName;
 	private String oldClassName;
 	private final RenamingMap aRenamingMap_964;
-	// $FF: synthetic field
 	private final Renamer aRenamer_965;
 
 	private DefaultHandler(Renamer var1) {
@@ -28,7 +27,7 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 
 	private void method1847() {
 		try {
-			final Vector var1 = new Vector(this.aRenamingMap_964.method444());
+			final Vector<?> var1 = new Vector<Object>(this.aRenamingMap_964.method444());
 
 			int var2;
 			String var4;
@@ -51,16 +50,16 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 				++var2;
 			}
 
-			final Set var13 = this.aRenamingMap_964.method444();
-			final Vector var14 = new Vector(NameRepository
+			final Set<?> var13 = this.aRenamingMap_964.method444();
+			final Vector<?> var14 = new Vector<Object>(NameRepository
 					.getConstantNamingMap(Class172.method1707(Renamer.method324(this.aRenamer_965))).method444());
 
-			Iterator var15;
-			for (Iterator var16 = var15 = var13.iterator(); var16.hasNext(); var16 = var15) {
+			Iterator<?> var15;
+			for (Iterator<?> var16 = var15 = var13.iterator(); var16.hasNext(); var16 = var15) {
 				var4 = (String) var15.next();
 				final String var17 = this.aRenamingMap_964.get(var4);
 
-				Iterator var18;
+				Iterator<?> var18;
 				for (var16 = var18 = var14.iterator(); var16.hasNext(); var16 = var18) {
 					String var19;
 					if ((var19 = (String) var18.next()).startsWith(var17)) {
@@ -112,10 +111,10 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 	}
 
 	private void method1849() {
-		Iterator var2;
+		Iterator<?> var2;
 		String var4;
 		String var5;
-		Iterator var10000;
+		Iterator<?> var10000;
 		for (var10000 = var2 = Class159.method1626(Class172.method1710(Renamer.method324(this.aRenamer_965)))
 				.method444().iterator(); var10000.hasNext(); var10000 = var2) {
 			String var3;
@@ -127,7 +126,7 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 			}
 		}
 
-		Iterator var7;
+		Iterator<?> var7;
 		for (var10000 = var7 = NameRepository
 				.getConstantNamingMap(Class172.method1707(Renamer.method324(this.aRenamer_965))).method444()
 				.iterator(); var10000.hasNext(); var10000 = var7) {

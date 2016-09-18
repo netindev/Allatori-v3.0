@@ -17,17 +17,17 @@ public class Watermarking {
 	private final String aString891;
 	private final ClassStorage aClassStorage_892;
 
-	public String extractWatermark() throws Exception_Sub1 {
+	public String extractWatermark() throws ExtractWatermarkException {
 		try {
-			final Vector<Class171> var1 = this.method1761();
+			final Vector<Object> var1 = this.method1761();
 			final short[] var2 = this.method1759(var1);
 			return this.method1765(var2);
 		} catch (final Exception var3) {
-			throw new Exception_Sub1("Cannot extract watermark.");
+			throw new ExtractWatermarkException("Cannot extract watermark.");
 		}
 	}
 
-	private short[] method1759(Vector<Class171> var1) {
+	private short[] method1759(Vector<Object> var1) {
 		final Vector<Number> var2 = new Vector<Number>();
 
 		int var3;
@@ -57,7 +57,7 @@ public class Watermarking {
 		return var4;
 	}
 
-	private void method1760(Vector<Class171> var1, short[] var2) {
+	private void method1760(Vector<Object> var1, short[] var2) {
 		final int var3 = var2.length / 4;
 		final int var4 = var1.size();
 		final int var5 = (var3 - 1) / var4 + 1;
@@ -127,12 +127,12 @@ public class Watermarking {
 		Method.setComparator(MethodComparator.method652());
 	}
 
-	private Vector method1761() {
-		final Vector<Class171> var1 = new Vector<Class171>();
+	private Vector<Object> method1761() {
+		final Vector<Object> var1 = new Vector<Object>();
 
 		Iterator<?> var2;
 		int var5;
-		for (Iterator<?> var10000 = var2 = this.aClassStorage_892.method671(); var10000.hasNext(); var10000 = var2) {
+		for (Iterator<?> var10000 = var2 = this.aClassStorage_892.valuesIterator(); var10000.hasNext(); var10000 = var2) {
 			ClassGen var3;
 			Method[] var4;
 			for (int var7 = var5 = (var4 = (var3 = (ClassGen) var2.next()).getMethods()).length
@@ -161,7 +161,7 @@ public class Watermarking {
 				&& var1.getNext().getNext().getNext().getNext().getNext().getInstruction() instanceof POP2;
 	}
 
-	private boolean method1763(Vector<Class171> var1) {
+	private boolean method1763(Vector<Object> var1) {
 		int var2;
 		for (int var10000 = var2 = var1.size() - 1; var10000 >= 0; var10000 = var2) {
 			final InstructionList var4 = Class171.method1704((Class171) var1.get(var2)).getInstructionList();
@@ -406,11 +406,11 @@ public class Watermarking {
 		}
 	}
 
-	public void createWatermark(String var1) throws Exception_Sub1 {
+	public void createWatermark(String var1) throws ExtractWatermarkException {
 		try {
-			final Vector var2 = this.method1761();
+			final Vector<Object> var2 = this.method1761();
 			if (this.method1763(var2)) {
-				throw new Exception_Sub1("The jar file already contains watermark.");
+				throw new ExtractWatermarkException("The jar file already contains watermark.");
 			} else {
 				Class34.arrangeOrder(var2);
 				final short[] var3 = this.method1764(var1);
@@ -424,7 +424,7 @@ public class Watermarking {
 				this.method1760(var2, var3);
 			}
 		} catch (final Exception var5) {
-			throw new Exception_Sub1("Watermarking error: " + var5.getMessage());
+			throw new ExtractWatermarkException("Watermarking error: " + var5.getMessage());
 		}
 	}
 }

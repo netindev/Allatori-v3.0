@@ -26,7 +26,7 @@ public class LogFile {
 
 	public static void writeLogFile() {
 		String var0;
-		if ((var0 = LogUtils.method710()) == null) {
+		if ((var0 = LogUtils.getLogFile()) == null) {
 			Logger.printWarning("Log file is not set.");
 		} else {
 			PrintWriter var1 = null;
@@ -53,13 +53,13 @@ public class LogFile {
 		}
 	}
 
-	private static int method1770(Vector var0, String var1) {
+	private static int method1770(Vector<?> var0, String var1) {
 		int var2 = 0;
 		int var3 = var0.size() - 1;
 
 		for (int var10000 = var2; var10000 <= var3; var10000 = var2) {
 			final int var4 = var2 + var3 >> 1;
-			final int var6 = ((Comparable) var0.get(var4)).compareTo(var1);
+			final int var6 = ((Comparable<String>) var0.get(var4)).compareTo(var1);
 			if (var6 < 0) {
 				var2 = var4 + 1;
 			} else {
@@ -76,9 +76,9 @@ public class LogFile {
 
 	private static void writeMapping(PrintWriter var0, Class5 var1) {
 		var0.println(" <mapping>");
-		final Vector var2 = new Vector(var1.aRenamingMap_512.method444());
-		final Vector var3 = new Vector(var1.aRenamingMap_514.method444());
-		final Vector var4 = new Vector(var1.aRenamingMap_516.method444());
+		final Vector<String> var2 = new Vector<String>(var1.aRenamingMap_512.method444());
+		final Vector<String> var3 = new Vector<String>(var1.aRenamingMap_514.method444());
+		final Vector<String> var4 = new Vector<String>(var1.aRenamingMap_516.method444());
 		Collections.sort(var3);
 		Collections.sort(var4);
 
@@ -119,9 +119,9 @@ public class LogFile {
 			--var5;
 		}
 
-		Vector var12;
+		Vector<String> var12;
 		int var13;
-		if ((var12 = new Vector(var1.aRenamingMap_513.method444())).size() > 0) {
+		if ((var12 = new Vector<String>(var1.aRenamingMap_513.method444())).size() > 0) {
 			var0.println("  <annotations>");
 
 			for (var10000 = var13 = var12.size() - 1; var10000 >= 0; var10000 = var13) {
@@ -140,7 +140,7 @@ public class LogFile {
 		var0.println("  <sources>");
 
 		for (var10000 = var13 = var1.aVector515.size() - 1; var10000 >= 0; var10000 = var13) {
-			final Class118 var15 = (Class118) var1.aVector515.get(var13);
+			final LogRepo var15 = (LogRepo) var1.aVector515.get(var13);
 			var0.println("   <source old=\"" + var15.aString734 + "\" new =\"" + var15.aString735 + "\"/>");
 			--var13;
 		}

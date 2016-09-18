@@ -1,6 +1,3 @@
-/* ClassLoaderRepository - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.util;
 
 import java.io.IOException;
@@ -14,7 +11,7 @@ import org.apache.bcel.classfile.JavaClass;
 public class ClassLoaderRepository implements Repository {
 	private static final long serialVersionUID = -1052781833503868187L;
 	private final java.lang.ClassLoader loader;
-	private final Map loadedClasses = new HashMap();
+	private final Map<String, JavaClass> loadedClasses = new HashMap<String, JavaClass>();
 
 	public ClassLoaderRepository(java.lang.ClassLoader loader) {
 		this.loader = loader;
@@ -63,7 +60,7 @@ public class ClassLoaderRepository implements Repository {
 	}
 
 	@Override
-	public JavaClass loadClass(Class clazz) throws ClassNotFoundException {
+	public JavaClass loadClass(Class<?> clazz) throws ClassNotFoundException {
 		return loadClass(clazz.getName());
 	}
 

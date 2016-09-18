@@ -1,6 +1,3 @@
-/* ClassLoader - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.util;
 
 import java.io.ByteArrayInputStream;
@@ -15,7 +12,7 @@ import org.apache.bcel.classfile.Utility;
 
 public class ClassLoader extends java.lang.ClassLoader {
 	public static final String[] DEFAULT_IGNORED_PACKAGES = { "java.", "javax.", "sun." };
-	private final Hashtable classes;
+	private final Hashtable<String, Class<?>> classes;
 	private final String[] ignored_packages;
 	private Repository repository;
 
@@ -25,14 +22,14 @@ public class ClassLoader extends java.lang.ClassLoader {
 
 	public ClassLoader(java.lang.ClassLoader deferTo) {
 		super(deferTo);
-		classes = new Hashtable();
+		classes = new Hashtable<String, Class<?>>();
 		repository = SyntheticRepository.getInstance();
 		ignored_packages = DEFAULT_IGNORED_PACKAGES;
 		repository = new ClassLoaderRepository(deferTo);
 	}
 
 	public ClassLoader(String[] ignored_packages) {
-		classes = new Hashtable();
+		classes = new Hashtable<String, Class<?>>();
 		repository = SyntheticRepository.getInstance();
 		this.ignored_packages = ignored_packages;
 	}
@@ -43,9 +40,9 @@ public class ClassLoader extends java.lang.ClassLoader {
 	}
 
 	@Override
-	protected Class loadClass(String class_name, boolean resolve) throws ClassNotFoundException {
-		Class cl = null;
-		if ((cl = (Class) classes.get(class_name)) == null) {
+	protected Class<?> loadClass(String class_name, boolean resolve) throws ClassNotFoundException {
+		Class<?> cl = null;
+		if ((cl = (Class<?>) classes.get(class_name)) == null) {
 			for (int i = 0; i < ignored_packages.length; i++) {
 				if (class_name.startsWith(ignored_packages[i])) {
 					cl = getParent().loadClass(class_name);

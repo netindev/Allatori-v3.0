@@ -2,13 +2,13 @@ package com.allatori;
 
 public class LineNumbers {
 
-	private static int anInt546 = 1;
+	private static int lineNumberType = 1;
 
-	public static int method454() {
-		return anInt546;
+	public static int getLineNumberType() {
+		return lineNumberType;
 	}
 
-	public static void setLineNumberType(int var0) {
-		anInt546 = var0;
+	public static void setLineNumberType(int newLineNumberType) {
+		lineNumberType = newLineNumberType;
 	}
 }

@@ -22,15 +22,15 @@ public class ExpiryObfuscation implements ObfuscationType {
 
 	@Override
 	public void execute(ClassGen var1) {
-		if (DateUtils.method746() != null) {
-			if (DateUtils.method747().apply(this.aClassStorage_1144, var1)) {
+		if (DateUtils.getDate() != null) {
+			if (DateUtils.getClassConstraint().apply(this.aClassStorage_1144, var1)) {
 				try {
 					final Method[] var3 = var1.getMethods();
 					int var4 = 0;
 
 					for (int var10000 = var4; var10000 < var3.length; var10000 = var4) {
 						final Method var5 = var3[var4];
-						if (var5.getCode() != null && DateUtils.method747().apply(var5)) {
+						if (var5.getCode() != null && DateUtils.getClassConstraint().apply(var5)) {
 							final MethodGen var6 = InitUtils.createMethodGen(var5, var1.getClassName(),
 									var1.getConstantPool(), var1.getConstantPool().getConstantPool());
 							final InstructionFactory var7 = new InstructionFactory(var1);
@@ -81,7 +81,7 @@ public class ExpiryObfuscation implements ObfuscationType {
 		InstructionList var3;
 		(var3 = new InstructionList()).append(var2.createNew("java.util.Date"));
 		var3.append(InstructionConstants.DUP);
-		var3.append(new PUSH(var1, DateUtils.method746().getTime()));
+		var3.append(new PUSH(var1, DateUtils.getDate().getTime()));
 		var3.append(var2.createInvoke("java.util.Date", "<init>", Type.VOID, new Type[] { Type.LONG }, (short) 183));
 		var3.append(var2.createNew("java.util.Date"));
 		var3.append(InstructionConstants.DUP);
@@ -99,7 +99,7 @@ public class ExpiryObfuscation implements ObfuscationType {
 		var3.append(var4);
 		var3.append(var2.createNew("java.lang.Throwable"));
 		var3.append(InstructionConstants.DUP);
-		var3.append(new PUSH(var1, DateUtils.method748()));
+		var3.append(new PUSH(var1, DateUtils.getString()));
 		var3.append(
 				var2.createInvoke("java.lang.Throwable", "<init>", Type.VOID, new Type[] { Type.STRING }, (short) 183));
 		var3.append(InstructionConstants.ATHROW);
@@ -112,7 +112,7 @@ public class ExpiryObfuscation implements ObfuscationType {
 		InstructionList var3;
 		(var3 = new InstructionList()).append(var2.createNew("java.util.Date"));
 		var3.append(InstructionConstants.DUP);
-		var3.append(new PUSH(var1, DateUtils.method746().getTime()));
+		var3.append(new PUSH(var1, DateUtils.getDate().getTime()));
 		var3.append(var2.createInvoke("java.util.Date", "<init>", Type.VOID, new Type[] { Type.LONG }, (short) 183));
 		var3.append(var2.createNew("java.util.Date"));
 		var3.append(InstructionConstants.DUP);
@@ -124,7 +124,7 @@ public class ExpiryObfuscation implements ObfuscationType {
 		var3.append(var4);
 		var3.append(var2.createNew("java.lang.Throwable"));
 		var3.append(InstructionConstants.DUP);
-		var3.append(new PUSH(var1, DateUtils.method748()));
+		var3.append(new PUSH(var1, DateUtils.getString()));
 		var3.append(
 				var2.createInvoke("java.lang.Throwable", "<init>", Type.VOID, new Type[] { Type.STRING }, (short) 183));
 		var3.append(InstructionConstants.ATHROW);

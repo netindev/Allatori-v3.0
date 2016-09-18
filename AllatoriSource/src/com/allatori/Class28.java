@@ -69,7 +69,7 @@ public class Class28 {
 	}
 
 	private static boolean method506(ClassStorage var0, ClassGen var1) {
-		return var0.method674().contains(var1);
+		return var0.getVector().contains(var1);
 	}
 
 	public static boolean method507(ClassStorage var0, ClassGen var1, Method var2) {

@@ -1,6 +1,3 @@
-/* ByteSequence - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.util;
 
 import java.io.ByteArrayInputStream;

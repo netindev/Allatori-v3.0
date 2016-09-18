@@ -28,8 +28,8 @@ public class ObfuscationStyleUtils {
 	}
 
 	public static IObfuscationStyle method337() {
-		return LocalVariables.method372() == 2 ? new ObfuscationStyleLow()
-				: (LocalVariables.method372() == 1 ? new ObfuscationStyleUnk() : new ObfuscationStyleLow());
+		return LocalVariables.getLocalVariableNamingType() == 2 ? new ObfuscationStyleLow()
+				: (LocalVariables.getLocalVariableNamingType() == 1 ? new ObfuscationStyleUnk() : new ObfuscationStyleLow());
 	}
 
 	public static void setFieldNamingType(int var0) {
