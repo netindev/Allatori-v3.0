@@ -55,11 +55,9 @@ public class ConfigFileHandler extends DefaultHandler {
 			} else {
 				this.throw4AttributeException("value", "enable", "disable", "maximum");
 			}
-
 			if ("private+ class *".equals(apply2class) && "private+ *(**)".equals(apply2method)) {
 				Tuning.setStringEncryptionLevel(stringEncryptionLevel);
 			}
-
 			(classConstraint = this.createClassFilter(apply2class, null, null, null, "apply2class"))
 					.addMethodConstraint(this.createMethodFilter(apply2method, null, "apply2method"));
 			Tuning.setStringObfuscationConstraint(
@@ -195,7 +193,7 @@ public class ConfigFileHandler extends DefaultHandler {
 					}
 
 					if (!(new File(value)).exists()) {
-						throw new SAXException("Cannot find file \'" + value + "\'. " + this.method1839());
+						throw new SAXException("Cannot find file \'" + value + "\'. " + this.lineNumber());
 					}
 
 					Packaging.method577(value);
@@ -227,7 +225,7 @@ public class ConfigFileHandler extends DefaultHandler {
 					}
 				} else {
 					if (!"anti-jd".equals(name)) {
-						throw new SAXException("Unknown property \'" + name + "\'. " + this.method1839());
+						throw new SAXException("Unknown property \'" + name + "\'. " + this.lineNumber());
 					}
 
 					localVarNamingType = 0;
@@ -241,10 +239,6 @@ public class ConfigFileHandler extends DefaultHandler {
 						this.throw4AttributeException("value", "disable", "normal", "maximum");
 					}
 
-					if ("private+ class *".equals(apply2class) && "private+ *(**)".equals(apply2method)) {
-						AntiJD.setType(localVarNamingType);
-					}
-
 					(classConstraint = this.createClassFilter(apply2class, null, null, null, "apply2class"))
 							.addMethodConstraint(this.createMethodFilter(apply2method, null, "apply2method"));
 					AntiJD.addObfuscationTypeConstraint(
@@ -256,7 +250,7 @@ public class ConfigFileHandler extends DefaultHandler {
 	}
 
 	private void throw1AttributeException(String var1) throws SAXException {
-		throw new SAXException("Invalid \'" + var1 + "\' attribute. " + this.method1839());
+		throw new SAXException("Invalid \'" + var1 + "\' attribute. " + this.lineNumber());
 	}
 
 	@Override
@@ -268,7 +262,7 @@ public class ConfigFileHandler extends DefaultHandler {
 				this.aString954 = this.getAttributeByName(var4, "basedir", false, "", true);
 				this.aString954 = this.method1845(this.aString954);
 				if (!"".equals(this.aString954) && !this.method1830(this.aString954)) {
-					throw new SAXException("Invalid base directory \'" + this.aString954 + "\'. " + this.method1839());
+					throw new SAXException("Invalid base directory \'" + this.aString954 + "\'. " + this.lineNumber());
 				}
 
 				if ((var5 = this.getAttributeByName(var4, "single-jar", false, null, true)) != null
@@ -300,7 +294,7 @@ public class ConfigFileHandler extends DefaultHandler {
 					this.aString960 = this.method1845(this.aString960);
 					if (!"".equals(this.aString960) && !this.method1830(this.aString960)) {
 						throw new SAXException(
-								"Invalid base directory \'" + this.aString960 + "\'. " + this.method1839());
+								"Invalid base directory \'" + this.aString960 + "\'. " + this.lineNumber());
 					}
 				} else {
 					String var7;
@@ -319,7 +313,7 @@ public class ConfigFileHandler extends DefaultHandler {
 						final FieldConstraint var16 = this.method1842(var5, var6);
 						if (this.anInt959 == 3) {
 							if (this.aClassConstraint_953 == null) {
-								throw new SAXException("Error in configuration. " + this.method1839());
+								throw new SAXException("Error in configuration. " + this.lineNumber());
 							}
 
 							this.aClassConstraint_953.addFieldConstraint(var16);
@@ -335,7 +329,7 @@ public class ConfigFileHandler extends DefaultHandler {
 							final MethodConstraint var19 = this.method1825(var5, var6);
 							if (this.anInt959 == 3) {
 								if (this.aClassConstraint_953 == null) {
-									throw new SAXException("Error in configuration. " + this.method1839());
+									throw new SAXException("Error in configuration. " + this.lineNumber());
 								}
 
 								this.aClassConstraint_953.addMethodConstraint(var19);
@@ -379,26 +373,26 @@ public class ConfigFileHandler extends DefaultHandler {
 							ClassUtils.method1773(var6);
 							var7 = this.getAttributeByName(var4, "add2class", false, "private+ class *", true);
 							ClassConstraint var18;
-							ClassUtils.method1779(var18 = this.createClassFilter(var7, null, null, null, "add2class"));
+							ClassUtils.setClassConstraint(var18 = this.createClassFilter(var7, null, null, null, "add2class"));
 							final String var23 = this.getAttributeByName(var4, "add2method", false,
 									"private+ <init>(**)", true);
 							final MethodConstraint var10 = this.method1825(var23, null);
 							var18.addMethodConstraint(var10);
 							final String var11 = this.getAttributeByName(var4, "passthis", false, "no", true);
 							if (!"yes".equals(var11) && !"true".equals(var11)) {
-								ClassUtils.method1775(false);
+								ClassUtils.setBool(false);
 							} else {
-								ClassUtils.method1775(true);
+								ClassUtils.setBool(true);
 							}
 						} else {
 							if (!"expiry".equals(var3)) {
-								throw new SAXException("Unknown tag \'" + var3 + "\'. " + this.method1839());
+								throw new SAXException("Unknown tag \'" + var3 + "\'. " + this.lineNumber());
 							}
 
 							var5 = this.getAttributeByName(var4, "date", true, null, true);
 							Matcher var17;
 							if (!(var17 = Pattern.compile("(\\d{4}).(\\d{2}).(\\d{2})").matcher(var5)).matches()) {
-								throw new SAXException("Date format is yyyy-mm-dd. " + this.method1839());
+								throw new SAXException("Date format is yyyy-mm-dd. " + this.lineNumber());
 							}
 
 							try {
@@ -411,7 +405,7 @@ public class ConfigFileHandler extends DefaultHandler {
 								final SimpleDateFormat var22 = new SimpleDateFormat("MMMMM dd, yyyy");
 								Logger.printInfo("Expiry date set to " + var22.format(var21));
 							} catch (final Exception var13) {
-								throw new SAXException("Date format is yyyy-mm-dd. " + this.method1839());
+								throw new SAXException("Date format is yyyy-mm-dd. " + this.lineNumber());
 							}
 
 							DateUtils.setString(this.getAttributeByName(var4, "string", true, null, true));
@@ -447,10 +441,9 @@ public class ConfigFileHandler extends DefaultHandler {
 
 	private void method1828(String var1, String var2) throws SAXException {
 		throw new SAXException("Either \'" + "template" + "\' or \'" + "access" + "\' attribute should be defined. "
-				+ this.method1839());
+				+ this.lineNumber());
 	}
 
-	// $FF: synthetic method
 	public ConfigFileHandler(ConfigFile var1, LocatorImpl var2) {
 		this(var1);
 	}
@@ -477,9 +470,9 @@ public class ConfigFileHandler extends DefaultHandler {
 		}
 
 		if (!(new File(var1)).exists()) {
-			throw new SAXException("Cannot find directory \'" + var1 + "\'. " + this.method1839());
+			throw new SAXException("Cannot find directory \'" + var1 + "\'. " + this.lineNumber());
 		} else if (!(new File(var1)).isDirectory()) {
-			throw new SAXException("Cannot find directory \'" + var1 + "\'. " + this.method1839());
+			throw new SAXException("Cannot find directory \'" + var1 + "\'. " + this.lineNumber());
 		} else {
 			Configurable.method659(new RenameRepo(var1, var2));
 		}
@@ -490,7 +483,7 @@ public class ConfigFileHandler extends DefaultHandler {
 	}
 
 	private void method1831(String var1) throws SAXException {
-		throw new SAXException("Attribute \'" + var1 + "\' cannot have zero length. " + this.method1839());
+		throw new SAXException("Attribute \'" + var1 + "\' cannot have zero length. " + this.lineNumber());
 	}
 
 	private void method1833(String var1, String var2) throws SAXException {
@@ -504,7 +497,7 @@ public class ConfigFileHandler extends DefaultHandler {
 			throws SAXException {
 		throw new SAXException("Attribute \'" + "value" + "\' should have one of the following values: \'"
 				+ "single-name" + "\', \'" + "abc" + "\', \'" + "keep" + "\', \'" + "remove" + "\' or \'"
-				+ "keep-parameters" + "\'. " + this.method1839());
+				+ "keep-parameters" + "\'. " + this.lineNumber());
 	}
 
 	private void method1835(String var1) throws SAXException {
@@ -543,7 +536,7 @@ public class ConfigFileHandler extends DefaultHandler {
 
 			File var5;
 			if (!(var5 = new File(var2)).isDirectory()) {
-				throw new SAXException("Cannot find directory \'" + var2 + "\'. " + this.method1839());
+				throw new SAXException("Cannot find directory \'" + var2 + "\'. " + this.lineNumber());
 			} else {
 				var3 = var3.replaceAll("\\.", "\\\\.").replaceAll("\\*", ".*");
 				this.method1843(var5, var3, var7);
@@ -587,7 +580,7 @@ public class ConfigFileHandler extends DefaultHandler {
 
 			File var15;
 			if (!(var15 = new File(var3)).isDirectory()) {
-				throw new SAXException("Cannot find directory \'" + var3 + "\'. " + this.method1839());
+				throw new SAXException("Cannot find directory \'" + var3 + "\'. " + this.lineNumber());
 			} else {
 				final Pattern var6 = Pattern.compile(var4.replaceAll("\\.", "\\\\.").replaceAll("\\*", "(.*)"));
 
@@ -612,7 +605,7 @@ public class ConfigFileHandler extends DefaultHandler {
 
 			}
 		} else if (!(new File(var1)).exists()) {
-			throw new SAXException("Cannot find file \'" + var1 + "\'. " + this.method1839());
+			throw new SAXException("Cannot find file \'" + var1 + "\'. " + this.lineNumber());
 		} else {
 			Configurable.method656(new ConfigRepo(var1, var2));
 		}
@@ -633,7 +626,7 @@ public class ConfigFileHandler extends DefaultHandler {
 
 	private void throw4AttributeException(String var1, String var2, String var3, String var4) throws SAXException {
 		throw new SAXException("Attribute \'" + "value" + "\' should have one of the following values: \'" + var2
-				+ "\', \'" + var3 + "\' or \'" + var4 + "\'. " + this.method1839());
+				+ "\', \'" + var3 + "\' or \'" + var4 + "\'. " + this.lineNumber());
 	}
 
 	private ConfigFileHandler(ConfigFile var1) {
@@ -644,7 +637,7 @@ public class ConfigFileHandler extends DefaultHandler {
 		this.locator = new LocatorImpl(this);
 	}
 
-	private String method1839() {
+	private String lineNumber() {
 		return "[Line: " + this.locator.getLineNumber() + "]";
 	}
 
@@ -676,7 +669,7 @@ public class ConfigFileHandler extends DefaultHandler {
 
 	private void throw3AttributeException(String var1, String var2, String var3) throws SAXException {
 		throw new SAXException("Attribute \'" + "value" + "\' should have one of the following values: \'" + var2
-				+ "\' or \'" + var3 + "\'. " + this.method1839());
+				+ "\' or \'" + var3 + "\'. " + this.lineNumber());
 	}
 
 	@Override
@@ -725,7 +718,7 @@ public class ConfigFileHandler extends DefaultHandler {
 			throws SAXException {
 		String var6;
 		if ((var6 = var1.getValue(var2)) == null && var3) {
-			throw new SAXException("Missing \'" + var2 + "\' attribute. " + this.method1839());
+			throw new SAXException("Missing \'" + var2 + "\' attribute. " + this.lineNumber());
 		} else {
 			return var6 == null ? var4 : (var5 ? var6.trim() : var6);
 		}

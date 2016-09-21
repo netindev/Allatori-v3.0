@@ -18,7 +18,7 @@ public class JarUtils {
 	private static Hashtable<String, String> aHashtable544;
 
 	public static void method446(String[] var0, String var1) throws Exception {
-		final byte[] var2 = new byte[65536];
+		final byte[] byteArr = new byte[65536];
 		final JarOutputStream var3 = new JarOutputStream(new FileOutputStream(var1 + ".tmp"));
 		final Hashtable<String, String> var4 = new Hashtable<String, String>();
 
@@ -36,8 +36,8 @@ public class JarUtils {
 					var3.putNextEntry(var10);
 
 					int var11;
-					for (InputStream var13 = var9; (var11 = var13.read(var2)) > 0; var13 = var9) {
-						var3.write(var2, 0, var11);
+					for (InputStream var13 = var9; (var11 = var13.read(byteArr)) > 0; var13 = var9) {
+						var3.write(byteArr, 0, var11);
 					}
 
 					var3.closeEntry();
@@ -72,8 +72,8 @@ public class JarUtils {
 
 	}
 
-	private static void setComment(JarOutputStream var0) {
-		var0.setComment("Obfuscation by " + Info.name() + " " + Info.version() + "\n" + Info.website());
+	private static void setComment(JarOutputStream jarOutputStream) {
+		jarOutputStream.setComment("Obfuscation by " + Info.name() + " " + Info.version() + "\n" + Info.website());
 	}
 
 	private static void method449(Vector<ClassGen> var0, JarOutputStream var1, String var2) throws Exception {

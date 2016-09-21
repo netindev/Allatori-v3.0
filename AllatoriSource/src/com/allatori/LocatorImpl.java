@@ -3,8 +3,12 @@ package com.allatori;
 import org.xml.sax.Locator;
 
 public class LocatorImpl implements Locator {
+	
+	/* OK */
 
-	public LocatorImpl(ConfigFileHandler configFileHandler) {}
+	public LocatorImpl(ConfigFileHandler configFileHandler) {
+		/* empty */
+	}
 
 	@Override
 	public int getLineNumber() {

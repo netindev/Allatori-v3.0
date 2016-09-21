@@ -38,24 +38,24 @@ import org.apache.bcel.generic.Type;
 public class StringObfuscationLayer1 implements ObfuscationType {
 
 	private static String decryptStringMethodName = "DecryptString";
-	private boolean aBoolean1149 = false;
-	public static String aString1150 = "allatori-12321-32123:";
+	private boolean addClass = false;
+	public static String rAllatoriStr = "allatori-12321-32123:";
 	private static String string_decryptor_class_name = "com_allatori_string_decryptor";
-	private final Collection<String> aCollection1152 = new TreeSet<String>();
-	private final ClassStorage aClassStorage_1153;
+	private final Collection<String> collection = new TreeSet<String>();
+	private final ClassStorage classStorage;
 	private static String decryptString2MethodName = "DecryptString2";
 
-	private void createStrongDecrypt1Method(ClassGen var1) {
-		final InstructionFactory var2 = new InstructionFactory(var1);
-		final ConstantPoolGen constantPoolGen = var1.getConstantPool();
+	private void createStrongDecrypt1Method(ClassGen classGen) {
+		final InstructionFactory instructionFactory = new InstructionFactory(classGen);
+		final ConstantPoolGen constantPoolGen = classGen.getConstantPool();
 		final InstructionList instructionList = new InstructionList();
-		final MethodGen var6 = new MethodGen(9, Type.STRING, new Type[] { Type.STRING }, new String[] { "s" },
-				decryptStringMethodName, var1.getClassName(), instructionList, constantPoolGen);
-		instructionList.append(var2.createNew("java.lang.String"));
+		final MethodGen methodGen = new MethodGen(9, Type.STRING, new Type[] { Type.STRING }, new String[] { "s" },
+				decryptStringMethodName, classGen.getClassName(), instructionList, constantPoolGen);
+		instructionList.append(instructionFactory.createNew("java.lang.String"));
 		instructionList.append(InstructionConstants.DUP);
 		instructionList.append(InstructionFactory.createLoad(Type.OBJECT, 0));
-		instructionList.append(var2.createInvoke("java.lang.String", "length", Type.INT, Type.NO_ARGS, (short) 182));
-		instructionList.append(var2.createNewArray(Type.CHAR, (short) 1));
+		instructionList.append(instructionFactory.createInvoke("java.lang.String", "length", Type.INT, Type.NO_ARGS, (short) 182));
+		instructionList.append(instructionFactory.createNewArray(Type.CHAR, (short) 1));
 		instructionList.append(new PUSH(constantPoolGen, 1));
 		instructionList.append(new DUP());
 		instructionList.append(new POP2());
@@ -69,14 +69,14 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 		instructionList.append(InstructionFactory.createStore(Type.INT, 3));
 		instructionList.append(InstructionFactory.createStore(Type.OBJECT, 1));
 		instructionList.append(InstructionFactory.createStore(Type.INT, 2));
-		final BranchInstruction var7 = InstructionFactory.createBranchInstruction((short) 155, null);
-		final BranchHandle var8 = instructionList.append(var7);
+		final BranchInstruction branchInstruction = InstructionFactory.createBranchInstruction((short) 155, null);
+		final BranchHandle branchHandle = instructionList.append(branchInstruction);
 		instructionList.append(InstructionFactory.createLoad(Type.OBJECT, 1));
 		instructionList.append(InstructionFactory.createLoad(Type.INT, 3));
 		instructionList.append(InstructionFactory.createLoad(Type.OBJECT, 0));
 		instructionList.append(InstructionFactory.createLoad(Type.INT, 3));
 		instructionList.append(
-				var2.createInvoke("java.lang.String", "charAt", Type.CHAR, new Type[] { Type.INT }, (short) 182));
+				instructionFactory.createInvoke("java.lang.String", "charAt", Type.CHAR, new Type[] { Type.INT }, (short) 182));
 		instructionList.append(InstructionFactory.createLoad(Type.INT, 2));
 		instructionList.append(InstructionConstants.IXOR);
 		instructionList.append(InstructionConstants.I2C);
@@ -92,14 +92,14 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 		instructionList.append(InstructionConstants.CASTORE);
 		instructionList.append(new IINC(3, -1));
 		instructionList.append(InstructionFactory.createLoad(Type.INT, 3));
-		final BranchInstruction var9 = InstructionFactory.createBranchInstruction((short) 155, null);
-		instructionList.append(var9);
+		final BranchInstruction branchInstruction0 = InstructionFactory.createBranchInstruction((short) 155, null);
+		instructionList.append(branchInstruction0);
 		instructionList.append(InstructionFactory.createLoad(Type.OBJECT, 1));
 		instructionList.append(InstructionFactory.createLoad(Type.INT, 3));
 		instructionList.append(InstructionFactory.createLoad(Type.OBJECT, 0));
 		instructionList.append(InstructionFactory.createLoad(Type.INT, 3));
 		instructionList.append(
-				var2.createInvoke("java.lang.String", "charAt", Type.CHAR, new Type[] { Type.INT }, (short) 182));
+				instructionFactory.createInvoke("java.lang.String", "charAt", Type.CHAR, new Type[] { Type.INT }, (short) 182));
 		instructionList.append(InstructionFactory.createLoad(Type.INT, 2));
 		instructionList.append(InstructionConstants.IXOR);
 		instructionList.append(InstructionConstants.I2C);
@@ -115,25 +115,25 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 		instructionList.append(InstructionConstants.CASTORE);
 		instructionList.append(new IINC(3, -1));
 		instructionList.append(InstructionFactory.createLoad(Type.INT, 3));
-		instructionList.append(InstructionFactory.createBranchInstruction((short) 167, var8));
-		final InstructionHandle var10 = instructionList.append(InstructionFactory.createLoad(Type.OBJECT, 1));
-		instructionList.append(var2.createInvoke("java.lang.String", "<init>", Type.VOID,
+		instructionList.append(InstructionFactory.createBranchInstruction((short) 167, branchHandle));
+		final InstructionHandle instructionHandle = instructionList.append(InstructionFactory.createLoad(Type.OBJECT, 1));
+		instructionList.append(instructionFactory.createInvoke("java.lang.String", "<init>", Type.VOID,
 				new Type[] { new ArrayType(Type.CHAR, 1) }, (short) 183));
 		instructionList.append(InstructionFactory.createReturn(Type.OBJECT));
-		var7.setTarget(var10);
-		var9.setTarget(var10);
-		var6.setMaxStack();
-		var6.setMaxLocals();
-		var1.addMethod(var6.getMethod());
+		branchInstruction.setTarget(instructionHandle);
+		branchInstruction0.setTarget(instructionHandle);
+		methodGen.setMaxStack();
+		methodGen.setMaxLocals();
+		classGen.addMethod(methodGen.getMethod());
 		instructionList.dispose();
 	}
 
-	private void createWeakDecryptMethod(ClassGen var1) {
-		final InstructionFactory var2 = new InstructionFactory(var1);
-		final ConstantPoolGen var4 = var1.getConstantPool();
+	private void createWeakDecryptMethod(ClassGen classGen) {
+		final InstructionFactory var2 = new InstructionFactory(classGen);
+		final ConstantPoolGen var4 = classGen.getConstantPool();
 		final InstructionList var5 = new InstructionList();
 		final MethodGen var6 = new MethodGen(9, Type.STRING, new Type[] { Type.STRING }, new String[] { "s" },
-				decryptStringMethodName, var1.getClassName(), var5, var4);
+				decryptStringMethodName, classGen.getClassName(), var5, var4);
 		final int var7 = var4.addClass("java.lang.String");
 		final int var8 = var4.addClass("[C");
 		final int var9 = var4.addUtf8("StackMap");
@@ -208,7 +208,7 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 		var14.setTarget(var16);
 		var6.setMaxStack();
 		var6.setMaxLocals();
-		var1.addMethod(var6.getMethod());
+		classGen.addMethod(var6.getMethod());
 		var5.dispose();
 	}
 
@@ -217,7 +217,6 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 		int var3 = variableXor.length() - 1;
 		final char[] var4 = new char[string.length()];
 		char opcode = 85;
-
 		int var6;
 		for (int var10000 = var6 = var4.length - 1; var10000 >= 0; var10000 = var6) {
 			var4[var6] = (char) (string.charAt(var6) ^ opcode ^ variableXor.charAt(var3));
@@ -226,27 +225,23 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 			if (var3 < 0) {
 				var3 = var2;
 			}
-
 			--var6;
 		}
-
 		return new String(var4);
 	}
 
 	@Override
 	public void terminate() {
-		if (this.aBoolean1149) {
-			this.aClassStorage_1153.addClass(this.createDecryptionClass());
+		if (this.addClass) {
+			this.classStorage.addClass(this.createDecryptionClass());
 		}
-
 	}
 
 	@Override
 	public void execute(ClassGen _cg) {
-		if (Tuning.method1726(this.aClassStorage_1153, _cg, null) != Tuning.STRING_ENCRYPTION_DISABLE) {
+		if (Tuning.method1726(this.classStorage, _cg, null) != Tuning.STRING_ENCRYPTION_DISABLE) {
 			final InstructionFactory var2 = new InstructionFactory(_cg);
 			final Method[] methods = _cg.getMethods();
-
 			int var4;
 			for (int var10000 = var4 = 0; var10000 < methods.length; var10000 = var4) {
 				Method method;
@@ -264,13 +259,13 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 									.getConstant(var9.getIndex())) instanceof ConstantString) {
 								final String var11 = ((ConstantUtf8) _cg.getConstantPool()
 										.getConstant(((ConstantString) var10).getStringIndex())).getBytes();
-								if (this.aClassStorage_1153.getClassGen(var11) != null
-										|| this.aCollection1152.contains(var11)) {
+								if (this.classStorage.getClassGen(var11) != null
+										|| this.collection.contains(var11)) {
 									var8 = var8.getNext();
 									continue;
 								}
 
-								int var12 = Tuning.method1716(this.aClassStorage_1153, _cg, _mgen);
+								int var12 = Tuning.method1716(this.classStorage, _cg, _mgen);
 								String var13;
 								if ((var13 = _cg.getClassName()).startsWith("com.allatori")) {
 									if (var13.startsWith("com.allatori.obfuscate.opt")) {
@@ -289,7 +284,7 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 								}
 
 								if (var12 == Tuning.STRING_ENCRYPTION_STRONG_TYPE) {
-									var9.setIndex(_cg.getConstantPool().addString(aString1150 + var11));
+									var9.setIndex(_cg.getConstantPool().addString(rAllatoriStr + var11));
 									il.append(var8,
 											var2.createInvoke(string_decryptor_class_name, decryptString2MethodName,
 													Type.STRING, new Type[] { Type.STRING }, (short) 184));
@@ -300,7 +295,7 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 													Type.STRING, new Type[] { Type.STRING }, (short) 184));
 								}
 
-								this.aBoolean1149 = true;
+								this.addClass = true;
 							}
 						}
 
@@ -342,7 +337,7 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 					.getConstant(var5.getConstantValueIndex())) instanceof ConstantString) {
 				final String var7 = ((ConstantUtf8) var1.getConstantPool()
 						.getConstant(((ConstantString) var6).getStringIndex())).getBytes();
-				this.aCollection1152.add(var7);
+				this.collection.add(var7);
 			}
 
 			--var3;
@@ -366,7 +361,7 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 							if (var12 instanceof ConstantString) {
 								final String var13 = ((ConstantUtf8) var1.getConstantPool()
 										.getConstant(((ConstantString) var12).getStringIndex())).getBytes();
-								this.aCollection1152.add(var13);
+								this.collection.add(var13);
 							}
 						}
 					}
@@ -458,7 +453,7 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 	}
 
 	public StringObfuscationLayer1(ClassStorage var1) {
-		this.aClassStorage_1153 = var1;
+		this.classStorage = var1;
 
 		Iterator<?> var2;
 		for (Iterator<?> var10000 = var2 = var1.valuesIterator(); var10000.hasNext(); var10000 = var2) {

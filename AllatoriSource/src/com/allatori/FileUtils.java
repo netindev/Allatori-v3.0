@@ -13,51 +13,40 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 
 public class FileUtils {
+	
+	/* OK */
 
-	public static String readFile(File var0) throws Exception {
-		final StringBuilder var2 = new StringBuilder((int) var0.length());
-		BufferedReader var4;
-		BufferedReader var10000;
-		var4 = new BufferedReader(new InputStreamReader(new FileInputStream(var0), "UTF-8"));
-		var10000 = var4;
-
-		int var3;
-		while ((var3 = var10000.read()) != -1) {
-			var2.append((char) var3);
-			var10000 = var4;
+	public static String readFile(File file) throws Exception {
+		final StringBuilder stringBuilder = new StringBuilder((int) file.length());
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+		int read;
+		while ((read = bufferedReader.read()) != -1) {
+			stringBuilder.append((char) read);
 		}
-
-		var4.close();
-		return var2.toString();
+		bufferedReader.close();
+		return stringBuilder.toString();
 	}
 
-	public static void method689(File var0, File var1) throws IOException {
-		FileChannel var2 = null;
-		FileChannel var3 = null;
-
+	@SuppressWarnings("resource")
+	public static void writeMap(File fileF, File fileS) throws IOException {
+		FileChannel fileChannelF = new FileInputStream(fileF).getChannel();
+		FileChannel fileChannelS = new FileOutputStream(fileS).getChannel();
 		try {
-			var2 = (new FileInputStream(var0)).getChannel();
-			var3 = (new FileOutputStream(var1)).getChannel();
-			final MappedByteBuffer var4 = var2.map(MapMode.READ_ONLY, 0L, var2.size());
-			var3.write(var4);
+			MappedByteBuffer mappedByteBuffer = fileChannelF.map(MapMode.READ_ONLY, 0L, fileChannelF.size());
+			fileChannelS.write(mappedByteBuffer);
 		} finally {
-			if (var2 != null) {
-				var2.close();
+			if (fileChannelF != null) {
+				fileChannelF.close();
 			}
-
-			if (var3 != null) {
-				var3.close();
+			if (fileChannelS != null) {
+				fileChannelS.close();
 			}
-
 		}
-
 	}
 
-	public static void writeFile(File var0, String var2) throws Exception {
-		BufferedWriter var3;
-		var3 = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(var0), "UTF-8"));
-
-		var3.write(var2);
-		var3.close();
+	public static void writeFile(File file, String write) throws Exception {
+		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
+		bufferedWriter.write(write);
+		bufferedWriter.close();
 	}
 }

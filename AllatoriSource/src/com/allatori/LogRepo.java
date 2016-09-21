@@ -1,12 +1,14 @@
 package com.allatori;
 
 public class LogRepo {
+	
+	/* OK */
 
-	public String aString734;
-	public String aString735;
+	public String fString;
+	public String sString;
 
-	public LogRepo(String var1, String var2) {
-		this.aString734 = var1;
-		this.aString735 = var2;
+	public LogRepo(String fString, String sString) {
+		this.fString = fString;
+		this.sString = sString;
 	}
 }

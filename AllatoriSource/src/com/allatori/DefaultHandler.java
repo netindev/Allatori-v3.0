@@ -27,7 +27,7 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 
 	private void method1847() {
 		try {
-			final Vector<?> var1 = new Vector<Object>(this.aRenamingMap_964.method444());
+			final Vector<?> var1 = new Vector<Object>(this.aRenamingMap_964.keySet());
 
 			int var2;
 			String var4;
@@ -50,9 +50,9 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 				++var2;
 			}
 
-			final Set<?> var13 = this.aRenamingMap_964.method444();
+			final Set<?> var13 = this.aRenamingMap_964.keySet();
 			final Vector<?> var14 = new Vector<Object>(NameRepository
-					.getConstantNamingMap(Class172.method1707(Renamer.method324(this.aRenamer_965))).method444());
+					.getConstantNamingMap(Class172.method1707(Renamer.method324(this.aRenamer_965))).keySet());
 
 			Iterator<?> var15;
 			for (Iterator<?> var16 = var15 = var13.iterator(); var16.hasNext(); var16 = var15) {
@@ -72,10 +72,10 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 							if (var10.equals(MethodUtils.method1454(var11))) {
 								NameRepository
 										.getConstantNamingMap(Class172.method1707(Renamer.method324(this.aRenamer_965)))
-										.method440(var19);
+										.remove(var19);
 								NameRepository
 										.getMethodRenamingMap(Class172.method1707(Renamer.method324(this.aRenamer_965)))
-										.method440(var4);
+										.remove(var4);
 							}
 						}
 					}
@@ -116,7 +116,7 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 		String var5;
 		Iterator<?> var10000;
 		for (var10000 = var2 = Class159.method1626(Class172.method1710(Renamer.method324(this.aRenamer_965)))
-				.method444().iterator(); var10000.hasNext(); var10000 = var2) {
+				.keySet().iterator(); var10000.hasNext(); var10000 = var2) {
 			String var3;
 			var4 = (var3 = (String) var2.next()).substring(var3.lastIndexOf("&") + 1);
 			var5 = this.method1848(var4,
@@ -128,7 +128,7 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 
 		Iterator<?> var7;
 		for (var10000 = var7 = NameRepository
-				.getConstantNamingMap(Class172.method1707(Renamer.method324(this.aRenamer_965))).method444()
+				.getConstantNamingMap(Class172.method1707(Renamer.method324(this.aRenamer_965))).keySet()
 				.iterator(); var10000.hasNext(); var10000 = var7) {
 			var5 = (var4 = (String) var7.next()).substring(var4.lastIndexOf("&") + 1);
 			final String var6 = this.method1848(var5,
@@ -148,12 +148,10 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 		this.method1847();
 	}
 
-	// $FF: synthetic method
 	public static void method1851(DefaultHandler var0) throws Exception {
 		var0.method1850();
 	}
 
-	// $FF: synthetic method
 	public DefaultHandler(Renamer var1, EmptyClass var2) {
 		this(var1);
 	}

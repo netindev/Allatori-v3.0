@@ -8,12 +8,14 @@ import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
 public class StackTraceLogFileReader {
+	
+	/* OK */
 
-	public static StackTraceLog readLogFile(Reader var0) throws Exception {
-		final XMLReader var2 = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
-		final StackTraceLog var3 = new StackTraceLog();
-		var2.setContentHandler(new PredefinedNamingHandler(var3));
-		var2.parse(new InputSource(var0));
-		return var3;
+	public static StackTraceLog readLogFile(Reader reader) throws Exception {
+		final XMLReader xmlReader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
+		final StackTraceLog stackTraceLog = new StackTraceLog();
+		xmlReader.setContentHandler(new PredefinedNamingHandler(stackTraceLog));
+		xmlReader.parse(new InputSource(reader));
+		return stackTraceLog;
 	}
 }

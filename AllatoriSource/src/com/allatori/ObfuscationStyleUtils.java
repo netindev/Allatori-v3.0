@@ -2,16 +2,16 @@ package com.allatori;
 
 public class ObfuscationStyleUtils {
 
-	private static int anInt518 = 2;
-	private static int anInt519 = 2;
+	private static int methodNamingType = 2;
+	private static int fieldNamingType = 2;
 
-	public static void setMethodNamingType(int var0) {
-		anInt518 = var0;
+	public static void setMethodNamingType(int toSet) {
+		methodNamingType = toSet;
 	}
 
-	public static IObfuscationStyle method333() {
-		return anInt518 == 1 ? new ObfuscationStyleLow()
-				: (anInt518 == 3 ? new Keywords() : new ObfuscationStyleMixed());
+	public static IObfuscationStyle returnMethodNamingType() {
+		return methodNamingType == 1 ? new ObfuscationStyleLow()
+				: (methodNamingType == 3 ? new Keywords() : new ObfuscationStyleMixed());
 	}
 
 	public static IObfuscationStyle method334() {
@@ -22,18 +22,18 @@ public class ObfuscationStyleUtils {
 		return new ObfuscationStyleLow();
 	}
 
-	public static IObfuscationStyle method336() {
-		return anInt519 == 1 ? new ObfuscationStyleLow()
-				: (anInt519 == 3 ? new Keywords() : new ObfuscationStyleMixed());
+	public static IObfuscationStyle returnFieldNamingType() {
+		return fieldNamingType == 1 ? new ObfuscationStyleLow()
+				: (fieldNamingType == 3 ? new Keywords() : new ObfuscationStyleMixed());
 	}
 
-	public static IObfuscationStyle method337() {
+	public static IObfuscationStyle variableNamingType() {
 		return LocalVariables.getLocalVariableNamingType() == 2 ? new ObfuscationStyleLow()
 				: (LocalVariables.getLocalVariableNamingType() == 1 ? new ObfuscationStyleUnk() : new ObfuscationStyleLow());
 	}
 
-	public static void setFieldNamingType(int var0) {
-		anInt519 = var0;
+	public static void setFieldNamingType(int toSet) {
+		fieldNamingType = toSet;
 	}
 
 	public static IObfuscationStyle method339() {

@@ -21,7 +21,7 @@ public class NameRepository {
 	}
 
 	private NameRepository(Class172 var1) {
-		this.anInterface22_794 = ObfuscationStyleUtils.method333();
+		this.anInterface22_794 = ObfuscationStyleUtils.returnMethodNamingType();
 		this.constantNameMap = new RenamingMap();
 		this.signatureMap = new RenamingMap();
 		this.methodNameMap = new RenamingMap();

@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class StackTrace {
+	
+	/* OK */
 
 	public static void main(String[] args) {
 		System.out.println(Configurable.printSplash());

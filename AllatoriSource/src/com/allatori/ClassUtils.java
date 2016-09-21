@@ -2,9 +2,9 @@ package com.allatori;
 
 public class ClassUtils {
 
-	private static ClassConstraint aClassConstraint_894;
+	private static ClassConstraint classConstraint;
 	private static String aString895;
-	private static boolean aBoolean896;
+	private static boolean bool;
 	private static String aString897;
 
 	public static void method1773(String var0) {
@@ -15,24 +15,24 @@ public class ClassUtils {
 		aString895 = var0;
 	}
 
-	public static void method1775(boolean var0) {
-		aBoolean896 = var0;
+	public static void setBool(boolean setBool) {
+		bool = setBool;
 	}
 
-	public static boolean method1776() {
-		return aBoolean896;
+	public static boolean getBool() {
+		return bool;
 	}
 
-	public static ClassConstraint method1777() {
-		return aClassConstraint_894;
+	public static ClassConstraint getClassConstraint() {
+		return classConstraint;
 	}
 
 	public static String method1778() {
 		return aString895;
 	}
 
-	public static void method1779(ClassConstraint var0) {
-		aClassConstraint_894 = var0;
+	public static void setClassConstraint(ClassConstraint setClassConstraint) {
+		classConstraint = setClassConstraint;
 	}
 
 	public static String method1780() {

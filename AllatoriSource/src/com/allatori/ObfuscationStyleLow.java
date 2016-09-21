@@ -1,25 +1,25 @@
 package com.allatori;
 
 public class ObfuscationStyleLow implements IObfuscationStyle {
+	
+	/* OK */
 
-	private long aLong1167 = 0L;
+	private String type = "abcdefghijklmnopqrstuvwxyz";
+	private long next = 0L;
 
 	@Override
 	public void reset() {
-		this.aLong1167 = 0L;
+		this.next = 0L;
 	}
 
 	@Override
 	public String next() {
-		String var1 = "";
-		long var2 = this.aLong1167;
-
+		String string = "";
+		long next = this.next;
 		do {
-			final String aString1165 = "abcdefghijklmnopqrstuvwxyz";
-			var1 = var1 + aString1165.charAt((int) (var2 % 26L));
-		} while ((var2 /= 26L) > 0L);
-
-		++this.aLong1167;
-		return var1;
+			string = string + this.type.charAt((int) (next % 26L));
+		} while ((next /= 26L) > 0L);
+		++this.next;
+		return string;
 	}
 }

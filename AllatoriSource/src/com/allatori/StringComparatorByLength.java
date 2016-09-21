@@ -3,11 +3,13 @@ package com.allatori;
 import java.util.Comparator;
 
 public class StringComparatorByLength implements Comparator<Object> {
+	
+	/* OK */
 
 	@Override
-	public int compare(Object var1, Object var2) {
-		final String var3 = (String) var1;
-		final String var4 = (String) var2;
-		return var3.length() - var4.length();
+	public int compare(Object toComp0, Object toComp1) {
+		final String fString = (String) toComp0;
+		final String sString = (String) toComp1;
+		return fString.length() - sString.length();
 	}
 }

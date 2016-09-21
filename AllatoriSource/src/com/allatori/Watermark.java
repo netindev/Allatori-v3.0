@@ -28,13 +28,13 @@ public class Watermark extends Configurable {
 		}
 		Configurable.parseConfigFile(args[1]);
 		try {
-			final ClassStorage classStorage = Configurable.method1269();
+			final ClassStorage classStorage = Configurable.getClasses();
 			if (WatermarkUtil.getBool()) {
 				if (WatermarkUtil.getKey() == null) {
 					Logger.printError("Configuration error. Watermark key is not set.");
 					System.exit(0);
 				}
-				System.out.println("Extracted watermark: \"" + Configurable.method1274(classStorage) + "\"");
+				System.out.println("Extracted watermark: \"" + Configurable.extractWatermark(classStorage) + "\"");
 			} else {
 				if (WatermarkUtil.getKey() == null) {
 					Logger.printError("Configuration error. Watermark key is not set.");

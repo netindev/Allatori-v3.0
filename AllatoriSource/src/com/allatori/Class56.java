@@ -24,7 +24,7 @@ public class Class56 {
 
 	public Vector<?> method691(String var1) {
 		Vector<?> var2;
-		return (var2 = (Vector<?>) this.aHashtable607.get(var1)) != null ? var2 : aVector605;
+		return (var2 = this.aHashtable607.get(var1)) != null ? var2 : aVector605;
 	}
 
 	private Set<Object> method692(Set<?> var1, Set<?> var2) {
@@ -112,7 +112,7 @@ public class Class56 {
 
 		int var2;
 		for (int var10000 = var2 = 0; var10000 < this.aVector609.size(); var10000 = var2) {
-			final ClassGen var3 = (ClassGen) this.aVector609.get(var2);
+			final ClassGen var3 = this.aVector609.get(var2);
 			var1.put(var3, "");
 			final Vector<?> var4 = this.method691(var3.getClassName());
 
@@ -171,7 +171,7 @@ public class Class56 {
 	private void method701(String var1, ClassGen var2) {
 		if (this.aClassStorage_608.getClassGen(var1) != null) {
 			Vector<ClassGen> var3;
-			if ((var3 = (Vector<ClassGen>) this.aHashtable607.get(var1)) == null) {
+			if ((var3 = this.aHashtable607.get(var1)) == null) {
 				var3 = new Vector<ClassGen>();
 			}
 
@@ -275,7 +275,7 @@ public class Class56 {
 				}
 
 				int var6;
-				Class[] var9;
+				Class<?>[] var9;
 				for (var10000 = var6 = (var9 = var8.getInterfaces()).length - 1; var10000 >= 0; var10000 = var6) {
 					this.method708(var1, var9[var6].getName());
 					--var6;

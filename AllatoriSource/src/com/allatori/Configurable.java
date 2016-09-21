@@ -78,7 +78,7 @@ public class Configurable {
 
 	}
 
-	static ClassStorage method1269() throws Exception {
+	static ClassStorage getClasses() throws Exception {
 		final ClassStorage var0 = new ClassStorage(method1272());
 		final Vector<ConfigRepo> var1 = method660();
 
@@ -194,14 +194,14 @@ public class Configurable {
 		int var2;
 		for (int var10000 = var2 = 0; var10000 < var1.size(); var10000 = var2) {
 			RenameRepo var3;
-			DumpUtils.method574((var3 = (RenameRepo) var1.get(var2)).aString811, var3.aString812, var0);
+			DumpUtils.dumpClassStorage((var3 = (RenameRepo) var1.get(var2)).aString811, var3.aString812, var0);
 			++var2;
 		}
 
 	}
 
-	static String method1274(ClassStorage var0) throws ExtractWatermarkException {
-		return (new Watermarking(var0, WatermarkUtil.getKey())).extractWatermark();
+	static String extractWatermark(ClassStorage classStorage) throws ExtractWatermarkException {
+		return new Watermarking(classStorage, WatermarkUtil.getKey()).extractWatermark();
 	}
 
 	static void method1275(ClassStorage var0) throws Exception {

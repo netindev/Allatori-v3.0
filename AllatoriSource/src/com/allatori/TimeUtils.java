@@ -1,7 +1,7 @@
 package com.allatori;
 
-public abstract class TimeUtils extends Class13 {
-
+public abstract class TimeUtils extends TMUtils {
 	
-
+	/* empty */
+	
 }

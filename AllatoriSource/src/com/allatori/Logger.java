@@ -1,6 +1,8 @@
 package com.allatori;
 
 public class Logger {
+	
+	/* OK */
 
 	private static boolean isSilent = false;
 
@@ -8,23 +10,23 @@ public class Logger {
 		return isSilent;
 	}
 
-	public static void printError(String var0) {
-		System.out.println("[ERROR] " + var0);
+	public static void printError(String toPrint) {
+		System.out.println("[ERROR] " + toPrint);
 	}
 
-	public static void setSilentExecution(boolean var0) {
+	public static void setSilentExecution(boolean setSilent) { /* Param ? */
 		isSilent = true;
 	}
 
-	public static void printInfo(String var0) {
+	public static void printInfo(String toPrint) {
 		if (!isSilent) {
-			System.out.println("[INFO] " + var0);
+			System.out.println("[INFO] " + toPrint);
 		}
 	}
 
-	public static void printWarning(String var0) {
+	public static void printWarning(String toPrint) {
 		if (!isSilent) {
-			System.out.println("[WARNING] " + var0);
+			System.out.println("[WARNING] " + toPrint);
 		}
 	}
 }

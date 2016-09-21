@@ -18,7 +18,6 @@ public class DemoWaterMark implements ObfuscationType {
 			if (classGen.getClassName().startsWith("com.allatori.")) {
 				return;
 			}
-
 			Method var2;
 			if ((var2 = classGen.containsMethod("main", "([Ljava/lang/String;)V")) != null) {
 				final MethodGen var3 = InitUtils.createMethodGen(var2, classGen.getClassName(), classGen.getConstantPool(),

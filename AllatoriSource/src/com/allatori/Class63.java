@@ -19,28 +19,28 @@ public class Class63 implements ObfuscationType {
 
 	@Override
 	public void terminate() {
+		/* empty */
 	}
 
 	@Override
-	public void execute(ClassGen var1) {
+	public void execute(ClassGen classGen) {
 		final String className = ClassUtils.method1778();
 		final String methodName = ClassUtils.method1780();
 		if (className != null && methodName != null) {
-			if (ClassUtils.method1777().apply(this.aClassStorage_1143, var1)) {
+			if (ClassUtils.getClassConstraint().apply(this.aClassStorage_1143, classGen)) {
 				try {
-					final Method[] var4 = var1.getMethods();
-
+					final Method[] methods = classGen.getMethods();
 					int var5;
-					for (int var10000 = var5 = 0; var10000 < var4.length; var10000 = var5) {
+					for (int var10000 = var5 = 0; var10000 < methods.length; var10000 = var5) {
 						Method var6;
-						if ((var6 = var4[var5]).getCode() != null && ClassUtils.method1777().apply(var6)) {
-							final MethodGen var7 = InitUtils.createMethodGen(var6, var1.getClassName(),
-									var1.getConstantPool(), var1.getConstantPool().getConstantPool());
-							final InstructionFactory iFac = new InstructionFactory(var1);
+						if ((var6 = methods[var5]).getCode() != null && ClassUtils.getClassConstraint().apply(var6)) {
+							final MethodGen var7 = InitUtils.createMethodGen(var6, classGen.getClassName(),
+									classGen.getConstantPool(), classGen.getConstantPool().getConstantPool());
+							final InstructionFactory iFac = new InstructionFactory(classGen);
 							InstructionList var9;
 							final InstructionHandle endHandle = (var9 = var7.getInstructionList()).getEnd();
 							InstructionHandle _tmp;
-							if (ClassUtils.method1776()) {
+							if (ClassUtils.getBool()) {
 								_tmp = var9.insert(endHandle, iFac.createInvoke(className, methodName, Type.VOID,
 										new Type[] { Type.OBJECT }, (short) 184));
 								_tmp = var9.insert(_tmp, InstructionFactory.createThis());
@@ -48,7 +48,6 @@ public class Class63 implements ObfuscationType {
 								_tmp = var9.insert(endHandle,
 										iFac.createInvoke(className, methodName, Type.VOID, Type.NO_ARGS, (short) 184));
 							}
-
 							InstructionTargeter[] var12;
 							int var13;
 							for (var10000 = var13 = (var12 = endHandle.getTargeters()).length
@@ -56,17 +55,14 @@ public class Class63 implements ObfuscationType {
 								var12[var13].updateTarget(endHandle, _tmp);
 								--var13;
 							}
-
 							var7.setMaxStack();
-							var1.replaceMethod(var6, var7.getMethod());
+							classGen.replaceMethod(var6, var7.getMethod());
 						}
-
 						++var5;
 					}
-				} catch (final Exception var14) {
-					var14.printStackTrace();
+				} catch (final Exception e) {
+					e.printStackTrace();
 				}
-
 			}
 		}
 	}

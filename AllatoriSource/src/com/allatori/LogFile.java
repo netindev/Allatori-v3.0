@@ -11,7 +11,7 @@ import java.util.Vector;
 
 public class LogFile {
 
-	private static Class5 aClass5_893;
+	private static ObfuscationHandler obfuscationHandler;
 
 	private static void writeXMLHeader(PrintWriter var0) {
 		var0.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
@@ -35,7 +35,7 @@ public class LogFile {
 				final FileOutputStream var2 = new FileOutputStream(var0);
 				writeXMLHeader(
 						var1 = new PrintWriter(new BufferedWriter(new OutputStreamWriter(var2, "UTF-8"), 262144)));
-				writeMapping(var1, aClass5_893);
+				writeMapping(var1, obfuscationHandler);
 				writeXMLEnd(var1);
 				var1.flush();
 			} catch (final FileNotFoundException var15) {
@@ -74,11 +74,11 @@ public class LogFile {
 		return var2;
 	}
 
-	private static void writeMapping(PrintWriter var0, Class5 var1) {
+	private static void writeMapping(PrintWriter var0, ObfuscationHandler var1) {
 		var0.println(" <mapping>");
-		final Vector<String> var2 = new Vector<String>(var1.aRenamingMap_512.method444());
-		final Vector<String> var3 = new Vector<String>(var1.aRenamingMap_514.method444());
-		final Vector<String> var4 = new Vector<String>(var1.aRenamingMap_516.method444());
+		final Vector<String> var2 = new Vector<String>(var1.aRenamingMap_512.keySet());
+		final Vector<String> var3 = new Vector<String>(var1.aRenamingMap_514.keySet());
+		final Vector<String> var4 = new Vector<String>(var1.aRenamingMap_516.keySet());
 		Collections.sort(var3);
 		Collections.sort(var4);
 
@@ -121,7 +121,7 @@ public class LogFile {
 
 		Vector<String> var12;
 		int var13;
-		if ((var12 = new Vector<String>(var1.aRenamingMap_513.method444())).size() > 0) {
+		if ((var12 = new Vector<String>(var1.aRenamingMap_513.keySet())).size() > 0) {
 			var0.println("  <annotations>");
 
 			for (var10000 = var13 = var12.size() - 1; var10000 >= 0; var10000 = var13) {
@@ -141,7 +141,7 @@ public class LogFile {
 
 		for (var10000 = var13 = var1.aVector515.size() - 1; var10000 >= 0; var10000 = var13) {
 			final LogRepo var15 = (LogRepo) var1.aVector515.get(var13);
-			var0.println("   <source old=\"" + var15.aString734 + "\" new =\"" + var15.aString735 + "\"/>");
+			var0.println("   <source old=\"" + var15.fString + "\" new =\"" + var15.sString + "\"/>");
 			--var13;
 		}
 
@@ -157,7 +157,7 @@ public class LogFile {
 		var0.println(" </mapping>");
 	}
 
-	public static void setObfuscationHandler(Class5 var0) {
-		aClass5_893 = var0;
+	public static void setObfuscationHandler(ObfuscationHandler obfHandler) {
+		obfuscationHandler = obfHandler;
 	}
 }

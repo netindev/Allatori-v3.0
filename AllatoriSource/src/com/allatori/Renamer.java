@@ -203,7 +203,7 @@ public class Renamer {
 			this.renameClassName(var2);
 		}
 
-		if (!aBoolean506 && namingMap.method441() > 0) {
+		if (!aBoolean506 && namingMap.size() > 0) {
 			aBoolean506 = true;
 			throw new RunException();
 		}
@@ -999,7 +999,7 @@ public class Renamer {
 		this.method318();
 		this.method308();
 		this.method297();
-		LogFile.setObfuscationHandler(new Class5(Class165.method1653(Class172.method1708(this.aClass172_509)),
+		LogFile.setObfuscationHandler(new ObfuscationHandler(Class165.method1653(Class172.method1708(this.aClass172_509)),
 				NameRepository.getConstantNamingMap(Class172.method1707(this.aClass172_509)),
 				Class159.method1626(Class172.method1710(this.aClass172_509)), this.aClass26_510.method496(),
 				this.aClass26_510.method497(),

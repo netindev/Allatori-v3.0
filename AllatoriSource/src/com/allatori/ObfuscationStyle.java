@@ -1,24 +1,26 @@
 package com.allatori;
 
 public class ObfuscationStyle implements IObfuscationStyle {
+	
+	/* OK */
 
-	private final ObfuscationStyleMixed aClass105_1159 = new ObfuscationStyleMixed();
-	private int anInt1160 = 0;
-	private final String[] aStringArray1161;
+	private final ObfuscationStyleMixed obfStyleMix = new ObfuscationStyleMixed();
+	private int count = 0;
+	private final String[] stringArr;
 
 	@Override
 	public String next() {
-		return this.anInt1160 < this.aStringArray1161.length ? this.aStringArray1161[this.anInt1160++]
-				: this.aClass105_1159.next();
+		return this.count < this.stringArr.length ? this.stringArr[this.count++]
+				: this.obfStyleMix.next();
 	}
 
-	public ObfuscationStyle(String[] var1) {
-		this.aStringArray1161 = var1;
+	public ObfuscationStyle(String[] args) {
+		this.stringArr = args;
 	}
 
 	@Override
 	public void reset() {
-		this.anInt1160 = 0;
-		this.aClass105_1159.reset();
+		this.count = 0;
+		this.obfStyleMix.reset();
 	}
 }

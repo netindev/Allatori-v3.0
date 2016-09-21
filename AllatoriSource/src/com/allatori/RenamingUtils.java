@@ -9,7 +9,7 @@ public class RenamingUtils {
 	}
 
 	private RenamingUtils(Class172 var1) {
-		this.obfStyle = ObfuscationStyleUtils.method337();
+		this.obfStyle = ObfuscationStyleUtils.variableNamingType();
 	}
 
 	public static IObfuscationStyle method1603(RenamingUtils var0) {

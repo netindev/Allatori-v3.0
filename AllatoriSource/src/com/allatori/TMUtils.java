@@ -1,6 +1,6 @@
 package com.allatori;
 
-public abstract class Class13 implements Cloneable {
+public abstract class TMUtils implements Cloneable {
 
 	public Double aDouble525;
 

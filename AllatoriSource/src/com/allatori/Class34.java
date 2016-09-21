@@ -7,7 +7,7 @@ import java.util.RandomAccess;
 public class Class34 {
 
 	private static boolean aBoolean577 = false;
-	private static Class13 aClass13_578;
+	private static TMUtils aClass13_578;
 
 	public static double method566() {
 		if (!aBoolean577) {

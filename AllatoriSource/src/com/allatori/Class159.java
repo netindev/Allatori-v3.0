@@ -24,7 +24,7 @@ public class Class159 {
 	}
 
 	private Class159(Class172 var1) {
-		this.anInterface22_814 = ObfuscationStyleUtils.method336();
+		this.anInterface22_814 = ObfuscationStyleUtils.returnFieldNamingType();
 		this.aRenamingMap_815 = new RenamingMap();
 		this.aRenamingMap_818 = new RenamingMap();
 		this.aRenamingMap_816 = new RenamingMap();

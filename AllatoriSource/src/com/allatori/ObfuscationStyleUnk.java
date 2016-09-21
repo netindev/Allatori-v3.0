@@ -1,19 +1,22 @@
 package com.allatori;
 
 public class ObfuscationStyleUnk implements IObfuscationStyle {
+	
+	/* OK */
 
-	private final String aString1156;
+	private final String type;
 
 	public ObfuscationStyleUnk() {
-		this.aString1156 = "a";
+		this.type = "a";
 	}
 
 	@Override
 	public void reset() {
+		/* empty */
 	}
 
 	@Override
 	public String next() {
-		return this.aString1156;
+		return this.type;
 	}
 }

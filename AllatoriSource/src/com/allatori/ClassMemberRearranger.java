@@ -7,52 +7,40 @@ import org.apache.bcel.classfile.Field;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.generic.ClassGen;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class ClassMemberRearranger implements ObfuscationType {
+	
+	/* OK */
 
-	private void arrangeFieldOrder(ClassGen var1) {
-		Field[] var2;
-		int var3;
-		int var10000;
-		for (var10000 = var3 = (var2 = var1.getFields()).length - 1; var10000 >= 0; var10000 = var3) {
-			var1.removeField(var2[var3]);
-			--var3;
+	private void arrangeFieldOrder(ClassGen classGen) {
+		Field[] fields = classGen.getFields();
+		for (int i = fields.length - 1; i >= 0; i--) {
+			classGen.removeField(fields[i]);
 		}
-
-		List var4;
-		Class34.arrangeOrder(var4 = Arrays.asList(var2));
-
-		int var5;
-		for (var10000 = var5 = var4.size() - 1; var10000 >= 0; var10000 = var5) {
-			var1.addField((Field) var4.get(var5));
-			--var5;
+		List list = Arrays.asList(fields);
+		Class34.arrangeOrder(list);
+		for (int i = list.size() - 1; i >= 0; i--) {
+			classGen.addField((Field) list.get(i));
+			--i;
 		}
-
 	}
 
 	@Override
-	public void execute(ClassGen var1) {
-		this.arrangeFieldOrder(var1);
-		this.arrangeMethodOrder(var1);
+	public void execute(ClassGen classGen) {
+		this.arrangeFieldOrder(classGen);
+		this.arrangeMethodOrder(classGen);
 	}
 
-	private void arrangeMethodOrder(ClassGen var1) {
-		Method[] var2;
-		int var3;
-		int var10000;
-		for (var10000 = var3 = (var2 = var1.getMethods()).length - 1; var10000 >= 0; var10000 = var3) {
-			var1.removeMethod(var2[var3]);
-			--var3;
+	private void arrangeMethodOrder(ClassGen classGen) {
+		Method[] methods = classGen.getMethods();
+		for (int i = methods.length - 1; i >= 0; i--) {
+			classGen.removeMethod(methods[i]);
 		}
-
-		List var4;
-		Class34.arrangeOrder(var4 = Arrays.asList(var2));
-
-		int var5;
-		for (var10000 = var5 = var4.size() - 1; var10000 >= 0; var10000 = var5) {
-			var1.addMethod(var2[var5]);
-			--var5;
+		List list = Arrays.asList(methods);
+		Class34.arrangeOrder(list);
+		for (int i = list.size() - 1; i >= 0; i--) {
+			classGen.addMethod(methods[i]);
 		}
-
 	}
 
 	@Override

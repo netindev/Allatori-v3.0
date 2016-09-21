@@ -11,33 +11,33 @@ import com.allatori.ParseConfig;
 
 public class ObfuscatorTask extends Task {
 
-	private String aString951;
+	private String file;
 
 	@Override
 	public void execute() throws BuildException {
-		if (this.aString951 == null) {
+		if (this.file == null) {
 			throw new BuildException("Missing \'config\' attribute.");
 		} else {
 			try {
-				File var1;
-				if (!(var1 = new File(this.aString951)).canRead()) {
-					throw new BuildException("Cannot find configuration file: \'" + this.aString951 + "\'");
+				File toRead = new File(this.file);
+				if (!toRead.canRead()) {
+					throw new BuildException("Cannot find configuration file: \'" + this.file + "\'");
 				} else {
-					File var2;
-					(var2 = new File(this.aString951 + ".resolved")).deleteOnExit();
-					String var3 = FileUtils.readFile(var1);
-					var3 = this.getProject().replaceProperties(var3);
-					FileUtils.writeFile(var2, var3);
-					ParseConfig.parseConfigFile(var2.getPath());
+					File resolved = new File(this.file + ".resolved");
+					resolved.deleteOnExit();
+					String read = FileUtils.readFile(toRead);
+					read = this.getProject().replaceProperties(read);
+					FileUtils.writeFile(resolved, read);
+					ParseConfig.parseConfigFile(resolved.getPath());
 					Obfuscate.execute();
 				}
-			} catch (final Exception var4) {
-				throw new BuildException(var4);
+			} catch (final Exception e) {
+				throw new BuildException(e);
 			}
 		}
 	}
 
-	public void method1824(String var1) {
-		this.aString951 = var1;
+	public void setFile(String filePath) {
+		this.file = filePath;
 	}
 }

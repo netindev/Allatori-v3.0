@@ -10,14 +10,11 @@ public class AntiJD {
 
 	private static ObfuscationConstraint obfuscationConstraint = new ObfuscationConstraint(0);
 
-	public static void addObfuscationTypeConstraint(ObfuscationTypeConstraint var0) {
-		obfuscationConstraint.addConstraint(var0);
+	public static void addObfuscationTypeConstraint(ObfuscationTypeConstraint obfuscationTypeConstraint) {
+		obfuscationConstraint.addConstraint(obfuscationTypeConstraint);
 	}
 
 	public static int getType(ClassStorage storage, ClassGen _cg) {
 		return obfuscationConstraint.getType(storage, _cg, null);
-	}
-
-	public static void setType(int var0) {
 	}
 }

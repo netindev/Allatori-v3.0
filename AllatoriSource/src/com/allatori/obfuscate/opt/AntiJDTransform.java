@@ -63,11 +63,12 @@ public class AntiJDTransform implements ObfuscationType {
 		}
 	}
 
-	public AntiJDTransform(ClassStorage var1) {
-		this.classes = var1;
+	public AntiJDTransform(ClassStorage _cg) {
+		this.classes = _cg;
 	}
 
 	@Override
 	public void terminate() {
+		/* empty */
 	}
 }
