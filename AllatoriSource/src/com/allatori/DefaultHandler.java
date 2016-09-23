@@ -36,7 +36,7 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 				final String var3 = (String) var1.get(var2);
 				var4 = this.aRenamingMap_964.get(var3);
 				ClassGen var5;
-				if ((var5 = Renamer.method300(this.aRenamer_965).getClassGen(var4)) != null) {
+				if ((var5 = Renamer.getClassStorage(this.aRenamer_965).getClassGen(var4)) != null) {
 					final String[] var6 = var5.getInterfaceNames();
 
 					int var7;
@@ -52,7 +52,7 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 
 			final Set<?> var13 = this.aRenamingMap_964.keySet();
 			final Vector<?> var14 = new Vector<Object>(NameRepository
-					.getConstantNamingMap(Class172.method1707(Renamer.method324(this.aRenamer_965))).keySet());
+					.getConstantNamingMap(AnotherNameRepo.getNameRepository(Renamer.method324(this.aRenamer_965))).keySet());
 
 			Iterator<?> var15;
 			for (Iterator<?> var16 = var15 = var13.iterator(); var16.hasNext(); var16 = var15) {
@@ -64,17 +64,17 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 					String var19;
 					if ((var19 = (String) var18.next()).startsWith(var17)) {
 						var8 = NameRepository
-								.getConstantNamingMap(Class172.method1707(Renamer.method324(this.aRenamer_965)))
+								.getConstantNamingMap(AnotherNameRepo.getNameRepository(Renamer.method324(this.aRenamer_965)))
 								.get(var19);
 						if (var4.substring(var4.indexOf("&") + 1, var4.lastIndexOf("&")).equals(var8)) {
 							final String var10 = var4.substring(var4.lastIndexOf("&") + 1);
 							final String var11 = var19.substring(var19.lastIndexOf("&") + 1);
 							if (var10.equals(MethodUtils.method1454(var11))) {
 								NameRepository
-										.getConstantNamingMap(Class172.method1707(Renamer.method324(this.aRenamer_965)))
+										.getConstantNamingMap(AnotherNameRepo.getNameRepository(Renamer.method324(this.aRenamer_965)))
 										.remove(var19);
 								NameRepository
-										.getMethodRenamingMap(Class172.method1707(Renamer.method324(this.aRenamer_965)))
+										.getMethodRenamingMap(AnotherNameRepo.getNameRepository(Renamer.method324(this.aRenamer_965)))
 										.remove(var4);
 							}
 						}
@@ -115,26 +115,26 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 		String var4;
 		String var5;
 		Iterator<?> var10000;
-		for (var10000 = var2 = Class159.method1626(Class172.method1710(Renamer.method324(this.aRenamer_965)))
+		for (var10000 = var2 = AnotherNameRepoField.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(Renamer.method324(this.aRenamer_965)))
 				.keySet().iterator(); var10000.hasNext(); var10000 = var2) {
 			String var3;
 			var4 = (var3 = (String) var2.next()).substring(var3.lastIndexOf("&") + 1);
 			var5 = this.method1848(var4,
-					Class165.method1653(Class172.method1708(Renamer.method324(this.aRenamer_965))));
+					AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(Renamer.method324(this.aRenamer_965))));
 			if (!var4.equals(var5)) {
-				Class159.method1628(Class172.method1710(Renamer.method324(this.aRenamer_965))).put(var4, var5);
+				AnotherNameRepoField.getThirdAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(Renamer.method324(this.aRenamer_965))).put(var4, var5);
 			}
 		}
 
 		Iterator<?> var7;
 		for (var10000 = var7 = NameRepository
-				.getConstantNamingMap(Class172.method1707(Renamer.method324(this.aRenamer_965))).keySet()
+				.getConstantNamingMap(AnotherNameRepo.getNameRepository(Renamer.method324(this.aRenamer_965))).keySet()
 				.iterator(); var10000.hasNext(); var10000 = var7) {
 			var5 = (var4 = (String) var7.next()).substring(var4.lastIndexOf("&") + 1);
 			final String var6 = this.method1848(var5,
-					Class165.method1653(Class172.method1708(Renamer.method324(this.aRenamer_965))));
+					AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(Renamer.method324(this.aRenamer_965))));
 			if (!var5.equals(var6)) {
-				NameRepository.method1534(Class172.method1707(Renamer.method324(this.aRenamer_965))).put(var4, var6);
+				NameRepository.method1534(AnotherNameRepo.getNameRepository(Renamer.method324(this.aRenamer_965))).put(var4, var6);
 			}
 		}
 
@@ -182,14 +182,14 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 			}
 
 			if (var3 == 0) {
-				Class141.method1520(Class172.method1711(Renamer.method324(this.aRenamer_965))).put(var1, var2);
-				Class141.method1522(Class172.method1711(Renamer.method324(this.aRenamer_965))).put(var2, "&");
+				AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(Renamer.method324(this.aRenamer_965))).put(var1, var2);
+				AnotherNameRepoLow2.method1522(AnotherNameRepo.getAnotherNameRepoLow(Renamer.method324(this.aRenamer_965))).put(var2, "&");
 
 				for (String var6 = var1; var6.lastIndexOf(46) > 0; var6 = var1) {
 					var1 = var1.substring(0, var1.lastIndexOf(46));
 					var2 = var2.substring(0, var2.lastIndexOf(46));
-					Class141.method1520(Class172.method1711(Renamer.method324(this.aRenamer_965))).put(var1, var2);
-					Class141.method1522(Class172.method1711(Renamer.method324(this.aRenamer_965))).put(var2, "&");
+					AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(Renamer.method324(this.aRenamer_965))).put(var1, var2);
+					AnotherNameRepoLow2.method1522(AnotherNameRepo.getAnotherNameRepoLow(Renamer.method324(this.aRenamer_965))).put(var2, "&");
 				}
 
 			}
@@ -210,9 +210,9 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 				}
 			}
 
-			Class165.method1653(Class172.method1708(Renamer.method324(this.aRenamer_965))).put(this.oldClassName,
+			AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(Renamer.method324(this.aRenamer_965))).put(this.oldClassName,
 					this.newClassName);
-			Class165.method1655(Class172.method1708(Renamer.method324(this.aRenamer_965))).put(this.newClassName,
+			AnotherNameRepoLow1.getThirdNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(Renamer.method324(this.aRenamer_965))).put(this.newClassName,
 					this.oldClassName);
 			this.method1852();
 		} else {
@@ -224,24 +224,24 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 				var6 = var4.getValue("new");
 				var7 = packageName.substring(0, packageName.indexOf("("));
 				var8 = packageName.substring(packageName.indexOf("("));
-				NameRepository.getConstantNamingMap(Class172.method1707(Renamer.method324(this.aRenamer_965)))
+				NameRepository.getConstantNamingMap(AnotherNameRepo.getNameRepository(Renamer.method324(this.aRenamer_965)))
 						.put(this.oldClassName + "&" + var7 + "&" + var8, var6);
 				final String key = this.oldClassName + "&" + var6 + "&" + MethodUtils.method1454(var8);
-				if (NameRepository.getMethodRenamingMap(Class172.method1707(Renamer.method324(this.aRenamer_965)))
+				if (NameRepository.getMethodRenamingMap(AnotherNameRepo.getNameRepository(Renamer.method324(this.aRenamer_965)))
 						.containsKey(key)) {
 					this.aRenamingMap_964.put(key, this.oldClassName);
 				}
 
-				NameRepository.getMethodRenamingMap(Class172.method1707(Renamer.method324(this.aRenamer_965))).put(key,
+				NameRepository.getMethodRenamingMap(AnotherNameRepo.getNameRepository(Renamer.method324(this.aRenamer_965))).put(key,
 						"&");
 			} else if ("field".equals(var3)) {
 				packageName = var4.getValue("old");
 				var6 = var4.getValue("new");
 				var7 = packageName.substring(0, packageName.indexOf(" "));
 				var8 = packageName.substring(packageName.indexOf(" ") + 1);
-				Class159.method1626(Class172.method1710(Renamer.method324(this.aRenamer_965)))
+				AnotherNameRepoField.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(Renamer.method324(this.aRenamer_965)))
 						.put(this.oldClassName + "&" + var7 + "&" + var8, var6);
-				Class159.method1625(Class172.method1710(Renamer.method324(this.aRenamer_965)))
+				AnotherNameRepoField.getAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(Renamer.method324(this.aRenamer_965)))
 						.put(this.oldClassName + "&" + var6 + "&" + var8, "&");
 			} else if ("source".equals(var3)) {
 				packageName = var4.getValue("old");
@@ -254,7 +254,7 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 				packageName = var4.getValue("oldClassName");
 				var6 = var4.getValue("oldMethodName");
 				var7 = var4.getValue("newMethodName");
-				NameRepository.getSignatureNamingMap(Class172.method1707(Renamer.method324(this.aRenamer_965)))
+				NameRepository.getSignatureNamingMap(AnotherNameRepo.getNameRepository(Renamer.method324(this.aRenamer_965)))
 						.put(packageName + "&" + var6, var7);
 			}
 		}

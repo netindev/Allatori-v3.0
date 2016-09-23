@@ -10,7 +10,7 @@ public class FieldConstraint {
 	private String pattF;
 	private String parsePattern;
 
-	private void init(String string) throws TemplateException {
+	private void parseTemplate(String string) throws TemplateException {
 		String[] split = string.split("\\s+");
 		if (split != null && split.length != 0) {
 			this.parsePattern = Class115.parsePattern(split[split.length - 1]);
@@ -22,7 +22,6 @@ public class FieldConstraint {
 			String build = "";
 			for (int i = split.length - 3; i >= 0; i--) {
 				build = build + " " + split[i];
-				--i;
 			}
 			if (split.length >= 2 && Class115.method1389(split[split.length - 2])) {
 				build = build + " " + split[split.length - 2];
@@ -37,7 +36,7 @@ public class FieldConstraint {
 	}
 
 	public FieldConstraint(String string) throws TemplateException {
-		this.init(string);
+		this.parseTemplate(string);
 	}
 
 	public boolean apply(Field field) {

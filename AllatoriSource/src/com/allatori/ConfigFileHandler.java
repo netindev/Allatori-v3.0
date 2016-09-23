@@ -17,24 +17,24 @@ import com.allatori.obfuscate.opt.AntiJD;
 
 public class ConfigFileHandler extends DefaultHandler {
 
-	private ClassConstraint aClassConstraint_953;
+	private ClassConstraint classConstraint;
 	private String aString954;
 	private Locator locator;
 	private final ConfigFile configFile;
 	private int anInt959;
 	private String aString960;
-	public static Vector<Object> aVector645 = new Vector<>();
+	public static Vector<Object> vector = new Vector<>();
 
-	public static Vector<Object> method832() {
-		return aVector645;
+	public static Vector<Object> getVector() {
+		return vector;
 	}
 
-	public static void method833(String var0) {
-		aVector645.add(var0);
+	public static void add(String string) {
+		vector.add(string);
 	}
 
-	private MethodConstraint method1825(String var1, String var2) throws SAXException {
-		return this.createMethodFilter(var1, var2, "template");
+	private MethodConstraint createMethodFilter(String tem, String acc) throws SAXException {
+		return this.createMethodFilter(tem, acc, "template");
 	}
 
 	private void parseAttributes(Attributes attributes) throws SAXException {
@@ -95,11 +95,9 @@ public class ConfigFileHandler extends DefaultHandler {
 				} else {
 					this.throws6AttributeException("value", "single-name", "abc", "keep", "remove", "keep-parameters");
 				}
-
 				if ("private+ class *".equals(apply2class) && "private+ *(**)".equals(apply2method)) {
 					LocalVariables.setLocalVariableNamingType(localVarNamingType);
 				}
-
 				(classConstraint = this.createClassFilter(apply2class, null, null, null, "apply2class"))
 						.addMethodConstraint(this.createMethodFilter(apply2method, null, "apply2method"));
 				LocalVariables.addObfuscationTypeConstraint(
@@ -128,7 +126,6 @@ public class ConfigFileHandler extends DefaultHandler {
 				for (String var10000 = value; var10000
 						.endsWith("."); var10000 = value = value.substring(0, value.length() - 1)) {
 				}
-
 				Packaging.setDefaultPackage(value);
 			} else if ("force-default-package".equals(name)) {
 				if ("enable".equals(value)) {
@@ -155,7 +152,6 @@ public class ConfigFileHandler extends DefaultHandler {
 					if (value.length() == 0) {
 						this.throw1AttributeException("value");
 					}
-
 					if (!(new File(value)).isAbsolute()) {
 						try {
 							if ((canonicalParent = (new File(ConfigFile.getFileName(this.configFile)))
@@ -169,7 +165,6 @@ public class ConfigFileHandler extends DefaultHandler {
 							}
 						}
 					}
-
 					LogUtils.setLogFile(value);
 				} else if ("random-seed".equals(name)) {
 					Tuning.setRandomSeed(value);
@@ -177,25 +172,22 @@ public class ConfigFileHandler extends DefaultHandler {
 					if (value.length() == 0) {
 						this.throw1AttributeException("value");
 					}
-
 					if (!(new File(value)).isAbsolute()) {
 						try {
 							if ((canonicalParent = (new File(ConfigFile.getFileName(this.configFile)))
 									.getCanonicalFile().getParent()) != null) {
 								value = (new File(canonicalParent + File.separator + value)).getCanonicalPath();
 							}
-						} catch (final Exception var8) {
+						} catch (final Exception e) {
 							if ((absoluteParent = (new File(ConfigFile.getFileName(this.configFile))).getAbsoluteFile()
 									.getParent()) != null) {
 								value = (new File(absoluteParent + File.separator + value)).getAbsolutePath();
 							}
 						}
 					}
-
 					if (!(new File(value)).exists()) {
 						throw new SAXException("Cannot find file \'" + value + "\'. " + this.lineNumber());
 					}
-
 					Packaging.method577(value);
 				} else if ("string-encryption-type".equals(name)) {
 					stringEncryptionLevel = Tuning.STRING_ENCRYPTION_DEFAULT_TYPE;
@@ -206,7 +198,6 @@ public class ConfigFileHandler extends DefaultHandler {
 					} else {
 						this.throw3AttributeException("value", "fast", "strong");
 					}
-
 					(classConstraint = this.createClassFilter(apply2class, null, null, null, "apply2class"))
 							.addMethodConstraint(this.createMethodFilter(apply2method, null, "apply2method"));
 					Tuning.setStringEncryptionTypeConstraint(
@@ -223,7 +214,6 @@ public class ConfigFileHandler extends DefaultHandler {
 					if (!"anti-jd".equals(name)) {
 						throw new SAXException("Unknown property \'" + name + "\'. " + this.lineNumber());
 					}
-
 					localVarNamingType = 0;
 					if ("disable".equals(value)) {
 						localVarNamingType = 0;
@@ -234,7 +224,6 @@ public class ConfigFileHandler extends DefaultHandler {
 					} else {
 						this.throw4AttributeException("value", "disable", "normal", "maximum");
 					}
-
 					(classConstraint = this.createClassFilter(apply2class, null, null, null, "apply2class"))
 							.addMethodConstraint(this.createMethodFilter(apply2method, null, "apply2method"));
 					AntiJD.addObfuscationTypeConstraint(
@@ -242,11 +231,10 @@ public class ConfigFileHandler extends DefaultHandler {
 				}
 			}
 		}
-
 	}
 
-	private void throw1AttributeException(String var1) throws SAXException {
-		throw new SAXException("Invalid \'" + var1 + "\' attribute. " + this.lineNumber());
+	private void throw1AttributeException(String string) throws SAXException {
+		throw new SAXException("Invalid \'" + string + "\' attribute. " + this.lineNumber());
 	}
 
 	@Override
@@ -270,7 +258,7 @@ public class ConfigFileHandler extends DefaultHandler {
 					}
 				}
 
-				Configurable.method658(var5);
+				Configurable.setFile(var5);
 			} else {
 				String var6;
 				if ("jar".equals(var3) && this.anInt959 == 1) {
@@ -301,18 +289,18 @@ public class ConfigFileHandler extends DefaultHandler {
 						var6 = this.getAttributeByName(var4, "access", false, null, true);
 						var7 = this.getAttributeByName(var4, "ignore", false, null, true);
 						var8 = this.getAttributeByName(var4, "stop", false, null, true);
-						this.aClassConstraint_953 = this.createClassFilter(var5, var6, var7, var8, "template");
-						Class28.method502(this.aClassConstraint_953);
+						this.classConstraint = this.createClassFilter(var5, var6, var7, var8, "template");
+						Class28.method502(this.classConstraint);
 					} else if ("field".equals(var3)) {
 						var5 = this.getAttributeByName(var4, "template", false, null, true);
 						var6 = this.getAttributeByName(var4, "access", false, null, true);
 						final FieldConstraint var16 = this.method1842(var5, var6);
 						if (this.anInt959 == 3) {
-							if (this.aClassConstraint_953 == null) {
+							if (this.classConstraint == null) {
 								throw new SAXException("Error in configuration. " + this.lineNumber());
 							}
 
-							this.aClassConstraint_953.addFieldConstraint(var16);
+							this.classConstraint.addFieldConstraint(var16);
 						} else {
 							Class28.method501(var16);
 						}
@@ -322,15 +310,15 @@ public class ConfigFileHandler extends DefaultHandler {
 							var5 = this.getAttributeByName(var4, "template", false, null, true);
 							var6 = this.getAttributeByName(var4, "access", false, null, true);
 							var7 = this.getAttributeByName(var4, "parameters", false, null, true);
-							final MethodConstraint var19 = this.method1825(var5, var6);
+							final MethodConstraint var19 = this.createMethodFilter(var5, var6);
 							if (this.anInt959 == 3) {
-								if (this.aClassConstraint_953 == null) {
+								if (this.classConstraint == null) {
 									throw new SAXException("Error in configuration. " + this.lineNumber());
 								}
 
-								this.aClassConstraint_953.addMethodConstraint(var19);
+								this.classConstraint.addMethodConstraint(var19);
 								if ("keep".equals(var7)) {
-									(var9 = this.aClassConstraint_953.clone()).addMethodConstraint(var19);
+									(var9 = this.classConstraint.clone()).addMethodConstraint(var19);
 									LocalVariables.addObfuscationTypeConstraint(new ObfuscationTypeConstraint(5, var9));
 								}
 							} else {
@@ -365,20 +353,20 @@ public class ConfigFileHandler extends DefaultHandler {
 						} else if ("trial".equals(var3)) {
 							var5 = this.getAttributeByName(var4, "class", true, null, true);
 							var6 = this.getAttributeByName(var4, "method", true, null, true);
-							ClassUtils.method1774(var5);
-							ClassUtils.method1773(var6);
+							ClassUtils.setClassName(var5);
+							ClassUtils.setMethodName(var6);
 							var7 = this.getAttributeByName(var4, "add2class", false, "private+ class *", true);
 							ClassConstraint var18;
 							ClassUtils.setClassConstraint(var18 = this.createClassFilter(var7, null, null, null, "add2class"));
 							final String var23 = this.getAttributeByName(var4, "add2method", false,
 									"private+ <init>(**)", true);
-							final MethodConstraint var10 = this.method1825(var23, null);
+							final MethodConstraint var10 = this.createMethodFilter(var23, null);
 							var18.addMethodConstraint(var10);
 							final String var11 = this.getAttributeByName(var4, "passthis", false, "no", true);
 							if (!"yes".equals(var11) && !"true".equals(var11)) {
-								ClassUtils.setBool(false);
+								ClassUtils.setPassThis(false);
 							} else {
-								ClassUtils.setBool(true);
+								ClassUtils.setPassThis(true);
 							}
 						} else {
 							if (!"expiry".equals(var3)) {
@@ -411,9 +399,9 @@ public class ConfigFileHandler extends DefaultHandler {
 									true);
 							MethodConstraint var24;
 							if ("no input value".equals(var25)) {
-								var24 = this.method1825("private+ <init>(**)", null);
+								var24 = this.createMethodFilter("private+ <init>(**)", null);
 								var9.addMethodConstraint(var24);
-								final MethodConstraint var12 = this.method1825("public static void main(**)", null);
+								final MethodConstraint var12 = this.createMethodFilter("public static void main(**)", null);
 								var9.addMethodConstraint(var12);
 							} else {
 								var24 = this.createMethodFilter(var25, null, "add2method");
@@ -470,7 +458,7 @@ public class ConfigFileHandler extends DefaultHandler {
 		} else if (!(new File(var1)).isDirectory()) {
 			throw new SAXException("Cannot find directory \'" + var1 + "\'. " + this.lineNumber());
 		} else {
-			Configurable.method659(new RenameRepo(var1, var2));
+			Configurable.addRenameRepo(new RenameRepo(var1, var2));
 		}
 	}
 
@@ -510,7 +498,7 @@ public class ConfigFileHandler extends DefaultHandler {
 		}
 
 		if (var1.indexOf(42) == -1) {
-			method833(var1);
+			add(var1);
 		} else {
 			String var2 = ".";
 			String var3 = var1;
@@ -593,7 +581,7 @@ public class ConfigFileHandler extends DefaultHandler {
 							var13 = var2.replaceFirst("\\*", var11);
 						}
 
-						Configurable.method656(new ConfigRepo(var12, var13));
+						Configurable.addConfigRepo(new ConfigRepo(var12, var13));
 					}
 
 					--var8;
@@ -603,7 +591,7 @@ public class ConfigFileHandler extends DefaultHandler {
 		} else if (!(new File(var1)).exists()) {
 			throw new SAXException("Cannot find file \'" + var1 + "\'. " + this.lineNumber());
 		} else {
-			Configurable.method656(new ConfigRepo(var1, var2));
+			Configurable.addConfigRepo(new ConfigRepo(var1, var2));
 		}
 	}
 
@@ -698,7 +686,7 @@ public class ConfigFileHandler extends DefaultHandler {
 		for (int var10000 = var5 = (var4 = var1.listFiles()).length - 1; var10000 >= 0; var10000 = var5) {
 			File var6;
 			if (!(var6 = var4[var5]).isDirectory() && var6.getName().matches(var2)) {
-				method833(var6.getAbsolutePath());
+				add(var6.getAbsolutePath());
 			}
 
 			if (var3 && var6.isDirectory()) {
@@ -740,18 +728,16 @@ public class ConfigFileHandler extends DefaultHandler {
 		return var1;
 	}
 
-	private MethodConstraint createMethodFilter(String var1, String var2, String var3) throws SAXException {
-		this.method1833(var1, var2);
-
+	private MethodConstraint createMethodFilter(String tem, String acc, String thr) throws SAXException {
+		this.method1833(tem, acc);
 		try {
-			return new MethodConstraint(this.method1837(var1, var2, " *(**)"));
-		} catch (final TemplateException var5) {
-			if (var1 != null) {
-				this.throw1AttributeException(var3);
+			return new MethodConstraint(this.method1837(tem, acc, " *(**)"));
+		} catch (final TemplateException e) {
+			if (tem != null) {
+				this.throw1AttributeException(thr);
 			} else {
 				this.throw1AttributeException("access");
 			}
-
 			return null;
 		}
 	}

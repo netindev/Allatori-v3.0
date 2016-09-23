@@ -17,6 +17,8 @@ import org.apache.bcel.generic.SWAP;
 import org.apache.bcel.generic.Type;
 
 public class ExpiryObfuscation implements ObfuscationType {
+	
+	/* OK */
 
 	private final ClassStorage classStorage;
 
@@ -34,8 +36,8 @@ public class ExpiryObfuscation implements ObfuscationType {
 							final InstructionFactory instructionFactory = new InstructionFactory(classGen);
 							final InstructionList instructionList = methodGen.getInstructionList();
 							InstructionList weakStringEnc = Tuning.isWeakStringEncryption()
-									? this.method830(classGen.getConstantPool(), instructionFactory)
-									: this.method831(classGen.getConstantPool(), instructionFactory);
+									? this.createDateWeakString(classGen.getConstantPool(), instructionFactory)
+									: this.createDateNotWeakString(classGen.getConstantPool(), instructionFactory);
 							if ("<init>".equals(actualMethod.getName())) {
 								final InstructionHandle insEnd = instructionList.getEnd();
 								final InstructionHandle insIns = instructionList.insert(insEnd, weakStringEnc);
@@ -64,7 +66,7 @@ public class ExpiryObfuscation implements ObfuscationType {
 		this.classStorage = classStorage;
 	}
 
-	private InstructionList method830(ConstantPoolGen constantPoolGen, InstructionFactory instructionFactory) {
+	private InstructionList createDateWeakString(ConstantPoolGen constantPoolGen, InstructionFactory instructionFactory) {
 		InstructionList instructionList = new InstructionList();
 		instructionList.append(instructionFactory.createNew("java.util.Date"));
 		instructionList.append(InstructionConstants.DUP);
@@ -95,7 +97,7 @@ public class ExpiryObfuscation implements ObfuscationType {
 		return instructionList;
 	}
 
-	private InstructionList method831(ConstantPoolGen constantPoolGen, InstructionFactory instructionFactory) {
+	private InstructionList createDateNotWeakString(ConstantPoolGen constantPoolGen, InstructionFactory instructionFactory) {
 		InstructionList instructionList = new InstructionList();
 		instructionList.append(instructionFactory.createNew("java.util.Date"));
 		instructionList.append(InstructionConstants.DUP);

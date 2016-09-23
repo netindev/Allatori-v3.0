@@ -4,11 +4,11 @@ public class LogRepo {
 	
 	/* OK */
 
-	public String fString;
-	public String sString;
+	public String key;
+	public String value;
 
-	public LogRepo(String fString, String sString) {
-		this.fString = fString;
-		this.sString = sString;
+	public LogRepo(String key, String value) {
+		this.key = key;
+		this.value = value;
 	}
 }

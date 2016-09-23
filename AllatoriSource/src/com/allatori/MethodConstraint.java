@@ -4,71 +4,65 @@ import org.apache.bcel.classfile.Method;
 import org.apache.bcel.generic.MethodGen;
 
 public class MethodConstraint {
+	
+	/* OK */
 
-	private String aString698;
-	private String aString699;
-	private int anInt700;
-	private String aString701;
+	private String parsePattern;
+	private String replace;
+	private int parseAccess;
+	private String pattF;
 
-	public boolean apply(Method var1) {
-		return !Class115.method1399(var1, this.anInt700) ? false
-				: (!var1.getName().matches(this.aString698) ? false
-						: (!var1.getReturnType().toString().matches(this.aString701) ? false
-								: Class115.method1388(var1.getArgumentTypes(), this.aString699)));
+	public boolean apply(Method method) {
+		return !Class115.method1399(method, this.parseAccess) ? false
+				: (!method.getName().matches(this.parsePattern) ? false
+						: (!method.getReturnType().toString().matches(this.pattF) ? false
+								: Class115.method1388(method.getArgumentTypes(), this.replace)));
 	}
 
-	private void parseTemplate(String var1) throws TemplateException {
-		String[] var2;
-		if ((var2 = var1.split("\\(|\\)")).length != 2 && (var2.length != 1 || !var1.endsWith("()"))) {
+	private void parseTemplate(String string) throws TemplateException {
+		String[] split = string.split("\\(|\\)");
+		if (split.length != 2 && (split.length != 1 || !string.endsWith("()"))) {
 			throw new TemplateException("Invalid template.");
 		} else {
-			if (var2.length == 1) {
-				this.aString699 = "";
+			if (split.length == 1) {
+				this.replace = "";
 			} else {
-				final String var3 = var2[1];
-				this.aString699 = Class115.method1396(var3);
+				final String getSecond = split[1];
+				this.replace = Class115.replaceAll(getSecond);
 			}
-
-			String[] var6;
-			if ((var6 = (var1 = var2[0]).split("\\s+")) != null && var6.length != 0) {
-				this.aString698 = Class115.parsePattern(var6[var6.length - 1]);
-				if (var6.length > 1 && !Class115.method1389(var6[var6.length - 2])) {
-					this.aString701 = Class115.localParsePattern(var6[var6.length - 2]);
+			String[] splitS = (string = split[0]).split("\\s+");
+			if (splitS != null && splitS.length != 0) {
+				this.parsePattern = Class115.parsePattern(splitS[splitS.length - 1]);
+				if (splitS.length > 1 && !Class115.method1389(splitS[splitS.length - 2])) {
+					this.pattF = Class115.localParsePattern(splitS[splitS.length - 2]);
 				} else {
-					this.aString701 = ".*";
+					this.pattF = ".*";
 				}
-
-				String var4 = "";
-
-				int var5;
-				for (int var10000 = var5 = var6.length - 3; var10000 >= 0; var10000 = var5) {
-					var4 = var4 + " " + var6[var5];
-					--var5;
+				String build = "";
+				for (int i = splitS.length - 3; i >= 0; i--) {
+					build = build + " " + splitS[i];
 				}
-
-				if (var6.length >= 2 && Class115.method1389(var6[var6.length - 2])) {
-					var4 = var4 + " " + var6[var6.length - 2];
+				if (splitS.length >= 2 && Class115.method1389(splitS[splitS.length - 2])) {
+					build = build + " " + splitS[splitS.length - 2];
 				}
-
-				if (var4.equals("")) {
-					var4 = "*";
+				if (build.equals("")) {
+					build = "*";
 				}
-
-				this.anInt700 = Class115.parseAccess(var4);
+				this.parseAccess = Class115.parseAccess(build);
 			} else {
 				throw new TemplateException("Invalid template.");
 			}
 		}
 	}
 
-	public MethodConstraint(String var1) throws TemplateException {
-		this.parseTemplate(var1);
+	public MethodConstraint(String string) throws TemplateException {
+		this.parseTemplate(string);
 	}
 
-	public boolean apply(MethodGen var1) {
-		return !Class115.method1399(var1, this.anInt700) ? false
-				: (!var1.getName().matches(this.aString698) ? false
-						: (!var1.getReturnType().toString().matches(this.aString701) ? false
-								: Class115.method1388(var1.getArgumentTypes(), this.aString699)));
+	public boolean apply(MethodGen methodGen) {
+		return !Class115.method1399(methodGen, this.parseAccess) ? false
+				: (!methodGen.getName().matches(this.parsePattern) ? false
+						: (!methodGen.getReturnType().toString().matches(this.pattF) ? false
+								: Class115.method1388(methodGen.getArgumentTypes(), this.replace)));
 	}
 }

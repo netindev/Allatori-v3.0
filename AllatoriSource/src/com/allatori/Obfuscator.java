@@ -28,7 +28,7 @@ public class Obfuscator {
 	private void executeTransforms() {
 		final Vector<ObfuscationType> transformsVector = new Vector<ObfuscationType>();
 		transformsVector.add(new DemoWaterMark());
-		transformsVector.add(new Class63(this.classes));
+		transformsVector.add(new ReplaceMet(this.classes));
 		transformsVector.add(new ExpiryObfuscation(this.classes));
 		if (Tuning.rearrangeClassMembers()) {
 			transformsVector.add(new ClassMemberRearranger());

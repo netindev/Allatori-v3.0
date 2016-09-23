@@ -14,11 +14,11 @@ public class ObfuscationStyleUtils {
 				: (methodNamingType == 3 ? new Keywords() : new ObfuscationStyleMixed());
 	}
 
-	public static IObfuscationStyle method334() {
+	public static IObfuscationStyle getSecondObfStyleLow() {
 		return new ObfuscationStyleLow();
 	}
 
-	public static IObfuscationStyle method335() {
+	public static IObfuscationStyle geObfStyleLow() {
 		return new ObfuscationStyleLow();
 	}
 
@@ -36,7 +36,7 @@ public class ObfuscationStyleUtils {
 		fieldNamingType = toSet;
 	}
 
-	public static IObfuscationStyle method339() {
+	public static IObfuscationStyle getThirdObfStyleLow() {
 		return new ObfuscationStyleLow();
 	}
 

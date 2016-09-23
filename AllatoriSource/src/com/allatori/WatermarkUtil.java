@@ -4,7 +4,7 @@ public class WatermarkUtil {
 	
 	/* OK */
 
-	private static boolean bool = false;
+	private static boolean extract = false;
 	private static String watermarkValue;
 	private static String watermarkKey;
 
@@ -21,14 +21,14 @@ public class WatermarkUtil {
 	}
 
 	public static boolean getBool() {
-		return bool;
+		return extract;
 	}
 
-	public static String getKey() {
+	public static String getExtract() {
 		return watermarkKey;
 	}
 
-	public static void setBool(boolean newBool) {
-		bool = newBool;
+	public static void setExtract(boolean newBool) {
+		extract = newBool;
 	}
 }

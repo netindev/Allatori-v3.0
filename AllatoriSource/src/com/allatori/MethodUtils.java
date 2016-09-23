@@ -7,7 +7,7 @@ import org.apache.bcel.generic.Type;
 
 public class MethodUtils {
 
-	private static boolean method1446(AccessFlags var0) {
+	private static boolean localIsNotPublicProtectedPrivate(AccessFlags var0) {
 		return !var0.isPublic() && !var0.isProtected() && !var0.isPrivate();
 	}
 
@@ -24,8 +24,8 @@ public class MethodUtils {
 		return method1453(var0, var1);
 	}
 
-	public static boolean method1450(AccessFlags var0) {
-		return method1446(var0);
+	public static boolean isNotPublicProtectedPrivate(AccessFlags var0) {
+		return localIsNotPublicProtectedPrivate(var0);
 	}
 
 	private static void setPublic(AccessFlags accessFlags) {

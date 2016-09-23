@@ -138,7 +138,7 @@ public class LogFile {
 
 		for (var10000 = var13 = var1.aVector515.size() - 1; var10000 >= 0; var10000 = var13) {
 			final LogRepo var15 = (LogRepo) var1.aVector515.get(var13);
-			var0.println("   <source old=\"" + var15.fString + "\" new =\"" + var15.sString + "\"/>");
+			var0.println("   <source old=\"" + var15.key + "\" new =\"" + var15.value + "\"/>");
 			--var13;
 		}
 

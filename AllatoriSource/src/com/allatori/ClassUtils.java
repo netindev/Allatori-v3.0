@@ -1,41 +1,43 @@
 package com.allatori;
 
 public class ClassUtils {
+	
+	/* OK */
 
 	private static ClassConstraint classConstraint;
-	private static String aString895;
-	private static boolean bool;
-	private static String aString897;
+	private static String className;
+	private static boolean passThis;
+	private static String methodName;
 
-	public static void method1773(String var0) {
-		aString897 = var0;
+	public static void setMethodName(String string) {
+		methodName = string;
 	}
 
-	public static void method1774(String var0) {
-		aString895 = var0;
+	public static void setClassName(String string) {
+		className = string;
 	}
 
-	public static void setBool(boolean setBool) {
-		bool = setBool;
+	public static void setPassThis(boolean setBool) {
+		passThis = setBool;
 	}
 
-	public static boolean getBool() {
-		return bool;
+	public static boolean getPassThis() {
+		return passThis;
 	}
 
 	public static ClassConstraint getClassConstraint() {
 		return classConstraint;
 	}
 
-	public static String method1778() {
-		return aString895;
+	public static String getClassName() {
+		return className;
 	}
 
 	public static void setClassConstraint(ClassConstraint setClassConstraint) {
 		classConstraint = setClassConstraint;
 	}
 
-	public static String method1780() {
-		return aString897;
+	public static String getMethodName() {
+		return methodName;
 	}
 }

@@ -62,10 +62,10 @@ public class URLClassLoaderImpl extends URLClassLoader {
 
 	private Class<?> findClassInJars(String className) throws Exception {
 		final String fullClassName = className.replace('.', '/').concat(".class");
-		final Vector<?> vector = Configurable.method660();
+		final Vector<?> vector = Configurable.getConfigRepo();
 		for (int i = 0; i < vector.size(); i++) {
 			final ConfigRepo configRepo = (ConfigRepo) vector.get(i);
-			final JarFile jarFile = new JarFile(configRepo.aString799);
+			final JarFile jarFile = new JarFile(configRepo.key);
 			try {
 				ZipEntry entry = jarFile.getEntry(fullClassName);
 				if (entry != null) {

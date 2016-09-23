@@ -11,7 +11,7 @@ import org.apache.bcel.generic.MethodGen;
 public class Class26 {
 
 	private final RenamingMap aRenamingMap_566 = new RenamingMap();
-	private final IObfuscationStyle anInterface22_567 = ObfuscationStyleUtils.method334();
+	private final IObfuscationStyle anInterface22_567 = ObfuscationStyleUtils.getSecondObfStyleLow();
 	private final Vector<Object> aVector568 = new Vector<Object>();
 	private final Vector<LogRepo> aVector569 = new Vector<LogRepo>();
 

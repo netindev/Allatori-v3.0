@@ -167,8 +167,8 @@ public class Class115 {
 		return localParsePattern(string);
 	}
 
-	public static String method1396(String var0) {
-		return var0.replaceAll("\\s+", "").replaceAll("\\.", "\\\\.").replaceAll("\\*\\*", "%@#")
+	public static String replaceAll(String string) {
+		return string.replaceAll("\\s+", "").replaceAll("\\.", "\\\\.").replaceAll("\\*\\*", "%@#")
 				.replaceAll("\\*", "[^,]*").replaceAll("\\%\\@\\#", ".*");
 	}
 

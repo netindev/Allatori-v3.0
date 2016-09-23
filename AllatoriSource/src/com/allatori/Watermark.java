@@ -19,9 +19,9 @@ public class Watermark extends Configurable {
 			System.exit(0);
 		}
 		if ("-add".equals(args[0])) {
-			WatermarkUtil.setBool(false);
+			WatermarkUtil.setExtract(false);
 		} else if ("-extract".equals(args[0])) {
-			WatermarkUtil.setBool(true);
+			WatermarkUtil.setExtract(true);
 		} else {
 			printUsage();
 			System.exit(0);
@@ -30,13 +30,13 @@ public class Watermark extends Configurable {
 		try {
 			final ClassStorage classStorage = Configurable.getClasses();
 			if (WatermarkUtil.getBool()) {
-				if (WatermarkUtil.getKey() == null) {
+				if (WatermarkUtil.getExtract() == null) {
 					Logger.printError("Configuration error. Watermark key is not set.");
 					System.exit(0);
 				}
 				System.out.println("Extracted watermark: \"" + Configurable.extractWatermark(classStorage) + "\"");
 			} else {
-				if (WatermarkUtil.getKey() == null) {
+				if (WatermarkUtil.getExtract() == null) {
 					Logger.printError("Configuration error. Watermark key is not set.");
 					System.exit(0);
 				}
@@ -44,7 +44,7 @@ public class Watermark extends Configurable {
 					Logger.printError("Configuration error. Watermark value is not set.");
 					System.exit(0);
 				}
-				Configurable.method1266(classStorage);
+				Configurable.createWatermark(classStorage);
 				Configurable.method1275(classStorage);
 			}
 		} catch (final Exception e) {

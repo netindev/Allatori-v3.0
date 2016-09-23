@@ -37,8 +37,8 @@ public class Obfuscate extends Configurable {
 	public static void execute() throws Exception {
 		ClassStorage classStorage = Configurable.getClasses();
 		method1276(classStorage);
-		if (WatermarkUtil.getKey() != null && WatermarkUtil.getValue() != null) {
-			Configurable.method1266(classStorage);
+		if (WatermarkUtil.getExtract() != null && WatermarkUtil.getValue() != null) {
+			Configurable.createWatermark(classStorage);
 		}
 		Configurable.method1275(classStorage);
 		Logger.printInfo("Obfuscation completed. Writing log file...");

@@ -22,7 +22,7 @@ public class Watermarking {
 			final Vector<Object> vector = this.method1761();
 			final short[] shortArr = this.method1759(vector);
 			return this.method1765(shortArr);
-		} catch (final Exception var3) {
+		} catch (final Exception e) {
 			throw new ExtractWatermarkException("Cannot extract watermark.");
 		}
 	}
@@ -34,7 +34,7 @@ public class Watermarking {
 		int var10000;
 		for (var10000 = var3 = var1.size() - 1; var10000 >= 0; var10000 = var3) {
 			InstructionHandle var6;
-			for (InstructionHandle var7 = var6 = Class171.method1704((Class171) var1.get(var3)).getInstructionList()
+			for (InstructionHandle var7 = var6 = ClassRepo.getMethodGen((ClassRepo) var1.get(var3)).getInstructionList()
 					.getStart(); var7 != null; var7 = var6 = var6.getNext()) {
 				if (this.method1762(var6)) {
 					var2.add(((SIPUSH) var6.getInstruction()).getValue());
@@ -66,10 +66,10 @@ public class Watermarking {
 		int var10000 = var7 = var1.size() - 1;
 
 		while (var10000 >= 0) {
-			Class171 var8;
+			ClassRepo var8;
 			InstructionList var9;
 			int var10;
-			if ((var10 = (var9 = Class171.method1704(var8 = (Class171) var1.get(var7)).getInstructionList())
+			if ((var10 = (var9 = ClassRepo.getMethodGen(var8 = (ClassRepo) var1.get(var7)).getInstructionList())
 					.getLength()) > 0) {
 				var10 = Class34.method571(var10);
 			}
@@ -106,9 +106,9 @@ public class Watermarking {
 						++var12;
 					} while (var12 < var5 && var7 < var3 - var6 / 4);
 
-					Class171.method1704(var8).setMaxStack();
-					Class171.method1705(var8).replaceMethod(Class171.method1706(var8),
-							Class171.method1704(var8).getMethod());
+					ClassRepo.getMethodGen(var8).setMaxStack();
+					ClassRepo.getClassGen(var8).replaceMethod(ClassRepo.getMethod(var8),
+							ClassRepo.getMethodGen(var8).getMethod());
 					--var7;
 					var10000 = var7;
 					break;
@@ -139,7 +139,7 @@ public class Watermarking {
 					- 1; var7 >= 0; var7 = var5) {
 				Method var6;
 				if ((var6 = var4[var5]).getCode() != null) {
-					var1.add(new Class171(var3, var6));
+					var1.add(new ClassRepo(var3, var6));
 				}
 
 				--var5;
@@ -164,7 +164,7 @@ public class Watermarking {
 	private boolean method1763(Vector<Object> var1) {
 		int var2;
 		for (int var10000 = var2 = var1.size() - 1; var10000 >= 0; var10000 = var2) {
-			final InstructionList var4 = Class171.method1704((Class171) var1.get(var2)).getInstructionList();
+			final InstructionList var4 = ClassRepo.getMethodGen((ClassRepo) var1.get(var2)).getInstructionList();
 			InstructionHandle var5 = var4.getStart();
 
 			for (InstructionHandle var6 = var5; var6 != null; var6 = var5) {
