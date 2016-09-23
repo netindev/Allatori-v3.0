@@ -2,8 +2,6 @@ package com.allatori;
 
 public abstract class TMUtils implements Cloneable {
 
-	public Double aDouble525;
-
 	public void method357(double[] var1, int var2) {
 		int var3;
 		for (int var10000 = var3 = 0; var10000 < var2; var10000 = var3) {
@@ -22,10 +20,6 @@ public abstract class TMUtils implements Cloneable {
 		}
 
 		return var3;
-	}
-
-	public double method361(double var1) {
-		return var1 + (1.0D - var1) * this.method359();
 	}
 
 	@Override

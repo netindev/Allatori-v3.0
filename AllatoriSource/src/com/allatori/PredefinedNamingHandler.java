@@ -7,42 +7,39 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class PredefinedNamingHandler extends DefaultHandler {
+	
+	/* OK */
 
-	private String aString966;
-	private final StackTraceLog aClass166_967;
-	private String aString968;
+	private String oldString;
+	private final StackTraceLog stackTraceLog;
+	private String newString;
 
-	public PredefinedNamingHandler(StackTraceLog var1) {
-		this.aClass166_967 = var1;
-		var1.aRenamingMap_852 = new RenamingMap();
-		var1.aRenamingMap_854 = new RenamingMap();
-		var1.aVector853 = new Vector<Object>();
+	public PredefinedNamingHandler(StackTraceLog stackTraceLog) {
+		this.stackTraceLog = stackTraceLog;
+		stackTraceLog.init = new RenamingMap();
+		stackTraceLog.oldNewRep = new RenamingMap();
+		stackTraceLog.vector = new Vector<Object>();
 	}
-
+	
 	@Override
-	public void startElement(String var1, String var2, String var3, Attributes var4) throws SAXException {
-		if ("class".equals(var3)) {
-			this.aString966 = var4.getValue("old") + ".";
-			this.aString968 = var4.getValue("new") + ".";
-			this.aClass166_967.aRenamingMap_852.put(this.aString968 + "<init>", this.aString966 + "<init>");
-			this.aClass166_967.aRenamingMap_852.put(this.aString968 + "<clinit>", this.aString966 + "<clinit>");
+	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+		if ("class".equals(qName)) {
+			this.oldString = attributes.getValue("old") + ".";
+			this.newString = attributes.getValue("new") + ".";
+			this.stackTraceLog.init.put(this.newString + "<init>", this.oldString + "<init>");
+			this.stackTraceLog.init.put(this.newString + "<clinit>", this.oldString + "<clinit>");
 		} else {
-			String var5;
-			String var6;
-			if ("method".equals(var3)) {
-				var5 = var4.getValue("old");
-				var6 = var4.getValue("new");
-				final String var7 = var5.substring(0, var5.indexOf(40));
-				this.aClass166_967.aRenamingMap_852.put(this.aString968 + var6, this.aString966 + var7);
-			} else if ("source".equals(var3)) {
-				var5 = var4.getValue("old");
-				var6 = var4.getValue("new");
-				this.aClass166_967.aRenamingMap_854.put(var6, var5);
-			} else if ("line".equals(var3)) {
-				final Integer var8 = Integer.valueOf(var4.getValue("l"));
-				this.aClass166_967.aVector853.add(var8);
+			String oldS = attributes.getValue("old");
+			String newS = attributes.getValue("new");
+			if ("method".equals(qName)) {
+				final String substring = oldS.substring(0, oldS.indexOf(40));
+				this.stackTraceLog.init.put(this.newString + newS, this.oldString + substring);
+			} else if ("source".equals(qName)) {
+				this.stackTraceLog.oldNewRep.put(newS, oldS);
+			} else if ("line".equals(qName)) {
+				final Integer integer = Integer.valueOf(attributes.getValue("l"));
+				this.stackTraceLog.vector.add(integer);
 			}
 		}
-
 	}
 }

@@ -15,13 +15,13 @@ import org.apache.bcel.generic.SIPUSH;
 public class Watermarking {
 
 	private final String aString891;
-	private final ClassStorage aClassStorage_892;
+	private final ClassStorage classStorage;
 
 	public String extractWatermark() throws ExtractWatermarkException {
 		try {
-			final Vector<Object> var1 = this.method1761();
-			final short[] var2 = this.method1759(var1);
-			return this.method1765(var2);
+			final Vector<Object> vector = this.method1761();
+			final short[] shortArr = this.method1759(vector);
+			return this.method1765(shortArr);
 		} catch (final Exception var3) {
 			throw new ExtractWatermarkException("Cannot extract watermark.");
 		}
@@ -122,9 +122,9 @@ public class Watermarking {
 	}
 
 	public Watermarking(ClassStorage var1, String var2) {
-		this.aClassStorage_892 = var1;
+		this.classStorage = var1;
 		this.aString891 = var2;
-		Method.setComparator(MethodComparator.method652());
+		Method.setComparator(MethodComparator.instance());
 	}
 
 	private Vector<Object> method1761() {
@@ -132,7 +132,7 @@ public class Watermarking {
 
 		Iterator<?> var2;
 		int var5;
-		for (Iterator<?> var10000 = var2 = this.aClassStorage_892.valuesIterator(); var10000.hasNext(); var10000 = var2) {
+		for (Iterator<?> var10000 = var2 = this.classStorage.valuesIterator(); var10000.hasNext(); var10000 = var2) {
 			ClassGen var3;
 			Method[] var4;
 			for (int var7 = var5 = (var4 = (var3 = (ClassGen) var2.next()).getMethods()).length

@@ -1,6 +1,3 @@
-/* F2I - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.generic;
 
 public class F2I extends ConversionInstruction {

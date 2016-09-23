@@ -220,7 +220,7 @@ public class Renamer {
 					Class165.method1653(Class172.method1708(this.aClass172_509)));
 			boolean var7 = false;
 			if ((Class165.method1652(Class172.method1708(this.aClass172_509)).containsKey(var1.getClassName())
-					|| Packaging.method575()) && !var4.isPrivate()) {
+					|| Packaging.forceDefaultPackage()) && !var4.isPrivate()) {
 				var7 = true;
 			}
 
@@ -237,7 +237,7 @@ public class Renamer {
 				}
 
 				if (var7) {
-					MethodUtils.method1448(var8);
+					MethodUtils.isPublic(var8);
 				}
 
 				this.method331(var8.getAnnotationEntries(), var1.getConstantPool());
@@ -254,8 +254,8 @@ public class Renamer {
 		if (!Class165.method1653(Class172.method1708(this.aClass172_509)).containsKey(var2)) {
 			final String var3 = MethodUtils.getPackageName(var2);
 			String var4 = this.method314(var3);
-			if (Packaging.method578() && (!var3.equals(var4) || Packaging.method575())) {
-				var4 = Packaging.method576();
+			if (Packaging.defaultPackageIsNull() && (!var3.equals(var4) || Packaging.forceDefaultPackage())) {
+				var4 = Packaging.getDefaultPackage();
 				Class165.method1652(Class172.method1708(this.aClass172_509)).put(var2, "&");
 			}
 
@@ -455,7 +455,7 @@ public class Renamer {
 				var4 = MethodUtils.getPackageName(var2);
 				var5 = MethodUtils
 						.getPackageName(Class165.method1653(Class172.method1708(this.aClass172_509)).get(var2));
-				if (!Packaging.method578() || !var5.equals(Packaging.method576())) {
+				if (!Packaging.defaultPackageIsNull() || !var5.equals(Packaging.getDefaultPackage())) {
 					if ((new StringTokenizer(var4, ".")).countTokens() == (new StringTokenizer(var5, "."))
 							.countTokens()) {
 						Class141.method1520(Class172.method1711(this.aClass172_509)).put(var4, var5);
@@ -583,8 +583,8 @@ public class Renamer {
 			}
 
 			if ((Class165.method1652(Class172.method1708(this.aClass172_509)).containsKey(var1.getClassName())
-					|| Packaging.method575()) && !var4.isPrivate()) {
-				MethodUtils.method1448(var5);
+					|| Packaging.forceDefaultPackage()) && !var4.isPrivate()) {
+				MethodUtils.isPublic(var5);
 			}
 
 			this.aClass26_510.method494(var5);
@@ -843,7 +843,7 @@ public class Renamer {
 		for (int var10000 = var11 = (var10 = this.aClass56_508.method691(var1.getClassName())).size()
 				- 1; var10000 >= 0; var10000 = var11) {
 			final ClassGen var9 = (ClassGen) var10.get(var11);
-			if (var6 && Packaging.method578() && !MethodUtils.getPackageName(var1.getClassName())
+			if (var6 && Packaging.defaultPackageIsNull() && !MethodUtils.getPackageName(var1.getClassName())
 					.equals(MethodUtils.getPackageName(var9.getClassName()))) {
 				NameRepository.getMethodRenamingMap(Class172.method1707(this.aClass172_509))
 						.put(var9.getClassName() + "&" + var3 + "&" + MethodUtils.method1454(var4), "&");
@@ -888,7 +888,7 @@ public class Renamer {
 				++var6;
 			}
 
-			RenamingUtils.method1603(Class172.method1709(this.aClass172_509)).reset();
+			RenamingUtils.getObfSyle(Class172.method1709(this.aClass172_509)).reset();
 
 			int var7;
 			for (int var10000 = var7 = var5.length - 1; var10000 >= 0; var10000 = var7) {
@@ -900,7 +900,7 @@ public class Renamer {
 				}
 
 				if ((var3 != 5 || var7 >= var6) && !var4) {
-					var8.setName(RenamingUtils.method1603(Class172.method1709(this.aClass172_509)).next());
+					var8.setName(RenamingUtils.getObfSyle(Class172.method1709(this.aClass172_509)).next());
 				}
 
 				--var7;
@@ -1109,8 +1109,8 @@ public class Renamer {
 
 	private void method330(ClassGen var1) {
 		if (Class165.method1652(Class172.method1708(this.aClass172_509)).containsKey(var1.getClassName())
-				|| Packaging.method575()) {
-			MethodUtils.method1448(var1);
+				|| Packaging.forceDefaultPackage()) {
+			MethodUtils.isPublic(var1);
 		}
 
 		if (Tuning.isFinalizingEnabled() && !var1.isAbstract() && !var1.isInterface() && !var1.isAnnotation()

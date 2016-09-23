@@ -1,6 +1,3 @@
-/* AnnotationEntryGen - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.generic;
 
 import java.io.DataInputStream;
@@ -20,7 +17,7 @@ public class AnnotationEntryGen {
 	}
 
 	private int typeIndex;
-	private List evs;
+	private List<ElementValuePairGen> evs;
 	private final ConstantPoolGen cpool;
 	private boolean isRuntimeVisible = false;
 
@@ -34,8 +31,8 @@ public class AnnotationEntryGen {
 		evs = copyValues(a.getElementValuePairs(), cpool, copyPoolEntries);
 	}
 
-	private List copyValues(ElementValuePair[] in, ConstantPoolGen cpool, boolean copyPoolEntries) {
-		final List out = new ArrayList();
+	private List<ElementValuePairGen> copyValues(ElementValuePair[] in, ConstantPoolGen cpool, boolean copyPoolEntries) {
+		final List<ElementValuePairGen> out = new ArrayList<ElementValuePairGen>();
 		final int l = in.length;
 		for (int i = 0; i < l; i++) {
 			final ElementValuePair nvp = in[i];
@@ -50,7 +47,7 @@ public class AnnotationEntryGen {
 
 	public AnnotationEntry getAnnotation() {
 		final AnnotationEntry a = new AnnotationEntry(typeIndex, cpool.getConstantPool(), isRuntimeVisible);
-		final Iterator i$ = evs.iterator();
+		final Iterator<ElementValuePairGen> i$ = evs.iterator();
 		while (i$.hasNext()) {
 			final ElementValuePairGen element = (ElementValuePairGen) i$.next();
 			a.addElementNameValuePair(element.getElementNameValuePair());
@@ -58,7 +55,7 @@ public class AnnotationEntryGen {
 		return a;
 	}
 
-	public AnnotationEntryGen(ObjectType type, List elements, boolean vis, ConstantPoolGen cpool) {
+	public AnnotationEntryGen(ObjectType type, List<ElementValuePairGen> elements, boolean vis, ConstantPoolGen cpool) {
 		this.cpool = cpool;
 		typeIndex = cpool.addUtf8(type.getSignature());
 		evs = elements;
@@ -89,7 +86,7 @@ public class AnnotationEntryGen {
 
 	public void addElementNameValuePair(ElementValuePairGen evp) {
 		if (evs == null)
-			evs = new ArrayList();
+			evs = new ArrayList<ElementValuePairGen>();
 		evs.add(evp);
 	}
 
@@ -106,7 +103,7 @@ public class AnnotationEntryGen {
 		return getTypeSignature();
 	}
 
-	public List getValues() {
+	public List<ElementValuePairGen> getValues() {
 		return evs;
 	}
 

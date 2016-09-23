@@ -15,14 +15,14 @@ public class Obfuscator {
 	private void executeRenamer() {
 		try {
 			(new Renamer(this.classes)).run();
-		} catch (final RunException var4) {
+		} catch (final RunException e) {
 			try {
 				Logger.printWarning("Rerunning obfuscation due to un-renamed packages.");
-				(new Renamer(this.classes)).run();
-			} catch (final RunException var3) {
+				new Renamer(this.classes).run();
+			} catch (final RunException f) {
+				/* empty */
 			}
 		}
-
 	}
 
 	private void executeTransforms() {
@@ -33,48 +33,38 @@ public class Obfuscator {
 		if (Tuning.rearrangeClassMembers()) {
 			transformsVector.add(new ClassMemberRearranger());
 		}
-
 		if (Tuning.isStringObfuscationLayer2Enabled()) {
 			transformsVector.add(new StringObfuscationLayer1(this.classes));
 		}
-
 		if (Tuning.isControlFlowObfuscationEnabled()) {
 			transformsVector.add(new ControlFlow());
 		}
-
 		transformsVector.add(new AntiJDTransform(this.classes));
-
-		Iterator<?> var2;
-		Iterator<?> var10000;
-		for (var10000 = var2 = this.classes.valuesIterator(); var10000.hasNext(); var10000 = var2) {
-			final ClassGen var3 = (ClassGen) var2.next();
-
-			Iterator<ObfuscationType> var4;
-			for (var10000 = var4 = transformsVector.iterator(); var10000.hasNext(); var10000 = var4) {
-				((ObfuscationType) var4.next()).execute(var3);
+		Iterator<?> valuesIterator = this.classes.valuesIterator();
+		for (Iterator<?> iterator = valuesIterator; iterator.hasNext(); iterator = valuesIterator) {
+			final ClassGen classGen = (ClassGen) valuesIterator.next();
+			Iterator<ObfuscationType> transformsIterator = transformsVector.iterator();
+			for (iterator = transformsIterator; iterator.hasNext(); iterator = transformsIterator) {
+				((ObfuscationType) transformsIterator.next()).execute(classGen);
 			}
 		}
-
-		Iterator<ObfuscationType> var5;
-		for (var10000 = var5 = transformsVector.iterator(); var10000.hasNext(); var10000 = var5) {
-			((ObfuscationType) var5.next()).terminate();
+		Iterator<ObfuscationType> obfIterator;
+		for (Iterator<?> iterator = obfIterator = transformsVector.iterator(); iterator.hasNext(); iterator = obfIterator) {
+			((ObfuscationType) obfIterator.next()).terminate();
 		}
-
 	}
 
-	public Obfuscator(ClassStorage var1) {
-		this.classes = var1;
-		Method.setComparator(MethodComparator.method652());
+	public Obfuscator(ClassStorage classStorage) {
+		this.classes = classStorage;
+		Method.setComparator(MethodComparator.instance());
 	}
 
 	private void method1525() {
 		final Class95 var1 = new Class95();
-
 		Iterator<?> var2;
 		for (Iterator<?> var10000 = var2 = this.classes.valuesIterator(); var10000.hasNext(); var10000 = var2) {
 			var1.method1258((ClassGen) var2.next());
 		}
-
 	}
 
 	public void method1526() {
@@ -82,11 +72,10 @@ public class Obfuscator {
 		Iterator<?> var10000;
 		for (var10000 = var1 = this.classes.valuesIterator(); var10000.hasNext(); var10000 = var1) {
 			if (((ClassGen) var1.next()).getSuperclassName().startsWith("javax.microedition.")) {
-				Tuning.method1723();
+				Tuning.setIsWeakStringEncryption();
 				break;
 			}
 		}
-
 		this.executeTransforms();
 		this.executeRenamer();
 		if (Tuning.isStringObfuscationLayer2Enabled()) {
@@ -98,7 +87,6 @@ public class Obfuscator {
 				var2.execute(var4);
 			}
 		}
-
 		this.method1525();
 	}
 }

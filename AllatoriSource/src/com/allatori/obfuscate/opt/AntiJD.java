@@ -7,6 +7,8 @@ import com.allatori.ObfuscationConstraint;
 import com.allatori.ObfuscationTypeConstraint;
 
 public class AntiJD {
+	
+	/* OK */
 
 	private static ObfuscationConstraint obfuscationConstraint = new ObfuscationConstraint(0);
 
@@ -14,7 +16,7 @@ public class AntiJD {
 		obfuscationConstraint.addConstraint(obfuscationTypeConstraint);
 	}
 
-	public static int getType(ClassStorage storage, ClassGen _cg) {
-		return obfuscationConstraint.getType(storage, _cg, null);
+	public static int getType(ClassStorage storage, ClassGen classGen) {
+		return obfuscationConstraint.getType(storage, classGen, null);
 	}
 }

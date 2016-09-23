@@ -1,6 +1,3 @@
-/* FALOAD - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.generic;
 
 public class FALOAD extends ArrayInstruction implements StackProducer {

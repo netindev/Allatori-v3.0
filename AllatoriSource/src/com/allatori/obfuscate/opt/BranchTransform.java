@@ -19,16 +19,18 @@ import com.allatori.ControlFlowTransform;
 import com.allatori.InitUtils;
 
 public class BranchTransform implements ControlFlowTransform {
+	
+	/* OK */
 
 	@Override
-	public void patch(ClassGen _cg) {
-		for (final Method method : _cg.getMethods()) {
+	public void patch(ClassGen classGen) {
+		for (final Method method : classGen.getMethods()) {
 			if (method.getCode() != null) {
-				final MethodGen _mg = InitUtils.createMethodGen(method, _cg.getClassName(), _cg.getConstantPool(),
-						_cg.getConstantPool().getConstantPool());
-				final InstructionList _il = _mg.getInstructionList();
-				_il.setPositions();
-				for (InstructionHandle current = _il.getStart(); current != null; current = current.getNext()) {
+				final MethodGen methodGen = InitUtils.createMethodGen(method, classGen.getClassName(), classGen.getConstantPool(),
+						classGen.getConstantPool().getConstantPool());
+				final InstructionList instructionList = methodGen.getInstructionList();
+				instructionList.setPositions();
+				for (InstructionHandle current = instructionList.getStart(); current != null; current = current.getNext()) {
 					if (current.getInstruction() instanceof IfInstruction) {
 						boolean targetPosLower = true;
 						boolean targetPosHigher = true;
@@ -55,13 +57,13 @@ public class BranchTransform implements ControlFlowTransform {
 									&& !(targetPrevTarget.getInstruction() instanceof ANEWARRAY)
 									&& this.hasOnlyNonInstructionTargeters(targetPrevTarget.getPrev().getTargeters())) {
 								gi.setTarget(targetPrevTarget.getNext());
-								_il.insert(targetPrevTarget.getPrev(), targetPrevTarget.getInstruction());
+								instructionList.insert(targetPrevTarget.getPrev(), targetPrevTarget.getInstruction());
 							}
 						}
 					}
 				}
-				_mg.setMaxStack();
-				_cg.replaceMethod(method, _mg.getMethod());
+				methodGen.setMaxStack();
+				classGen.replaceMethod(method, methodGen.getMethod());
 			}
 		}
 	}

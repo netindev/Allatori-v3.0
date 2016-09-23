@@ -1,6 +1,3 @@
-/* FieldGenOrMethodGen - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.generic;
 
 import java.util.ArrayList;
@@ -14,8 +11,8 @@ public abstract class FieldGenOrMethodGen extends AccessFlags implements NamedAn
 	protected String name;
 	protected Type type;
 	protected ConstantPoolGen cp;
-	private final List attribute_vec = new ArrayList();
-	protected List annotation_vec = new ArrayList();
+	private final List<Attribute> attribute_vec = new ArrayList<Attribute>();
+	protected List<AnnotationEntryGen> annotation_vec = new ArrayList<AnnotationEntryGen>();
 
 	protected FieldGenOrMethodGen() {
 		/* empty */

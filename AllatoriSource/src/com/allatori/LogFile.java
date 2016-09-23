@@ -13,47 +13,44 @@ public class LogFile {
 
 	private static ObfuscationHandler obfuscationHandler;
 
-	private static void writeXMLHeader(PrintWriter var0) {
-		var0.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-		var0.println("<!--\n   " + Info.name() + " " + Info.version() + "\n" + "   Web: " + Info.website() + "\n\n"
+	private static void writeXMLHeader(PrintWriter printWriter) {
+		printWriter.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+		printWriter.println("<!--\n   " + Info.name() + " " + Info.version() + "\n" + "   Web: " + Info.website() + "\n\n"
 				+ "   Log created: " + Calendar.getInstance().getTime() + "\n" + "-->\n");
-		var0.println("<allatori>");
+		printWriter.println("<allatori>");
 	}
 
-	private static void writeXMLEnd(PrintWriter var0) {
-		var0.println("</allatori>");
+	private static void writeXMLEnd(PrintWriter printWriter) {
+		printWriter.println("</allatori>");
 	}
 
 	public static void writeLogFile() {
-		String var0;
-		if ((var0 = LogUtils.getLogFile()) == null) {
+		String logFile = LogUtils.getLogFile();
+		if (logFile == null) {
 			Logger.printWarning("Log file is not set.");
 		} else {
-			PrintWriter var1 = null;
-
+			PrintWriter printWriter = null;
 			try {
-				final FileOutputStream var2 = new FileOutputStream(var0);
-				writeXMLHeader(
-						var1 = new PrintWriter(new BufferedWriter(new OutputStreamWriter(var2, "UTF-8"), 262144)));
-				writeMapping(var1, obfuscationHandler);
-				writeXMLEnd(var1);
-				var1.flush();
-			} catch (final FileNotFoundException var15) {
-				Logger.printError("Cannot write log to \'" + var0 + "\' file.");
-			} catch (final Exception var16) {
-				Logger.printError("Writing log file failed with exception: " + var16.getMessage());
+				final FileOutputStream fileOutputStream = new FileOutputStream(logFile);
+				writeXMLHeader(printWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(fileOutputStream, "UTF-8"), 262144)));
+				writeMapping(printWriter, obfuscationHandler);
+				writeXMLEnd(printWriter);
+				printWriter.flush();
+			} catch (final FileNotFoundException e) {
+				Logger.printError("Cannot write log to \'" + logFile + "\' file.");
+			} catch (final Exception e) {
+				Logger.printError("Writing log file failed with exception: " + e.getMessage());
 			} finally {
 				try {
-					var1.close();
-				} catch (final Exception var14) {
+					printWriter.close();
+				} catch (final Exception e) {
+					/* empty */
 				}
-
 			}
-
 		}
 	}
 
-	private static int method1770(Vector<?> var0, String var1) {
+	private static int method1770(Vector<String> var0, String var1) {
 		int var2 = 0;
 		int var3 = var0.size() - 1;
 

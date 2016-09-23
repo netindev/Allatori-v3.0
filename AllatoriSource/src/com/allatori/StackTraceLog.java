@@ -3,9 +3,11 @@ package com.allatori;
 import java.util.Vector;
 
 public class StackTraceLog {
+	
+	/* OK */
 
-	public RenamingMap aRenamingMap_852;
-	public Vector<Object> aVector853;
-	public RenamingMap aRenamingMap_854;
+	public RenamingMap init;
+	public Vector<Object> vector;
+	public RenamingMap oldNewRep;
 
 }

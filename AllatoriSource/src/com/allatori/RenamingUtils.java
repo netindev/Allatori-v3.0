@@ -12,7 +12,7 @@ public class RenamingUtils {
 		this.obfStyle = ObfuscationStyleUtils.variableNamingType();
 	}
 
-	public static IObfuscationStyle method1603(RenamingUtils var0) {
-		return var0.obfStyle;
+	public static IObfuscationStyle getObfSyle(RenamingUtils renamingUtils) {
+		return renamingUtils.obfStyle;
 	}
 }

@@ -1,6 +1,3 @@
-/* FieldGen - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.generic;
 
 import java.util.ArrayList;
@@ -34,7 +31,7 @@ public class FieldGen extends FieldGenOrMethodGen {
 			return THIS.getSignature().hashCode() ^ THIS.getName().hashCode();
 		}
 	};
-	private List observers;
+	private List<FieldObserver> observers;
 
 	public FieldGen(int access_flags, Type type, String name, ConstantPoolGen cp) {
 		setAccessFlags(access_flags);
@@ -183,7 +180,7 @@ public class FieldGen extends FieldGenOrMethodGen {
 
 	public void addObserver(FieldObserver o) {
 		if (observers == null)
-			observers = new ArrayList();
+			observers = new ArrayList<FieldObserver>();
 		observers.add(o);
 	}
 
@@ -194,7 +191,7 @@ public class FieldGen extends FieldGenOrMethodGen {
 
 	public void update() {
 		if (observers != null) {
-			final Iterator i$ = observers.iterator();
+			final Iterator<FieldObserver> i$ = observers.iterator();
 			while (i$.hasNext()) {
 				final FieldObserver observer = (FieldObserver) i$.next();
 				observer.notify(this);

@@ -59,12 +59,12 @@ public class StringObfuscationLayer2 implements ObfuscationType {
 	}
 
 	@Override
-	public void execute(ClassGen var1) {
+	public void execute(ClassGen classGen) {
 		try {
-			this.patch(var1);
+			this.patch(classGen);
 		} catch (final Exception var3) {
-			this.aClass95_1146.method1258(var1);
-			this.patch(var1);
+			this.aClass95_1146.method1258(classGen);
+			this.patch(classGen);
 		}
 
 	}

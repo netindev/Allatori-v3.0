@@ -1,6 +1,8 @@
 package com.allatori;
 
 public class WatermarkUtil {
+	
+	/* OK */
 
 	private static boolean bool = false;
 	private static String watermarkValue;

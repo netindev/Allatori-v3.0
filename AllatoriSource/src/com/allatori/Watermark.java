@@ -4,7 +4,7 @@ public class Watermark extends Configurable {
 	
 	/* OK */
 
-	private static void method1279() {
+	private static void printUsage() {
 		System.out.println(Info.name() + " " + Info.version());
 		System.out.println("Usage:");
 		System.out.println("com.allatori.Watermark -add <config file>");
@@ -15,7 +15,7 @@ public class Watermark extends Configurable {
 	public static void main(String[] args) {
 		System.out.println(Configurable.printSplash());
 		if (args.length != 2) {
-			method1279();
+			printUsage();
 			System.exit(0);
 		}
 		if ("-add".equals(args[0])) {
@@ -23,7 +23,7 @@ public class Watermark extends Configurable {
 		} else if ("-extract".equals(args[0])) {
 			WatermarkUtil.setBool(true);
 		} else {
-			method1279();
+			printUsage();
 			System.exit(0);
 		}
 		Configurable.parseConfigFile(args[1]);
@@ -47,9 +47,8 @@ public class Watermark extends Configurable {
 				Configurable.method1266(classStorage);
 				Configurable.method1275(classStorage);
 			}
-		} catch (final Exception var2) {
-			Logger.printError(var2.getMessage());
+		} catch (final Exception e) {
+			Logger.printError(e.getMessage());
 		}
-
 	}
 }

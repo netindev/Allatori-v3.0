@@ -93,7 +93,7 @@ public class Configurable {
 
 		int var4;
 		for (var10000 = var4 = 0; var10000 < var3.size(); var10000 = var4) {
-			ClassLoadingUtils.loadClassesFromDir(((RenameRepo) var3.get(var4)).aString811, var0);
+			ClassLoadingUtils.loadClassesFromDir(((RenameRepo) var3.get(var4)).key, var0);
 			++var4;
 		}
 
@@ -194,7 +194,7 @@ public class Configurable {
 		int var2;
 		for (int var10000 = var2 = 0; var10000 < var1.size(); var10000 = var2) {
 			RenameRepo var3;
-			DumpUtils.dumpClassStorage((var3 = (RenameRepo) var1.get(var2)).aString811, var3.aString812, var0);
+			DumpUtils.dumpClassStorage((var3 = (RenameRepo) var1.get(var2)).key, var3.value, var0);
 			++var2;
 		}
 

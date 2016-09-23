@@ -4,23 +4,25 @@ import org.apache.bcel.classfile.Method;
 import org.apache.bcel.util.BCELComparator;
 
 public class MethodComparator implements BCELComparator {
+	
+	/* OK */
 
-	private static MethodComparator aClass42_1196 = new MethodComparator();
+	private static MethodComparator methodComparator = new MethodComparator();
 
-	public static MethodComparator method652() {
-		return aClass42_1196;
+	public static MethodComparator instance() {
+		return methodComparator;
 	}
 
 	@Override
-	public int hashCode(Object var1) {
-		Method var2;
-		return (var2 = (Method) var1).getSignature().hashCode() ^ var2.getName().hashCode();
+	public int hashCode(Object obj) {
+		Method method = (Method) obj;
+		return method.getSignature().hashCode() ^ method.getName().hashCode();
 	}
 
 	@Override
-	public boolean equals(Object var1, Object var2) {
-		final Method var3 = (Method) var1;
-		final Method var4 = (Method) var2;
-		return var3.getName().equals(var4.getName()) && var3.getSignature().equals(var4.getSignature());
+	public boolean equals(Object toCompare0, Object toCompare1) {
+		final Method fMethod = (Method) toCompare0;
+		final Method sMethod = (Method)  toCompare1;
+		return fMethod.getName().equals(sMethod.getName()) && fMethod.getSignature().equals(sMethod.getSignature());
 	}
 }

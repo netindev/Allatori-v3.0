@@ -1,6 +1,3 @@
-/* ArrayType - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.generic;
 
 public final class ArrayType extends ReferenceType {

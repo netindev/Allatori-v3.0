@@ -1,12 +1,14 @@
 package com.allatori;
 
 public class RenameRepo {
+	
+	/* OK */
 
-	public String aString811;
-	public String aString812;
+	public String key;
+	public String value;
 
-	public RenameRepo(String var1, String var2) {
-		this.aString811 = var1;
-		this.aString812 = var2;
+	public RenameRepo(String key, String value) {
+		this.key = key;
+		this.value = value;
 	}
 }

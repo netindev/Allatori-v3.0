@@ -207,10 +207,6 @@ public class ConfigFileHandler extends DefaultHandler {
 						this.throw3AttributeException("value", "fast", "strong");
 					}
 
-					if ("private+ class *".equals(apply2class) && "private+ *(**)".equals(apply2method)) {
-						Tuning.setStringEncryptionType(stringEncryptionLevel);
-					}
-
 					(classConstraint = this.createClassFilter(apply2class, null, null, null, "apply2class"))
 							.addMethodConstraint(this.createMethodFilter(apply2method, null, "apply2method"));
 					Tuning.setStringEncryptionTypeConstraint(

@@ -159,7 +159,7 @@ public class DefaultHandler extends org.xml.sax.helpers.DefaultHandler {
 	private void method1852() {
 		String var1 = MethodUtils.getPackageName(this.oldClassName);
 		String var2 = MethodUtils.getPackageName(this.newClassName);
-		if (!Packaging.method578() || !Packaging.method576().equals(var2)) {
+		if (!Packaging.defaultPackageIsNull() || !Packaging.getDefaultPackage().equals(var2)) {
 			int var3 = 0;
 
 			int var4;

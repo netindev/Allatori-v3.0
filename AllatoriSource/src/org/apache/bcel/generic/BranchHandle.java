@@ -1,6 +1,3 @@
-/* BranchHandle - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.generic;
 
 public final class BranchHandle extends InstructionHandle {

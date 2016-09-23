@@ -10,6 +10,8 @@ import com.allatori.Obfuscate;
 import com.allatori.ParseConfig;
 
 public class ObfuscatorTask extends Task {
+	
+	/* OK */
 
 	private String file;
 

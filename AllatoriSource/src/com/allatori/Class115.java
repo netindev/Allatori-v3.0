@@ -22,20 +22,20 @@ public class Class115 {
 		return var2.toString().matches(var1);
 	}
 
-	public static boolean method1389(String var0) {
-		return var0.indexOf("public") >= 0 ? true
-				: (var0.indexOf("protected") >= 0 ? true
-						: (var0.indexOf("package") >= 0 ? true
-								: (var0.indexOf("private") >= 0 ? true
-										: (var0.indexOf("static") >= 0 ? true : (var0.indexOf("final") >= 0 ? true
-												: (var0.indexOf("synchronized") >= 0 ? true
-														: (var0.indexOf("volatile") >= 0 ? true
-																: (var0.indexOf("transient") >= 0 ? true
-																		: (var0.indexOf("native") >= 0 ? true
-																				: (var0.indexOf("interface") >= 0 ? true
-																						: (var0.indexOf("abstract") >= 0
+	public static boolean method1389(String string) {
+		return string.indexOf("public") >= 0 ? true
+				: (string.indexOf("protected") >= 0 ? true
+						: (string.indexOf("package") >= 0 ? true
+								: (string.indexOf("private") >= 0 ? true
+										: (string.indexOf("static") >= 0 ? true : (string.indexOf("final") >= 0 ? true
+												: (string.indexOf("synchronized") >= 0 ? true
+														: (string.indexOf("volatile") >= 0 ? true
+																: (string.indexOf("transient") >= 0 ? true
+																		: (string.indexOf("native") >= 0 ? true
+																				: (string.indexOf("interface") >= 0 ? true
+																						: (string.indexOf("abstract") >= 0
 																								? true
-																								: var0.indexOf(
+																								: string.indexOf(
 																										"strictfp") >= 0)))))))))));
 	}
 
@@ -159,12 +159,12 @@ public class Class115 {
 		return var1;
 	}
 
-	public static String parsePattern(String var0) {
-		return var0 == null ? ".*" : method1391(var0.trim());
+	public static String localParsePattern(String string) {
+		return string == null ? ".*" : method1391(string.trim());
 	}
 
-	public static String method1395(String var0) {
-		return parsePattern(var0);
+	public static String parsePattern(String string) {
+		return localParsePattern(string);
 	}
 
 	public static String method1396(String var0) {
@@ -234,28 +234,27 @@ public class Class115 {
 		}
 	}
 
-	public static boolean method1399(AccessFlags var0, int var1) {
-		if (var0.isPublic()) {
-			if ((var1 & 1) == 0) {
+	public static boolean method1399(AccessFlags accessFlags, int i) {
+		if (accessFlags.isPublic()) {
+			if ((i & 1) == 0) {
 				return false;
 			}
-		} else if (var0.isProtected()) {
-			if ((var1 & 2) == 0) {
+		} else if (accessFlags.isProtected()) {
+			if ((i & 2) == 0) {
 				return false;
 			}
-		} else if (var0.isPrivate()) {
-			if ((var1 & 8) == 0) {
+		} else if (accessFlags.isPrivate()) {
+			if ((i & 8) == 0) {
 				return false;
 			}
-		} else if ((var1 & 4) == 0) {
+		} else if ((i & 4) == 0) {
 			return false;
 		}
-
-		return !((var1 & 16) > 0 && !var0.isStatic()) && (!((var1 & 32) > 0 && !var0.isFinal()) && (!((var1 & 64) > 0
-				&& !var0.isSynchronized())
-				&& (!((var1 & 128) > 0 && !var0.isVolatile()) && (!((var1 & 256) > 0 && !var0.isTransient())
-						&& (!((var1 & 512) > 0 && !var0.isNative()) && (!((var1 & 1024) > 0 && !var0.isInterface())
-								&& (!((var1 & 2048) > 0 && !var0.isAbstract())
-										&& ((var1 & 4096) <= 0 || var0.isStrictfp()))))))));
+		return !((i & 16) > 0 && !accessFlags.isStatic()) && (!((i & 32) > 0 && !accessFlags.isFinal()) && (!((i & 64) > 0
+				&& !accessFlags.isSynchronized())
+				&& (!((i & 128) > 0 && !accessFlags.isVolatile()) && (!((i & 256) > 0 && !accessFlags.isTransient())
+						&& (!((i & 512) > 0 && !accessFlags.isNative()) && (!((i & 1024) > 0 && !accessFlags.isInterface())
+								&& (!((i & 2048) > 0 && !accessFlags.isAbstract())
+										&& ((i & 4096) <= 0 || accessFlags.isStrictfp()))))))));
 	}
 }

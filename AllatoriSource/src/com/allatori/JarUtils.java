@@ -17,6 +17,7 @@ public class JarUtils {
 
 	private static Hashtable<String, String> aHashtable544;
 
+	@SuppressWarnings("resource")
 	public static void method446(String[] var0, String var1) throws Exception {
 		final byte[] byteArr = new byte[65536];
 		final JarOutputStream var3 = new JarOutputStream(new FileOutputStream(var1 + ".tmp"));

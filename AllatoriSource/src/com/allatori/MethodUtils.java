@@ -16,8 +16,8 @@ public class MethodUtils {
 		return i == -1 ? "" : packageName.substring(0, i);
 	}
 
-	public static void method1448(AccessFlags var0) {
-		method1451(var0);
+	public static void isPublic(AccessFlags accessFlags) {
+		setPublic(accessFlags);
 	}
 
 	public static Type method1449(Type var0, RenamingMap var1) {
@@ -28,10 +28,10 @@ public class MethodUtils {
 		return method1446(var0);
 	}
 
-	private static void method1451(AccessFlags var0) {
-		var0.isPrivate(false);
-		var0.isProtected(false);
-		var0.isPublic(true);
+	private static void setPublic(AccessFlags accessFlags) {
+		accessFlags.isPrivate(false);
+		accessFlags.isProtected(false);
+		accessFlags.isPublic(true);
 	}
 
 	private static String method1452(String var0) {

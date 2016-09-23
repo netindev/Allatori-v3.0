@@ -30,13 +30,13 @@ public class ClassConstraint {
 			final String accessflags = var2.group(1);
 			this.accessType = Class115.parseAccess(accessflags);
 			final String className = var2.group(2);
-			this.namePattern = Class115.parsePattern(className);
+			this.namePattern = Class115.localParsePattern(className);
 			final String superName = var2.group(3);
-			this.superNamePattern = Class115.parsePattern(superName);
+			this.superNamePattern = Class115.localParsePattern(superName);
 			final String interfaceClasses = var2.group(4);
 			this.interfacePattern = Class115.method1397(interfaceClasses);
 			final String instanceClassName = var2.group(5);
-			this.instanceofPattern = Class115.parsePattern(instanceClassName);
+			this.instanceofPattern = Class115.localParsePattern(instanceClassName);
 		} else {
 			throw new TemplateException("Invalid template.");
 		}

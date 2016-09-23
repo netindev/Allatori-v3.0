@@ -1,6 +1,3 @@
-/* DALOAD - Decompiled by JODE
- * Visit http://jode.sourceforge.net/
- */
 package org.apache.bcel.generic;
 
 public class DALOAD extends ArrayInstruction implements StackProducer {

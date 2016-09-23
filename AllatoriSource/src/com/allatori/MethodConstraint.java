@@ -31,9 +31,9 @@ public class MethodConstraint {
 
 			String[] var6;
 			if ((var6 = (var1 = var2[0]).split("\\s+")) != null && var6.length != 0) {
-				this.aString698 = Class115.method1395(var6[var6.length - 1]);
+				this.aString698 = Class115.parsePattern(var6[var6.length - 1]);
 				if (var6.length > 1 && !Class115.method1389(var6[var6.length - 2])) {
-					this.aString701 = Class115.parsePattern(var6[var6.length - 2]);
+					this.aString701 = Class115.localParsePattern(var6[var6.length - 2]);
 				} else {
 					this.aString701 = ".*";
 				}
