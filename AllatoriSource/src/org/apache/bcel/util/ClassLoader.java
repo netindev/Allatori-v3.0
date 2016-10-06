@@ -42,7 +42,7 @@ public class ClassLoader extends java.lang.ClassLoader {
 	@Override
 	protected Class<?> loadClass(String class_name, boolean resolve) throws ClassNotFoundException {
 		Class<?> cl = null;
-		if ((cl = (Class<?>) classes.get(class_name)) == null) {
+		if ((cl = classes.get(class_name)) == null) {
 			for (int i = 0; i < ignored_packages.length; i++) {
 				if (class_name.startsWith(ignored_packages[i])) {
 					cl = getParent().loadClass(class_name);

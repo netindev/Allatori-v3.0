@@ -133,7 +133,7 @@ public class ConstantPoolGen implements Serializable {
 	}
 
 	public int lookupString(String str) {
-		final Index index = (Index) string_table.get(str);
+		final Index index = string_table.get(str);
 		return index != null ? index.index : -1;
 	}
 
@@ -152,7 +152,7 @@ public class ConstantPoolGen implements Serializable {
 	}
 
 	public int lookupClass(String str) {
-		final Index index = (Index) class_table.get(str.replace('.', '/'));
+		final Index index = class_table.get(str.replace('.', '/'));
 		return index != null ? index.index : -1;
 	}
 
@@ -225,7 +225,7 @@ public class ConstantPoolGen implements Serializable {
 	}
 
 	public int lookupUtf8(String n) {
-		final Index index = (Index) utf8_table.get(n);
+		final Index index = utf8_table.get(n);
 		return index != null ? index.index : -1;
 	}
 
@@ -287,8 +287,7 @@ public class ConstantPoolGen implements Serializable {
 	}
 
 	public int lookupNameAndType(String name, String signature) {
-		final Index _index = (Index) n_a_t_table
-				.get(new StringBuilder().append(name).append("%").append(signature).toString());
+		final Index _index = n_a_t_table.get(new StringBuilder().append(name).append("%").append(signature).toString());
 		return _index != null ? _index.index : -1;
 	}
 
@@ -308,7 +307,7 @@ public class ConstantPoolGen implements Serializable {
 	}
 
 	public int lookupMethodref(String class_name, String method_name, String signature) {
-		final Index index = (Index) cp_table.get(new StringBuilder().append(class_name).append(":").append(method_name)
+		final Index index = cp_table.get(new StringBuilder().append(class_name).append(":").append(method_name)
 				.append(":").append(signature).toString());
 		return index != null ? index.index : -1;
 	}
@@ -338,7 +337,7 @@ public class ConstantPoolGen implements Serializable {
 	}
 
 	public int lookupInterfaceMethodref(String class_name, String method_name, String signature) {
-		final Index index = (Index) cp_table.get(new StringBuilder().append(class_name).append("#").append(method_name)
+		final Index index = cp_table.get(new StringBuilder().append(class_name).append("#").append(method_name)
 				.append("#").append(signature).toString());
 		return index != null ? index.index : -1;
 	}
@@ -368,7 +367,7 @@ public class ConstantPoolGen implements Serializable {
 	}
 
 	public int lookupFieldref(String class_name, String field_name, String signature) {
-		final Index index = (Index) cp_table.get(new StringBuilder().append(class_name).append("&").append(field_name)
+		final Index index = cp_table.get(new StringBuilder().append(class_name).append("&").append(field_name)
 				.append("&").append(signature).toString());
 		return index != null ? index.index : -1;
 	}

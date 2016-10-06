@@ -15,8 +15,8 @@ public class LogFile {
 
 	private static void writeXMLHeader(PrintWriter printWriter) {
 		printWriter.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-		printWriter.println("<!--\n   " + Info.name() + " " + Info.version() + "\n" + "   Web: " + Info.website() + "\n\n"
-				+ "   Log created: " + Calendar.getInstance().getTime() + "\n" + "-->\n");
+		printWriter.println("<!--\n   " + Info.name() + " " + Info.version() + "\n" + "   Web: " + Info.website()
+				+ "\n\n" + "   Log created: " + Calendar.getInstance().getTime() + "\n" + "-->\n");
 		printWriter.println("<allatori>");
 	}
 
@@ -25,14 +25,15 @@ public class LogFile {
 	}
 
 	public static void writeLogFile() {
-		String logFile = LogUtils.getLogFile();
+		final String logFile = LogUtils.getLogFile();
 		if (logFile == null) {
 			Logger.printWarning("Log file is not set.");
 		} else {
 			PrintWriter printWriter = null;
 			try {
 				final FileOutputStream fileOutputStream = new FileOutputStream(logFile);
-				writeXMLHeader(printWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(fileOutputStream, "UTF-8"), 262144)));
+				writeXMLHeader(printWriter = new PrintWriter(
+						new BufferedWriter(new OutputStreamWriter(fileOutputStream, "UTF-8"), 262144)));
 				writeMapping(printWriter, obfuscationHandler);
 				writeXMLEnd(printWriter);
 				printWriter.flush();
@@ -86,12 +87,12 @@ public class LogFile {
 		String var11;
 		int var10000;
 		for (var10000 = var5 = var2.size() - 1; var10000 >= 0; var10000 = var5) {
-			final String var6 = (String) var2.get(var5);
+			final String var6 = var2.get(var5);
 			var0.println("  <class old=\"" + var6 + "\" new=\"" + var1.aRenamingMap_512.get(var6) + "\">");
 			final String var7 = var6 + "&";
 
 			for (var10000 = var8 = method1770(var3, var7); var10000 < var3.size()
-					&& (var9 = (String) var3.get(var8)).startsWith(var7); var10000 = var8) {
+					&& (var9 = var3.get(var8)).startsWith(var7); var10000 = var8) {
 				var10 = var9.substring(var9.indexOf("&") + 1, var9.lastIndexOf("&"));
 				if (!"<init>".equals(var10) && !"<clinit>".equals(var10)) {
 					var11 = var9.substring(var9.lastIndexOf("&") + 1);
@@ -104,7 +105,7 @@ public class LogFile {
 			}
 
 			for (var10000 = var8 = method1770(var4, var7); var10000 < var4.size()
-					&& (var9 = (String) var4.get(var8)).startsWith(var7); var10000 = var8) {
+					&& (var9 = var4.get(var8)).startsWith(var7); var10000 = var8) {
 				var10 = var9.substring(var9.indexOf("&") + 1, var9.lastIndexOf("&"));
 				var11 = var9.substring(var9.lastIndexOf("&") + 1);
 				var0.println("   <field old=\"" + var10 + " " + var11 + "\" new=\"" + var1.aRenamingMap_516.get(var9)
@@ -122,7 +123,7 @@ public class LogFile {
 			var0.println("  <annotations>");
 
 			for (var10000 = var13 = var12.size() - 1; var10000 >= 0; var10000 = var13) {
-				final String var14 = (String) var12.get(var13);
+				final String var14 = var12.get(var13);
 				var9 = var1.aRenamingMap_513.get(var14);
 				var10 = var14.substring(var14.indexOf("&") + 1);
 				var11 = var14.substring(0, var14.indexOf("&"));

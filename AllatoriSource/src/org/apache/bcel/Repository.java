@@ -21,7 +21,7 @@ public abstract class Repository {
 	public static JavaClass lookupClass(String class_name) throws ClassNotFoundException {
 		return _repository.loadClass(class_name);
 	}
-	
+
 	public static JavaClass lookupClass(Class<?> clazz) throws ClassNotFoundException {
 		return _repository.loadClass(clazz);
 	}

@@ -1,7 +1,7 @@
 package com.allatori;
 
 public class TemplateException extends Exception {
-	
+
 	/* OK */
 
 	private static final long serialVersionUID = 1L;

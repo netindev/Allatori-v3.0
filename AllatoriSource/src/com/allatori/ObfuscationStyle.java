@@ -1,7 +1,7 @@
 package com.allatori;
 
 public class ObfuscationStyle implements IObfuscationStyle {
-	
+
 	/* OK */
 
 	private final ObfuscationStyleMixed obfStyleMix = new ObfuscationStyleMixed();
@@ -10,8 +10,7 @@ public class ObfuscationStyle implements IObfuscationStyle {
 
 	@Override
 	public String next() {
-		return this.count < this.stringArr.length ? this.stringArr[this.count++]
-				: this.obfStyleMix.next();
+		return this.count < this.stringArr.length ? this.stringArr[this.count++] : this.obfStyleMix.next();
 	}
 
 	public ObfuscationStyle(String[] args) {

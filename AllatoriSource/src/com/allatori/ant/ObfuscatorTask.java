@@ -10,7 +10,7 @@ import com.allatori.Obfuscate;
 import com.allatori.ParseConfig;
 
 public class ObfuscatorTask extends Task {
-	
+
 	/* OK */
 
 	private String file;
@@ -21,11 +21,11 @@ public class ObfuscatorTask extends Task {
 			throw new BuildException("Missing \'config\' attribute.");
 		} else {
 			try {
-				File toRead = new File(this.file);
+				final File toRead = new File(this.file);
 				if (!toRead.canRead()) {
 					throw new BuildException("Cannot find configuration file: \'" + this.file + "\'");
 				} else {
-					File resolved = new File(this.file + ".resolved");
+					final File resolved = new File(this.file + ".resolved");
 					resolved.deleteOnExit();
 					String read = FileUtils.readFile(toRead);
 					read = this.getProject().replaceProperties(read);

@@ -1,7 +1,7 @@
 package com.allatori;
 
 public class LogRepo {
-	
+
 	/* OK */
 
 	public String key;

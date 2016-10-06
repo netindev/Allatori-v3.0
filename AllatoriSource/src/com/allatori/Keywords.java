@@ -3,7 +3,7 @@ package com.allatori;
 import java.util.Arrays;
 
 public class Keywords extends ObfuscationStyle {
-	
+
 	/* OK */
 
 	private static final String[] KEYWORDS = new String[] { "abstract", "assert", "boolean", "break", "byte", "case",

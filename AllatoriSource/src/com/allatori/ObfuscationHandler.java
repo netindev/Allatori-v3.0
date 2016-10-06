@@ -11,7 +11,8 @@ public class ObfuscationHandler {
 	public Vector<?> aVector515;
 	public RenamingMap aRenamingMap_516;
 
-	public ObfuscationHandler(RenamingMap var1, RenamingMap var2, RenamingMap var3, Vector<?> var4, Vector<?> var5, RenamingMap var6) {
+	public ObfuscationHandler(RenamingMap var1, RenamingMap var2, RenamingMap var3, Vector<?> var4, Vector<?> var5,
+			RenamingMap var6) {
 		this.aRenamingMap_512 = var1;
 		this.aRenamingMap_514 = var2;
 		this.aRenamingMap_516 = var3;

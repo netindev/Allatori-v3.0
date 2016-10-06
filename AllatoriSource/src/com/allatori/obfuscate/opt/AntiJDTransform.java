@@ -19,7 +19,7 @@ import com.allatori.InitUtils;
 import com.allatori.ObfuscationType;
 
 public class AntiJDTransform implements ObfuscationType {
-	
+
 	/* OK */
 
 	private final ClassStorage classes;
@@ -38,14 +38,16 @@ public class AntiJDTransform implements ObfuscationType {
 						while (currentHandle != null) {
 							if (currentHandle.getInstruction() instanceof NEWARRAY
 									|| currentHandle.getInstruction() instanceof ANEWARRAY) {
-								InstructionHandle instructionHandle = instructionList.append(currentHandle, new PUSH(classGen.getConstantPool(), 1));
+								InstructionHandle instructionHandle = instructionList.append(currentHandle,
+										new PUSH(classGen.getConstantPool(), 1));
 								instructionHandle = instructionList.append(instructionHandle, new DUP());
 								instructionList.append(instructionHandle, new POP2());
 								currentHandle = currentHandle.getNext().getNext().getNext().getNext();
 							} else if (type == 2 && (currentHandle.getInstruction() instanceof BIPUSH
 									|| currentHandle.getInstruction() instanceof SIPUSH
 									|| currentHandle.getInstruction() instanceof ICONST)) {
-								InstructionHandle instructionHandle = instructionList.append(currentHandle, new PUSH(classGen.getConstantPool(), 1));
+								InstructionHandle instructionHandle = instructionList.append(currentHandle,
+										new PUSH(classGen.getConstantPool(), 1));
 								instructionHandle = instructionList.append(instructionHandle, new DUP());
 								instructionList.append(instructionHandle, new POP2());
 								currentHandle = currentHandle.getNext().getNext().getNext().getNext();

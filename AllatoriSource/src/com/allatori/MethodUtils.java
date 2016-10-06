@@ -12,7 +12,7 @@ public class MethodUtils {
 	}
 
 	private static String getPackage(String packageName) {
-		int i = packageName.lastIndexOf(46);
+		final int i = packageName.lastIndexOf(46);
 		return i == -1 ? "" : packageName.substring(0, i);
 	}
 

@@ -3,7 +3,7 @@ package com.allatori;
 import java.util.TreeSet;
 
 public class TreeSetImpl extends TreeSet<Object> {
-	
+
 	/* OK */
 
 	private static final long serialVersionUID = 1L;

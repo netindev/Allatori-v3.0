@@ -25,7 +25,7 @@ public class SyntheticRepository implements Repository {
 	}
 
 	public static SyntheticRepository getInstance(ClassPath classPath) {
-		SyntheticRepository rep = (SyntheticRepository) _instances.get(classPath);
+		SyntheticRepository rep = _instances.get(classPath);
 		if (rep == null) {
 			rep = new SyntheticRepository(classPath);
 			_instances.put(classPath, rep);
@@ -46,7 +46,7 @@ public class SyntheticRepository implements Repository {
 
 	@Override
 	public JavaClass findClass(String className) {
-		final SoftReference<?> ref = (SoftReference<?>) _loadedClasses.get(className);
+		final SoftReference<?> ref = _loadedClasses.get(className);
 		if (ref == null) {
 			return null;
 		}

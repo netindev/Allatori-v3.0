@@ -93,7 +93,7 @@ public class ClassPath implements Serializable {
 		final List<String> dirs = new ArrayList<String>();
 		getPathComponents(ext_path, dirs);
 		for (final Iterator<String> e = dirs.iterator(); e.hasNext();) {
-			final File ext_dir = new File((String) e.next());
+			final File ext_dir = new File(e.next());
 			final String[] extensions = ext_dir.list(new FilenameFilter() {
 
 				@Override
@@ -110,7 +110,7 @@ public class ClassPath implements Serializable {
 		}
 		final StringBuffer buf = new StringBuffer();
 		for (final Iterator<String> e = list.iterator(); e.hasNext();) {
-			buf.append((String) e.next());
+			buf.append(e.next());
 			if (e.hasNext()) {
 				buf.append(File.pathSeparatorChar);
 			}

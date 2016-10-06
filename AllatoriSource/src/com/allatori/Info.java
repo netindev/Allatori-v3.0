@@ -1,7 +1,7 @@
 package com.allatori;
 
 public class Info {
-	
+
 	/* OK */
 
 	public static String website() {

@@ -19,18 +19,19 @@ import com.allatori.ControlFlowTransform;
 import com.allatori.InitUtils;
 
 public class BranchTransform implements ControlFlowTransform {
-	
+
 	/* OK */
 
 	@Override
 	public void patch(ClassGen classGen) {
 		for (final Method method : classGen.getMethods()) {
 			if (method.getCode() != null) {
-				final MethodGen methodGen = InitUtils.createMethodGen(method, classGen.getClassName(), classGen.getConstantPool(),
-						classGen.getConstantPool().getConstantPool());
+				final MethodGen methodGen = InitUtils.createMethodGen(method, classGen.getClassName(),
+						classGen.getConstantPool(), classGen.getConstantPool().getConstantPool());
 				final InstructionList instructionList = methodGen.getInstructionList();
 				instructionList.setPositions();
-				for (InstructionHandle current = instructionList.getStart(); current != null; current = current.getNext()) {
+				for (InstructionHandle current = instructionList.getStart(); current != null; current = current
+						.getNext()) {
 					if (current.getInstruction() instanceof IfInstruction) {
 						boolean targetPosLower = true;
 						boolean targetPosHigher = true;

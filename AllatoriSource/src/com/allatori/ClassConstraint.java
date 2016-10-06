@@ -11,32 +11,34 @@ import org.apache.bcel.generic.MethodGen;
 
 public class ClassConstraint {
 
+	/* OK */
+
 	private String superNamePattern;
-	private boolean aBoolean756;
+	private boolean ifYes1;
 	private int accessType;
 	private final Vector<FieldConstraint> fieldConstraints = new Vector<FieldConstraint>();
 	private String instanceofPattern;
 	private String[] interfacePattern;
-	private boolean aBoolean761;
+	private boolean ifYes2;
 	private final Vector<MethodConstraint> methodConstraints = new Vector<MethodConstraint>();
 	private String namePattern;
 
-	private void parseTemplate(String var1) throws TemplateException {
-		Matcher var2;
-		if ((var2 = Pattern
+	private void parseTemplate(String string) throws TemplateException {
+		final Matcher matcher = Pattern
 				.compile(
 						"(.*?(?:class|interface))\\s+(.+?)(?:\\s+extends\\s+(.+?))?(?:\\s+implements\\s+(.+?))?(?:\\s+instanceof\\s+(.+?))?")
-				.matcher(var1)).matches()) {
-			final String accessflags = var2.group(1);
+				.matcher(string);
+		if (matcher.matches()) {
+			final String accessflags = matcher.group(1);
 			this.accessType = Class115.parseAccess(accessflags);
-			final String className = var2.group(2);
-			this.namePattern = Class115.localParsePattern(className);
-			final String superName = var2.group(3);
-			this.superNamePattern = Class115.localParsePattern(superName);
-			final String interfaceClasses = var2.group(4);
-			this.interfacePattern = Class115.method1397(interfaceClasses);
-			final String instanceClassName = var2.group(5);
-			this.instanceofPattern = Class115.localParsePattern(instanceClassName);
+			final String className = matcher.group(2);
+			this.namePattern = Class115.localParsePaterrn(className);
+			final String superName = matcher.group(3);
+			this.superNamePattern = Class115.localParsePaterrn(superName);
+			final String interfaceClasses = matcher.group(4);
+			this.interfacePattern = Class115.interfacePattern(interfaceClasses);
+			final String instanceClassName = matcher.group(5);
+			this.instanceofPattern = Class115.localParsePaterrn(instanceClassName);
 		} else {
 			throw new TemplateException("Invalid template.");
 		}
@@ -44,46 +46,39 @@ public class ClassConstraint {
 
 	@Override
 	public ClassConstraint clone() {
-		ClassConstraint var1;
-		(var1 = new ClassConstraint()).aBoolean756 = this.aBoolean756;
-		var1.accessType = this.accessType;
-		var1.namePattern = this.namePattern;
-		var1.superNamePattern = this.superNamePattern;
-		var1.instanceofPattern = this.instanceofPattern;
-		var1.interfacePattern = this.interfacePattern;
-		return var1;
+		final ClassConstraint classConstraint = new ClassConstraint();
+		classConstraint.ifYes1 = this.ifYes1;
+		classConstraint.accessType = this.accessType;
+		classConstraint.namePattern = this.namePattern;
+		classConstraint.superNamePattern = this.superNamePattern;
+		classConstraint.instanceofPattern = this.instanceofPattern;
+		classConstraint.interfacePattern = this.interfacePattern;
+		return classConstraint;
 	}
 
-	public boolean apply(MethodGen var1) {
-		int var2;
-		for (int var10000 = var2 = this.methodConstraints.size() - 1; var10000 >= 0; var10000 = var2) {
-			if (((MethodConstraint) this.methodConstraints.get(var2)).apply(var1)) {
+	public boolean apply(MethodGen methodGen) {
+		for (int i = this.methodConstraints.size() - 1; i >= 0; i--) {
+			if (this.methodConstraints.get(i).apply(methodGen)) {
 				return true;
 			}
-
-			--var2;
 		}
-
 		return false;
 	}
 
 	private ClassConstraint() {
+		/* empty */
 	}
 
-	public void addMethodConstraint(MethodConstraint var1) {
-		this.methodConstraints.add(var1);
+	public void addMethodConstraint(MethodConstraint methodConstraint) {
+		this.methodConstraints.add(methodConstraint);
 	}
 
-	public boolean apply(Method var1) {
-		int var2;
-		for (int var10000 = var2 = this.methodConstraints.size() - 1; var10000 >= 0; var10000 = var2) {
-			if (((MethodConstraint) this.methodConstraints.get(var2)).apply(var1)) {
+	public boolean apply(Method method) {
+		for (int i = this.methodConstraints.size() - 1; i >= 0; i--) {
+			if (this.methodConstraints.get(i).apply(method)) {
 				return true;
 			}
-
-			--var2;
 		}
-
 		return false;
 	}
 
@@ -91,41 +86,37 @@ public class ClassConstraint {
 		return this.fieldConstraints.size() > 0;
 	}
 
-	public boolean apply(ClassStorage var1, ClassGen var2) {
-		return Class115.method1399(var2, this.accessType) && (var2.getClassName().matches(this.namePattern)
-				&& (var2.getSuperclassName().matches(this.superNamePattern)
-						&& (Class115.method1392(var2.getInterfaceNames(), this.interfacePattern)
-								&& Class115.method1398(var1, var2.getClassName(), this.instanceofPattern))));
+	public boolean apply(ClassStorage classStorage, ClassGen classGen) {
+		return Class115.method1399(classGen, this.accessType) && (classGen.getClassName().matches(this.namePattern)
+				&& (classGen.getSuperclassName().matches(this.superNamePattern)
+						&& (Class115.method1392(classGen.getInterfaceNames(), this.interfacePattern) && Class115
+								.method1398(classStorage, classGen.getClassName(), this.instanceofPattern))));
 	}
 
-	public void addFieldConstraint(FieldConstraint var1) {
-		this.fieldConstraints.add(var1);
+	public void addFieldConstraint(FieldConstraint fieldConstraint) {
+		this.fieldConstraints.add(fieldConstraint);
 	}
 
-	public boolean method1465() {
-		return this.aBoolean761;
+	public boolean getIfYes2() {
+		return this.ifYes2;
 	}
 
-	public ClassConstraint(String var1, boolean var2, boolean var3) throws TemplateException {
-		this.aBoolean756 = var2;
-		this.aBoolean761 = var3;
-		this.parseTemplate(var1);
+	public ClassConstraint(String string, boolean ifYes1, boolean isYes2) throws TemplateException {
+		this.ifYes1 = ifYes1;
+		this.ifYes2 = isYes2;
+		this.parseTemplate(string);
 	}
 
-	public boolean method1466() {
-		return this.aBoolean756;
+	public boolean getIfYes1() {
+		return this.ifYes1;
 	}
 
-	public boolean apply(Field var1) {
-		int var2;
-		for (int var10000 = var2 = this.fieldConstraints.size() - 1; var10000 >= 0; var10000 = var2) {
-			if (((FieldConstraint) this.fieldConstraints.get(var2)).apply(var1)) {
+	public boolean apply(Field field) {
+		for (int i = this.fieldConstraints.size() - 1; i >= 0; i--) {
+			if (this.fieldConstraints.get(i).apply(field)) {
 				return true;
 			}
-
-			--var2;
 		}
-
 		return false;
 	}
 

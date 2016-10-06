@@ -55,7 +55,7 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
 		}
 		switch (tag) {
 		case -1: {
-			final AttributeReader r = (AttributeReader) readers.get(name);
+			final AttributeReader r = readers.get(name);
 			if (r != null)
 				return r.createAttribute(name_index, length, file, constant_pool);
 			return new Unknown(name_index, length, file, constant_pool);

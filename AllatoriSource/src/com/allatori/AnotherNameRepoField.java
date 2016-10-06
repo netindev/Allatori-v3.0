@@ -1,7 +1,7 @@
 package com.allatori;
 
 public class AnotherNameRepoField {
-	
+
 	/* OK */
 
 	private final IObfuscationStyle obfuscationStyle;
@@ -13,7 +13,8 @@ public class AnotherNameRepoField {
 		return anotherNameRepoField.anotherNameRepoField;
 	}
 
-	public AnotherNameRepoField(AnotherNameRepo anotherNameRepoField, EmptyClass emptyClass) { /* Not used param */
+	public AnotherNameRepoField(AnotherNameRepo anotherNameRepoField,
+			EmptyClass emptyClass) { /* Not used param */
 		this(anotherNameRepoField);
 	}
 
@@ -25,7 +26,8 @@ public class AnotherNameRepoField {
 		return anotherNameRepoField.obfuscationStyle;
 	}
 
-	private AnotherNameRepoField(AnotherNameRepo anotherNameRepo) { /* Not used param */
+	private AnotherNameRepoField(
+			AnotherNameRepo anotherNameRepo) { /* Not used param */
 		this.obfuscationStyle = ObfuscationStyleUtils.returnFieldNamingType();
 		this.secondAnotherNameRepoField = new RenamingMap();
 		this.anotherNameRepoField = new RenamingMap();

@@ -5,7 +5,7 @@ import org.apache.bcel.generic.ClassGen;
 import org.apache.bcel.generic.MethodGen;
 
 public class ClassRepo {
-	
+
 	/* OK */
 
 	private final Method method;

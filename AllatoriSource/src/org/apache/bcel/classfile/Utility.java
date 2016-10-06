@@ -434,7 +434,7 @@ public abstract class Utility {
 			throw new ClassFormatException(
 					new StringBuilder().append("Invalid method signature: ").append(signature).toString(), e);
 		}
-		return (String[]) vec.toArray(new String[vec.size()]);
+		return vec.toArray(new String[vec.size()]);
 	}
 
 	public static final String methodSignatureReturnType(String signature) throws ClassFormatException {
@@ -963,7 +963,7 @@ public abstract class Utility {
 			if (riaData.length > 2)
 				newAttributes.add(new RuntimeInvisibleAnnotations(riaIndex, riaData.length,
 						new DataInputStream(new ByteArrayInputStream(riaData)), cp.getConstantPool()));
-			attributes = ((Attribute[]) newAttributes.toArray(new Attribute[newAttributes.size()]));
+			attributes = (newAttributes.toArray(new Attribute[newAttributes.size()]));
 		} catch (final IOException e) {
 			System.err.println("IOException whilst processing annotations");
 			e.printStackTrace();
@@ -1039,7 +1039,7 @@ public abstract class Utility {
 			if (totalInvisCount > 0)
 				newAttributes.add(new RuntimeInvisibleParameterAnnotations(riaIndex, riaData.length,
 						new DataInputStream(new ByteArrayInputStream(riaData)), cp.getConstantPool()));
-			attributes = ((Attribute[]) newAttributes.toArray(new Attribute[newAttributes.size()]));
+			attributes = (newAttributes.toArray(new Attribute[newAttributes.size()]));
 		} catch (final IOException e) {
 			System.err.println("IOException whilst processing parameter annotations");
 			e.printStackTrace();

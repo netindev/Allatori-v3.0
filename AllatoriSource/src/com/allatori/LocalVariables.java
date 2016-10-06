@@ -4,7 +4,7 @@ import org.apache.bcel.generic.ClassGen;
 import org.apache.bcel.generic.MethodGen;
 
 public class LocalVariables {
-	
+
 	/* OK */
 
 	private static ObfuscationConstraint obfuscationConstraint = new ObfuscationConstraint(1);

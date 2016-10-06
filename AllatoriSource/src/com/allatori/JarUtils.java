@@ -13,49 +13,40 @@ import java.util.jar.JarOutputStream;
 import org.apache.bcel.classfile.ClassParser;
 import org.apache.bcel.generic.ClassGen;
 
+@SuppressWarnings("resource")
 public class JarUtils {
 
-	private static Hashtable<String, String> aHashtable544;
+	private static Hashtable<String, String> fileTmp;
 
-	@SuppressWarnings("resource")
-	public static void method446(String[] var0, String var1) throws Exception {
+	public static void readAndPut(String[] stringArr, String file) throws Exception {
 		final byte[] byteArr = new byte[65536];
-		final JarOutputStream var3 = new JarOutputStream(new FileOutputStream(var1 + ".tmp"));
-		final Hashtable<String, String> var4 = new Hashtable<String, String>();
-
-		int var5;
-		for (int var10000 = var5 = 0; var10000 < var0.length; var10000 = var5) {
-			JarFile var6;
-			Enumeration<?> var7;
-			for (Enumeration<?> var12 = var7 = (var6 = new JarFile(var0[var5])).entries(); var12
-					.hasMoreElements(); var12 = var7) {
-				final JarEntry var8 = (JarEntry) var7.nextElement();
-				if (!var4.containsKey(var8.getName().toLowerCase())) {
-					var4.put(var8.getName().toLowerCase(), "");
-					final InputStream var9 = var6.getInputStream(var8);
-					final JarEntry var10 = new JarEntry(var8.getName());
-					var3.putNextEntry(var10);
-
-					int var11;
-					for (InputStream var13 = var9; (var11 = var13.read(byteArr)) > 0; var13 = var9) {
-						var3.write(byteArr, 0, var11);
+		final JarOutputStream jarOutputStream = new JarOutputStream(new FileOutputStream(file + ".tmp"));
+		final Hashtable<String, String> hashtable = new Hashtable<String, String>();
+		for (int i = 0; i < stringArr.length; i++) {
+			final JarFile jarFile = new JarFile(stringArr[i]);
+			final Enumeration<?> temp = jarFile.entries();
+			for (Enumeration<?> enumeration = jarFile.entries(); enumeration.hasMoreElements(); enumeration = temp) {
+				final JarEntry jarEntry = (JarEntry) temp.nextElement();
+				if (!hashtable.containsKey(jarEntry.getName().toLowerCase())) {
+					hashtable.put(jarEntry.getName().toLowerCase(), "");
+					final InputStream inputStream = jarFile.getInputStream(jarEntry);
+					final JarEntry jarEntryNext = new JarEntry(jarEntry.getName());
+					jarOutputStream.putNextEntry(jarEntryNext);
+					int read;
+					for (InputStream input = inputStream; (read = input.read(byteArr)) > 0; input = inputStream) {
+						jarOutputStream.write(byteArr, 0, read);
 					}
-
-					var3.closeEntry();
+					jarOutputStream.closeEntry();
 				}
 			}
-
-			var6.close();
-			++var5;
+			jarFile.close();
 		}
-
 		if (!Tuning.isWeakStringEncryption()) {
-			setComment(var3);
+			setComment(jarOutputStream);
 		}
-
-		var3.finish();
-		var3.close();
-		method452(var1 + ".tmp", var1);
+		jarOutputStream.finish();
+		jarOutputStream.close();
+		canChange(file + ".tmp", file);
 	}
 
 	private static void method447(String var0, JarOutputStream var1) throws Exception {
@@ -64,13 +55,12 @@ public class JarUtils {
 		for (String var10000 = var0; var10000.indexOf(47) > 0; var10000 = var0) {
 			var2 = var2 + var0.substring(0, var0.indexOf(47) + 1);
 			var0 = var0.substring(var0.indexOf(47) + 1);
-			if (!aHashtable544.containsKey(var2)) {
-				aHashtable544.put(var2, ".tmp");
+			if (!fileTmp.containsKey(var2)) {
+				fileTmp.put(var2, ".tmp");
 				var1.putNextEntry(new JarEntry(var2));
 				var1.closeEntry();
 			}
 		}
-
 	}
 
 	private static void setComment(JarOutputStream jarOutputStream) {
@@ -80,14 +70,14 @@ public class JarUtils {
 	private static void method449(Vector<ClassGen> var0, JarOutputStream var1, String var2) throws Exception {
 		int var3;
 		for (int var10000 = var3 = var0.size() - 1; var10000 >= 0; var10000 = var3) {
-			method451((ClassGen) var0.get(var3), var1, var2);
+			method451(var0.get(var3), var1, var2);
 			--var3;
 		}
 
 	}
 
 	public static void method450(String var0, String var1, ClassStorage var2) throws Exception {
-		aHashtable544 = new Hashtable<String, String>();
+		fileTmp = new Hashtable<String, String>();
 		final byte[] var3 = new byte[65536];
 		String var4 = null;
 		final JarFile var5 = new JarFile(var0);
@@ -135,36 +125,33 @@ public class JarUtils {
 
 		var6.finish();
 		var6.close();
-		method452(var1 + ".tmp", var1);
+		canChange(var1 + ".tmp", var1);
 	}
 
-	private static void method451(ClassGen var0, JarOutputStream var1, String var2) throws Exception {
-		String var3 = var0.getClassName();
-		var3 = var2 + var3.replace('.', '/') + ".class";
-		final JarEntry var4 = new JarEntry(var3);
-		method447(var3, var1);
-
+	private static void method451(ClassGen classGen, JarOutputStream jarOutputStream, String string) throws Exception {
+		String className = classGen.getClassName();
+		className = string + className.replace('.', '/') + ".class";
+		final JarEntry jarEntry = new JarEntry(className);
+		method447(className, jarOutputStream);
 		try {
-			var1.putNextEntry(var4);
-			var1.write(var0.getJavaClass().getBytes());
-			var1.closeEntry();
+			jarOutputStream.putNextEntry(jarEntry);
+			jarOutputStream.write(classGen.getJavaClass().getBytes());
+			jarOutputStream.closeEntry();
 		} catch (final Exception var6) {
+			/* empty */
 		}
-
 	}
 
-	private static void method452(String var0, String var1) {
-		final File var2 = new File(var0);
-		File var3;
-		if ((var3 = new File(var1)).exists() && !var3.delete()) {
-			Logger.printWarning("Cannot delete \'" + var3.getPath() + "\'");
+	private static void canChange(String first, String second) {
+		final File firstFile = new File(first);
+		final File secondFile = new File(second);
+		if (secondFile.exists() && !secondFile.delete()) {
+			Logger.printWarning("Cannot delete \'" + secondFile.getPath() + "\'");
 		}
-
-		if (!var2.renameTo(var3)) {
-			Logger.printWarning("Cannot rename \'" + var2.getPath() + "\' to \'" + var3.getPath() + "\'");
-			Logger.printWarning("Resulting file is \'" + var2.getPath() + "\'");
+		if (!firstFile.renameTo(secondFile)) {
+			Logger.printWarning("Cannot rename \'" + firstFile.getPath() + "\' to \'" + secondFile.getPath() + "\'");
+			Logger.printWarning("Resulting file is \'" + firstFile.getPath() + "\'");
 		}
-
 	}
 
 	private static String method453(JarFile var0, JarEntry var1) {
@@ -173,7 +160,7 @@ public class JarUtils {
 			final ClassGen var3 = new ClassGen((new ClassParser(var2, var1.getName())).parse());
 			var2.close();
 			return var1.getName().substring(0, var1.getName().length() - var3.getClassName().length() - 6);
-		} catch (final Exception var4) {
+		} catch (final Exception e) {
 			return "";
 		}
 	}

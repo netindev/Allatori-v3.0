@@ -1,7 +1,7 @@
 package com.allatori;
 
 public class Logger {
-	
+
 	/* OK */
 
 	private static boolean isSilent = false;

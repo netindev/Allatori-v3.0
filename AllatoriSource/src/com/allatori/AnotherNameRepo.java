@@ -3,7 +3,7 @@ package com.allatori;
 public class AnotherNameRepo {
 
 	/* OK */
-	
+
 	private final AnotherNameRepoLow2 anotherNameRepoLow;
 	private final NameRepository nameRepository;
 	private final RenamingUtils renamingUtils;
@@ -26,7 +26,8 @@ public class AnotherNameRepo {
 		this.renamingUtils = new RenamingUtils(this, null);
 	}
 
-	public AnotherNameRepo(Renamer renamer, EmptyClass emptyClass) { /* Not used param */
+	public AnotherNameRepo(Renamer renamer,
+			EmptyClass emptyClass) { /* Not used param */
 		this(renamer);
 	}
 

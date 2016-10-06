@@ -9,7 +9,7 @@ import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
 public class URLClassLoaderImpl extends URLClassLoader {
-	
+
 	/* OK */
 
 	private ClassStorage classes;
@@ -67,7 +67,7 @@ public class URLClassLoaderImpl extends URLClassLoader {
 			final ConfigRepo configRepo = (ConfigRepo) vector.get(i);
 			final JarFile jarFile = new JarFile(configRepo.key);
 			try {
-				ZipEntry entry = jarFile.getEntry(fullClassName);
+				final ZipEntry entry = jarFile.getEntry(fullClassName);
 				if (entry != null) {
 					final byte[] read = this.readZipEntry(jarFile, entry);
 					return this.defineClass(className, read, 0, read.length);

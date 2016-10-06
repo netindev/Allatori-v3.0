@@ -22,18 +22,18 @@ import org.apache.bcel.generic.StoreInstruction;
 import org.apache.bcel.generic.TargetLostException;
 
 public class LocalVariableTransform implements ControlFlowTransform {
-	
+
 	/* OK */
 
 	@Override
 	public void patch(ClassGen classGen) {
 		final Method[] methods = classGen.getMethods();
 		for (int i = 0; i < methods.length; i++) {
-			Method method = methods[i];
+			final Method method = methods[i];
 			if (method.getCode() != null) {
-				MethodGen methodGen = InitUtils.createMethodGen(method, classGen.getClassName(),
+				final MethodGen methodGen = InitUtils.createMethodGen(method, classGen.getClassName(),
 						classGen.getConstantPool(), classGen.getConstantPool().getConstantPool());
-				InstructionList instructionList = methodGen.getInstructionList();
+				final InstructionList instructionList = methodGen.getInstructionList();
 				instructionList.setPositions();
 				InstructionHandle current;
 				for (InstructionHandle instructionHandle = current = instructionList
@@ -121,7 +121,7 @@ public class LocalVariableTransform implements ControlFlowTransform {
 		InstructionHandle actual;
 		for (InstructionHandle instructionHandleIt = actual = instructionList
 				.getStart(); instructionHandleIt != null; instructionHandleIt = actual = actual.getNext()) {
-			Instruction ins = actual.getInstruction();
+			final Instruction ins = actual.getInstruction();
 			if (ins instanceof LocalVariableInstruction && ((LocalVariableInstruction) ins).getIndex() == index
 					&& actual != instructionHandle && actual != toCompare) {
 				return false;
@@ -130,7 +130,8 @@ public class LocalVariableTransform implements ControlFlowTransform {
 		return true;
 	}
 
-	private void updateTargeters(InstructionTargeter[] instructionTargeter, InstructionHandle instructionHandle, InstructionHandle InstructionHandleDP) {
+	private void updateTargeters(InstructionTargeter[] instructionTargeter, InstructionHandle instructionHandle,
+			InstructionHandle InstructionHandleDP) {
 		if (instructionTargeter != null) {
 			for (int i = 0; i < instructionTargeter.length; i++) {
 				instructionTargeter[i].updateTarget(instructionHandle, InstructionHandleDP);

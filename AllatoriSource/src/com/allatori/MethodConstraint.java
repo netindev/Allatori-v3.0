@@ -4,7 +4,7 @@ import org.apache.bcel.classfile.Method;
 import org.apache.bcel.generic.MethodGen;
 
 public class MethodConstraint {
-	
+
 	/* OK */
 
 	private String parsePattern;
@@ -20,7 +20,7 @@ public class MethodConstraint {
 	}
 
 	private void parseTemplate(String string) throws TemplateException {
-		String[] split = string.split("\\(|\\)");
+		final String[] split = string.split("\\(|\\)");
 		if (split.length != 2 && (split.length != 1 || !string.endsWith("()"))) {
 			throw new TemplateException("Invalid template.");
 		} else {
@@ -30,11 +30,11 @@ public class MethodConstraint {
 				final String getSecond = split[1];
 				this.replace = Class115.replaceAll(getSecond);
 			}
-			String[] splitS = (string = split[0]).split("\\s+");
+			final String[] splitS = (string = split[0]).split("\\s+");
 			if (splitS != null && splitS.length != 0) {
 				this.parsePattern = Class115.parsePattern(splitS[splitS.length - 1]);
 				if (splitS.length > 1 && !Class115.method1389(splitS[splitS.length - 2])) {
-					this.pattF = Class115.localParsePattern(splitS[splitS.length - 2]);
+					this.pattF = Class115.localParsePaterrn(splitS[splitS.length - 2]);
 				} else {
 					this.pattF = ".*";
 				}

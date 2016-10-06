@@ -8,7 +8,7 @@ import java.util.Vector;
 import org.apache.bcel.generic.ClassGen;
 
 public class DumpUtils {
-	
+
 	/* OK */
 
 	private static String file;
@@ -20,18 +20,20 @@ public class DumpUtils {
 		bufferedOutputStream.close();
 	}
 
-	private static void dumpClassStorage(File fileD, File fileS, ClassStorage classStorage, String string) throws Exception {
+	private static void dumpClassStorage(File fileD, File fileS, ClassStorage classStorage, String string)
+			throws Exception {
 		final File[] files = fileD.listFiles();
 		ClassGen classGen;
 		String classNameR;
 		for (int i = 0; i < files.length; i++) {
-			File fileName = files[i];
+			final File fileName = files[i];
 			String className = string + "." + fileName.getName();
 			if (fileName.isDirectory()) {
 				if (className.startsWith(".")) {
 					className = className.substring(1);
 				}
-				dumpClassStorage(fileName, new File(fileS.getPath() + "/" + fileName.getName()), classStorage, className);
+				dumpClassStorage(fileName, new File(fileS.getPath() + "/" + fileName.getName()), classStorage,
+						className);
 			} else if (fileName.getName().endsWith(".class")) {
 				className = (className = fileName.getName()).substring(0, className.length() - 6);
 				if (string.length() > 0) {

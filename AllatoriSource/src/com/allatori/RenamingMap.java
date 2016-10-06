@@ -4,7 +4,7 @@ import java.util.Hashtable;
 import java.util.Set;
 
 public class RenamingMap {
-	
+
 	/* OK */
 
 	private final Hashtable<String, String> nameTable = new Hashtable<String, String>();

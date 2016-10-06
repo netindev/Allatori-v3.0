@@ -50,7 +50,7 @@ public class Watermarking {
 		short[] var4;
 		int var5;
 		for (var10000 = var5 = (var4 = new short[var2.size()]).length - 1; var10000 >= 0; var10000 = var5) {
-			var4[var5] = ((Number) var2.get(var5)).shortValue();
+			var4[var5] = var2.get(var5).shortValue();
 			--var5;
 		}
 
@@ -149,16 +149,16 @@ public class Watermarking {
 		return var1;
 	}
 
-	private boolean method1762(InstructionHandle var1) {
-		return var1.getInstruction() instanceof SIPUSH && var1.getNext() != null
-				&& var1.getNext().getInstruction() instanceof SIPUSH && var1.getNext().getNext() != null
-				&& var1.getNext().getNext().getInstruction() instanceof SIPUSH
-				&& var1.getNext().getNext().getNext() != null
-				&& var1.getNext().getNext().getNext().getInstruction() instanceof SIPUSH
-				&& var1.getNext().getNext().getNext().getNext() != null
-				&& var1.getNext().getNext().getNext().getNext().getInstruction() instanceof POP2
-				&& var1.getNext().getNext().getNext().getNext().getNext() != null
-				&& var1.getNext().getNext().getNext().getNext().getNext().getInstruction() instanceof POP2;
+	private boolean method1762(InstructionHandle instructionHandle) {
+		return instructionHandle.getInstruction() instanceof SIPUSH && instructionHandle.getNext() != null
+				&& instructionHandle.getNext().getInstruction() instanceof SIPUSH && instructionHandle.getNext().getNext() != null
+				&& instructionHandle.getNext().getNext().getInstruction() instanceof SIPUSH
+				&& instructionHandle.getNext().getNext().getNext() != null
+				&& instructionHandle.getNext().getNext().getNext().getInstruction() instanceof SIPUSH
+				&& instructionHandle.getNext().getNext().getNext().getNext() != null
+				&& instructionHandle.getNext().getNext().getNext().getNext().getInstruction() instanceof POP2
+				&& instructionHandle.getNext().getNext().getNext().getNext().getNext() != null
+				&& instructionHandle.getNext().getNext().getNext().getNext().getNext().getInstruction() instanceof POP2;
 	}
 
 	private boolean method1763(Vector<Object> var1) {
@@ -406,25 +406,21 @@ public class Watermarking {
 		}
 	}
 
-	public void createWatermark(String var1) throws ExtractWatermarkException {
+	public void createWatermark(String string) throws ExtractWatermarkException {
 		try {
-			final Vector<Object> var2 = this.method1761();
-			if (this.method1763(var2)) {
+			final Vector<Object> vector = this.method1761();
+			if (this.method1763(vector)) {
 				throw new ExtractWatermarkException("The jar file already contains watermark.");
 			} else {
-				Class34.arrangeOrder(var2);
-				final short[] var3 = this.method1764(var1);
-
-				int var4;
-				for (int var10000 = var4 = var2.size() - var3.length / 4; var10000 > 0; var10000 = var4) {
-					var2.remove(0);
-					--var4;
+				Class34.arrangeOrder(vector);
+				final short[] shortArr = this.method1764(string);
+				for (int i = vector.size() - shortArr.length / 4; i > 0; i--) {
+					vector.remove(0);
 				}
-
-				this.method1760(var2, var3);
+				this.method1760(vector, shortArr);
 			}
-		} catch (final Exception var5) {
-			throw new ExtractWatermarkException("Watermarking error: " + var5.getMessage());
+		} catch (final Exception e) {
+			throw new ExtractWatermarkException("Watermarking error: " + e.getMessage());
 		}
 	}
 }

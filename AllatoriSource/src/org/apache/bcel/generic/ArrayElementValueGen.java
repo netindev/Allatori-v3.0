@@ -34,7 +34,7 @@ public class ArrayElementValueGen extends ElementValueGen {
 		int i = 0;
 		final Iterator<ElementValueGen> i$ = evalues.iterator();
 		while (i$.hasNext()) {
-			final ElementValueGen element = (ElementValueGen) i$.next();
+			final ElementValueGen element = i$.next();
 			immutableData[i++] = element.getElementValue();
 		}
 		return new ArrayElementValue(type, immutableData, cpGen.getConstantPool());
@@ -54,7 +54,7 @@ public class ArrayElementValueGen extends ElementValueGen {
 		dos.writeShort(evalues.size());
 		final Iterator<ElementValueGen> i$ = evalues.iterator();
 		while (i$.hasNext()) {
-			final ElementValueGen element = (ElementValueGen) i$.next();
+			final ElementValueGen element = i$.next();
 			element.dump(dos);
 		}
 	}
@@ -66,7 +66,7 @@ public class ArrayElementValueGen extends ElementValueGen {
 		String comma = "";
 		final Iterator<ElementValueGen> i$ = evalues.iterator();
 		while (i$.hasNext()) {
-			final ElementValueGen element = (ElementValueGen) i$.next();
+			final ElementValueGen element = i$.next();
 			sb.append(comma);
 			comma = ",";
 			sb.append(element.stringifyValue());

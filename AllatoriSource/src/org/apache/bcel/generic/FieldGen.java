@@ -193,7 +193,7 @@ public class FieldGen extends FieldGenOrMethodGen {
 		if (observers != null) {
 			final Iterator<FieldObserver> i$ = observers.iterator();
 			while (i$.hasNext()) {
-				final FieldObserver observer = (FieldObserver) i$.next();
+				final FieldObserver observer = i$.next();
 				observer.notify(this);
 			}
 		}

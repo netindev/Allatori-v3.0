@@ -3,7 +3,7 @@ package com.allatori;
 import org.apache.bcel.classfile.Field;
 
 public class FieldConstraint {
-	
+
 	/* OK */
 
 	private int parseAccess;
@@ -11,11 +11,11 @@ public class FieldConstraint {
 	private String parsePattern;
 
 	private void parseTemplate(String string) throws TemplateException {
-		String[] split = string.split("\\s+");
+		final String[] split = string.split("\\s+");
 		if (split != null && split.length != 0) {
 			this.parsePattern = Class115.parsePattern(split[split.length - 1]);
 			if (split.length > 1 && !Class115.method1389(split[split.length - 2])) {
-				this.pattF = Class115.localParsePattern(split[split.length - 2]);
+				this.pattF = Class115.localParsePaterrn(split[split.length - 2]);
 			} else {
 				this.pattF = ".*";
 			}

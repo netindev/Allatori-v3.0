@@ -65,14 +65,14 @@ public class AnnotationEntry implements Node, Constants, Serializable {
 	}
 
 	public ElementValuePair[] getElementValuePairs() {
-		return ((ElementValuePair[]) element_value_pairs.toArray(new ElementValuePair[element_value_pairs.size()]));
+		return (element_value_pairs.toArray(new ElementValuePair[element_value_pairs.size()]));
 	}
 
 	public void dump(DataOutputStream dos) throws IOException {
 		dos.writeShort(type_index);
 		dos.writeShort(element_value_pairs.size());
 		for (int i = 0; i < element_value_pairs.size(); i++) {
-			final ElementValuePair envp = (ElementValuePair) element_value_pairs.get(i);
+			final ElementValuePair envp = element_value_pairs.get(i);
 			envp.dump(dos);
 		}
 	}

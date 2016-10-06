@@ -38,7 +38,7 @@ public class InstructionFinder {
 	}
 
 	private static final String mapName(String pattern) {
-		final String result = (String) map.get(pattern);
+		final String result = map.get(pattern);
 		if (result != null)
 			return result;
 		for (short i = 0; i < 256; i++) {
@@ -75,7 +75,8 @@ public class InstructionFinder {
 		return match;
 	}
 
-	public final Iterator<InstructionHandle[]> search(String pattern, InstructionHandle from, CodeConstraint constraint) {
+	public final Iterator<InstructionHandle[]> search(String pattern, InstructionHandle from,
+			CodeConstraint constraint) {
 		final String search = compilePattern(pattern);
 		int start = -1;
 		for (int i = 0; i < handles.length; i++) {
@@ -193,8 +194,8 @@ public class InstructionFinder {
 		map.put("astore", precompile((short) 75, (short) 78, (short) 58));
 		final Iterator<String> i$ = map.keySet().iterator();
 		while (i$.hasNext()) {
-			final String key = (String) i$.next();
-			final String value = (String) map.get(key);
+			final String key = i$.next();
+			final String value = map.get(key);
 			final char ch = value.charAt(1);
 			if (ch < '\u7fff')
 				map.put(key, compilePattern(value));

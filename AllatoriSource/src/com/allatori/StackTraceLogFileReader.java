@@ -8,7 +8,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
 public class StackTraceLogFileReader {
-	
+
 	/* OK */
 
 	public static StackTraceLog readLogFile(Reader reader) throws Exception {

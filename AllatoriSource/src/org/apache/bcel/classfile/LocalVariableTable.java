@@ -44,10 +44,7 @@ public class LocalVariableTable extends Attribute {
 	public final LocalVariable[] getLocalVariableTable() {
 		return local_variable_table;
 	}
-
-	/**
-	 * @deprecated
-	 */
+	
 	public final LocalVariable getLocalVariable(int index) {
 		for (int i = 0; i < local_variable_table_length; i++) {
 			if (local_variable_table[i].getIndex() == index)

@@ -1,7 +1,7 @@
 package com.allatori;
 
 public class Watermark extends Configurable {
-	
+
 	/* OK */
 
 	private static void printUsage() {
@@ -45,7 +45,7 @@ public class Watermark extends Configurable {
 					System.exit(0);
 				}
 				Configurable.createWatermark(classStorage);
-				Configurable.method1275(classStorage);
+				Configurable.start(classStorage);
 			}
 		} catch (final Exception e) {
 			Logger.printError(e.getMessage());

@@ -1,7 +1,7 @@
 package com.allatori;
 
 public class ObfuscationStyleUnk implements IObfuscationStyle {
-	
+
 	/* OK */
 
 	private final String type;

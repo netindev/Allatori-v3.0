@@ -1,7 +1,7 @@
 package com.allatori;
 
 public class ClassUtils {
-	
+
 	/* OK */
 
 	private static ClassConstraint classConstraint;

@@ -1,7 +1,7 @@
 package com.allatori;
 
 public class LineNumbers {
-	
+
 	/* OK */
 
 	private static int lineNumberType = 1;

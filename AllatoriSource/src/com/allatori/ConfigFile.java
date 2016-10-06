@@ -8,7 +8,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
 public class ConfigFile implements IParse {
-	
+
 	/* OK */
 
 	private final String fileName;
@@ -17,7 +17,7 @@ public class ConfigFile implements IParse {
 	public void parse() throws TemplateException {
 		try {
 			final FileReader fileReader = new FileReader(this.fileName);
-			XMLReader reader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
+			final XMLReader reader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
 			reader.setContentHandler(new ConfigFileHandler(this, null));
 			reader.parse(new InputSource(fileReader));
 		} catch (final SAXException e) {

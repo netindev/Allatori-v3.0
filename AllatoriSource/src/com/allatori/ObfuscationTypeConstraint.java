@@ -1,7 +1,7 @@
 package com.allatori;
 
 public class ObfuscationTypeConstraint {
-	
+
 	/* OK */
 
 	public int type;

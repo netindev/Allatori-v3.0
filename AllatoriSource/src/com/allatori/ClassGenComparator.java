@@ -5,7 +5,7 @@ import java.util.Comparator;
 import org.apache.bcel.generic.ClassGen;
 
 public class ClassGenComparator implements Comparator<Object> {
-	
+
 	/* OK */
 
 	public ClassGenComparator() {

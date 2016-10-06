@@ -17,7 +17,7 @@ import org.apache.bcel.generic.SWAP;
 import org.apache.bcel.generic.Type;
 
 public class ExpiryObfuscation implements ObfuscationType {
-	
+
 	/* OK */
 
 	private final ClassStorage classStorage;
@@ -35,7 +35,7 @@ public class ExpiryObfuscation implements ObfuscationType {
 									classGen.getConstantPool(), classGen.getConstantPool().getConstantPool());
 							final InstructionFactory instructionFactory = new InstructionFactory(classGen);
 							final InstructionList instructionList = methodGen.getInstructionList();
-							InstructionList weakStringEnc = Tuning.isWeakStringEncryption()
+							final InstructionList weakStringEnc = Tuning.isWeakStringEncryption()
 									? this.createDateWeakString(classGen.getConstantPool(), instructionFactory)
 									: this.createDateNotWeakString(classGen.getConstantPool(), instructionFactory);
 							if ("<init>".equals(actualMethod.getName())) {
@@ -66,22 +66,27 @@ public class ExpiryObfuscation implements ObfuscationType {
 		this.classStorage = classStorage;
 	}
 
-	private InstructionList createDateWeakString(ConstantPoolGen constantPoolGen, InstructionFactory instructionFactory) {
-		InstructionList instructionList = new InstructionList();
+	private InstructionList createDateWeakString(ConstantPoolGen constantPoolGen,
+			InstructionFactory instructionFactory) {
+		final InstructionList instructionList = new InstructionList();
 		instructionList.append(instructionFactory.createNew("java.util.Date"));
 		instructionList.append(InstructionConstants.DUP);
 		instructionList.append(new PUSH(constantPoolGen, DateUtils.getDate().getTime()));
-		instructionList.append(instructionFactory.createInvoke("java.util.Date", "<init>", Type.VOID, new Type[] { Type.LONG }, (short) 183));
+		instructionList.append(instructionFactory.createInvoke("java.util.Date", "<init>", Type.VOID,
+				new Type[] { Type.LONG }, (short) 183));
 		instructionList.append(instructionFactory.createNew("java.util.Date"));
 		instructionList.append(InstructionConstants.DUP);
-		instructionList.append(instructionFactory.createInvoke("java.util.Date", "<init>", Type.VOID, Type.NO_ARGS, (short) 183));
+		instructionList.append(
+				instructionFactory.createInvoke("java.util.Date", "<init>", Type.VOID, Type.NO_ARGS, (short) 183));
 		instructionList.append(InstructionConstants.LCONST_0);
 		instructionList.append(InstructionConstants.DUP2_X2);
 		instructionList.append(InstructionConstants.POP2);
-		instructionList.append(instructionFactory.createInvoke("java.util.Date", "getTime", Type.LONG, Type.NO_ARGS, (short) 182));
+		instructionList.append(
+				instructionFactory.createInvoke("java.util.Date", "getTime", Type.LONG, Type.NO_ARGS, (short) 182));
 		instructionList.append(InstructionConstants.DUP2_X1);
 		instructionList.append(InstructionConstants.POP2);
-		instructionList.append(instructionFactory.createInvoke("java.util.Date", "getTime", Type.LONG, Type.NO_ARGS, (short) 182));
+		instructionList.append(
+				instructionFactory.createInvoke("java.util.Date", "getTime", Type.LONG, Type.NO_ARGS, (short) 182));
 		instructionList.append(InstructionConstants.LSUB);
 		instructionList.append(InstructionConstants.LCMP);
 		final BranchInstruction branchInstruction = InstructionFactory.createBranchInstruction((short) 156, null);
@@ -89,23 +94,26 @@ public class ExpiryObfuscation implements ObfuscationType {
 		instructionList.append(instructionFactory.createNew("java.lang.Throwable"));
 		instructionList.append(InstructionConstants.DUP);
 		instructionList.append(new PUSH(constantPoolGen, DateUtils.getString()));
-		instructionList.append(
-				instructionFactory.createInvoke("java.lang.Throwable", "<init>", Type.VOID, new Type[] { Type.STRING }, (short) 183));
+		instructionList.append(instructionFactory.createInvoke("java.lang.Throwable", "<init>", Type.VOID,
+				new Type[] { Type.STRING }, (short) 183));
 		instructionList.append(InstructionConstants.ATHROW);
 		final InstructionHandle var5 = instructionList.append(new NOP());
 		branchInstruction.setTarget(var5);
 		return instructionList;
 	}
 
-	private InstructionList createDateNotWeakString(ConstantPoolGen constantPoolGen, InstructionFactory instructionFactory) {
-		InstructionList instructionList = new InstructionList();
+	private InstructionList createDateNotWeakString(ConstantPoolGen constantPoolGen,
+			InstructionFactory instructionFactory) {
+		final InstructionList instructionList = new InstructionList();
 		instructionList.append(instructionFactory.createNew("java.util.Date"));
 		instructionList.append(InstructionConstants.DUP);
 		instructionList.append(new PUSH(constantPoolGen, DateUtils.getDate().getTime()));
-		instructionList.append(instructionFactory.createInvoke("java.util.Date", "<init>", Type.VOID, new Type[] { Type.LONG }, (short) 183));
+		instructionList.append(instructionFactory.createInvoke("java.util.Date", "<init>", Type.VOID,
+				new Type[] { Type.LONG }, (short) 183));
 		instructionList.append(instructionFactory.createNew("java.util.Date"));
 		instructionList.append(InstructionConstants.DUP);
-		instructionList.append(instructionFactory.createInvoke("java.util.Date", "<init>", Type.VOID, Type.NO_ARGS, (short) 183));
+		instructionList.append(
+				instructionFactory.createInvoke("java.util.Date", "<init>", Type.VOID, Type.NO_ARGS, (short) 183));
 		instructionList.append(new SWAP());
 		instructionList.append(instructionFactory.createInvoke("java.util.Date", "after", Type.BOOLEAN,
 				new Type[] { new ObjectType("java.util.Date") }, (short) 182));
@@ -114,8 +122,8 @@ public class ExpiryObfuscation implements ObfuscationType {
 		instructionList.append(instructionFactory.createNew("java.lang.Throwable"));
 		instructionList.append(InstructionConstants.DUP);
 		instructionList.append(new PUSH(constantPoolGen, DateUtils.getString()));
-		instructionList.append(
-				instructionFactory.createInvoke("java.lang.Throwable", "<init>", Type.VOID, new Type[] { Type.STRING }, (short) 183));
+		instructionList.append(instructionFactory.createInvoke("java.lang.Throwable", "<init>", Type.VOID,
+				new Type[] { Type.STRING }, (short) 183));
 		instructionList.append(InstructionConstants.ATHROW);
 		final InstructionHandle instructionHandle = instructionList.append(new NOP());
 		branchInstruction.setTarget(instructionHandle);

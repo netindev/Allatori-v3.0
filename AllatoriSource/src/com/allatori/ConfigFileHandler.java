@@ -290,7 +290,7 @@ public class ConfigFileHandler extends DefaultHandler {
 						var7 = this.getAttributeByName(var4, "ignore", false, null, true);
 						var8 = this.getAttributeByName(var4, "stop", false, null, true);
 						this.classConstraint = this.createClassFilter(var5, var6, var7, var8, "template");
-						Class28.method502(this.classConstraint);
+						ContainsInst.add(this.classConstraint);
 					} else if ("field".equals(var3)) {
 						var5 = this.getAttributeByName(var4, "template", false, null, true);
 						var6 = this.getAttributeByName(var4, "access", false, null, true);
@@ -302,7 +302,7 @@ public class ConfigFileHandler extends DefaultHandler {
 
 							this.classConstraint.addFieldConstraint(var16);
 						} else {
-							Class28.method501(var16);
+							ContainsInst.addFieldConstraint(var16);
 						}
 					} else {
 						ClassConstraint var9;
@@ -322,7 +322,7 @@ public class ConfigFileHandler extends DefaultHandler {
 									LocalVariables.addObfuscationTypeConstraint(new ObfuscationTypeConstraint(5, var9));
 								}
 							} else {
-								Class28.method508(var19);
+								ContainsInst.addMethodConstraint(var19);
 								if ("keep".equals(var7)) {
 									try {
 										(var9 = new ClassConstraint("class *", false, false))
@@ -357,7 +357,8 @@ public class ConfigFileHandler extends DefaultHandler {
 							ClassUtils.setMethodName(var6);
 							var7 = this.getAttributeByName(var4, "add2class", false, "private+ class *", true);
 							ClassConstraint var18;
-							ClassUtils.setClassConstraint(var18 = this.createClassFilter(var7, null, null, null, "add2class"));
+							ClassUtils.setClassConstraint(
+									var18 = this.createClassFilter(var7, null, null, null, "add2class"));
 							final String var23 = this.getAttributeByName(var4, "add2method", false,
 									"private+ <init>(**)", true);
 							final MethodConstraint var10 = this.createMethodFilter(var23, null);
@@ -394,14 +395,16 @@ public class ConfigFileHandler extends DefaultHandler {
 
 							DateUtils.setString(this.getAttributeByName(var4, "string", true, null, true));
 							var8 = this.getAttributeByName(var4, "add2class", false, "private+ class *", true);
-							DateUtils.setClassConstraint(var9 = this.createClassFilter(var8, null, null, null, "add2class"));
+							DateUtils.setClassConstraint(
+									var9 = this.createClassFilter(var8, null, null, null, "add2class"));
 							final String var25 = this.getAttributeByName(var4, "add2method", false, "no input value",
 									true);
 							MethodConstraint var24;
 							if ("no input value".equals(var25)) {
 								var24 = this.createMethodFilter("private+ <init>(**)", null);
 								var9.addMethodConstraint(var24);
-								final MethodConstraint var12 = this.createMethodFilter("public static void main(**)", null);
+								final MethodConstraint var12 = this.createMethodFilter("public static void main(**)",
+										null);
 								var9.addMethodConstraint(var12);
 							} else {
 								var24 = this.createMethodFilter(var25, null, "add2method");

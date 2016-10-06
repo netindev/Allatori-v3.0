@@ -1,7 +1,7 @@
 package com.allatori;
 
 public class WatermarkUtil {
-	
+
 	/* OK */
 
 	private static boolean extract = false;

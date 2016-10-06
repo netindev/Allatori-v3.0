@@ -15,7 +15,7 @@ public class ClassVector implements Serializable {
 	}
 
 	public JavaClass elementAt(int index) {
-		return (JavaClass) vec.get(index);
+		return vec.get(index);
 	}
 
 	public void removeElementAt(int index) {

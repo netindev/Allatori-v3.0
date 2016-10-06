@@ -7,15 +7,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StackTraceUtils {
-	
+
 	/* OK */
 
-	public static void translateStackTrace(BufferedReader inputReader, StackTraceLog log, PrintWriter outputWriter) throws IOException {
+	public static void translateStackTrace(BufferedReader inputReader, StackTraceLog log, PrintWriter outputWriter)
+			throws IOException {
 		final Pattern firstPattern = Pattern.compile("(.*(?:at|Frame)\\s+)(.*)\\((.*)\\)(.*)");
 		final Pattern secondPattern = Pattern.compile("(.*syslog:\\s+)(.*?)\\((.*)\\)(.*)");
 		String group1 = null, group2 = null, group3 = null, group4 = null;
 		String actualLine;
-		for (BufferedReader bufferedReader = inputReader; (actualLine = bufferedReader.readLine()) != null; bufferedReader = inputReader) {
+		for (BufferedReader bufferedReader = inputReader; (actualLine = bufferedReader
+				.readLine()) != null; bufferedReader = inputReader) {
 			boolean match = false;
 			Matcher matcher = firstPattern.matcher(actualLine);
 			if (matcher.matches()) {
@@ -48,7 +50,7 @@ public class StackTraceUtils {
 						subInd = log.oldNewRep.get(subInd);
 					}
 					try {
-						int indOf = log.vector.indexOf(Integer.valueOf(sub1));
+						final int indOf = log.vector.indexOf(Integer.valueOf(sub1));
 						if (indOf >= 0) {
 							sub1 = "" + indOf;
 						}

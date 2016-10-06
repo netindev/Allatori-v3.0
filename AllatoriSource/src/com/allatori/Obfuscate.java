@@ -1,6 +1,8 @@
 package com.allatori;
 
 public class Obfuscate extends Configurable {
+	
+	/* OK */
 
 	public static void main(String[] args) {
 		if (args.length > 1 && "-silent".equals(args[1])) {
@@ -24,8 +26,8 @@ public class Obfuscate extends Configurable {
 		}
 	}
 
-	private static void method1276(ClassStorage classStorage) throws Exception {
-		new Obfuscator(classStorage).method1526();
+	private static void process(ClassStorage classStorage) throws Exception {
+		new Obfuscator(classStorage).process();
 	}
 
 	private static void printUsage() {
@@ -35,12 +37,12 @@ public class Obfuscate extends Configurable {
 	}
 
 	public static void execute() throws Exception {
-		ClassStorage classStorage = Configurable.getClasses();
-		method1276(classStorage);
+		final ClassStorage classStorage = Configurable.getClasses();
+		process(classStorage);
 		if (WatermarkUtil.getExtract() != null && WatermarkUtil.getValue() != null) {
 			Configurable.createWatermark(classStorage);
 		}
-		Configurable.method1275(classStorage);
+		Configurable.start(classStorage);
 		Logger.printInfo("Obfuscation completed. Writing log file...");
 		LogFile.writeLogFile();
 	}

@@ -1,10 +1,10 @@
 package com.allatori;
 
 public class ObfuscationStyleLow implements IObfuscationStyle {
-	
+
 	/* OK */
 
-	private String type = "abcdefghijklmnopqrstuvwxyz";
+	private final String type = "abcdefghijklmnopqrstuvwxyz";
 	private long next = 0L;
 
 	@Override

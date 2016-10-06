@@ -3,7 +3,7 @@ package com.allatori;
 import java.util.Date;
 
 public class DateUtils {
-	
+
 	/* OK */
 
 	private static String string;

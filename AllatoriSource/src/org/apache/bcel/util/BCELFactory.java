@@ -273,7 +273,7 @@ class BCELFactory extends EmptyVisitor {
 	private void updateBranchTargets() {
 		final Iterator<BranchInstruction> i$ = branches.iterator();
 		while (i$.hasNext()) {
-			final BranchInstruction bi = (BranchInstruction) i$.next();
+			final BranchInstruction bi = i$.next();
 			final BranchHandle bh = (BranchHandle) branch_map.get(bi);
 			final int pos = bh.getPosition();
 			final String name = new StringBuilder().append(bi.getName()).append("_").append(pos).toString();

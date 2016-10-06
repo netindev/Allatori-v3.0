@@ -2,13 +2,15 @@ package com.allatori;
 
 public class RenamingUtils {
 
+	/* OK */
+
 	private final IObfuscationStyle obfStyle;
 
-	public RenamingUtils(AnotherNameRepo var1, EmptyClass var2) {
-		this(var1);
+	public RenamingUtils(AnotherNameRepo anotherNameRepo, EmptyClass emptyClass) {
+		this(anotherNameRepo);
 	}
 
-	private RenamingUtils(AnotherNameRepo var1) {
+	private RenamingUtils(AnotherNameRepo anotherNameRepo) {
 		this.obfStyle = ObfuscationStyleUtils.variableNamingType();
 	}
 

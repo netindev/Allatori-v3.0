@@ -1,7 +1,7 @@
 package com.allatori;
 
 public class AnotherNameRepoLow2 {
-	
+
 	/* OK */
 
 	private final RenamingMap secondAnotherNameRepoLow;
@@ -16,7 +16,8 @@ public class AnotherNameRepoLow2 {
 		return anotherNameRepoLow.obfuscationStyle;
 	}
 
-	private AnotherNameRepoLow2(AnotherNameRepo anotherNameRepo) { /* Not used param */
+	private AnotherNameRepoLow2(
+			AnotherNameRepo anotherNameRepo) { /* Not used param */
 		this.obfuscationStyle = ObfuscationStyleUtils.geObfStyleLow();
 		this.anotherNameRepoLow = new RenamingMap();
 		this.secondAnotherNameRepoLow = new RenamingMap();
@@ -26,7 +27,8 @@ public class AnotherNameRepoLow2 {
 		return anotherNameRepoLow.secondAnotherNameRepoLow;
 	}
 
-	public AnotherNameRepoLow2(AnotherNameRepo anotherNameRepo, EmptyClass emptyClass) { /* Not used param */
+	public AnotherNameRepoLow2(AnotherNameRepo anotherNameRepo,
+			EmptyClass emptyClass) { /* Not used param */
 		this(anotherNameRepo);
 	}
 }

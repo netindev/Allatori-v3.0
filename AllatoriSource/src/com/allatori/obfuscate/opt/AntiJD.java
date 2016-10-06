@@ -7,7 +7,7 @@ import com.allatori.ObfuscationConstraint;
 import com.allatori.ObfuscationTypeConstraint;
 
 public class AntiJD {
-	
+
 	/* OK */
 
 	private static ObfuscationConstraint obfuscationConstraint = new ObfuscationConstraint(0);

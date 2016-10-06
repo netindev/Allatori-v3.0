@@ -36,7 +36,7 @@ import org.apache.bcel.generic.PUTSTATIC;
 import org.apache.bcel.generic.Type;
 
 public class StringObfuscationLayer1 implements ObfuscationType {
-	
+
 	/* OK */
 
 	private static String decryptStringMethodName = "DecryptString";
@@ -252,16 +252,16 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 			final InstructionFactory instructionFactory = new InstructionFactory(classGen);
 			final Method[] methods = classGen.getMethods();
 			for (int i = 0; i < methods.length; i++) {
-				Method method = methods[i];
+				final Method method = methods[i];
 				if (method.getCode() != null) {
-					MethodGen methodGen = InitUtils.createMethodGen(method, classGen.getClassName(),
+					final MethodGen methodGen = InitUtils.createMethodGen(method, classGen.getClassName(),
 							classGen.getConstantPool(), classGen.getConstantPool().getConstantPool());
-					InstructionList instructionList = methodGen.getInstructionList();
+					final InstructionList instructionList = methodGen.getInstructionList();
 					InstructionHandle actualInstruction = instructionList.getStart();
 					for (InstructionHandle instructionHandle = actualInstruction; instructionHandle != null; instructionHandle = actualInstruction) {
 						if (actualInstruction.getInstruction() instanceof LDC_W) {
 							final LDC_W ldc = (LDC_W) actualInstruction.getInstruction();
-							Constant constant = classGen.getConstantPool().getConstant(ldc.getIndex());
+							final Constant constant = classGen.getConstantPool().getConstant(ldc.getIndex());
 							if (constant instanceof ConstantString) {
 								final String strByt = ((ConstantUtf8) classGen.getConstantPool()
 										.getConstant(((ConstantString) constant).getStringIndex())).getBytes();
@@ -270,7 +270,7 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 									continue;
 								}
 								int obfTyp = Tuning.stringEncryptionIsWeak(this.classStorage, classGen, methodGen);
-								String className = classGen.getClassName();
+								final String className = classGen.getClassName();
 								if (className.startsWith("com.allatori")) {
 									if (className.startsWith("com.allatori.obfuscate.opt")) {
 										obfTyp = Tuning.STRING_ENCRYPTION_DEFAULT_TYPE;
@@ -321,20 +321,20 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 	}
 
 	private void encryptDefault(ClassGen classGen) {
-		Field[] fields = classGen.getFields();
+		final Field[] fields = classGen.getFields();
 		for (int i = fields.length - 1; i >= 0; i--) {
-			ConstantValue constantValue = fields[i].getConstantValue();
+			final ConstantValue constantValue = fields[i].getConstantValue();
 			Constant constant;
 			if (constantValue != null && (constant = classGen.getConstantPool()
 					.getConstant(constantValue.getConstantValueIndex())) instanceof ConstantString) {
-				String string = ((ConstantUtf8) classGen.getConstantPool()
+				final String string = ((ConstantUtf8) classGen.getConstantPool()
 						.getConstant(((ConstantString) constant).getStringIndex())).getBytes();
 				this.collection.add(string);
 			}
 		}
-		Method[] methods = classGen.getMethods();
+		final Method[] methods = classGen.getMethods();
 		for (int i = methods.length - 1; i >= 0; i--) {
-			Method method = methods[i];
+			final Method method = methods[i];
 			if (method.getCode() != null) {
 				InstructionHandle actualInstruction = InitUtils.createMethodGen(method, classGen.getClassName(),
 						classGen.getConstantPool(), classGen.getConstantPool().getConstantPool()).getInstructionList()
@@ -361,20 +361,22 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 	}
 
 	private void encryptMaximum(ClassGen classGen) {
-		Field[] fields = classGen.getFields();
+		final Field[] fields = classGen.getFields();
 		for (int i = fields.length - 1; i >= 0; i--) {
-			Field field = fields[i];
-			ConstantValue constantValue = field.getConstantValue();
+			final Field field = fields[i];
+			final ConstantValue constantValue = field.getConstantValue();
 			Constant constant;
-			if (constantValue != null && (constant = classGen.getConstantPool()
-					.getConstant(constantValue.getConstantValueIndex())) instanceof ConstantString && field.isFinal()) {
+			if (constantValue != null
+					&& (constant = classGen.getConstantPool()
+							.getConstant(constantValue.getConstantValueIndex())) instanceof ConstantString
+					&& field.isFinal()) {
 				if (!field.isStatic()) {
-					FieldGen fieldGen = new FieldGen(field, classGen.getConstantPool());
+					final FieldGen fieldGen = new FieldGen(field, classGen.getConstantPool());
 					fieldGen.cancelInitValue();
 					classGen.replaceField(field, fieldGen.getField());
 				} else {
 					Method clinit = null;
-					Method[] methodArr = classGen.getMethods();
+					final Method[] methodArr = classGen.getMethods();
 					for (int j = methodArr.length - 1; j >= 0; j--) {
 						final Method method = methodArr[j];
 						if ("<clinit>".equals(method.getName())) {
@@ -384,8 +386,8 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 					}
 					InstructionList instructionList = new InstructionList();
 					instructionList.insert(InstructionFactory.createReturn(Type.VOID));
-					MethodGen methodGen = InitUtils.createMethodGen(clinit, classGen.getClassName(), classGen.getConstantPool(),
-							classGen.getConstantPool().getConstantPool());
+					MethodGen methodGen = InitUtils.createMethodGen(clinit, classGen.getClassName(),
+							classGen.getConstantPool(), classGen.getConstantPool().getConstantPool());
 					if (clinit != null) {
 						instructionList = methodGen.getInstructionList();
 					} else {
@@ -395,8 +397,8 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 					final String string = ((ConstantUtf8) classGen.getConstantPool()
 							.getConstant(((ConstantString) constant).getStringIndex())).getBytes();
 					final InstructionFactory instructionFactory = new InstructionFactory(classGen);
-					instructionList.insert(
-							instructionFactory.createFieldAccess(classGen.getClassName(), field.getName(), Type.STRING, (short) 179));
+					instructionList.insert(instructionFactory.createFieldAccess(classGen.getClassName(),
+							field.getName(), Type.STRING, (short) 179));
 					instructionList.insert(new PUSH(classGen.getConstantPool(), string));
 					methodGen.setMaxStack();
 					methodGen.setMaxLocals();
@@ -406,7 +408,7 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 						classGen.addMethod(methodGen.getMethod());
 					}
 					instructionList.dispose();
-					FieldGen fieldGen = new FieldGen(field, classGen.getConstantPool());
+					final FieldGen fieldGen = new FieldGen(field, classGen.getConstantPool());
 					fieldGen.cancelInitValue();
 					classGen.replaceField(field, fieldGen.getField());
 				}
@@ -431,7 +433,7 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 		for (Iterator<?> iterator = actualIterator = classStorage.valuesIterator(); iterator
 				.hasNext(); iterator = actualIterator) {
 			final ClassGen classGen = (ClassGen) actualIterator.next();
-			int type = Tuning.getStringObfuscationType(classStorage, classGen, null);
+			final int type = Tuning.getStringObfuscationType(classStorage, classGen, null);
 			if (type == Tuning.STRING_ENCRYPTION_DEFAULT) {
 				this.encryptDefault(classGen);
 			} else if (type == Tuning.STRING_ENCRYPTION_MAXIMUM) {
@@ -452,38 +454,43 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 		instructionList.append(InstructionConstants.DUP_X2);
 		instructionList.append(instructionFactory.createNew("java.lang.Exception"));
 		instructionList.append(InstructionConstants.DUP);
-		instructionList.append(instructionFactory.createInvoke("java.lang.Exception", "<init>", Type.VOID, Type.NO_ARGS, (short) 183));
+		instructionList.append(
+				instructionFactory.createInvoke("java.lang.Exception", "<init>", Type.VOID, Type.NO_ARGS, (short) 183));
 		instructionList.append(instructionFactory.createInvoke("java.lang.Exception", "getStackTrace",
 				new ArrayType(new ObjectType("java.lang.StackTraceElement"), 1), Type.NO_ARGS, (short) 182));
 		instructionList.append(InstructionConstants.SWAP);
 		instructionList.append(InstructionConstants.AALOAD);
 		instructionList.append(instructionFactory.createNew("java.lang.StringBuffer"));
 		instructionList.append(InstructionConstants.DUP);
-		instructionList.append(instructionFactory.createInvoke("java.lang.StringBuffer", "<init>", Type.VOID, Type.NO_ARGS, (short) 183));
+		instructionList.append(instructionFactory.createInvoke("java.lang.StringBuffer", "<init>", Type.VOID,
+				Type.NO_ARGS, (short) 183));
 		instructionList.append(InstructionConstants.SWAP);
 		instructionList.append(InstructionConstants.DUP);
-		instructionList.append(instructionFactory.createInvoke("java.lang.StackTraceElement", "getClassName", Type.STRING, Type.NO_ARGS,
-				(short) 182));
+		instructionList.append(instructionFactory.createInvoke("java.lang.StackTraceElement", "getClassName",
+				Type.STRING, Type.NO_ARGS, (short) 182));
 		instructionList.append(InstructionConstants.SWAP);
-		instructionList.append(instructionFactory.createInvoke("java.lang.StackTraceElement", "getMethodName", Type.STRING, Type.NO_ARGS,
-				(short) 182));
+		instructionList.append(instructionFactory.createInvoke("java.lang.StackTraceElement", "getMethodName",
+				Type.STRING, Type.NO_ARGS, (short) 182));
 		instructionList.append(InstructionConstants.DUP_X2);
 		instructionList.append(InstructionConstants.POP);
-		instructionList.append(instructionFactory.createInvoke("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[] { Type.STRING },
-				(short) 182));
+		instructionList.append(instructionFactory.createInvoke("java.lang.StringBuffer", "append", Type.STRINGBUFFER,
+				new Type[] { Type.STRING }, (short) 182));
 		instructionList.append(InstructionConstants.SWAP);
-		instructionList.append(instructionFactory.createInvoke("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[] { Type.STRING },
-				(short) 182));
-		instructionList.append(instructionFactory.createInvoke("java.lang.StringBuffer", "toString", Type.STRING, Type.NO_ARGS, (short) 182));
+		instructionList.append(instructionFactory.createInvoke("java.lang.StringBuffer", "append", Type.STRINGBUFFER,
+				new Type[] { Type.STRING }, (short) 182));
+		instructionList.append(instructionFactory.createInvoke("java.lang.StringBuffer", "toString", Type.STRING,
+				Type.NO_ARGS, (short) 182));
 		instructionList.append(InstructionConstants.DUP_X1);
-		instructionList.append(instructionFactory.createInvoke("java.lang.String", "length", Type.INT, Type.NO_ARGS, (short) 182));
+		instructionList.append(
+				instructionFactory.createInvoke("java.lang.String", "length", Type.INT, Type.NO_ARGS, (short) 182));
 		instructionList.append(InstructionConstants.SWAP);
 		instructionList.append(InstructionConstants.ISUB);
 		instructionList.append(InstructionConstants.DUP_X1);
 		instructionList.append(InstructionFactory.createStore(Type.INT, 3));
 		instructionList.append(InstructionFactory.createStore(Type.OBJECT, 2));
 		instructionList.append(InstructionFactory.createStore(Type.INT, 4));
-		instructionList.append(instructionFactory.createInvoke("java.lang.String", "length", Type.INT, Type.NO_ARGS, (short) 182));
+		instructionList.append(
+				instructionFactory.createInvoke("java.lang.String", "length", Type.INT, Type.NO_ARGS, (short) 182));
 		instructionList.append(InstructionConstants.DUP);
 		instructionList.append(instructionFactory.createNewArray(Type.CHAR, (short) 1));
 		instructionList.append(InstructionFactory.createStore(Type.OBJECT, 5));
@@ -504,13 +511,15 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 		instructionList.append(InstructionConstants.POP);
 		instructionList.append(InstructionFactory.createLoad(Type.OBJECT, 2));
 		instructionList.append(InstructionFactory.createLoad(Type.INT, 4));
-		instructionList.append(instructionFactory.createInvoke("java.lang.String", "charAt", Type.CHAR, new Type[] { Type.INT }, (short) 182));
+		instructionList.append(instructionFactory.createInvoke("java.lang.String", "charAt", Type.CHAR,
+				new Type[] { Type.INT }, (short) 182));
 		instructionList.append(InstructionConstants.DUP_X1);
 		instructionList.append(InstructionFactory.createLoad(Type.INT, 7));
 		instructionList.append(InstructionConstants.DUP_X1);
 		instructionList.append(InstructionFactory.createLoad(Type.OBJECT, 0));
 		instructionList.append(InstructionConstants.SWAP);
-		instructionList.append(instructionFactory.createInvoke("java.lang.String", "charAt", Type.CHAR, new Type[] { Type.INT }, (short) 182));
+		instructionList.append(instructionFactory.createInvoke("java.lang.String", "charAt", Type.CHAR,
+				new Type[] { Type.INT }, (short) 182));
 		instructionList.append(InstructionFactory.createLoad(Type.INT, 6));
 		instructionList.append(InstructionConstants.IXOR);
 		instructionList.append(InstructionConstants.IXOR);
@@ -528,10 +537,12 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 		instructionList.append(InstructionFactory.createLoad(Type.INT, 3));
 		instructionList.append(InstructionFactory.createStore(Type.INT, 4));
 		final InstructionHandle instructionHandle0 = instructionList.append(new IINC(7, -1));
-		final InstructionHandle instructionHandle1 = instructionList.append(InstructionFactory.createLoad(Type.OBJECT, 5));
+		final InstructionHandle instructionHandle1 = instructionList
+				.append(InstructionFactory.createLoad(Type.OBJECT, 5));
 		instructionList.append(InstructionFactory.createLoad(Type.INT, 7));
 		instructionList.append(InstructionConstants.DUP);
-		final BranchInstruction branchInstruction1 = InstructionFactory.createBranchInstruction((short) 156, instructionHandle);
+		final BranchInstruction branchInstruction1 = InstructionFactory.createBranchInstruction((short) 156,
+				instructionHandle);
 		instructionList.append(branchInstruction1);
 		instructionList.append(InstructionConstants.POP2);
 		instructionList.append(instructionFactory.createNew("java.lang.String"));
@@ -539,8 +550,8 @@ public class StringObfuscationLayer1 implements ObfuscationType {
 		instructionList.append(InstructionConstants.SWAP);
 		instructionList.append(InstructionConstants.DUP_X1);
 		instructionList.append(InstructionConstants.SWAP);
-		instructionList.append(instructionFactory.createInvoke("java.lang.String", "<init>", Type.VOID, new Type[] { new ArrayType(Type.CHAR, 1) },
-				(short) 183));
+		instructionList.append(instructionFactory.createInvoke("java.lang.String", "<init>", Type.VOID,
+				new Type[] { new ArrayType(Type.CHAR, 1) }, (short) 183));
 		instructionList.append(InstructionFactory.createReturn(Type.OBJECT));
 		branchInstruction.setTarget(instructionHandle1);
 		branchInstruction0.setTarget(instructionHandle0);

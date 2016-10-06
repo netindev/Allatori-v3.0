@@ -15,16 +15,16 @@ import org.apache.bcel.generic.Type;
 public class Class56 {
 
 	private static final Vector<?> aVector605 = new Vector<Object>();
-	private final Hashtable<String, Vector<ClassGen>> aHashtable607 = new Hashtable<String, Vector<ClassGen>>();
-	private final ClassStorage aClassStorage_608;
-	private Vector<ClassGen> aVector609;
+	private final Hashtable<String, Vector<ClassGen>> classGenHashtable = new Hashtable<String, Vector<ClassGen>>();
+	private final ClassStorage classStorage;
+	private Vector<ClassGen> classGenVector;
 	private final Hashtable<String, String> aHashtable610 = new Hashtable<String, String>();
 	private static final Set<?> aSet611 = new TreeSetImpl();
 	private final Set<Object> aSet612 = new TreeSet<Object>();
 
 	public Vector<?> method691(String var1) {
 		Vector<?> var2;
-		return (var2 = this.aHashtable607.get(var1)) != null ? var2 : aVector605;
+		return (var2 = this.classGenHashtable.get(var1)) != null ? var2 : aVector605;
 	}
 
 	private Set<Object> method692(Set<?> var1, Set<?> var2) {
@@ -52,11 +52,11 @@ public class Class56 {
 			Iterator<Object> var3;
 			for (Iterator<Object> var10000 = var3 = var1.iterator(); var10000.hasNext(); var10000 = var3) {
 				final String var4 = (String) var3.next();
-				if (this.aClassStorage_608.getClassGen(var4) == null) {
+				if (this.classStorage.getClassGen(var4) == null) {
 					int var7;
 					try {
 						java.lang.reflect.Method[] var6;
-						for (int var10 = var7 = (var6 = Class.forName(var4, false, this.aClassStorage_608.getClassLoader())
+						for (int var10 = var7 = (var6 = Class.forName(var4, false, this.classStorage.getClassLoader())
 								.getDeclaredMethods()).length - 1; var10 >= 0; var10 = var7) {
 							final java.lang.reflect.Method var8 = var6[var7];
 							if (this.method706(var8)) {
@@ -111,8 +111,8 @@ public class Class56 {
 		final Hashtable<ClassGen, String> var1 = new Hashtable<ClassGen, String>();
 
 		int var2;
-		for (int var10000 = var2 = 0; var10000 < this.aVector609.size(); var10000 = var2) {
-			final ClassGen var3 = this.aVector609.get(var2);
+		for (int var10000 = var2 = 0; var10000 < this.classGenVector.size(); var10000 = var2) {
+			final ClassGen var3 = this.classGenVector.get(var2);
 			var1.put(var3, "");
 			final Vector<?> var4 = this.method691(var3.getClassName());
 
@@ -137,7 +137,7 @@ public class Class56 {
 
 	public void method699() {
 		Iterator<?> var1;
-		for (Iterator<?> var10000 = var1 = this.aClassStorage_608.valuesIterator(); var10000.hasNext(); var10000 = var1) {
+		for (Iterator<?> var10000 = var1 = this.classStorage.valuesIterator(); var10000.hasNext(); var10000 = var1) {
 			final ClassGen var2 = (ClassGen) var1.next();
 			this.method695(var2);
 			this.method707(var2);
@@ -151,8 +151,7 @@ public class Class56 {
 		for (Iterator<Object> var10000 = var3 = var1.iterator(); var10000.hasNext(); var10000 = var3) {
 			final String var4 = (String) var3.next();
 			ClassGen var5;
-			if (!"-=404=-".equals(var4) && (var5 = this.aClassStorage_608.getClassGen(var4)) != null
-					&& var5.isInterface()) {
+			if (!"-=404=-".equals(var4) && (var5 = this.classStorage.getClassGen(var4)) != null && var5.isInterface()) {
 				final Set<?> var6 = this.method696(var5);
 				final Iterator<Object> var8 = this.method692(var6, var2).iterator();
 
@@ -165,18 +164,18 @@ public class Class56 {
 	}
 
 	public Class56(ClassStorage var1) {
-		this.aClassStorage_608 = var1;
+		this.classStorage = var1;
 	}
 
 	private void method701(String var1, ClassGen var2) {
-		if (this.aClassStorage_608.getClassGen(var1) != null) {
+		if (this.classStorage.getClassGen(var1) != null) {
 			Vector<ClassGen> var3;
-			if ((var3 = this.aHashtable607.get(var1)) == null) {
+			if ((var3 = this.classGenHashtable.get(var1)) == null) {
 				var3 = new Vector<ClassGen>();
 			}
 
 			var3.add(var2);
-			this.aHashtable607.put(var1, var3);
+			this.classGenHashtable.put(var1, var3);
 		}
 
 	}
@@ -188,15 +187,15 @@ public class Class56 {
 	}
 
 	public Vector<ClassGen> method703() {
-		return this.aVector609;
+		return this.classGenVector;
 	}
 
 	private void method704(ClassGen var1) {
-		this.aVector609.remove(var1);
-		this.aVector609.add(0, var1);
+		this.classGenVector.remove(var1);
+		this.classGenVector.add(0, var1);
 		final String var2 = var1.getSuperclassName();
 		ClassGen var3;
-		if ((var3 = this.aClassStorage_608.getClassGen(var2)) != null) {
+		if ((var3 = this.classStorage.getClassGen(var2)) != null) {
 			this.method704(var3);
 		}
 
@@ -204,7 +203,7 @@ public class Class56 {
 		int var5;
 		for (int var10000 = var5 = (var4 = var1.getInterfaceNames()).length - 1; var10000 >= 0; var10000 = var5) {
 			ClassGen var6;
-			if ((var6 = this.aClassStorage_608.getClassGen(var4[var5])) != null) {
+			if ((var6 = this.classStorage.getClassGen(var4[var5])) != null) {
 				this.method704(var6);
 			}
 
@@ -218,12 +217,12 @@ public class Class56 {
 
 		Iterator<?> var2;
 		Iterator<?> var10000;
-		for (var10000 = var2 = this.aClassStorage_608.valuesIterator(); var10000.hasNext(); var10000 = var2) {
+		for (var10000 = var2 = this.classStorage.valuesIterator(); var10000.hasNext(); var10000 = var2) {
 			var1.add(var2.next());
 		}
 
 		Collections.sort(var1, new ClassGenComparator());
-		this.aVector609 = new Vector<ClassGen>();
+		this.classGenVector = new Vector<ClassGen>();
 
 		Iterator<?> var3;
 		for (var10000 = var3 = var1.iterator(); var10000.hasNext(); var10000 = var3) {
@@ -233,7 +232,7 @@ public class Class56 {
 			}
 		}
 
-		Collections.sort(this.aVector609, new InterfaceComparator());
+		Collections.sort(this.classGenVector, new InterfaceComparator());
 		this.method697();
 	}
 
@@ -258,7 +257,7 @@ public class Class56 {
 		var1.add(var2);
 		ClassGen var3;
 		int var10000;
-		if ((var3 = this.aClassStorage_608.getClassGen(var2)) != null) {
+		if ((var3 = this.classStorage.getClassGen(var2)) != null) {
 			this.method708(var1, var3.getSuperclassName());
 
 			String[] var4;
@@ -270,7 +269,7 @@ public class Class56 {
 		} else {
 			try {
 				Class<?> var8;
-				if ((var8 = Class.forName(var2, false, this.aClassStorage_608.getClassLoader())).getSuperclass() != null) {
+				if ((var8 = Class.forName(var2, false, this.classStorage.getClassLoader())).getSuperclass() != null) {
 					this.method708(var1, var8.getSuperclass().getName());
 				}
 

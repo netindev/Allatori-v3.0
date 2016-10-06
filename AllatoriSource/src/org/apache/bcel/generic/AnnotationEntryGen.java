@@ -31,7 +31,8 @@ public class AnnotationEntryGen {
 		evs = copyValues(a.getElementValuePairs(), cpool, copyPoolEntries);
 	}
 
-	private List<ElementValuePairGen> copyValues(ElementValuePair[] in, ConstantPoolGen cpool, boolean copyPoolEntries) {
+	private List<ElementValuePairGen> copyValues(ElementValuePair[] in, ConstantPoolGen cpool,
+			boolean copyPoolEntries) {
 		final List<ElementValuePairGen> out = new ArrayList<ElementValuePairGen>();
 		final int l = in.length;
 		for (int i = 0; i < l; i++) {
@@ -49,7 +50,7 @@ public class AnnotationEntryGen {
 		final AnnotationEntry a = new AnnotationEntry(typeIndex, cpool.getConstantPool(), isRuntimeVisible);
 		final Iterator<ElementValuePairGen> i$ = evs.iterator();
 		while (i$.hasNext()) {
-			final ElementValuePairGen element = (ElementValuePairGen) i$.next();
+			final ElementValuePairGen element = i$.next();
 			a.addElementNameValuePair(element.getElementNameValuePair());
 		}
 		return a;
@@ -79,7 +80,7 @@ public class AnnotationEntryGen {
 		dos.writeShort(typeIndex);
 		dos.writeShort(evs.size());
 		for (int i = 0; i < evs.size(); i++) {
-			final ElementValuePairGen envp = (ElementValuePairGen) evs.get(i);
+			final ElementValuePairGen envp = evs.get(i);
 			envp.dump(dos);
 		}
 	}

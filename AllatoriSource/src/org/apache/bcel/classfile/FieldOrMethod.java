@@ -120,8 +120,7 @@ public abstract class FieldOrMethod extends AccessFlags implements Cloneable, No
 						accumulatedAnnotations.add(annotations.getAnnotationEntries()[j]);
 				}
 			}
-			annotationEntries = accumulatedAnnotations
-					.toArray(new AnnotationEntry[accumulatedAnnotations.size()]);
+			annotationEntries = accumulatedAnnotations.toArray(new AnnotationEntry[accumulatedAnnotations.size()]);
 			annotationsOutOfDate = false;
 		}
 	}

@@ -187,8 +187,7 @@ public class JavaClass extends AccessFlags implements Cloneable, Node, Comparabl
 
 			}
 
-			annotations = (AnnotationEntry[]) accumulatedAnnotations
-					.toArray(new AnnotationEntry[accumulatedAnnotations.size()]);
+			annotations = accumulatedAnnotations.toArray(new AnnotationEntry[accumulatedAnnotations.size()]);
 			annotationsOutOfDate = false;
 		}
 		return annotations;
@@ -498,7 +497,7 @@ public class JavaClass extends AccessFlags implements Cloneable, Node, Comparabl
 		for (clazz = clazz.getSuperClass(); clazz != null; clazz = clazz.getSuperClass())
 			allSuperClasses.add(clazz);
 
-		return (JavaClass[]) allSuperClasses.toArray(new JavaClass[allSuperClasses.size()]);
+		return allSuperClasses.toArray(new JavaClass[allSuperClasses.size()]);
 	}
 
 	public JavaClass[] getInterfaces() throws ClassNotFoundException {
@@ -528,7 +527,7 @@ public class JavaClass extends AccessFlags implements Cloneable, Node, Comparabl
 				i++;
 			}
 		}
-		return (JavaClass[]) allInterfaces.toArray(new JavaClass[allInterfaces.size()]);
+		return allInterfaces.toArray(new JavaClass[allInterfaces.size()]);
 	}
 
 	public static BCELComparator getComparator() {

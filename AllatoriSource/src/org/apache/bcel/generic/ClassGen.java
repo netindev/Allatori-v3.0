@@ -130,7 +130,7 @@ public class ClassGen extends AccessFlags implements Cloneable {
 				}
 			}
 		}
-		return ((AnnotationEntryGen[]) annotationGenObjs.toArray(new AnnotationEntryGen[annotationGenObjs.size()]));
+		return (annotationGenObjs.toArray(new AnnotationEntryGen[annotationGenObjs.size()]));
 	}
 
 	public JavaClass getJavaClass() {
@@ -208,7 +208,7 @@ public class ClassGen extends AccessFlags implements Cloneable {
 	public Field containsField(String name) {
 		final Iterator<Field> i$ = field_vec.iterator();
 		while (i$.hasNext()) {
-			final Field f = (Field) i$.next();
+			final Field f = i$.next();
 			if (f.getName().equals(name))
 				return f;
 		}
@@ -218,7 +218,7 @@ public class ClassGen extends AccessFlags implements Cloneable {
 	public Method containsMethod(String name, String signature) {
 		final Iterator<Method> i$ = method_vec.iterator();
 		while (i$.hasNext()) {
-			final Method m = (Method) i$.next();
+			final Method m = i$.next();
 			if (m.getName().equals(name) && m.getSignature().equals(signature))
 				return m;
 		}
@@ -280,7 +280,7 @@ public class ClassGen extends AccessFlags implements Cloneable {
 	}
 
 	public Method[] getMethods() {
-		return (Method[]) method_vec.toArray(new Method[method_vec.size()]);
+		return method_vec.toArray(new Method[method_vec.size()]);
 	}
 
 	public void setMethods(Method[] methods) {
@@ -294,7 +294,7 @@ public class ClassGen extends AccessFlags implements Cloneable {
 	}
 
 	public Method getMethodAt(int pos) {
-		return (Method) method_vec.get(pos);
+		return method_vec.get(pos);
 	}
 
 	public String[] getInterfaceNames() {
@@ -308,20 +308,20 @@ public class ClassGen extends AccessFlags implements Cloneable {
 		final int size = interface_vec.size();
 		final int[] interfaces = new int[size];
 		for (int i = 0; i < size; i++)
-			interfaces[i] = cp.addClass((String) interface_vec.get(i));
+			interfaces[i] = cp.addClass(interface_vec.get(i));
 		return interfaces;
 	}
 
 	public Field[] getFields() {
-		return (Field[]) field_vec.toArray(new Field[field_vec.size()]);
+		return field_vec.toArray(new Field[field_vec.size()]);
 	}
 
 	public Attribute[] getAttributes() {
-		return ((Attribute[]) attribute_vec.toArray(new Attribute[attribute_vec.size()]));
+		return (attribute_vec.toArray(new Attribute[attribute_vec.size()]));
 	}
 
 	public AnnotationEntryGen[] getAnnotationEntries() {
-		return ((AnnotationEntryGen[]) annotation_vec.toArray(new AnnotationEntryGen[annotation_vec.size()]));
+		return (annotation_vec.toArray(new AnnotationEntryGen[annotation_vec.size()]));
 	}
 
 	public ConstantPoolGen getConstantPool() {
@@ -365,7 +365,7 @@ public class ClassGen extends AccessFlags implements Cloneable {
 		if (observers != null) {
 			final Iterator<ClassObserver> i$ = observers.iterator();
 			while (i$.hasNext()) {
-				final ClassObserver observer = (ClassObserver) i$.next();
+				final ClassObserver observer = i$.next();
 				observer.notify(this);
 			}
 		}

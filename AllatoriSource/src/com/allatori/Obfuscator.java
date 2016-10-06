@@ -40,17 +40,18 @@ public class Obfuscator {
 			transformsVector.add(new ControlFlow());
 		}
 		transformsVector.add(new AntiJDTransform(this.classes));
-		Iterator<?> valuesIterator = this.classes.valuesIterator();
+		final Iterator<?> valuesIterator = this.classes.valuesIterator();
 		for (Iterator<?> iterator = valuesIterator; iterator.hasNext(); iterator = valuesIterator) {
 			final ClassGen classGen = (ClassGen) valuesIterator.next();
-			Iterator<ObfuscationType> transformsIterator = transformsVector.iterator();
+			final Iterator<ObfuscationType> transformsIterator = transformsVector.iterator();
 			for (iterator = transformsIterator; iterator.hasNext(); iterator = transformsIterator) {
-				((ObfuscationType) transformsIterator.next()).execute(classGen);
+				transformsIterator.next().execute(classGen);
 			}
 		}
 		Iterator<ObfuscationType> obfIterator;
-		for (Iterator<?> iterator = obfIterator = transformsVector.iterator(); iterator.hasNext(); iterator = obfIterator) {
-			((ObfuscationType) obfIterator.next()).terminate();
+		for (Iterator<?> iterator = obfIterator = transformsVector.iterator(); iterator
+				.hasNext(); iterator = obfIterator) {
+			obfIterator.next().terminate();
 		}
 	}
 
@@ -67,11 +68,10 @@ public class Obfuscator {
 		}
 	}
 
-	public void method1526() {
-		Iterator<?> var1;
-		Iterator<?> var10000;
-		for (var10000 = var1 = this.classes.valuesIterator(); var10000.hasNext(); var10000 = var1) {
-			if (((ClassGen) var1.next()).getSuperclassName().startsWith("javax.microedition.")) {
+	public void process() {
+		Iterator<?> tempMicro, tempNormal;
+		for (Iterator<?> iterator = tempMicro = this.classes.valuesIterator(); iterator.hasNext(); iterator = tempMicro) {
+			if (((ClassGen) tempMicro.next()).getSuperclassName().startsWith("javax.microedition.")) {
 				Tuning.setIsWeakStringEncryption();
 				break;
 			}
@@ -79,12 +79,10 @@ public class Obfuscator {
 		this.executeTransforms();
 		this.executeRenamer();
 		if (Tuning.isStringObfuscationLayer2Enabled()) {
-			final StringObfuscationLayer2 var2 = new StringObfuscationLayer2();
-
-			Iterator<?> var3;
-			for (var10000 = var3 = this.classes.valuesIterator(); var10000.hasNext(); var10000 = var3) {
-				final ClassGen var4 = (ClassGen) var3.next();
-				var2.execute(var4);
+			final StringObfuscationLayer2 stringObfuscationLayer2 = new StringObfuscationLayer2();
+			for (Iterator<?> iterator = tempNormal = this.classes.valuesIterator(); iterator.hasNext(); iterator = tempNormal) {
+				final ClassGen classGen = (ClassGen) tempNormal.next();
+				stringObfuscationLayer2.execute(classGen);
 			}
 		}
 		this.method1525();

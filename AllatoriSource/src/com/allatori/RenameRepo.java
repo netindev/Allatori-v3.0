@@ -1,7 +1,7 @@
 package com.allatori;
 
 public class RenameRepo {
-	
+
 	/* OK */
 
 	public String key;

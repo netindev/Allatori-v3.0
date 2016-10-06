@@ -3,7 +3,7 @@ package com.allatori;
 import java.util.Comparator;
 
 public class StringComparatorByLength implements Comparator<Object> {
-	
+
 	/* OK */
 
 	@Override

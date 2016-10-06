@@ -31,7 +31,7 @@ public class ClassLoaderRepository implements Repository {
 	@Override
 	public JavaClass findClass(String className) {
 		if (loadedClasses.containsKey(className))
-			return (JavaClass) loadedClasses.get(className);
+			return loadedClasses.get(className);
 		return null;
 	}
 

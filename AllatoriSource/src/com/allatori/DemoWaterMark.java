@@ -6,7 +6,7 @@ import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.MethodGen;
 
 public class DemoWaterMark implements ObfuscationType {
-	
+
 	/* OK */
 
 	@Override
@@ -20,10 +20,10 @@ public class DemoWaterMark implements ObfuscationType {
 			if (classGen.getClassName().startsWith("com.allatori.")) {
 				return;
 			}
-			Method method = classGen.containsMethod("main", "([Ljava/lang/String;)V");
+			final Method method = classGen.containsMethod("main", "([Ljava/lang/String;)V");
 			if (method != null) {
-				final MethodGen methodGen = InitUtils.createMethodGen(method, classGen.getClassName(), classGen.getConstantPool(),
-						classGen.getConstantPool().getConstantPool());
+				final MethodGen methodGen = InitUtils.createMethodGen(method, classGen.getClassName(),
+						classGen.getConstantPool(), classGen.getConstantPool().getConstantPool());
 				final InstructionFactory instructionFactory = new InstructionFactory(classGen);
 				methodGen.getInstructionList().append(instructionFactory.createPrintln(this.getWaterMark()));
 				methodGen.setMaxStack();

@@ -13,12 +13,13 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 
 public class FileUtils {
-	
+
 	/* OK */
 
 	public static String readFile(File file) throws Exception {
 		final StringBuilder stringBuilder = new StringBuilder((int) file.length());
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+		final BufferedReader bufferedReader = new BufferedReader(
+				new InputStreamReader(new FileInputStream(file), "UTF-8"));
 		int read;
 		while ((read = bufferedReader.read()) != -1) {
 			stringBuilder.append((char) read);
@@ -29,10 +30,10 @@ public class FileUtils {
 
 	@SuppressWarnings("resource")
 	public static void writeMap(File fileF, File fileS) throws IOException {
-		FileChannel fileChannelF = new FileInputStream(fileF).getChannel();
-		FileChannel fileChannelS = new FileOutputStream(fileS).getChannel();
+		final FileChannel fileChannelF = new FileInputStream(fileF).getChannel();
+		final FileChannel fileChannelS = new FileOutputStream(fileS).getChannel();
 		try {
-			MappedByteBuffer mappedByteBuffer = fileChannelF.map(MapMode.READ_ONLY, 0L, fileChannelF.size());
+			final MappedByteBuffer mappedByteBuffer = fileChannelF.map(MapMode.READ_ONLY, 0L, fileChannelF.size());
 			fileChannelS.write(mappedByteBuffer);
 		} finally {
 			if (fileChannelF != null) {
@@ -45,7 +46,8 @@ public class FileUtils {
 	}
 
 	public static void writeFile(File file, String write) throws Exception {
-		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
+		final BufferedWriter bufferedWriter = new BufferedWriter(
+				new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
 		bufferedWriter.write(write);
 		bufferedWriter.close();
 	}

@@ -8,18 +8,19 @@ import org.apache.bcel.generic.ClassGen;
 import com.allatori.obfuscate.opt.BranchTransform;
 
 public class ControlFlow implements ObfuscationType {
-	
+
 	/* OK */
 
 	@Override
 	public void execute(ClassGen classGen) {
-		Vector<ControlFlowTransform> vector = new Vector<ControlFlowTransform>();
+		final Vector<ControlFlowTransform> vector = new Vector<ControlFlowTransform>();
 		vector.add(new BranchTransform());
 		vector.add(new SelectBlockTransform());
 		vector.add(new LocalVariableTransform());
 		Iterator<ControlFlowTransform> tempIterator;
-		for (Iterator<ControlFlowTransform> iterator = tempIterator = vector.iterator(); iterator.hasNext(); iterator = tempIterator) {
-			((ControlFlowTransform) tempIterator.next()).patch(classGen);
+		for (Iterator<ControlFlowTransform> iterator = tempIterator = vector.iterator(); iterator
+				.hasNext(); iterator = tempIterator) {
+			tempIterator.next().patch(classGen);
 		}
 	}
 

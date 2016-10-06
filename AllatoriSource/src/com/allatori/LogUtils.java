@@ -1,7 +1,7 @@
 package com.allatori;
 
 public class LogUtils {
-	
+
 	/* OK */
 
 	private static String logFile;

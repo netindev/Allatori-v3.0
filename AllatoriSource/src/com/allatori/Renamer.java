@@ -76,7 +76,9 @@ public class Renamer {
 					String var7;
 					if (var10.startsWith("L") && var10.endsWith(";")) {
 						var11 = var6 = var10.substring(1, var10.length() - 1).replace('/', '.');
-						if ((var7 = AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).get(var6)) != null) {
+						if ((var7 = AnotherNameRepoLow1
+								.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+								.get(var6)) != null) {
 							var7 = "L" + var7.replace('.', '/') + ";";
 							var9.setTypeIndex(var2.addUtf8(var7));
 						}
@@ -85,8 +87,11 @@ public class Renamer {
 					if (var11 != null) {
 						var6 = var9.getEnumValueString();
 						var7 = var11 + "&" + var6 + "&" + var10;
-						if (AnotherNameRepoField.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509)).containsKey(var7)) {
-							final String var8 = AnotherNameRepoField.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509)).get(var7);
+						if (AnotherNameRepoField
+								.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
+								.containsKey(var7)) {
+							final String var8 = AnotherNameRepoField.getSecondAnotherNameRepoField(
+									AnotherNameRepo.getAnotherRepoField(this.aClass172_509)).get(var7);
 							var9.setValueIndex(var2.addUtf8(var8));
 						}
 					}
@@ -99,7 +104,8 @@ public class Renamer {
 
 	private void method297() {
 		Iterator<?> var1;
-		for (Iterator<?> var10000 = var1 = this.aClass56_508.method703().iterator(); var10000.hasNext(); var10000 = var1) {
+		for (Iterator<?> var10000 = var1 = this.aClass56_508.method703().iterator(); var10000
+				.hasNext(); var10000 = var1) {
 			final ClassGen var2 = (ClassGen) var1.next();
 			this.renameConstantPoolConstants(var2);
 			final ConstantPoolGen var3 = var2.getConstantPool();
@@ -124,7 +130,7 @@ public class Renamer {
 		int var10000;
 		for (var10000 = var4 = (var3 = var1.getMethods()).length - 1; var10000 >= 0; var10000 = var4) {
 			final Method var5 = var3[var4];
-			if (this.method307(var2, var5) || !Class28.method507(this.classStorage, var1, var5)) {
+			if (this.method307(var2, var5) || !ContainsInst.checkIfContainsMethod(this.classStorage, var1, var5)) {
 				var6 = var5.getName();
 				final String var7 = var5.getSignature();
 				if (!NameRepository.getConstantNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509))
@@ -134,7 +140,8 @@ public class Renamer {
 					NameRepository.getMethodRenamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509))
 							.put(var2 + "&" + var6 + "&" + MethodUtils.method1454(var7), "&");
 					if (!var5.isPrivate()) {
-						this.method319(var1, var6, var6, var7, var1.isInterface(), MethodUtils.isNotPublicProtectedPrivate(var5));
+						this.method319(var1, var6, var6, var7, var1.isInterface(),
+								MethodUtils.isNotPublicProtectedPrivate(var5));
 					}
 				} else if (!var5.isPrivate()) {
 					this.method319(var1, var6,
@@ -156,7 +163,8 @@ public class Renamer {
 				Method[] var13;
 				for (var10000 = var8 = (var13 = var12.getMethods()).length - 1; var10000 >= 0; var10000 = var8) {
 					final Method var9 = var13[var8];
-					if (!this.method307(var6, var9) && !Class28.method507(this.classStorage, var1, var9)) {
+					if (!this.method307(var6, var9)
+							&& !ContainsInst.checkIfContainsMethod(this.classStorage, var1, var9)) {
 						final String var10 = var9.getName();
 						final String var11 = var9.getSignature();
 						if (!NameRepository.getConstantNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509))
@@ -171,7 +179,8 @@ public class Renamer {
 							}
 						} else if (!var9.isPrivate()) {
 							this.method319(var12, var10,
-									NameRepository.getConstantNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509))
+									NameRepository
+											.getConstantNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509))
 											.get(var6 + "&" + var10 + "&" + var11),
 									var11, var12.isInterface(), MethodUtils.isNotPublicProtectedPrivate(var9));
 						}
@@ -194,7 +203,8 @@ public class Renamer {
 
 	private void method301() throws RunException {
 		Iterator<?> var1;
-		for (Iterator<?> var10000 = var1 = this.aClass56_508.method703().iterator(); var10000.hasNext(); var10000 = var1) {
+		for (Iterator<?> var10000 = var1 = this.aClass56_508.method703().iterator(); var10000
+				.hasNext(); var10000 = var1) {
 			final ClassGen var2 = (ClassGen) var1.next();
 			this.unrenamePackage(var2);
 			this.method298(var2);
@@ -212,13 +222,14 @@ public class Renamer {
 		int var3;
 		for (int var10000 = var3 = (var2 = var1.getFields()).length - 1; var10000 >= 0; var10000 = var3) {
 			final Field var4 = var2[var3];
-			final String var5 = AnotherNameRepoField.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
+			final String var5 = AnotherNameRepoField
+					.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
 					.get(var1.getClassName() + "&" + var4.getName() + "&" + var4.getSignature());
-			final Type var6 = MethodUtils.method1449(var4.getType(),
-					AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)));
+			final Type var6 = MethodUtils.method1449(var4.getType(), AnotherNameRepoLow1
+					.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)));
 			boolean var7 = false;
-			if ((AnotherNameRepoLow1.getNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).containsKey(var1.getClassName())
-					|| Packaging.forceDefaultPackage()) && !var4.isPrivate()) {
+			if ((AnotherNameRepoLow1.getNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+					.containsKey(var1.getClassName()) || Packaging.forceDefaultPackage()) && !var4.isPrivate()) {
 				var7 = true;
 			}
 
@@ -230,8 +241,9 @@ public class Renamer {
 
 				if (var6 != null) {
 					var8.setType(var6);
-					AnotherNameRepoField.getThirdAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509)).put(var4.getSignature(),
-							var8.getSignature());
+					AnotherNameRepoField
+							.getThirdAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
+							.put(var4.getSignature(), var8.getSignature());
 				}
 
 				if (var7) {
@@ -249,12 +261,14 @@ public class Renamer {
 
 	private void renamePackage(ClassGen var1) {
 		final String var2 = var1.getClassName();
-		if (!AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).containsKey(var2)) {
+		if (!AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+				.containsKey(var2)) {
 			final String var3 = MethodUtils.getPackageName(var2);
 			String var4 = this.method314(var3);
 			if (Packaging.defaultPackageIsNull() && (!var3.equals(var4) || Packaging.forceDefaultPackage())) {
 				var4 = Packaging.getDefaultPackage();
-				AnotherNameRepoLow1.getNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).put(var2, "&");
+				AnotherNameRepoLow1.getNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+						.put(var2, "&");
 			}
 
 			if (var4.length() > 0) {
@@ -266,12 +280,17 @@ public class Renamer {
 			String var5;
 			do {
 				do {
-					var5 = var4 + AnotherNameRepoLow1.getObfuscationStyle(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).next();
-				} while (AnotherNameRepoLow1.getThirdNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).containsKey(var5));
+					var5 = var4 + AnotherNameRepoLow1
+							.getObfuscationStyle(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).next();
+				} while (AnotherNameRepoLow1
+						.getThirdNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+						.containsKey(var5));
 			} while (this.classStorage.getClassGen(var5) != null);
 
-			AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).put(var2, var5);
-			AnotherNameRepoLow1.getThirdNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).put(var5, var2);
+			AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+					.put(var2, var5);
+			AnotherNameRepoLow1.getThirdNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+					.put(var5, var2);
 		}
 
 	}
@@ -285,21 +304,28 @@ public class Renamer {
 		int var10000;
 		for (var10000 = var4 = (var3 = var1.getFields()).length - 1; var10000 >= 0; var10000 = var4) {
 			final Field var5 = var3[var4];
-			if (!Class28.method504(this.classStorage, var1, var5)) {
+			if (!ContainsInst.checkIfContainsField(this.classStorage, var1, var5)) {
 				var6 = var5.getName();
 				final String var7 = var5.getSignature();
-				if (!AnotherNameRepoField.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
+				if (!AnotherNameRepoField
+						.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
 						.containsKey(var2 + "&" + var6 + "&" + var7)) {
-					AnotherNameRepoField.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509)).put(var2 + "&" + var6 + "&" + var7,
-							var6);
-					AnotherNameRepoField.getAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509)).put(var2 + "&" + var6 + "&" + var7,
-							"&");
+					AnotherNameRepoField
+							.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
+							.put(var2 + "&" + var6 + "&" + var7, var6);
+					AnotherNameRepoField
+							.getAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
+							.put(var2 + "&" + var6 + "&" + var7, "&");
 					if (!var5.isPrivate()) {
 						this.method306(var1, var6, var6, var7);
 					}
 				} else if (!var5.isPrivate()) {
-					this.method306(var1, var6, AnotherNameRepoField.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
-							.get(var2 + "&" + var6 + "&" + var7), var7);
+					this.method306(var1, var6,
+							AnotherNameRepoField
+									.getSecondAnotherNameRepoField(
+											AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
+									.get(var2 + "&" + var6 + "&" + var7),
+							var7);
 				}
 			}
 
@@ -315,21 +341,29 @@ public class Renamer {
 				Field[] var13;
 				for (var10000 = var8 = (var13 = var12.getFields()).length - 1; var10000 >= 0; var10000 = var8) {
 					final Field var9 = var13[var8];
-					if (!Class28.method504(this.classStorage, var1, var9)) {
+					if (!ContainsInst.checkIfContainsField(this.classStorage, var1, var9)) {
 						final String var10 = var9.getName();
 						final String var11 = var9.getSignature();
-						if (!AnotherNameRepoField.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
+						if (!AnotherNameRepoField
+								.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
 								.containsKey(var6 + "&" + var10 + "&" + var11)) {
-							AnotherNameRepoField.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
+							AnotherNameRepoField
+									.getSecondAnotherNameRepoField(
+											AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
 									.put(var6 + "&" + var10 + "&" + var11, var10);
-							AnotherNameRepoField.getAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
+							AnotherNameRepoField
+									.getAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
 									.put(var6 + "&" + var10 + "&" + var11, "&");
 							if (!var9.isPrivate()) {
 								this.method306(var12, var10, var10, var11);
 							}
 						} else if (!var9.isPrivate()) {
-							this.method306(var12, var10, AnotherNameRepoField.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
-									.get(var6 + "&" + var10 + "&" + var11), var11);
+							this.method306(var12, var10,
+									AnotherNameRepoField
+											.getSecondAnotherNameRepoField(
+													AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
+											.get(var6 + "&" + var10 + "&" + var11),
+									var11);
 						}
 					}
 
@@ -357,7 +391,9 @@ public class Renamer {
 				if (var3 > var2) {
 					final String var5 = var1.substring(var2 + 1, var3).replace('/', '.');
 					String var6;
-					if ((var6 = AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).get(var5)) != null) {
+					if ((var6 = AnotherNameRepoLow1
+							.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+							.get(var5)) != null) {
 						var1 = var1.substring(0, var2 + 1) + var6.replace('.', '/')
 								+ var1.substring(var2 + var5.length() + 1);
 					}
@@ -395,7 +431,8 @@ public class Renamer {
 
 	private void method308() {
 		Iterator<?> var1;
-		for (Iterator<?> var10000 = var1 = this.aClass56_508.method703().iterator(); var10000.hasNext(); var10000 = var1) {
+		for (Iterator<?> var10000 = var1 = this.aClass56_508.method703().iterator(); var10000
+				.hasNext(); var10000 = var1) {
 			final ClassGen var2 = (ClassGen) var1.next();
 			this.renameFields(var2);
 			this.renameMethods(var2);
@@ -405,11 +442,14 @@ public class Renamer {
 	}
 
 	private void unrenamePackage(ClassGen var1) {
-		if (this.method328(var1) || !Class28.method509(this.classStorage, var1)) {
+		if (this.method328(var1) || !ContainsInst.checkIfContains(this.classStorage, var1)) {
 			final String var2 = var1.getClassName();
 			boolean var3 = false;
-			if (AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).containsKey(var2)
-					&& !var2.equals(AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).get(var2))) {
+			if (AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+					.containsKey(var2)
+					&& !var2.equals(AnotherNameRepoLow1
+							.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+							.get(var2))) {
 				var3 = true;
 			}
 
@@ -417,12 +457,14 @@ public class Renamer {
 			String var5;
 			String var10000;
 			if (!var3) {
-				AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).put(var2, var2);
-				AnotherNameRepoLow1.getThirdNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).put(var2, var2);
+				AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+						.put(var2, var2);
+				AnotherNameRepoLow1.getThirdNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+						.put(var2, var2);
 				var4 = MethodUtils.getPackageName(var2);
-				if (Packaging.method579()
-						&& (var5 = AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).get(var4)) != null
-						&& !var5.equals(var4)) {
+				if (Packaging.method579() && (var5 = AnotherNameRepoLow2
+						.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509))
+						.get(var4)) != null && !var5.equals(var4)) {
 					if (namingMap.get(var5) == null) {
 						Logger.printWarning("Package \'" + var5 + "\' should be un-renamed.");
 					}
@@ -430,14 +472,16 @@ public class Renamer {
 					namingMap.put(var5, var4);
 				}
 
-				AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).put(var4, var4);
-				AnotherNameRepoLow2.method1522(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).put(var4, "&");
+				AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509))
+						.put(var4, var4);
+				AnotherNameRepoLow2.method1522(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).put(var4,
+						"&");
 
 				for (var10000 = var4; var10000.lastIndexOf(46) > 0; var10000 = var4) {
 					var4 = var4.substring(0, var4.lastIndexOf(46));
-					if (Packaging.method579()
-							&& (var5 = AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).get(var4)) != null
-							&& !var5.equals(var4)) {
+					if (Packaging.method579() && (var5 = AnotherNameRepoLow2
+							.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509))
+							.get(var4)) != null && !var5.equals(var4)) {
 						if (namingMap.get(var5) == null) {
 							Logger.printWarning("Package \'" + var5 + "\' should be un-renamed.");
 						}
@@ -445,25 +489,34 @@ public class Renamer {
 						namingMap.put(var5, var4);
 					}
 
-					AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).put(var4, var4);
-					AnotherNameRepoLow2.method1522(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).put(var4, "&");
+					AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509))
+							.put(var4, var4);
+					AnotherNameRepoLow2.method1522(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).put(var4,
+							"&");
 				}
 
 			} else {
 				var4 = MethodUtils.getPackageName(var2);
-				var5 = MethodUtils
-						.getPackageName(AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).get(var2));
+				var5 = MethodUtils.getPackageName(AnotherNameRepoLow1
+						.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+						.get(var2));
 				if (!Packaging.defaultPackageIsNull() || !var5.equals(Packaging.getDefaultPackage())) {
 					if ((new StringTokenizer(var4, ".")).countTokens() == (new StringTokenizer(var5, "."))
 							.countTokens()) {
-						AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).put(var4, var5);
-						AnotherNameRepoLow2.method1522(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).put(var5, "&");
+						AnotherNameRepoLow2
+								.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509))
+								.put(var4, var5);
+						AnotherNameRepoLow2.method1522(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509))
+								.put(var5, "&");
 
 						for (var10000 = var4; var10000.lastIndexOf(46) > 0; var10000 = var4) {
 							var4 = var4.substring(0, var4.lastIndexOf(46));
 							var5 = var5.substring(0, var5.lastIndexOf(46));
-							AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).put(var4, var5);
-							AnotherNameRepoLow2.method1522(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).put(var5, "&");
+							AnotherNameRepoLow2
+									.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509))
+									.put(var4, var5);
+							AnotherNameRepoLow2.method1522(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509))
+									.put(var5, "&");
 						}
 
 					}
@@ -505,7 +558,8 @@ public class Renamer {
 							final ConstantPool var17 = var2.getConstantPool();
 							var7 = var16.getEnclosingClass().getBytes(var17).replace('/', '.');
 							String var8;
-							if ((var8 = AnotherNameRepoLow1.getThirdNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+							if ((var8 = AnotherNameRepoLow1
+									.getThirdNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
 									.get(var7)) != null) {
 								var7 = var8;
 							}
@@ -517,8 +571,8 @@ public class Renamer {
 								String var12 = NameRepository
 										.getConstantNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509))
 										.get(var7 + "&" + var10 + "&" + var11);
-								String var13 = NameRepository.method1534(AnotherNameRepo.getNameRepository(this.aClass172_509))
-										.get(var11);
+								String var13 = NameRepository
+										.method1534(AnotherNameRepo.getNameRepository(this.aClass172_509)).get(var11);
 								if (var12 != null && !var12.equals(var10) || var13 != null) {
 									if (var12 == null) {
 										var12 = var10;
@@ -551,7 +605,8 @@ public class Renamer {
 			final MethodGen var5 = InitUtils.createMethodGen(var4 = var2[var3], var1.getClassName(),
 					var1.getConstantPool(), var1.getConstantPool().getConstantPool());
 			this.method321(var1, var5);
-			final String var6 = NameRepository.getConstantNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509))
+			final String var6 = NameRepository
+					.getConstantNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509))
 					.get(var1.getClassName() + "&" + var4.getName() + "&" + var4.getSignature());
 			var5.setName(var6);
 			boolean var7 = false;
@@ -560,8 +615,8 @@ public class Renamer {
 			int var9;
 			Type var10;
 			for (var10000 = var9 = (var8 = var5.getArgumentTypes()).length - 1; var10000 >= 0; var10000 = var9) {
-				if ((var10 = MethodUtils.method1449(var8[var9],
-						AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)))) != null) {
+				if ((var10 = MethodUtils.method1449(var8[var9], AnotherNameRepoLow1.getSecondNameRepositoryLow(
+						AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)))) != null) {
 					var5.setArgumentType(var9, var10);
 					var7 = true;
 				}
@@ -569,19 +624,19 @@ public class Renamer {
 				--var9;
 			}
 
-			if ((var10 = MethodUtils.method1449(var5.getReturnType(),
-					AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)))) != null) {
+			if ((var10 = MethodUtils.method1449(var5.getReturnType(), AnotherNameRepoLow1
+					.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)))) != null) {
 				var5.setReturnType(var10);
 				var7 = true;
 			}
 
 			if (var7) {
-				NameRepository.method1534(AnotherNameRepo.getNameRepository(this.aClass172_509)).put(var4.getSignature(),
-						var5.getSignature());
+				NameRepository.method1534(AnotherNameRepo.getNameRepository(this.aClass172_509))
+						.put(var4.getSignature(), var5.getSignature());
 			}
 
-			if ((AnotherNameRepoLow1.getNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).containsKey(var1.getClassName())
-					|| Packaging.forceDefaultPackage()) && !var4.isPrivate()) {
+			if ((AnotherNameRepoLow1.getNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+					.containsKey(var1.getClassName()) || Packaging.forceDefaultPackage()) && !var4.isPrivate()) {
 				MethodUtils.isPublic(var5);
 			}
 
@@ -602,7 +657,8 @@ public class Renamer {
 
 	private String method314(String var1) {
 		String var2;
-		if ((var2 = AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).get(var1)) != null) {
+		if ((var2 = AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509))
+				.get(var1)) != null) {
 			return var2;
 		} else {
 			final StringTokenizer var3 = new StringTokenizer(var1, ".");
@@ -614,24 +670,34 @@ public class Renamer {
 				}
 
 				var2 = var2 + var3.nextToken();
-				if (!AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).containsKey(var2)) {
-					AnotherNameRepoLow2.getObfuscationStyle(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).reset();
+				if (!AnotherNameRepoLow2
+						.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509))
+						.containsKey(var2)) {
+					AnotherNameRepoLow2.getObfuscationStyle(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509))
+							.reset();
 					String var5 = MethodUtils.getPackageName(var2);
-					if ((var5 = AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).get(var5)).length() > 0) {
+					if ((var5 = AnotherNameRepoLow2
+							.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).get(var5))
+									.length() > 0) {
 						var5 = var5 + ".";
 					}
 
 					String var4;
 					do {
-						var4 = var5 + AnotherNameRepoLow2.getObfuscationStyle(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).next();
-					} while (AnotherNameRepoLow2.method1522(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).containsKey(var4));
+						var4 = var5 + AnotherNameRepoLow2
+								.getObfuscationStyle(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).next();
+					} while (AnotherNameRepoLow2.method1522(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509))
+							.containsKey(var4));
 
-					AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).put(var2, var4);
-					AnotherNameRepoLow2.method1522(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).put(var4, "&");
+					AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509))
+							.put(var2, var4);
+					AnotherNameRepoLow2.method1522(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).put(var4,
+							"&");
 				}
 			}
 
-			return AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).get(var1);
+			return AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509))
+					.get(var1);
 		}
 	}
 
@@ -649,7 +715,9 @@ public class Renamer {
 					final ConstantPool var5 = var2.getConstantPool();
 					ConstantCP var6;
 					var7 = (var6 = (ConstantCP) var4).getClass(var5);
-					if ((var8 = AnotherNameRepoLow1.getThirdNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).get(var7)) != null) {
+					if ((var8 = AnotherNameRepoLow1
+							.getThirdNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+							.get(var7)) != null) {
 						var7 = var8;
 					}
 
@@ -661,14 +729,19 @@ public class Renamer {
 					String var13 = null;
 					if (!(var6 instanceof ConstantMethodref) && !(var6 instanceof ConstantInterfaceMethodref)) {
 						if (var6 instanceof ConstantFieldref) {
-							var12 = AnotherNameRepoField.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
+							var12 = AnotherNameRepoField
+									.getSecondAnotherNameRepoField(
+											AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
 									.get(var7 + "&" + var10 + "&" + var11);
-							var13 = AnotherNameRepoField.getThirdAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509)).get(var11);
+							var13 = AnotherNameRepoField.getThirdAnotherNameRepoField(
+									AnotherNameRepo.getAnotherRepoField(this.aClass172_509)).get(var11);
 						}
 					} else {
-						var12 = NameRepository.getConstantNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509))
+						var12 = NameRepository
+								.getConstantNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509))
 								.get(var7 + "&" + var10 + "&" + var11);
-						var13 = NameRepository.method1534(AnotherNameRepo.getNameRepository(this.aClass172_509)).get(var11);
+						var13 = NameRepository.method1534(AnotherNameRepo.getNameRepository(this.aClass172_509))
+								.get(var11);
 					}
 
 					if (var12 != null && !var12.equals(var10) || var13 != null) {
@@ -709,7 +782,9 @@ public class Renamer {
 					var20 = true;
 				}
 
-				if ((var11 = AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).get(var8)) != null) {
+				if ((var11 = AnotherNameRepoLow1
+						.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+						.get(var8)) != null) {
 					var11 = var11.replace('.', '/');
 					if (var20) {
 						var11 = "[L" + var11 + ";";
@@ -726,7 +801,9 @@ public class Renamer {
 			} else if (!(var16 instanceof ConstantCP) && var16 instanceof ConstantUtf8) {
 				ConstantUtf8 var17;
 				var7 = (var17 = (ConstantUtf8) var16).getBytes();
-				if ((var8 = AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).get(var7)) != null) {
+				if ((var8 = AnotherNameRepoLow1
+						.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+						.get(var7)) != null) {
 					var17.setBytes(var8);
 				} else {
 					label152: {
@@ -738,7 +815,9 @@ public class Renamer {
 
 						if (var21 > 0 && var7.endsWith(";") && var7.charAt(var21) == 76) {
 							var7 = var7.substring(var21 + 1, var7.length() - 1).replace('/', '.');
-							if ((var8 = AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+							if ((var8 = AnotherNameRepoLow1
+									.getSecondNameRepositoryLow(
+											AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
 									.get(var7)) != null) {
 								var8 = "[L" + var8.replace('.', '/') + ";";
 
@@ -754,7 +833,9 @@ public class Renamer {
 
 						if (var7.startsWith("L") && var7.endsWith(";")) {
 							var7 = var7.substring(1, var7.length() - 1).replace('/', '.');
-							if ((var8 = AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+							if ((var8 = AnotherNameRepoLow1
+									.getSecondNameRepositoryLow(
+											AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
 									.get(var7)) != null) {
 								var8 = "L" + var8.replace('.', '/') + ";";
 								var17.setBytes(var8);
@@ -803,10 +884,12 @@ public class Renamer {
 	}
 
 	private void method318() {
-		AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).put("", "");
+		AnotherNameRepoLow2.getAnotherNameRepoLow(AnotherNameRepo.getAnotherNameRepoLow(this.aClass172_509)).put("",
+				"");
 
 		Iterator<?> var1;
-		for (Iterator<?> var10000 = var1 = this.aClass56_508.method703().iterator(); var10000.hasNext(); var10000 = var1) {
+		for (Iterator<?> var10000 = var1 = this.aClass56_508.method703().iterator(); var10000
+				.hasNext(); var10000 = var1) {
 			final ClassGen var2 = (ClassGen) var1.next();
 			this.renamePackage(var2);
 			this.method323(var2);
@@ -892,7 +975,8 @@ public class Renamer {
 				LocalVariableGen var8;
 				Type var9;
 				if ((var9 = MethodUtils.method1449((var8 = var5[var7]).getType(),
-						AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)))) != null) {
+						AnotherNameRepoLow1.getSecondNameRepositoryLow(
+								AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)))) != null) {
 					var8.setType(var9);
 				}
 
@@ -962,7 +1046,8 @@ public class Renamer {
 				NameRepository.getObfuscationStyle(AnotherNameRepo.getNameRepository(this.aClass172_509)).reset();
 
 				do {
-					var8 = NameRepository.getObfuscationStyle(AnotherNameRepo.getNameRepository(this.aClass172_509)).next();
+					var8 = NameRepository.getObfuscationStyle(AnotherNameRepo.getNameRepository(this.aClass172_509))
+							.next();
 				} while (this.method322(var1, var8, MethodUtils.method1454(var7), !var5.isPrivate(),
 						var1.isInterface()));
 			}
@@ -970,14 +1055,15 @@ public class Renamer {
 			NameRepository.getConstantNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509))
 					.put(var2 + "&" + var6 + "&" + var7, var8);
 			if (var1.isAnnotation()) {
-				NameRepository.getSignatureNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509)).put(var2 + "&" + var6,
-						var8);
+				NameRepository.getSignatureNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509))
+						.put(var2 + "&" + var6, var8);
 			}
 
 			NameRepository.getMethodRenamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509))
 					.put(var2 + "&" + var8 + "&" + MethodUtils.method1454(var7), "&");
 			if (!var5.isPrivate()) {
-				this.method319(var1, var6, var8, var7, var1.isInterface(), MethodUtils.isNotPublicProtectedPrivate(var5));
+				this.method319(var1, var6, var8, var7, var1.isInterface(),
+						MethodUtils.isNotPublicProtectedPrivate(var5));
 			}
 
 			--var4;
@@ -995,10 +1081,13 @@ public class Renamer {
 		this.method318();
 		this.method308();
 		this.method297();
-		LogFile.setObfuscationHandler(new ObfuscationHandler(AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)),
+		LogFile.setObfuscationHandler(new ObfuscationHandler(
+				AnotherNameRepoLow1
+						.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)),
 				NameRepository.getConstantNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509)),
-				AnotherNameRepoField.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509)), this.aClass26_510.method496(),
-				this.aClass26_510.method497(),
+				AnotherNameRepoField
+						.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509)),
+				this.aClass26_510.method496(), this.aClass26_510.method497(),
 				NameRepository.getSignatureNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509))));
 	}
 
@@ -1035,16 +1124,22 @@ public class Renamer {
 			final String var6 = (var5 = var3[var4]).getName();
 			final String var7 = var5.getSignature();
 			String var8;
-			if ((var8 = AnotherNameRepoField.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
+			if ((var8 = AnotherNameRepoField
+					.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
 					.get(var2 + "&" + var6 + "&" + var7)) == null) {
-				var8 = AnotherNameRepoField.getObfuscationStyle(AnotherNameRepo.getAnotherRepoField(this.aClass172_509)).next();
+				var8 = AnotherNameRepoField.getObfuscationStyle(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
+						.next();
 
 				for (Renamer var9 = this; var9.method326(var1, var8, var7, !var5.isPrivate()); var9 = this) {
-					var8 = AnotherNameRepoField.getObfuscationStyle(AnotherNameRepo.getAnotherRepoField(this.aClass172_509)).next();
+					var8 = AnotherNameRepoField
+							.getObfuscationStyle(AnotherNameRepo.getAnotherRepoField(this.aClass172_509)).next();
 				}
 
-				AnotherNameRepoField.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509)).put(var2 + "&" + var6 + "&" + var7, var8);
-				AnotherNameRepoField.getAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509)).put(var2 + "&" + var8 + "&" + var7, "&");
+				AnotherNameRepoField
+						.getSecondAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
+						.put(var2 + "&" + var6 + "&" + var7, var8);
+				AnotherNameRepoField.getAnotherNameRepoField(AnotherNameRepo.getAnotherRepoField(this.aClass172_509))
+						.put(var2 + "&" + var8 + "&" + var7, "&");
 			}
 
 			if (!var5.isPrivate()) {
@@ -1077,7 +1172,9 @@ public class Renamer {
 			String var5;
 			var4 = var5 = var3.substring(1, var3.length() - 1).replace('/', '.');
 			String var6;
-			if ((var6 = AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).get(var5)) != null) {
+			if ((var6 = AnotherNameRepoLow1
+					.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+					.get(var5)) != null) {
 				var6 = "L" + var6.replace('.', '/') + ";";
 				var1.setTypeIndex(var2.addUtf8(var6));
 			}
@@ -1090,9 +1187,10 @@ public class Renamer {
 			if (var4 != null) {
 				final String var8 = var7.getNameString();
 				final String var9 = var4 + "&" + var8;
-				if (NameRepository.getSignatureNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509)).containsKey(var9)) {
-					final String var10 = NameRepository.getSignatureNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509))
-							.get(var9);
+				if (NameRepository.getSignatureNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509))
+						.containsKey(var9)) {
+					final String var10 = NameRepository
+							.getSignatureNamingMap(AnotherNameRepo.getNameRepository(this.aClass172_509)).get(var9);
 					var7.setNameIndex(var2.addUtf8(var10));
 				}
 			}
@@ -1104,8 +1202,8 @@ public class Renamer {
 	}
 
 	private void method330(ClassGen var1) {
-		if (AnotherNameRepoLow1.getNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).containsKey(var1.getClassName())
-				|| Packaging.forceDefaultPackage()) {
+		if (AnotherNameRepoLow1.getNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+				.containsKey(var1.getClassName()) || Packaging.forceDefaultPackage()) {
 			MethodUtils.isPublic(var1);
 		}
 
@@ -1114,7 +1212,9 @@ public class Renamer {
 			var1.isFinal(true);
 		}
 
-		final String var2 = AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).get(var1.getClassName());
+		final String var2 = AnotherNameRepoLow1
+				.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+				.get(var1.getClassName());
 		var1.setClassName(var2);
 		this.aClass26_510.method498(var1);
 
@@ -1123,7 +1223,9 @@ public class Renamer {
 		for (int var10000 = var4 = (var3 = var1.getInterfaceNames()).length - 1; var10000 >= 0; var10000 = var4) {
 			final String var5 = var3[var4];
 			String var6;
-			if ((var6 = AnotherNameRepoLow1.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509)).get(var5)) != null) {
+			if ((var6 = AnotherNameRepoLow1
+					.getSecondNameRepositoryLow(AnotherNameRepo.getNameRepositoryLow(this.aClass172_509))
+					.get(var5)) != null) {
 				var1.removeInterface(var5);
 				var1.addInterface(var6);
 				var1.getConstantPool().addClass(var6);

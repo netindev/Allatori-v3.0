@@ -7,7 +7,7 @@ import java.util.Vector;
 import org.apache.bcel.generic.ClassGen;
 
 public class ClassStorage {
-	
+
 	/* OK */
 
 	private final Hashtable<String, ClassGen> table = new Hashtable<String, ClassGen>();

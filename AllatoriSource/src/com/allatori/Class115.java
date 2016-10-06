@@ -26,17 +26,18 @@ public class Class115 {
 		return string.indexOf("public") >= 0 ? true
 				: (string.indexOf("protected") >= 0 ? true
 						: (string.indexOf("package") >= 0 ? true
-								: (string.indexOf("private") >= 0 ? true
-										: (string.indexOf("static") >= 0 ? true : (string.indexOf("final") >= 0 ? true
+								: (string.indexOf("private") >= 0 ? true : (string.indexOf("static") >= 0 ? true
+										: (string.indexOf("final") >= 0 ? true
 												: (string.indexOf("synchronized") >= 0 ? true
 														: (string.indexOf("volatile") >= 0 ? true
 																: (string.indexOf("transient") >= 0 ? true
 																		: (string.indexOf("native") >= 0 ? true
-																				: (string.indexOf("interface") >= 0 ? true
-																						: (string.indexOf("abstract") >= 0
-																								? true
-																								: string.indexOf(
-																										"strictfp") >= 0)))))))))));
+																				: (string.indexOf("interface") >= 0
+																						? true
+																						: (string.indexOf(
+																								"abstract") >= 0 ? true
+																										: string.indexOf(
+																												"strictfp") >= 0)))))))))));
 	}
 
 	public static boolean method1390(String var0) {
@@ -159,12 +160,12 @@ public class Class115 {
 		return var1;
 	}
 
-	public static String localParsePattern(String string) {
+	public static String localParsePaterrn(String string) {
 		return string == null ? ".*" : method1391(string.trim());
 	}
 
 	public static String parsePattern(String string) {
-		return localParsePattern(string);
+		return localParsePaterrn(string);
 	}
 
 	public static String replaceAll(String string) {
@@ -172,7 +173,7 @@ public class Class115 {
 				.replaceAll("\\*", "[^,]*").replaceAll("\\%\\@\\#", ".*");
 	}
 
-	public static String[] method1397(String var0) {
+	public static String[] interfacePattern(String var0) {
 		if (var0 == null) {
 			return new String[0];
 		} else {
@@ -250,11 +251,12 @@ public class Class115 {
 		} else if ((i & 4) == 0) {
 			return false;
 		}
-		return !((i & 16) > 0 && !accessFlags.isStatic()) && (!((i & 32) > 0 && !accessFlags.isFinal()) && (!((i & 64) > 0
-				&& !accessFlags.isSynchronized())
-				&& (!((i & 128) > 0 && !accessFlags.isVolatile()) && (!((i & 256) > 0 && !accessFlags.isTransient())
-						&& (!((i & 512) > 0 && !accessFlags.isNative()) && (!((i & 1024) > 0 && !accessFlags.isInterface())
-								&& (!((i & 2048) > 0 && !accessFlags.isAbstract())
-										&& ((i & 4096) <= 0 || accessFlags.isStrictfp()))))))));
+		return !((i & 16) > 0 && !accessFlags.isStatic()) && (!((i & 32) > 0 && !accessFlags.isFinal())
+				&& (!((i & 64) > 0 && !accessFlags.isSynchronized()) && (!((i & 128) > 0 && !accessFlags.isVolatile())
+						&& (!((i & 256) > 0 && !accessFlags.isTransient())
+								&& (!((i & 512) > 0 && !accessFlags.isNative())
+										&& (!((i & 1024) > 0 && !accessFlags.isInterface())
+												&& (!((i & 2048) > 0 && !accessFlags.isAbstract())
+														&& ((i & 4096) <= 0 || accessFlags.isStrictfp()))))))));
 	}
 }

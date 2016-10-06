@@ -14,7 +14,7 @@ public class ClassQueue implements Serializable {
 	}
 
 	public JavaClass dequeue() {
-		return (JavaClass) vec.removeFirst();
+		return vec.removeFirst();
 	}
 
 	public boolean empty() {

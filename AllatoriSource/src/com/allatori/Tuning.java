@@ -4,7 +4,7 @@ import org.apache.bcel.generic.ClassGen;
 import org.apache.bcel.generic.MethodGen;
 
 public class Tuning {
-	
+
 	/* OK */
 
 	private static boolean controlFlowObfuscationEnabled = true;

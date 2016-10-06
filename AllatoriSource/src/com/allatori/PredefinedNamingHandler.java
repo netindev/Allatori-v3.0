@@ -7,7 +7,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class PredefinedNamingHandler extends DefaultHandler {
-	
+
 	/* OK */
 
 	private String oldString;
@@ -20,7 +20,7 @@ public class PredefinedNamingHandler extends DefaultHandler {
 		stackTraceLog.oldNewRep = new RenamingMap();
 		stackTraceLog.vector = new Vector<Object>();
 	}
-	
+
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		if ("class".equals(qName)) {
@@ -29,8 +29,8 @@ public class PredefinedNamingHandler extends DefaultHandler {
 			this.stackTraceLog.init.put(this.newString + "<init>", this.oldString + "<init>");
 			this.stackTraceLog.init.put(this.newString + "<clinit>", this.oldString + "<clinit>");
 		} else {
-			String oldS = attributes.getValue("old");
-			String newS = attributes.getValue("new");
+			final String oldS = attributes.getValue("old");
+			final String newS = attributes.getValue("new");
 			if ("method".equals(qName)) {
 				final String substring = oldS.substring(0, oldS.indexOf(40));
 				this.stackTraceLog.init.put(this.newString + newS, this.oldString + substring);

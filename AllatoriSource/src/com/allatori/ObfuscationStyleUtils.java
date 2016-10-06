@@ -1,6 +1,8 @@
 package com.allatori;
 
 public class ObfuscationStyleUtils {
+	
+	/* OK */
 
 	private static int methodNamingType = 2;
 	private static int fieldNamingType = 2;
@@ -29,7 +31,8 @@ public class ObfuscationStyleUtils {
 
 	public static IObfuscationStyle variableNamingType() {
 		return LocalVariables.getLocalVariableNamingType() == 2 ? new ObfuscationStyleLow()
-				: (LocalVariables.getLocalVariableNamingType() == 1 ? new ObfuscationStyleUnk() : new ObfuscationStyleLow());
+				: (LocalVariables.getLocalVariableNamingType() == 1 ? new ObfuscationStyleUnk()
+						: new ObfuscationStyleLow());
 	}
 
 	public static void setFieldNamingType(int toSet) {

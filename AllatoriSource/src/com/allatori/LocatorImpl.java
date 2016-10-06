@@ -3,7 +3,7 @@ package com.allatori;
 import org.xml.sax.Locator;
 
 public class LocatorImpl implements Locator {
-	
+
 	/* OK */
 
 	public LocatorImpl(ConfigFileHandler configFileHandler) {

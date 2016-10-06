@@ -9,9 +9,9 @@ import org.apache.bcel.classfile.ClassParser;
 import org.apache.bcel.generic.ClassGen;
 
 public class ClassLoadingUtils {
-	
+
 	/* OK */
-	
+
 	private static ClassGen parseClassGen(InputStream input, String file) throws Exception {
 		final ClassGen classGen = new ClassGen((new ClassParser(input, file)).parse());
 		input.close();
@@ -27,7 +27,8 @@ public class ClassLoadingUtils {
 			}
 			if (actualFile.getName().endsWith(".class")) {
 				try {
-					classStorage.put(parseClassGen(new BufferedInputStream(new FileInputStream(actualFile)), actualFile.getName()));
+					classStorage.put(parseClassGen(new BufferedInputStream(new FileInputStream(actualFile)),
+							actualFile.getName()));
 				} catch (final Exception e) {
 					Logger.printError("Cannot parse class " + actualFile.getName());
 				}

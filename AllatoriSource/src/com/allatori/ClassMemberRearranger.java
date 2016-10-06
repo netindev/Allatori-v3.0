@@ -9,15 +9,15 @@ import org.apache.bcel.generic.ClassGen;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class ClassMemberRearranger implements ObfuscationType {
-	
+
 	/* OK */
 
 	private void arrangeFieldOrder(ClassGen classGen) {
-		Field[] fields = classGen.getFields();
+		final Field[] fields = classGen.getFields();
 		for (int i = fields.length - 1; i >= 0; i--) {
 			classGen.removeField(fields[i]);
 		}
-		List list = Arrays.asList(fields);
+		final List list = Arrays.asList(fields);
 		Class34.arrangeOrder(list);
 		for (int i = list.size() - 1; i >= 0; i--) {
 			classGen.addField((Field) list.get(i));
@@ -32,11 +32,11 @@ public class ClassMemberRearranger implements ObfuscationType {
 	}
 
 	private void arrangeMethodOrder(ClassGen classGen) {
-		Method[] methods = classGen.getMethods();
+		final Method[] methods = classGen.getMethods();
 		for (int i = methods.length - 1; i >= 0; i--) {
 			classGen.removeMethod(methods[i]);
 		}
-		List list = Arrays.asList(methods);
+		final List list = Arrays.asList(methods);
 		Class34.arrangeOrder(list);
 		for (int i = list.size() - 1; i >= 0; i--) {
 			classGen.addMethod(methods[i]);
