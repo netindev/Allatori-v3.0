@@ -16,11 +16,11 @@ public class NameRepository {
 		return var0.constantNameMap;
 	}
 
-	public NameRepository(AnotherNameRepo var1, EmptyClass var2) {
+	public NameRepository(DefaultRenamer var1, EmptyClass var2) {
 		this(var1);
 	}
 
-	private NameRepository(AnotherNameRepo var1) {
+	private NameRepository(DefaultRenamer var1) {
 		this.obfuscationStyle = ObfuscationStyleUtils.returnMethodNamingType();
 		this.constantNameMap = new RenamingMap();
 		this.signatureMap = new RenamingMap();

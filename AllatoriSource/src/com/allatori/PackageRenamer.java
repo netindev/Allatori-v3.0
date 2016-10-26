@@ -1,6 +1,6 @@
 package com.allatori;
 
-public class AnotherNameRepoLow1 {
+public class PackageRenamer {
 
 	/* OK */
 
@@ -9,32 +9,32 @@ public class AnotherNameRepoLow1 {
 	private final IObfuscationStyle obfuscationStyle;
 	private final RenamingMap thirdNameRepositoryLow;
 
-	public static RenamingMap getNameRepositoryLow(AnotherNameRepoLow1 nameRepositoryLow) {
+	public static RenamingMap getNameRepositoryLow(PackageRenamer nameRepositoryLow) {
 		return nameRepositoryLow.nameRepositoryLow;
 	}
 
-	private AnotherNameRepoLow1(
-			AnotherNameRepo anotherNameRepo) { /* Not used param */
+	private PackageRenamer(
+			DefaultRenamer anotherNameRepo) { /* Not used param */
 		this.obfuscationStyle = ObfuscationStyleUtils.getThirdObfStyleLow();
 		this.secondNameRepositoryLow = new RenamingMap();
 		this.thirdNameRepositoryLow = new RenamingMap();
 		this.nameRepositoryLow = new RenamingMap();
 	}
 
-	public static RenamingMap getSecondNameRepositoryLow(AnotherNameRepoLow1 nameRepositoryLow) {
+	public static RenamingMap getSecondNameRepositoryLow(PackageRenamer nameRepositoryLow) {
 		return nameRepositoryLow.secondNameRepositoryLow;
 	}
 
-	public AnotherNameRepoLow1(AnotherNameRepo anotherNameRepo,
+	public PackageRenamer(DefaultRenamer anotherNameRepo,
 			EmptyClass emptyClass) { /* Not used param */
 		this(anotherNameRepo);
 	}
 
-	public static IObfuscationStyle getObfuscationStyle(AnotherNameRepoLow1 nameRepositoryLow) {
+	public static IObfuscationStyle getObfuscationStyle(PackageRenamer nameRepositoryLow) {
 		return nameRepositoryLow.obfuscationStyle;
 	}
 
-	public static RenamingMap getThirdNameRepositoryLow(AnotherNameRepoLow1 nameRepositoryLow) {
+	public static RenamingMap getThirdNameRepositoryLow(PackageRenamer nameRepositoryLow) {
 		return nameRepositoryLow.thirdNameRepositoryLow;
 	}
 }

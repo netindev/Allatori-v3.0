@@ -20,7 +20,7 @@ public class URLClassLoaderImpl extends URLClassLoader {
 		try {
 			try {
 				if (this.classes.getClassGen(clazz) != null) {
-					return this.findClassInJars(clazz);
+					return this.findClassInJar(clazz);
 				}
 			} catch (final Exception e) {
 				/* empty */
@@ -28,7 +28,7 @@ public class URLClassLoaderImpl extends URLClassLoader {
 			return super.findClass(clazz);
 		} catch (final ClassNotFoundException e) {
 			try {
-				return this.findClassInJars(clazz);
+				return this.findClassInJar(clazz);
 			} catch (final Exception f) {
 				throw e;
 			}
@@ -60,7 +60,7 @@ public class URLClassLoaderImpl extends URLClassLoader {
 		return size;
 	}
 
-	private Class<?> findClassInJars(String className) throws Exception {
+	private Class<?> findClassInJar(String className) throws Exception {
 		final String fullClassName = className.replace('.', '/').concat(".class");
 		final Vector<?> vector = Configurable.getConfigRepo();
 		for (int i = 0; i < vector.size(); i++) {

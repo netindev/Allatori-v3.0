@@ -1,6 +1,6 @@
 package com.allatori;
 
-public abstract class TMUtils implements Cloneable {
+public abstract class TMUtils {
 
 	public void method357(double[] var1, int var2) {
 		int var3;
@@ -22,8 +22,4 @@ public abstract class TMUtils implements Cloneable {
 		return var3;
 	}
 
-	@Override
-	public Object clone() throws CloneNotSupportedException {
-		return super.clone();
-	}
 }

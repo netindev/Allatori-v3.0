@@ -6,11 +6,11 @@ public class RenamingUtils {
 
 	private final IObfuscationStyle obfStyle;
 
-	public RenamingUtils(AnotherNameRepo anotherNameRepo, EmptyClass emptyClass) {
+	public RenamingUtils(DefaultRenamer anotherNameRepo, EmptyClass emptyClass) {
 		this(anotherNameRepo);
 	}
 
-	private RenamingUtils(AnotherNameRepo anotherNameRepo) {
+	private RenamingUtils(DefaultRenamer anotherNameRepo) {
 		this.obfStyle = ObfuscationStyleUtils.variableNamingType();
 	}
 
